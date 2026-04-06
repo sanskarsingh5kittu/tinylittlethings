@@ -3,18 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tiny Little Things — Handmade with Love</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --pink:#e8748a;--pink-hover:#d45e75;--pink-light:#f2a8b5;--pink-pale:#fde8ed;
-  --sage:#8aab8c;--sage-hover:#6e9270;--sage-pale:#edf5ee;
-  --cream:#faf6f0;--warm-white:#fffcf8;--text-dark:#2e1f24;--text-mid:#7a5c62;
-  --text-light:#b8929a;--card-bg:#ffffff;--border:#f5e8ea;
-  --shadow-sm:0 2px 12px rgba(46,31,36,.07);--shadow:0 6px 28px rgba(46,31,36,.10);
-  --shadow-lg:0 16px 48px rgba(46,31,36,.15);--r:18px;--r-sm:10px;--r-pill:999px;
-}
+:root{--pink:#e8748a;--pink-hover:#d45e75;--pink-light:#f2a8b5;--pink-pale:#fde8ed;--sage:#8aab8c;--sage-hover:#6e9270;--sage-pale:#edf5ee;--cream:#faf6f0;--warm-white:#fffcf8;--text-dark:#2e1f24;--text-mid:#7a5c62;--text-light:#b8929a;--card-bg:#ffffff;--border:#f5e8ea;--shadow-sm:0 2px 12px rgba(46,31,36,.07);--shadow:0 6px 28px rgba(46,31,36,.10);--shadow-lg:0 16px 48px rgba(46,31,36,.15);--r:18px;--r-sm:10px;--r-pill:999px;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'Nunito',sans-serif;background:var(--warm-white);color:var(--text-dark);overflow-x:hidden;}
@@ -131,8 +123,9 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .modal-actions{display:flex;gap:10px;flex-wrap:wrap;}
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text-dark);color:#fff;padding:12px 22px;border-radius:var(--r-pill);font-size:13.5px;font-weight:700;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
-
-/* HERO */
+.sync-banner{background:var(--pink-pale);border:1px solid var(--pink-light);border-radius:var(--r-sm);padding:10px 16px;font-size:13px;color:var(--text-mid);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.sync-banner.synced{background:#edf5ee;border-color:#8aab8c;color:#3d7a41;}
+.sync-banner.error{background:#fff3e8;border-color:#d97706;color:#92400e;}
 .hero{min-height:90vh;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:80px 5%;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--warm-white) 0%,var(--pink-pale) 55%,var(--sage-pale) 100%);}
 .hero::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(232,116,138,.08) 0%,transparent 68%);right:-150px;top:-100px;pointer-events:none;}
 .hero-text{z-index:1;animation:slideUp .8s ease both;}
@@ -167,13 +160,7 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .cats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;max-width:1100px;margin:0 auto;}
 .cat-card{background:#fff;border-radius:var(--r);padding:32px 20px;text-align:center;cursor:pointer;transition:all .3s;box-shadow:var(--shadow-sm);border:2px solid transparent;}
 .cat-card:hover{border-color:var(--pink-light);transform:translateY(-5px);box-shadow:var(--shadow-lg);}
-.cat-icon{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;overflow:hidden;}
-.cat-icon.pink-bg{background:var(--pink-pale);}
-.cat-icon.sage-bg{background:var(--sage-pale);}
-.cat-icon.peach-bg{background:#fff3e8;}
-.cat-icon.lavender-bg{background:#f0eeff;}
-.cat-card h3{font-size:19px;font-weight:600;color:var(--text-dark);margin-bottom:5px;}
-.cat-card p{font-size:12.5px;color:var(--text-light);line-height:1.5;}
+.cat-icon{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:28px;}
 .best-section{padding:88px 5%;background:var(--warm-white);}
 .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px;max-width:1100px;margin:0 auto;}
 .about-prev{padding:88px 5%;background:var(--cream);}
@@ -189,8 +176,7 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .about-content p{font-size:14.5px;color:var(--text-mid);line-height:1.85;margin-bottom:14px;}
 .founders-row{display:flex;gap:12px;margin:20px 0;}
 .founder-chip{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--pink-light);border-radius:var(--r-pill);padding:7px 14px 7px 7px;box-shadow:var(--shadow-sm);}
-.founder-av{width:34px;height:34px;border-radius:50%;overflow:hidden;background:var(--pink-pale);}
-.founder-av img{width:100%;height:100%;object-fit:cover;}
+.founder-av{width:34px;height:34px;border-radius:50%;overflow:hidden;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);}
 .founder-chip span{font-size:13px;font-weight:700;color:var(--text-dark);}
 .why-section{padding:80px 5%;background:var(--warm-white);}
 .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;max-width:1100px;margin:0 auto;}
@@ -207,8 +193,7 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .testi-stars{color:#f5a500;font-size:13px;margin-bottom:8px;}
 .testi-text{font-size:13.5px;line-height:1.85;color:var(--text-mid);font-style:italic;margin-bottom:18px;}
 .testi-author{display:flex;align-items:center;gap:12px;}
-.testi-av{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--pink-pale);}
-.testi-av img{width:100%;height:100%;object-fit:cover;}
+.testi-av{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--pink);}
 .testi-name{font-size:14px;font-weight:800;color:var(--text-dark);}
 .testi-role{font-size:11.5px;color:var(--text-light);}
 .insta-section{padding:80px 5%;background:var(--cream);text-align:center;}
@@ -250,14 +235,12 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .shop-head h2{font-size:21px;font-weight:700;color:var(--text-dark);}
 .shop-head span{font-size:13px;color:var(--text-light);}
 .about-story-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:80px 5%;max-width:1100px;margin:0 auto;}
-.about-story-img{border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;box-shadow:var(--shadow-lg);}
-.about-story-img img{width:100%;height:100%;object-fit:cover;}
+.about-story-img{border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;box-shadow:var(--shadow-lg);background:var(--cream);display:flex;align-items:center;justify-content:center;}
 .team-section{padding:72px 5%;background:var(--cream);text-align:center;}
 .team-grid{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:40px;}
 .team-card{background:#fff;border-radius:var(--r);padding:34px 26px;box-shadow:var(--shadow-sm);text-align:center;min-width:200px;transition:transform .3s;}
 .team-card:hover{transform:translateY(-6px);}
-.team-av{width:88px;height:88px;border-radius:50%;overflow:hidden;margin:0 auto 14px;background:var(--pink-pale);}
-.team-av img{width:100%;height:100%;object-fit:cover;}
+.team-av{width:88px;height:88px;border-radius:50%;overflow:hidden;margin:0 auto 14px;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:28px;}
 .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;padding:72px 5%;max-width:1100px;margin:0 auto;align-items:start;}
 .contact-info h2{font-size:27px;font-weight:600;color:var(--text-dark);margin-bottom:22px;}
 .contact-info>p{font-size:14.5px;color:var(--text-mid);line-height:1.85;margin-bottom:28px;}
@@ -289,11 +272,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .ship-section ul{list-style:none;}
 .ship-section ul li{padding:11px 0;border-bottom:1px solid var(--pink-pale);font-size:14.5px;color:var(--text-mid);line-height:1.7;display:flex;gap:10px;align-items:flex-start;}
 .ship-section ul li::before{content:'💖';flex-shrink:0;}
-
-/* ═══ ADMIN STYLES ═══ */
-.admin-login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));padding:20px;}
+.admin-login{min-height:60vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));padding:20px;}
 .login-card{background:#fff;border-radius:24px;padding:48px 40px;max-width:420px;width:100%;box-shadow:var(--shadow-lg);text-align:center;}
-.login-card .logo-mark{width:70px;height:70px;margin:0 auto 20px;font-size:32px;}
 .login-card h2{font-size:28px;font-weight:600;color:var(--text-dark);margin-bottom:6px;}
 .login-card p{font-size:14px;color:var(--text-mid);margin-bottom:28px;}
 .login-card input{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:15px;outline:none;transition:border-color .2s;margin-bottom:14px;}
@@ -337,14 +317,11 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .log-text{font-size:13px;color:var(--text-mid);line-height:1.4;}
 .log-time{font-size:11px;color:var(--text-light);margin-top:2px;}
 .admin-table-wrap{background:#fff;border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:20px;}
-.admin-table-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.admin-table-head h3{font-size:15px;font-weight:700;color:var(--text-dark);}
 .admin-table{width:100%;border-collapse:collapse;}
 .admin-table th{padding:11px 16px;text-align:left;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--text-light);border-bottom:1px solid var(--border);}
 .admin-table td{padding:12px 16px;font-size:13.5px;color:var(--text-dark);border-bottom:1px solid var(--pink-pale);}
 .admin-table tr:last-child td{border-bottom:none;}
 .admin-table tr:hover td{background:var(--pink-pale);}
-.prod-thumb-mini{width:44px;height:44px;border-radius:8px;object-fit:cover;background:var(--cream);}
 .edit-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;}
 .edit-modal-overlay.open{display:flex;}
 .edit-modal{background:#fff;border-radius:20px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);}
@@ -380,38 +357,42 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .testi-edit-card input,.testi-edit-card textarea{width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:8px;font-family:'Nunito',sans-serif;font-size:13px;color:var(--text-dark);outline:none;margin-bottom:7px;}
 .testi-edit-card textarea{height:70px;resize:vertical;}
 .testi-edit-card input:focus,.testi-edit-card textarea:focus{border-color:var(--pink);}
-
-/* RESPONSIVE */
+.storage-indicator{position:fixed;top:80px;right:16px;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 14px;font-size:12px;font-weight:600;color:var(--text-mid);z-index:800;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:6px;transition:opacity .5s;}
+.storage-indicator.saving{color:var(--pink);}
+.storage-indicator.saved{color:var(--sage);}
+.storage-indicator.hidden{opacity:0;pointer-events:none;}
 @media(max-width:960px){
-  .hero{grid-template-columns:1fr;}.hero-visual{display:none;}
-  .about-prev-grid{grid-template-columns:1fr;}.about-imgs{display:none;}
-  .footer-grid{grid-template-columns:1fr 1fr;}
-  .shop-wrap{grid-template-columns:1fr;}.sidebar{position:static;}
-  .contact-grid{grid-template-columns:1fr;}
-  .custom-steps{grid-template-columns:1fr;}
-  .about-story-grid{grid-template-columns:1fr;}
-  .modal{grid-template-columns:1fr;}
-  .modal-media img,.modal-media .img-placeholder{border-radius:24px 24px 0 0;}
-  .dash-grid{grid-template-columns:1fr 1fr;}
-  .chart-row{grid-template-columns:1fr;}
-  .admin-body{grid-template-columns:1fr;}
-  .admin-sidebar{display:none;}
-  .testi-edit-grid{grid-template-columns:1fr;}
-  .img-settings-grid{grid-template-columns:1fr 1fr;}
+.hero{grid-template-columns:1fr;}.hero-visual{display:none;}
+.about-prev-grid{grid-template-columns:1fr;}.about-imgs{display:none;}
+.footer-grid{grid-template-columns:1fr 1fr;}
+.shop-wrap{grid-template-columns:1fr;}.sidebar{position:static;}
+.contact-grid{grid-template-columns:1fr;}
+.custom-steps{grid-template-columns:1fr;}
+.about-story-grid{grid-template-columns:1fr;}
+.modal{grid-template-columns:1fr;}
+.modal-media img,.modal-media .img-placeholder{border-radius:24px 24px 0 0;}
+.dash-grid{grid-template-columns:1fr 1fr;}
+.chart-row{grid-template-columns:1fr;}
+.admin-body{grid-template-columns:1fr;}
+.admin-sidebar{display:none;}
+.testi-edit-grid{grid-template-columns:1fr;}
+.img-settings-grid{grid-template-columns:1fr 1fr;}
 }
 @media(max-width:680px){
-  nav{display:none;}.hamburger{display:block;}
-  .hero-btns{flex-direction:column;}.hero-stats{gap:20px;}
-  .footer-grid{grid-template-columns:1fr;}
-  .insta-grid{grid-template-columns:repeat(2,1fr);}
-  .testi-grid{grid-template-columns:1fr;}
-  .products-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));}
-  .dash-grid{grid-template-columns:1fr;}
-  .inline-grid{grid-template-columns:1fr;}
+nav{display:none;}.hamburger{display:block;}
+.hero-btns{flex-direction:column;}.hero-stats{gap:20px;}
+.footer-grid{grid-template-columns:1fr;}
+.insta-grid{grid-template-columns:repeat(2,1fr);}
+.testi-grid{grid-template-columns:1fr;}
+.products-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));}
+.dash-grid{grid-template-columns:1fr;}
+.inline-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
+
+<div class="storage-indicator hidden" id="storageIndicator">💾 Saving...</div>
 
 <div class="announce">Free shipping on orders above ₹999 &nbsp;|&nbsp; Handmade with love in India</div>
 
@@ -479,7 +460,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   </div>
 </div>
 
-<!-- Edit Product Modal -->
 <div class="edit-modal-overlay" id="editModalOverlay">
   <div class="edit-modal" id="editModalBox">
     <div class="edit-modal-head">
@@ -492,7 +472,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 
 <div class="toast" id="toast"></div>
 
-<!-- ══ HOME PAGE ══ -->
+<!-- HOME PAGE -->
 <div class="page active" id="page-home">
   <section class="hero">
     <div class="hero-text">
@@ -525,7 +505,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   <section class="intro-strip">
     <div class="intro-strip-inner">
       <h2>Welcome to Tiny Little Things</h2>
-      <p>A handmade brand where every product is carefully crafted with love and creativity. Each piece is unique, adding warmth and personality to your space. From vibrant flower pots to adorable keychains — we bring joy in every tiny detail.</p>
+      <p>A handmade brand where every product is carefully crafted with love and creativity. Each piece is unique, adding warmth and personality to your space.</p>
       <div class="intro-pills">
         <div class="intro-pill p">✨ 100% Handmade</div>
         <div class="intro-pill s">Perfect for Gifting</div>
@@ -541,9 +521,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   <section class="best-section">
     <div class="sec-title"><div class="eyebrow">Top Picks</div><h2>Our Bestsellers</h2><p>Our most-loved handmade creations — adored by hundreds of happy customers.</p><div class="pill-divider"></div></div>
     <div class="products-grid" id="bestsellersGrid"></div>
-    <div style="text-align:center;margin-top:38px;">
-      <button class="btn btn-pink" onclick="showPage('shop')">View All Products →</button>
-    </div>
+    <div style="text-align:center;margin-top:38px;"><button class="btn btn-pink" onclick="showPage('shop')">View All Products →</button></div>
   </section>
   <section class="about-prev">
     <div class="about-prev-grid">
@@ -555,15 +533,15 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
       <div class="about-content">
         <div class="eyebrow">Our Story</div>
         <h2>Made with Love,<br>Crafted for <em style="color:var(--pink);font-style:italic;">You</em></h2>
-        <p>Every piece at Tiny Little Things is born from passion and patience. We believe handmade art carries a warmth no machine can replicate — a sentiment, a story, a little piece of the maker's heart.</p>
-        <p>Founded with the dream of bringing beautiful, affordable handmade decor to every home in India, we craft each item with premium materials and meticulous attention to detail.</p>
+        <p>Every piece at Tiny Little Things is born from passion and patience. We believe handmade art carries a warmth no machine can replicate.</p>
+        <p>Founded with the dream of bringing beautiful, affordable handmade decor to every home in India.</p>
         <div class="founders-row">
           <div class="founder-chip">
-            <div class="founder-av" id="founderSanskarContainer"><span style="font-size:9px;color:var(--text-light);">Photo</span></div>
+            <div class="founder-av" id="founderSanskarContainer">👤</div>
             <span>Sanskar Singh</span>
           </div>
           <div class="founder-chip">
-            <div class="founder-av" id="founderRadhikaContainer"><span style="font-size:9px;color:var(--text-light);">Photo</span></div>
+            <div class="founder-av" id="founderRadhikaContainer">👤</div>
             <span>Radhika Kalra</span>
           </div>
         </div>
@@ -575,7 +553,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
     <div class="sec-title"><div class="eyebrow">Why choose us</div><h2>What Makes Us Special</h2><div class="pill-divider"></div></div>
     <div class="why-grid">
       <div class="why-card"><div class="why-icon" style="background:var(--pink-pale);">✨</div><h4>100% Handmade</h4><p>Every single piece is crafted by hand with love and care</p></div>
-      <div class="why-card"><div class="why-icon" style="background:var(--sage-pale);">🎁</div><h4>Perfect for Gifting</h4><p>Thoughtful, unique gifts for birthdays, anniversaries & all occasions</p></div>
+      <div class="why-card"><div class="why-icon" style="background:var(--sage-pale);">🎁</div><h4>Perfect for Gifting</h4><p>Thoughtful, unique gifts for birthdays, anniversaries &amp; all occasions</p></div>
       <div class="why-card"><div class="why-icon" style="background:#fff3e8;">🎨</div><h4>Customizable</h4><p>Tell us your vision and we'll craft it into reality, just for you</p></div>
       <div class="why-card"><div class="why-icon" style="background:#f0eeff;">🚚</div><h4>Pan India Delivery</h4><p>We ship to every corner of India with love and care</p></div>
     </div>
@@ -599,7 +577,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   </section>
 </div>
 
-<!-- ══ SHOP PAGE ══ -->
+<!-- SHOP PAGE -->
 <div class="page" id="page-shop">
   <div class="page-banner"><h1>Shop Our Collection</h1><p>Browse handmade products designed to add charm to your everyday life.</p></div>
   <div class="shop-wrap">
@@ -628,15 +606,17 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   </div>
 </div>
 
-<!-- ══ ABOUT PAGE ══ -->
+<!-- ABOUT PAGE -->
 <div class="page" id="page-about">
   <div class="page-banner"><h1>Our Story</h1><p>Born from creativity and a love for handmade art.</p></div>
   <div class="about-story-grid">
-    <div class="about-story-img"><div id="aboutPageImgContainer" class="img-placeholder" style="width:100%;height:100%;min-height:400px;">About Page Image<br><span style="font-size:10px;">Upload via Admin</span></div></div>
+    <div class="about-story-img" id="aboutPageImgContainer">
+      <span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image<br><span style="font-size:10px;">Upload via Admin</span></span>
+    </div>
     <div>
       <p style="font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink);margin-bottom:10px;">The Beginning</p>
       <h2 style="font-size:clamp(24px,3vw,38px);font-weight:600;margin-bottom:18px;line-height:1.3;color:var(--text-dark);">Where Every Piece<br>Tells a Story</h2>
-      <p style="font-size:14.5px;color:var(--text-mid);line-height:1.9;margin-bottom:14px;">Tiny Little Things started with a simple belief — that handmade art has the power to bring joy, warmth, and personality into everyday spaces. What began as a creative hobby quickly grew into a brand loved by hundreds across India.</p>
+      <p style="font-size:14.5px;color:var(--text-mid);line-height:1.9;margin-bottom:14px;">Tiny Little Things started with a simple belief — that handmade art has the power to bring joy, warmth, and personality into everyday spaces.</p>
       <p style="font-size:14.5px;color:var(--text-mid);line-height:1.9;margin-bottom:14px;">Every piece you receive has been thoughtfully crafted by hand — shaped, twisted, and assembled with care so that it carries a little bit of our heart into your home.</p>
       <p style="font-size:14.5px;color:var(--text-mid);line-height:1.9;margin-bottom:24px;">We specialize in pipe cleaner artistry — creating vibrant flower pots, adorable keychains, decorative lamps, and custom pieces designed to your exact vision.</p>
       <button class="btn btn-pink" onclick="showPage('contact')">Get in Touch</button>
@@ -646,26 +626,17 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
     <div class="sec-title"><div class="eyebrow">Meet the Makers</div><h2>The Hearts Behind Tiny Little Things</h2><div class="pill-divider"></div></div>
     <div class="team-grid">
       <div class="team-card">
-        <div class="team-av" id="teamSanskarContainer"><span style="font-size:10px;color:var(--text-light);">Photo</span></div>
+        <div class="team-av" id="teamSanskarContainer">👤</div>
         <h3>Sanskar Singh</h3><p>Co-Founder &amp; Artist</p>
-        <p style="font-size:12px;color:var(--text-light);margin-top:8px;line-height:1.6;">Bringing structure and creativity to every piece, crafting with precision and passion.</p>
+        <p style="font-size:12px;color:var(--text-light);margin-top:8px;line-height:1.6;">Bringing structure and creativity to every piece.</p>
       </div>
       <div class="team-card">
-        <div class="team-av" id="teamRadhikaContainer"><span style="font-size:10px;color:var(--text-light);">Photo</span></div>
+        <div class="team-av" id="teamRadhikaContainer">👤</div>
         <h3>Radhika Kalra</h3><p>Co-Founder &amp; Designer</p>
-        <p style="font-size:12px;color:var(--text-light);margin-top:8px;line-height:1.6;">The aesthetic eye behind Tiny Little Things — designing pieces that make hearts smile.</p>
+        <p style="font-size:12px;color:var(--text-light);margin-top:8px;line-height:1.6;">The aesthetic eye behind Tiny Little Things.</p>
       </div>
     </div>
   </div>
-  <section class="why-section" style="background:var(--cream);">
-    <div class="sec-title"><div class="eyebrow">Why choose us</div><h2>What Makes Us Special</h2><div class="pill-divider"></div></div>
-    <div class="why-grid">
-      <div class="why-card"><div class="why-icon" style="background:var(--pink-pale);">✨</div><h4>100% Handmade</h4><p>Each piece crafted entirely by hand with premium materials</p></div>
-      <div class="why-card"><div class="why-icon" style="background:var(--sage-pale);">🎁</div><h4>Gift Ready</h4><p>Perfect for birthdays, anniversaries, events & corporate gifting</p></div>
-      <div class="why-card"><div class="why-icon" style="background:#fff3e8;">🎨</div><h4>Unique Designs</h4><p>No two pieces are exactly the same — that's the beauty of handmade</p></div>
-      <div class="why-card"><div class="why-icon" style="background:#f0eeff;">💌</div><h4>Made with Love</h4><p>Every product carries warmth and genuine care</p></div>
-    </div>
-  </section>
   <section class="cta-banner">
     <h2>Let's Create Something Beautiful</h2>
     <p>Have a custom idea or want to place an order?</p>
@@ -676,14 +647,14 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   </section>
 </div>
 
-<!-- ══ CONTACT PAGE ══ -->
+<!-- CONTACT PAGE -->
 <div class="page" id="page-contact">
   <div class="page-banner"><h1>Get in Touch</h1><p>Have questions or want a custom order? We'd love to hear from you!</p></div>
   <div class="contact-grid">
     <div class="contact-info">
       <h2>We're Here for You</h2>
       <p>Whether you want to place a custom order, ask about a product, or just say hi — we're always happy to chat. We usually reply within 24 hours.</p>
-      <div class="c-item"><div class="c-icon green-bg">💬</div><div><h4>WhatsApp</h4><p><a href="https://wa.me/919472736370">+91 9472736370</a></p><p style="font-size:11.5px;margin-top:3px;">Fastest way to reach us!</p></div></div>
+      <div class="c-item"><div class="c-icon green-bg">💬</div><div><h4>WhatsApp</h4><p><a href="https://wa.me/919472736370">+91 9472736370</a></p></div></div>
       <div class="c-item"><div class="c-icon pink-bg">📷</div><div><h4>Instagram</h4><p><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">@tiny_littlethings__</a></p></div></div>
       <div class="c-item"><div class="c-icon pink-bg">📍</div><div><h4>Based in</h4><p>India — Shipping PAN India</p></div></div>
       <div class="c-item"><div class="c-icon green-bg">⏰</div><div><h4>Response Time</h4><p>Within 24 hours</p></div></div>
@@ -709,75 +680,54 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   </div>
 </div>
 
-<!-- ══ CUSTOM PAGE ══ -->
+<!-- CUSTOM PAGE -->
 <div class="page" id="page-custom">
   <div class="page-banner"><h1>Custom Orders</h1><p>Want something personalized? We create custom handmade products just for you!</p></div>
   <div style="padding:72px 5%;max-width:900px;margin:0 auto;text-align:center;">
     <div class="sec-title" style="margin-bottom:0;"><div class="eyebrow">How it works</div><h2>3 Simple Steps</h2><div class="pill-divider"></div></div>
     <div class="custom-steps">
-      <div class="step-card"><div class="step-num">1</div><h3>Share Your Idea</h3><p>DM us on WhatsApp or Instagram with your concept, reference images, colors, and any specific requirements.</p></div>
-      <div class="step-card"><div class="step-num">2</div><h3>We Craft It</h3><p>Our artisans bring your vision to life with premium materials and meticulous attention to every detail.</p></div>
-      <div class="step-card"><div class="step-num">3</div><h3>Delivered to You</h3><p>Your unique piece is carefully packaged and shipped to your doorstep with love.</p></div>
+      <div class="step-card"><div class="step-num">1</div><h3>Share Your Idea</h3><p>DM us on WhatsApp or Instagram with your concept, colors, and requirements.</p></div>
+      <div class="step-card"><div class="step-num">2</div><h3>We Craft It</h3><p>Our artisans bring your vision to life with premium materials.</p></div>
+      <div class="step-card"><div class="step-num">3</div><h3>Delivered to You</h3><p>Your unique piece is carefully packaged and shipped to your doorstep.</p></div>
     </div>
     <div class="custom-cta">
       <h3>Ready to Create Something Unique?</h3>
-      <p>DM us on WhatsApp or Instagram with your idea and we'll make it happen!</p>
+      <p>DM us on WhatsApp or Instagram with your idea!</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         <a class="btn btn-wa" href="https://wa.me/919472736370?text=Hi!%20I%20have%20a%20custom%20order%20idea." target="_blank">WhatsApp Us</a>
         <a class="btn btn-pink" href="https://www.instagram.com/tiny_littlethings__" target="_blank">Instagram DM</a>
       </div>
     </div>
-    <div style="background:#fff;border-radius:var(--r);padding:30px;box-shadow:var(--shadow-sm);">
-      <h3 style="font-size:22px;font-weight:600;color:var(--text-dark);margin-bottom:16px;">Popular Custom Requests</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:8px;">
-        <div style="background:var(--pink-pale);border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:var(--pink);">Wedding Favors</div>
-        <div style="background:var(--sage-pale);border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:var(--sage);">Birthday Gifts</div>
-        <div style="background:#fff3e8;border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:#d97706;">Corporate Gifting</div>
-        <div style="background:#f0eeff;border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:#7b6fce;">Return Gifts</div>
-        <div style="background:var(--pink-pale);border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:var(--pink);">Home Decor</div>
-        <div style="background:var(--sage-pale);border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:var(--sage);">Anniversary Gifts</div>
-      </div>
-    </div>
   </div>
 </div>
 
-<!-- ══ SHIPPING PAGE ══ -->
+<!-- SHIPPING PAGE -->
 <div class="page" id="page-shipping">
-  <div class="page-banner"><h1>Shipping &amp; Returns</h1><p>Everything you need to know about delivery and our returns policy.</p></div>
+  <div class="page-banner"><h1>Shipping &amp; Returns</h1><p>Everything you need to know about delivery and returns.</p></div>
   <div class="ship-content">
     <div class="ship-section"><h2>Shipping Information</h2>
       <ul>
         <li>Orders are processed within 2–4 business days after confirmation</li>
         <li>Standard delivery time is 5–7 working days across India</li>
         <li>Free shipping on orders above ₹999</li>
-        <li>Shipping charges may apply for orders below ₹999</li>
         <li>We ship PAN India — from Kashmir to Kanyakumari!</li>
-        <li>All products are carefully packaged to ensure safe delivery</li>
       </ul>
     </div>
     <div class="ship-section"><h2>Returns &amp; Exchanges</h2>
       <ul>
         <li>No returns on customized or personalized items</li>
         <li>If you receive a damaged product, contact us within 24 hours of delivery</li>
-        <li>Please share photos of the damage via WhatsApp for quick resolution</li>
         <li>We'll arrange a replacement or refund for damaged items</li>
-        <li>Slight variations in handmade items are natural and part of their charm</li>
       </ul>
-    </div>
-    <div style="background:var(--pink-pale);border-radius:var(--r);padding:28px;text-align:center;">
-      <p style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:8px;">Have a question about your order?</p>
-      <p style="font-size:14px;color:var(--text-mid);margin-bottom:20px;">We're always here to help — just reach out!</p>
-      <a class="btn btn-wa" href="https://wa.me/919472736370" target="_blank">Contact Us on WhatsApp</a>
     </div>
   </div>
 </div>
 
-<!-- ══ ADMIN PAGE ══ -->
+<!-- ADMIN PAGE -->
 <div class="page" id="page-admin">
-  <!-- Login Screen -->
   <div id="adminLogin" class="admin-login">
     <div class="login-card">
-      <div class="logo-mark" style="width:70px;height:70px;margin:0 auto 20px;font-size:32px;border-radius:50%;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));display:flex;align-items:center;justify-content:center;">🌸</div>
+      <div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;">🌸</div>
       <h2>Admin Panel</h2>
       <p>Tiny Little Things — Manage your store</p>
       <input type="text" id="adminUser" placeholder="Username" onkeydown="if(event.key==='Enter')adminLogin()">
@@ -787,7 +737,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
     </div>
   </div>
 
-  <!-- Admin Dashboard (hidden until login) -->
   <div id="adminDash" class="admin-layout" style="display:none;">
     <div class="admin-header">
       <div>
@@ -795,6 +744,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
         <span id="adminDateTime"></span>
       </div>
       <div style="display:flex;gap:10px;align-items:center;">
+        <span id="syncStatus" style="font-size:12px;color:var(--sage);font-weight:600;"></span>
         <button class="btn btn-outline btn-sm" onclick="showPage('home')">← View Site</button>
         <button class="btn btn-danger btn-sm" onclick="adminLogout()">Logout</button>
       </div>
@@ -809,9 +759,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
       </div>
       <div class="admin-content">
 
-        <!-- DASHBOARD TAB -->
+        <!-- DASHBOARD -->
         <div class="admin-section active" id="asec-dashboard">
           <div class="admin-page-title">Analytics Dashboard</div>
+          <div class="sync-banner" id="dashSyncBanner">☁️ Loading analytics from cloud...</div>
           <div class="dash-grid">
             <div class="dash-card pink-accent"><div class="dc-label">Total Page Views</div><div class="dc-val" id="dc-views">0</div><div class="dc-sub">All time</div></div>
             <div class="dash-card sage-accent"><div class="dc-label">Cart Opens</div><div class="dc-val" id="dc-carts">0</div><div class="dc-sub">All time</div></div>
@@ -819,41 +770,27 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
             <div class="dash-card blue-accent"><div class="dc-label">Products Viewed</div><div class="dc-val" id="dc-prodviews">0</div><div class="dc-sub">All time</div></div>
           </div>
           <div class="chart-row">
-            <div class="chart-box">
-              <h3>Most Viewed Products</h3>
-              <div id="chart-prod-views"></div>
-            </div>
-            <div class="chart-box">
-              <h3>Most Added to Cart</h3>
-              <div id="chart-prod-cart"></div>
-            </div>
+            <div class="chart-box"><h3>Most Viewed Products</h3><div id="chart-prod-views"></div></div>
+            <div class="chart-box"><h3>Most Added to Cart</h3><div id="chart-prod-cart"></div></div>
           </div>
           <div class="chart-row">
-            <div class="chart-box">
-              <h3>Page Visits</h3>
-              <div id="chart-pages"></div>
-            </div>
-            <div class="chart-box">
-              <h3>Daily Activity (Last 7 Days)</h3>
-              <div id="chart-daily"></div>
-            </div>
+            <div class="chart-box"><h3>Page Visits</h3><div id="chart-pages"></div></div>
+            <div class="chart-box"><h3>Daily Activity (Last 7 Days)</h3><div id="chart-daily"></div></div>
           </div>
-          <div class="activity-log">
-            <h3>Recent Activity</h3>
-            <div id="activityLog"></div>
-          </div>
+          <div class="activity-log"><h3>Recent Activity</h3><div id="activityLog"></div></div>
           <div style="display:flex;gap:10px;margin-top:10px;">
             <button class="btn btn-outline btn-sm" onclick="refreshDashboard()">🔄 Refresh</button>
-            <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset all analytics data?')){resetAnalytics();}">🗑️ Reset Analytics</button>
+            <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset all analytics?')){resetAnalytics();}">🗑️ Reset Analytics</button>
           </div>
         </div>
 
-        <!-- PRODUCTS TAB -->
+        <!-- PRODUCTS -->
         <div class="admin-section" id="asec-products">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
             <div class="admin-page-title" style="margin-bottom:0;">Manage Products</div>
             <button class="btn btn-pink btn-sm" onclick="openAddProduct()">+ Add Product</button>
           </div>
+          <div class="sync-banner" id="prodSyncBanner">☁️ Loading products from cloud...</div>
           <div class="admin-table-wrap">
             <table class="admin-table" id="adminProductTable">
               <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Category</th><th>Badge</th><th>Bestseller</th><th>Actions</th></tr></thead>
@@ -862,80 +799,40 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
           </div>
         </div>
 
-        <!-- TESTIMONIALS TAB -->
+        <!-- TESTIMONIALS -->
         <div class="admin-section" id="asec-testimonials">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
             <div class="admin-page-title" style="margin-bottom:0;">Manage Testimonials</div>
             <button class="btn btn-pink btn-sm" onclick="saveTestimonialsAdmin()">💾 Save All</button>
           </div>
+          <div class="sync-banner" id="testiSyncBanner">☁️ Loading testimonials from cloud...</div>
           <div class="testi-edit-grid" id="testiEditGrid"></div>
         </div>
 
-        <!-- IMAGES TAB -->
+        <!-- IMAGES -->
         <div class="admin-section" id="asec-images">
           <div class="admin-page-title">Site Images</div>
+          <div class="sync-banner" id="imgSyncBanner">☁️ Images sync to cloud automatically — visible on all devices.</div>
           <div class="settings-section">
-            <h3>🌟 Hero & Logo</h3>
+            <h3>🌟 Hero &amp; Logo</h3>
             <div class="img-settings-grid">
-              <div class="img-setting-item">
-                <label>Logo Icon</label>
-                <div class="img-setting-preview" id="prev-logo">
-                  <div class="upload-icon">🌸</div>
-                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'logo')">
-                </div>
-              </div>
-              <div class="img-setting-item">
-                <label>Hero Image</label>
-                <div class="img-setting-preview" id="prev-hero">
-                  <div class="upload-icon">📷</div>
-                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'hero')">
-                </div>
-              </div>
+              <div class="img-setting-item"><label>Logo Icon</label><div class="img-setting-preview" id="prev-logo"><div class="upload-icon">🌸</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'logo')"></div></div>
+              <div class="img-setting-item"><label>Hero Image</label><div class="img-setting-preview" id="prev-hero"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'hero')"></div></div>
             </div>
           </div>
           <div class="settings-section">
             <h3>👥 Team Photos</h3>
             <div class="img-settings-grid">
-              <div class="img-setting-item">
-                <label>Sanskar Singh</label>
-                <div class="img-setting-preview" id="prev-team_sanskar">
-                  <div class="upload-icon">👤</div>
-                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'team_sanskar')">
-                </div>
-              </div>
-              <div class="img-setting-item">
-                <label>Radhika Kalra</label>
-                <div class="img-setting-preview" id="prev-team_radhika">
-                  <div class="upload-icon">👤</div>
-                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'team_radhika')">
-                </div>
-              </div>
+              <div class="img-setting-item"><label>Sanskar Singh</label><div class="img-setting-preview" id="prev-team_sanskar"><div class="upload-icon">👤</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'team_sanskar')"></div></div>
+              <div class="img-setting-item"><label>Radhika Kalra</label><div class="img-setting-preview" id="prev-team_radhika"><div class="upload-icon">👤</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'team_radhika')"></div></div>
             </div>
           </div>
           <div class="settings-section">
             <h3>📖 About Section</h3>
             <div class="img-settings-grid">
-              <div class="img-setting-item">
-                <label>About Main</label>
-                <div class="img-setting-preview" id="prev-about_main">
-                  <div class="upload-icon">📷</div>
-                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'about_main')">
-                </div>
-              </div>
-              <div class="img-setting-item">
-                <label>About Secondary</label>
-                <div class="img-setting-preview" id="prev-about_second">
-                  <div class="upload-icon">📷</div>
-                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'about_second')">
-                </div>
-              </div>
-              <div class="img-setting-item">
-                <label>About Page</label>
-                <div class="img-setting-preview" id="prev-about_page">
-                  <div class="upload-icon">📷</div>
-                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'about_page')">
-                </div>
-              </div>
+              <div class="img-setting-item"><label>About Main</label><div class="img-setting-preview" id="prev-about_main"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'about_main')"></div></div>
+              <div class="img-setting-item"><label>About Secondary</label><div class="img-setting-preview" id="prev-about_second"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'about_second')"></div></div>
+              <div class="img-setting-item"><label>About Page</label><div class="img-setting-preview" id="prev-about_page"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'about_page')"></div></div>
             </div>
           </div>
           <div class="settings-section">
@@ -949,12 +846,10 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
               <div class="img-setting-item"><label>Post 6</label><div class="img-setting-preview" id="prev-insta_6"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_6')"></div></div>
             </div>
           </div>
-          <div style="text-align:center;padding:10px;">
-            <p style="font-size:13px;color:var(--text-mid);">💡 Images are stored in your browser and persist across sessions. To add product images, edit the product in the Products tab.</p>
-          </div>
+          <div style="text-align:center;padding:10px;"><p style="font-size:13px;color:var(--text-mid);">☁️ All images are stored in the cloud and visible on every device &amp; browser automatically.</p></div>
         </div>
 
-        <!-- SETTINGS TAB -->
+        <!-- SETTINGS -->
         <div class="admin-section" id="asec-settings">
           <div class="admin-page-title">Settings</div>
           <div class="settings-section">
@@ -967,7 +862,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
           </div>
           <div class="settings-section">
             <h3>📦 Product Categories</h3>
-            <p style="font-size:13px;color:var(--text-mid);margin-bottom:14px;">Current categories used in products:</p>
             <div id="categoryList" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
           </div>
           <div class="settings-section">
@@ -976,7 +870,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
               <button class="btn btn-sage btn-sm" onclick="exportData()">📥 Export Data</button>
               <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFile').click()">📤 Import Data</button>
               <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(this)">
-              <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset ALL data to defaults? This cannot be undone.'))resetAll();">⚠️ Reset to Defaults</button>
+              <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset ALL data to defaults?'))resetAll();">⚠️ Reset to Defaults</button>
             </div>
           </div>
         </div>
@@ -1023,141 +917,135 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 </footer>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   DEFAULT DATA
-═══════════════════════════════════════════════════════════ */
-const DEFAULT_PRODUCTS = [
-  {id:1,name:"Sheep Flower Pot",price:299,category:"Flower Pots",badge:"Bestseller",desc:"Meet your new favourite desk companion! This adorable sheep-shaped handmade flower pot is lovingly crafted from premium pipe cleaners. The fluffy white sheep body paired with vibrant flowers makes it a joyful, eye-catching piece — perfect for your desk, shelf, or windowsill.",whatsappMsg:"Hi! I love the *Sheep Flower Pot* (₹299) on your website. Could you please confirm availability and share payment & delivery details? 🐑🌸",bestseller:true,img:""},
-  {id:2,name:"Sunflower Pot",price:249,category:"Flower Pots",badge:"Popular",desc:"Bring sunshine indoors with this bright and cheerful handmade Sunflower Pot! Crafted from vibrant yellow and brown pipe cleaners, this piece radiates warmth and positivity.",whatsappMsg:"Hi! I'm interested in the *Sunflower Pot* (₹249). Could you please confirm availability? 🌻",bestseller:true,img:""},
-  {id:3,name:"Sunflower Bunch Flower Pot",price:249,category:"Flower Pots",badge:"",desc:"A beautiful bouquet of handcrafted sunflowers arranged in an elegant handmade pot. Each sunflower is meticulously crafted from premium pipe cleaners.",whatsappMsg:"Hello! I'd love to order the *Sunflower Bunch Flower Pot* (₹249). Please share availability and order details. 🌻🌻",bestseller:false,img:""},
-  {id:4,name:"Pink Blossom Flower Pot",price:249,category:"Flower Pots",badge:"",desc:"Soft, romantic, and elegantly minimal — the Pink Blossom Flower Pot features delicate pink blooms in a beautifully crafted pot.",whatsappMsg:"Hi! I'm interested in the *Pink Blossom Flower Pot* (₹249). Could you please confirm availability? 🌸",bestseller:true,img:""},
-  {id:5,name:"Pair of Pink Tulips",price:249,category:"Flower Pots",badge:"",desc:"Timeless, delicate, and utterly charming — this Pair of Pink Tulips is handcrafted from premium pipe cleaners to capture the graceful elegance of real tulips.",whatsappMsg:"Hello! I'd love to order the *Pair of Pink Tulips* (₹249). Please share availability and order details. 🌷",bestseller:false,img:""},
-  {id:6,name:"Red Hibiscus Pot",price:249,category:"Flower Pots",badge:"New",desc:"Bold, vibrant, and full of character — the Red Hibiscus Pot is a striking handmade arrangement that commands attention. Crafted from deep red and green pipe cleaners.",whatsappMsg:"Hi! I'm in love with the *Red Hibiscus Pot* (₹249)! Could you confirm availability? 🌺",bestseller:false,img:""},
-  {id:7,name:"Strawberry Keychain",price:149,category:"Keychains",badge:"Cute!",desc:"Sweet, adorable, and absolutely irresistible — this handmade Strawberry Keychain is a mini work of art! Crafted from red and green pipe cleaners.",whatsappMsg:"Hi! The *Strawberry Keychain* (₹149) is so cute! Could you please share availability and order details? 🍓",bestseller:true,img:""},
-  {id:8,name:"Evil Eye Flower Keychain",price:149,category:"Keychains",badge:"Trending",desc:"Stylish protection meets adorable design in this handmade Evil Eye Flower Keychain! This vibrant blue and white creation combines the protective charm of the evil eye with beautiful flower petals.",whatsappMsg:"Hello! I'm interested in the *Evil Eye Flower Keychain* (₹149). Please share availability. 🧿🌸",bestseller:false,img:""},
-  {id:9,name:"Pink Bow Keychain",price:149,category:"Keychains",badge:"",desc:"Feminine, fun, and perfectly charming — the Pink Bow Keychain is a handmade delight! Crafted from soft pink pipe cleaners into a classic bow shape.",whatsappMsg:"Hi! I spotted the *Pink Bow Keychain* (₹149) and it's adorable! Could you please share order details? 🎀",bestseller:false,img:""},
-  {id:10,name:"Rainbow Dino Keychain",price:149,category:"Keychains",badge:"Fan Fav",desc:"Fun, quirky, and totally unique — the Rainbow Dino Keychain features a colourful rainbow backdrop with an adorable green dinosaur.",whatsappMsg:"Hello! The *Rainbow Dino Keychain* (₹149) is so fun! Please share availability and payment details. 🦕🌈",bestseller:true,img:""},
-  {id:11,name:"Watermelon Keychain",price:149,category:"Keychains",badge:"",desc:"Fresh, fun, and bursting with personality — the Watermelon Keychain is crafted from vibrant red, green, and black pipe cleaners.",whatsappMsg:"Hi! I love the *Watermelon Keychain* (₹149)! Please share availability and how to order. 🍉",bestseller:false,img:""},
-  {id:12,name:"Mango Keychain",price:149,category:"Keychains",badge:"",desc:"A charming ode to India's favourite fruit — the Mango Keychain is crafted in vibrant mango tones. A fantastic gifting option!",whatsappMsg:"Hello! The *Mango Keychain* (₹149) is adorable! Please confirm availability. 🥭",bestseller:false,img:""},
-  {id:13,name:"Teal Lily Lamp Stand",price:349,category:"Lamps",badge:"Artsy",desc:"Enchanting, dreamy, and entirely one-of-a-kind — the Teal Lily Lamp Stand elevates any room instantly. The striking teal lily bloom sits atop an elegantly crafted stand.",whatsappMsg:"Hi! I'm in love with the *Teal Lily Lamp Stand* (₹349)! Could you please confirm availability? 💐",bestseller:true,img:""},
-  {id:14,name:"Pink Tendril Lamp",price:349,category:"Lamps",badge:"",desc:"Whimsical, romantic, and beautifully crafted — the Pink Tendril Lamp adds magic to any space with delicate pink blossoms winding around an artfully shaped tendril stand.",whatsappMsg:"Hello! The *Pink Tendril Lamp* (₹349) is so beautiful! Please share availability and order details. 🌸✨",bestseller:false,img:""}
-];
+const DEFAULT_PRODUCTS=[{id:1,name:"Sheep Flower Pot",price:299,category:"Flower Pots",badge:"Bestseller",desc:"Meet your new favourite desk companion! This adorable sheep-shaped handmade flower pot is lovingly crafted from premium pipe cleaners.",whatsappMsg:"Hi! I love the *Sheep Flower Pot* (₹299). Could you please confirm availability? 🐑🌸",bestseller:true,img:""},{id:2,name:"Sunflower Pot",price:249,category:"Flower Pots",badge:"Popular",desc:"Bring sunshine indoors with this bright and cheerful handmade Sunflower Pot! Crafted from vibrant yellow and brown pipe cleaners.",whatsappMsg:"Hi! I'm interested in the *Sunflower Pot* (₹249). Could you please confirm availability? 🌻",bestseller:true,img:""},{id:3,name:"Pink Blossom Flower Pot",price:249,category:"Flower Pots",badge:"",desc:"Soft, romantic, and elegantly minimal — the Pink Blossom Flower Pot features delicate pink blooms.",whatsappMsg:"Hi! I'm interested in the *Pink Blossom Flower Pot* (₹249). 🌸",bestseller:true,img:""},{id:4,name:"Pair of Pink Tulips",price:249,category:"Flower Pots",badge:"",desc:"Timeless, delicate, and utterly charming — this Pair of Pink Tulips is handcrafted from premium pipe cleaners.",whatsappMsg:"Hello! I'd love to order the *Pair of Pink Tulips* (₹249). 🌷",bestseller:false,img:""},{id:5,name:"Red Hibiscus Pot",price:249,category:"Flower Pots",badge:"New",desc:"Bold, vibrant, and full of character — the Red Hibiscus Pot is a striking handmade arrangement.",whatsappMsg:"Hi! I'm in love with the *Red Hibiscus Pot* (₹249)! 🌺",bestseller:false,img:""},{id:6,name:"Strawberry Keychain",price:149,category:"Keychains",badge:"Cute!",desc:"Sweet, adorable, and absolutely irresistible — this handmade Strawberry Keychain is a mini work of art!",whatsappMsg:"Hi! The *Strawberry Keychain* (₹149) is so cute! 🍓",bestseller:true,img:""},{id:7,name:"Evil Eye Flower Keychain",price:149,category:"Keychains",badge:"Trending",desc:"Stylish protection meets adorable design in this handmade Evil Eye Flower Keychain!",whatsappMsg:"Hello! I'm interested in the *Evil Eye Flower Keychain* (₹149). 🧿🌸",bestseller:false,img:""},{id:8,name:"Pink Bow Keychain",price:149,category:"Keychains",badge:"",desc:"Feminine, fun, and perfectly charming — the Pink Bow Keychain is a handmade delight!",whatsappMsg:"Hi! I spotted the *Pink Bow Keychain* (₹149)! 🎀",bestseller:false,img:""},{id:9,name:"Rainbow Dino Keychain",price:149,category:"Keychains",badge:"Fan Fav",desc:"Fun, quirky, and totally unique — the Rainbow Dino Keychain features a colourful rainbow backdrop.",whatsappMsg:"Hello! The *Rainbow Dino Keychain* (₹149) is so fun! 🦕🌈",bestseller:true,img:""},{id:10,name:"Teal Lily Lamp Stand",price:349,category:"Lamps",badge:"Artsy",desc:"Enchanting, dreamy, and entirely one-of-a-kind — the Teal Lily Lamp Stand elevates any room instantly.",whatsappMsg:"Hi! I'm in love with the *Teal Lily Lamp Stand* (₹349)! 💐",bestseller:true,img:""},{id:11,name:"Pink Tendril Lamp",price:349,category:"Lamps",badge:"",desc:"Whimsical, romantic, and beautifully crafted — the Pink Tendril Lamp adds magic to any space.",whatsappMsg:"Hello! The *Pink Tendril Lamp* (₹349) is so beautiful! 🌸✨",bestseller:false,img:""}];
 
-const DEFAULT_TESTIMONIALS = [
-  {name:"Divya Gupta",role:"Student, Lovely Professional University",text:"I ordered cute pipe cleaner flowers for my friend's birthday and honestly they looked even better than real ones! So aesthetic and long-lasting. Everyone in my class asked where I got them from.",img:""},
-  {name:"Manpreet Kaur",role:"Ludhiana",text:"Got a custom order done and it turned out exactly how I imagined. Super happy with the service! Will definitely order again.",img:""},
-  {name:"Simran Saini",role:"HR, Noida",text:"We ordered customized handmade pieces for our employee gifting, and the response was amazing. Such thoughtful and unique products.",img:""},
-  {name:"Dr. Anjali Verma",role:"Professor, Jalandhar",text:"I purchased these handcrafted items as return gifts for a college event. They were elegant, creative, and appreciated by everyone.",img:""},
-  {name:"Akash Tiwari",role:"Architecture Student",text:"It's refreshing to see such creativity in handmade art. These pieces reflect dedication and originality. Truly impressive work!",img:""},
-  {name:"Aditi Srivastava",role:"Lucknow, U.P.",text:"Beautiful craftsmanship and timely delivery. The products really stand out and create a lasting impression. Highly recommended!",img:""}
-];
+const DEFAULT_TESTIMONIALS=[{name:"Divya Gupta",role:"Student, Lovely Professional University",text:"I ordered cute pipe cleaner flowers for my friend's birthday and honestly they looked even better than real ones! So aesthetic and long-lasting.",img:""},{name:"Manpreet Kaur",role:"Ludhiana",text:"Got a custom order done and it turned out exactly how I imagined. Super happy with the service! Will definitely order again.",img:""},{name:"Simran Saini",role:"HR, Noida",text:"We ordered customized handmade pieces for our employee gifting, and the response was amazing. Such thoughtful and unique products.",img:""},{name:"Dr. Anjali Verma",role:"Professor, Jalandhar",text:"I purchased these handcrafted items as return gifts for a college event. They were elegant, creative, and appreciated by everyone.",img:""},{name:"Akash Tiwari",role:"Architecture Student",text:"It's refreshing to see such creativity in handmade art. These pieces reflect dedication and originality. Truly impressive work!",img:""},{name:"Aditi Srivastava",role:"Lucknow, U.P.",text:"Beautiful craftsmanship and timely delivery. The products really stand out and create a lasting impression. Highly recommended!",img:""}];
 
-const CATEGORIES_DATA = [
-  {label:"Flower Pots",desc:"Vibrant pipe cleaner arrangements in adorable handcrafted pots",iconBg:"pink-bg",filter:"Flower Pots"},
-  {label:"Keychains & Bagcharms",desc:"Cute handmade charms — perfect gifts or everyday accessories",iconBg:"sage-bg",filter:"Keychains"},
-  {label:"Lamps & Stands",desc:"Whimsical decorative lamps to elevate your personal space",iconBg:"peach-bg",filter:"Lamps"},
-  {label:"Custom Orders",desc:"Tell us your idea — we'll craft something magical just for you",iconBg:"lavender-bg",filter:"Custom"}
-];
+const CATEGORIES_DATA=[{label:"Flower Pots",desc:"Vibrant pipe cleaner arrangements in adorable handcrafted pots",filter:"Flower Pots"},{label:"Keychains & Bagcharms",desc:"Cute handmade charms — perfect gifts or everyday accessories",filter:"Keychains"},{label:"Lamps & Stands",desc:"Whimsical decorative lamps to elevate your personal space",filter:"Lamps"},{label:"Custom Orders",desc:"Tell us your idea — we'll craft something magical just for you",filter:"Custom"}];
 
-/* ═══════════════════════════════════════════════════════════
-   STATE MANAGEMENT (localStorage persistence)
-═══════════════════════════════════════════════════════════ */
-function loadState() {
-  try {
-    const p = localStorage.getItem('tlt_products');
-    const t = localStorage.getItem('tlt_testimonials');
-    const i = localStorage.getItem('tlt_images');
-    const c = localStorage.getItem('tlt_credentials');
-    const a = localStorage.getItem('tlt_analytics');
-    PRODUCTS = p ? JSON.parse(p) : JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
-    TESTIMONIALS = t ? JSON.parse(t) : JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
-    SITE_IMAGES = i ? JSON.parse(i) : {};
-    CREDENTIALS = c ? JSON.parse(c) : {user:'admin',pass:'tlt2025'};
-    ANALYTICS = a ? JSON.parse(a) : {pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
-  } catch(e) {
-    PRODUCTS = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
-    TESTIMONIALS = JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
-    SITE_IMAGES = {}; CREDENTIALS = {user:'admin',pass:'tlt2025'};
-    ANALYTICS = {pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+/* ═══ CLOUD STORAGE (window.storage) ═══ */
+let PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+let TESTIMONIALS=JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
+let SITE_IMAGES={};
+let CREDENTIALS={user:'admin',pass:'tlt2025'};
+let ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+
+let _saveTimer=null;
+function showSaveIndicator(state){
+  const el=document.getElementById('storageIndicator');
+  if(!el)return;
+  el.className='storage-indicator '+(state==='saving'?'saving':'saved');
+  el.textContent=state==='saving'?'☁️ Saving...':'✅ Saved to cloud';
+  el.classList.remove('hidden');
+  clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(()=>el.classList.add('hidden'),2500);
+}
+
+async function cloudSave(key,val){
+  try{
+    showSaveIndicator('saving');
+    await window.storage.set(key,JSON.stringify(val),true);
+    showSaveIndicator('saved');
+    const ss=document.getElementById('syncStatus');
+    if(ss){ss.textContent='✅ Synced';setTimeout(()=>{ss.textContent=''},2000);}
+  }catch(e){
+    console.error('Cloud save error:',e);
+    const ss=document.getElementById('syncStatus');
+    if(ss) ss.textContent='⚠️ Save failed';
   }
 }
 
-function saveProducts() { localStorage.setItem('tlt_products', JSON.stringify(PRODUCTS)); }
-function saveTestimonials() { localStorage.setItem('tlt_testimonials', JSON.stringify(TESTIMONIALS)); }
-function saveSiteImages() { localStorage.setItem('tlt_images', JSON.stringify(SITE_IMAGES)); }
-function saveAnalytics() { localStorage.setItem('tlt_analytics', JSON.stringify(ANALYTICS)); }
+async function cloudLoad(key){
+  try{
+    const r=await window.storage.get(key,true);
+    return r?JSON.parse(r.value):null;
+  }catch(e){return null;}
+}
 
-let PRODUCTS, TESTIMONIALS, SITE_IMAGES, CREDENTIALS, ANALYTICS;
-loadState();
+async function loadAllFromCloud(){
+  const [p,t,i,c,a]=await Promise.all([
+    cloudLoad('tlt_products'),
+    cloudLoad('tlt_testimonials'),
+    cloudLoad('tlt_site_images'),
+    cloudLoad('tlt_credentials'),
+    cloudLoad('tlt_analytics')
+  ]);
+  if(p) PRODUCTS=p;
+  if(t) TESTIMONIALS=t;
+  if(i) SITE_IMAGES=i;
+  if(c) CREDENTIALS=c;
+  if(a) ANALYTICS=a;
+}
 
-/* ═══════════════════════════════════════════════════════════
-   ANALYTICS TRACKING
-═══════════════════════════════════════════════════════════ */
-function trackPageView(page) {
-  ANALYTICS.pageViews[page] = (ANALYTICS.pageViews[page]||0)+1;
-  const today = new Date().toISOString().split('T')[0];
-  if(!ANALYTICS.daily[today]) ANALYTICS.daily[today]={views:0,carts:0,wa:0};
+async function saveProducts(){await cloudSave('tlt_products',PRODUCTS);}
+async function saveTestimonials(){await cloudSave('tlt_testimonials',TESTIMONIALS);}
+async function saveSiteImages(){await cloudSave('tlt_site_images',SITE_IMAGES);}
+async function saveAnalytics(){await cloudSave('tlt_analytics',ANALYTICS);}
+async function saveCredentials(){await cloudSave('tlt_credentials',CREDENTIALS);}
+
+/* ═══ ANALYTICS ═══ */
+function trackPageView(page){
+  ANALYTICS.pageViews[page]=(ANALYTICS.pageViews[page]||0)+1;
+  const today=new Date().toISOString().split('T')[0];
+  if(!ANALYTICS.daily[today])ANALYTICS.daily[today]={views:0,carts:0,wa:0};
   ANALYTICS.daily[today].views++;
   saveAnalytics();
 }
-function trackCartOpen() {
-  ANALYTICS.cartOpens = (ANALYTICS.cartOpens||0)+1;
-  const today = new Date().toISOString().split('T')[0];
-  if(!ANALYTICS.daily[today]) ANALYTICS.daily[today]={views:0,carts:0,wa:0};
+function trackCartOpen(){
+  ANALYTICS.cartOpens=(ANALYTICS.cartOpens||0)+1;
+  const today=new Date().toISOString().split('T')[0];
+  if(!ANALYTICS.daily[today])ANALYTICS.daily[today]={views:0,carts:0,wa:0};
   ANALYTICS.daily[today].carts++;
   saveAnalytics();
 }
-function trackWA(context) {
-  ANALYTICS.waClicks = (ANALYTICS.waClicks||0)+1;
-  const today = new Date().toISOString().split('T')[0];
-  if(!ANALYTICS.daily[today]) ANALYTICS.daily[today]={views:0,carts:0,wa:0};
+function trackWA(ctx){
+  ANALYTICS.waClicks=(ANALYTICS.waClicks||0)+1;
+  const today=new Date().toISOString().split('T')[0];
+  if(!ANALYTICS.daily[today])ANALYTICS.daily[today]={views:0,carts:0,wa:0};
   ANALYTICS.daily[today].wa++;
-  logActivity('💬','WhatsApp tapped', context||'');
+  logActivity('💬','WhatsApp tapped',ctx||'');
   saveAnalytics();
 }
-function trackProductView(id) {
-  ANALYTICS.productViews[id] = (ANALYTICS.productViews[id]||0)+1;
-  ANALYTICS.pageViews['products'] = (ANALYTICS.pageViews['products']||0)+1;
+function trackProductView(id){
+  ANALYTICS.productViews[id]=(ANALYTICS.productViews[id]||0)+1;
+  ANALYTICS.pageViews['products']=(ANALYTICS.pageViews['products']||0)+1;
   saveAnalytics();
 }
-function trackProductCart(id) {
-  ANALYTICS.productCart[id] = (ANALYTICS.productCart[id]||0)+1;
+function trackProductCart(id){
+  ANALYTICS.productCart[id]=(ANALYTICS.productCart[id]||0)+1;
   saveAnalytics();
 }
-function logActivity(icon, text, sub) {
-  const now = new Date();
-  const timeStr = now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}) + ' · ' + now.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
-  ANALYTICS.activityLog = [{icon,text,sub,time:timeStr},...(ANALYTICS.activityLog||[])].slice(0,30);
+function logActivity(icon,text,sub){
+  const now=new Date();
+  const ts=now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})+' · '+now.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
+  ANALYTICS.activityLog=[{icon,text,sub,time:ts},...(ANALYTICS.activityLog||[])].slice(0,30);
   saveAnalytics();
 }
-function resetAnalytics() {
-  ANALYTICS = {pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
-  saveAnalytics();
+async function resetAnalytics(){
+  ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+  await saveAnalytics();
   refreshDashboard();
   showToast('Analytics reset!');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PAGE NAVIGATION
-═══════════════════════════════════════════════════════════ */
-function showPage(name) {
+/* ═══ PAGE NAV ═══ */
+function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
-  const nav = document.getElementById('nav-'+name);
-  if(nav) nav.classList.add('active');
+  const nav=document.getElementById('nav-'+name);
+  if(nav)nav.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
-  if(name !== 'admin') trackPageView(name);
-  if(name==='shop') renderShop();
+  if(name!=='admin')trackPageView(name);
+  if(name==='shop')renderShop();
   if(name==='home'){renderBestsellers();renderTestimonials();renderInstagram();renderCategories();applyAllSiteImages();}
 }
-
-function filterAndGo(cat) {
-  currentFilter = cat;
+function filterAndGo(cat){
+  currentFilter=cat;
   showPage('shop');
   setTimeout(()=>{
     document.querySelectorAll('.cf-btn').forEach(b=>b.classList.toggle('active',b.textContent.includes(cat)));
-    document.getElementById('shopTitle').textContent = cat;
+    document.getElementById('shopTitle').textContent=cat;
     renderShop();
   },100);
 }
@@ -1166,77 +1054,57 @@ function toggleMobileNav(){
   m.style.display=m.style.display==='block'?'none':'block';
 }
 
-/* ═══════════════════════════════════════════════════════════
-   IMAGE HELPERS
-═══════════════════════════════════════════════════════════ */
-function setContainerImg(containerId, src) {
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  if(src) {
-    el.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">`;
-  } else {
-    el.innerHTML = `<span style="font-size:11px;color:var(--text-light);">No Image</span>`;
-  }
+/* ═══ IMAGES ═══ */
+function setContainerImg(containerId,src){
+  const el=document.getElementById(containerId);
+  if(!el)return;
+  if(src)el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">`;
+  else el.innerHTML=`<span style="font-size:11px;color:var(--text-light);">No Image</span>`;
 }
-
-function applyAllSiteImages() {
-  // Logo
-  const lm = document.getElementById('logoMark');
-  if(lm && SITE_IMAGES.logo) lm.innerHTML = `<img src="${SITE_IMAGES.logo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
-  else if(lm) lm.innerHTML='🌸';
-  // Hero
-  const hc = document.getElementById('heroImgContainer');
-  if(hc) {
-    if(SITE_IMAGES.hero) hc.innerHTML=`<img src="${SITE_IMAGES.hero}" style="width:100%;height:100%;object-fit:cover;">`;
+function applyAllSiteImages(){
+  const lm=document.getElementById('logoMark');
+  if(lm&&SITE_IMAGES.logo)lm.innerHTML=`<img src="${SITE_IMAGES.logo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+  else if(lm)lm.innerHTML='🌸';
+  const hc=document.getElementById('heroImgContainer');
+  if(hc){
+    if(SITE_IMAGES.hero)hc.innerHTML=`<img src="${SITE_IMAGES.hero}" style="width:100%;height:100%;object-fit:cover;">`;
     else hc.innerHTML=`<span style="font-size:13px;font-weight:700;color:var(--text-mid);">Hero Image</span><span style="font-size:11px;color:var(--text-light);">Upload via Admin Panel</span>`;
   }
-  // About images
-  setContainerImg('aboutImg1Container', SITE_IMAGES.about_main);
-  setContainerImg('aboutImg2Container', SITE_IMAGES.about_second);
-  setContainerImg('aboutPageImgContainer', SITE_IMAGES.about_page);
-  // Team
-  const tsc=document.getElementById('teamSanskarContainer'),trc=document.getElementById('teamRadhikaContainer');
-  const fsc=document.getElementById('founderSanskarContainer'),frc=document.getElementById('founderRadhikaContainer');
-  if(SITE_IMAGES.team_sanskar){
-    if(tsc) tsc.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
-    if(fsc) fsc.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+  setContainerImg('aboutImg1Container',SITE_IMAGES.about_main);
+  setContainerImg('aboutImg2Container',SITE_IMAGES.about_second);
+  const apc=document.getElementById('aboutPageImgContainer');
+  if(apc){
+    if(SITE_IMAGES.about_page)apc.innerHTML=`<img src="${SITE_IMAGES.about_page}" style="width:100%;height:100%;object-fit:cover;">`;
+    else apc.innerHTML=`<span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image</span>`;
   }
-  if(SITE_IMAGES.team_radhika){
-    if(trc) trc.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
-    if(frc) frc.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
-  }
+  ['teamSanskarContainer','founderSanskarContainer'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){if(SITE_IMAGES.team_sanskar)el.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;else el.innerHTML='👤';}
+  });
+  ['teamRadhikaContainer','founderRadhikaContainer'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){if(SITE_IMAGES.team_radhika)el.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;else el.innerHTML='👤';}
+  });
+}
+function imgHtml(p){
+  if(p.img)return`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">`;
+  return`<div class="img-placeholder" style="font-size:11px;font-weight:600;color:var(--text-light);text-align:center;">${p.name}</div>`;
 }
 
-function imgHtml(p, cls='') {
-  if(p.img) return `<img src="${p.img}" alt="${p.name}" class="${cls}" style="width:100%;height:100%;object-fit:cover;">`;
-  return `<div class="img-placeholder" style="font-size:11px;font-weight:600;color:var(--text-light);text-align:center;">${p.name}<br><span style="font-size:9px;opacity:.7;">No image</span></div>`;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   RENDER CATEGORIES
-═══════════════════════════════════════════════════════════ */
-function renderCategories() {
-  const cats = CATEGORIES_DATA;
-  document.getElementById('catsGrid').innerHTML = cats.map(c=>`
+/* ═══ CATEGORIES ═══ */
+function renderCategories(){
+  const icons={Flower_Pots:'🌸',Keychains:'🔑',Lamps:'💡',Custom:'✨'};
+  document.getElementById('catsGrid').innerHTML=CATEGORIES_DATA.map(c=>`
     <div class="cat-card" onclick="${c.filter==='Custom'?"showPage('custom')":`filterAndGo('${c.filter}')`}">
-      <div class="cat-icon ${c.iconBg}" style="font-size:28px;">
-        ${c.filter==='Flower Pots'?'🌸':c.filter==='Keychains'?'🔑':c.filter==='Lamps'?'💡':'✨'}
-      </div>
-      <h3>${c.label}</h3>
-      <p>${c.desc}</p>
+      <div class="cat-icon" style="background:var(--pink-pale);font-size:28px;">${c.filter==='Flower Pots'?'🌸':c.filter==='Keychains'?'🔑':c.filter==='Lamps'?'💡':'✨'}</div>
+      <h3>${c.label}</h3><p>${c.desc}</p>
     </div>`).join('');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PRODUCT CARD
-═══════════════════════════════════════════════════════════ */
-function renderCard(p) {
-  return `
-  <div class="product-card">
-    <div class="product-thumb" onclick="openModal(${p.id})">
-      ${imgHtml(p)}
-      ${p.badge?`<div class="badge">${p.badge}</div>`:''}
-    </div>
+/* ═══ PRODUCT CARD ═══ */
+function renderCard(p){
+  return`<div class="product-card">
+    <div class="product-thumb" onclick="openModal(${p.id})">${imgHtml(p)}${p.badge?`<div class="badge">${p.badge}</div>`:''}</div>
     <div class="product-body">
       <h3 onclick="openModal(${p.id})">${p.name}</h3>
       <p class="pdesc">${p.desc.substring(0,72)}…</p>
@@ -1252,29 +1120,19 @@ function renderCard(p) {
     </div>
   </div>`;
 }
-
-function renderBestsellers() {
-  const best = PRODUCTS.filter(p=>p.bestseller);
-  document.getElementById('bestsellersGrid').innerHTML = best.map(renderCard).join('');
+function renderBestsellers(){
+  document.getElementById('bestsellersGrid').innerHTML=PRODUCTS.filter(p=>p.bestseller).map(renderCard).join('');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   SHOP
-═══════════════════════════════════════════════════════════ */
-let cart={}, currentMaxPrice=1999, currentFilter='All';
-
-function renderShop(cat,maxP) {
-  if(cat!==undefined) currentFilter=cat;
-  if(maxP!==undefined) currentMaxPrice=maxP;
+/* ═══ SHOP ═══ */
+let cart={},currentMaxPrice=1999,currentFilter='All';
+function renderShop(cat,maxP){
+  if(cat!==undefined)currentFilter=cat;
+  if(maxP!==undefined)currentMaxPrice=maxP;
   const grid=document.getElementById('shopGrid');
-  if(!grid) return;
+  if(!grid)return;
   if(currentFilter==='Custom'){
-    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;">
-      <div style="font-size:52px;margin-bottom:14px;">✨</div>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3>
-      <p style="color:var(--text-mid);margin-bottom:22px;font-size:14px;">We create personalized pieces just for you!</p>
-      <button class="btn btn-pink" onclick="showPage('custom')">Explore Custom Orders</button>
-    </div>`;
+    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><div style="font-size:52px;margin-bottom:14px;">✨</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom Orders</button></div>`;
     document.getElementById('shopTitle').textContent='Custom Orders';
     document.getElementById('shopCount').textContent='';
     return;
@@ -1282,12 +1140,11 @@ function renderShop(cat,maxP) {
   const filtered=PRODUCTS.filter(p=>(currentFilter==='All'||p.category===currentFilter)&&p.price<=currentMaxPrice);
   document.getElementById('shopCount').textContent=filtered.length+' items';
   document.getElementById('shopTitle').textContent=currentFilter==='All'?'All Products':currentFilter;
-  grid.innerHTML=filtered.length?filtered.map(renderCard).join(''):`<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--text-light);">No products found in this range.</div>`;
+  grid.innerHTML=filtered.length?filtered.map(renderCard).join(''):`<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--text-light);">No products found.</div>`;
 }
-
 function filterShop(cat,btn){
   document.querySelectorAll('.cf-btn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
+  if(btn)btn.classList.add('active');
   renderShop(cat);
 }
 function updatePrice(val){
@@ -1295,11 +1152,10 @@ function updatePrice(val){
   renderShop(undefined,parseInt(val));
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PRODUCT MODAL
-═══════════════════════════════════════════════════════════ */
-function openModal(id) {
+/* ═══ MODAL ═══ */
+function openModal(id){
   const p=PRODUCTS.find(x=>x.id===id);
+  if(!p)return;
   trackProductView(id);
   document.getElementById('modalCat').textContent=p.category;
   document.getElementById('modalName').textContent=p.name;
@@ -1314,25 +1170,13 @@ function openModal(id) {
     <a class="btn btn-wa" href="https://wa.me/919472736370?text=${encodeURIComponent(p.whatsappMsg)}" target="_blank" onclick="trackWA('modal:${id}')">Order on WhatsApp</a>`;
   document.getElementById('modalOverlay').classList.add('open');
 }
-function closeModal(e){if(e.target.id==='modalOverlay') closeModalDirect();}
+function closeModal(e){if(e.target.id==='modalOverlay')closeModalDirect();}
 function closeModalDirect(){document.getElementById('modalOverlay').classList.remove('open');}
 
-/* ═══════════════════════════════════════════════════════════
-   CART
-═══════════════════════════════════════════════════════════ */
-function addToCart(id){
-  cart[id]=(cart[id]||0)+1;
-  trackProductCart(id);
-  updateCartBadge();
-  showToast('Added to cart! 🛒');
-  logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');
-}
+/* ═══ CART ═══ */
+function addToCart(id){cart[id]=(cart[id]||0)+1;trackProductCart(id);updateCartBadge();showToast('Added to cart! 🛒');logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');}
 function removeFromCart(id){delete cart[id];updateCartBadge();renderCartDrawer();}
-function changeQty(id,delta){
-  cart[id]=(cart[id]||0)+delta;
-  if(cart[id]<=0) delete cart[id];
-  updateCartBadge();renderCartDrawer();
-}
+function changeQty(id,delta){cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];updateCartBadge();renderCartDrawer();}
 function clearCart(){cart={};updateCartBadge();renderCartDrawer();}
 function updateCartBadge(){
   const total=Object.values(cart).reduce((a,b)=>a+b,0);
@@ -1342,45 +1186,21 @@ function updateCartBadge(){
   void badge.offsetWidth;
   badge.classList.add('bump');
 }
-function openCart(){
-  trackCartOpen();
-  renderCartDrawer();
-  document.getElementById('cartDrawer').classList.add('open');
-  document.getElementById('drawerOverlay').classList.add('open');
-}
-function closeCart(){
-  document.getElementById('cartDrawer').classList.remove('open');
-  document.getElementById('drawerOverlay').classList.remove('open');
-}
+function openCart(){trackCartOpen();renderCartDrawer();document.getElementById('cartDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');}
+function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');}
 function renderCartDrawer(){
   const body=document.getElementById('cartBody');
   const foot=document.getElementById('cartFoot');
   const ids=Object.keys(cart).map(Number);
   if(!ids.length){
-    body.innerHTML=`<div class="cart-empty"><div class="empty-icon">🛒</div>
-      <p style="font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:6px;">Your cart is empty</p>
-      <p>Add some handmade treasures!</p>
-      <button class="btn btn-pink" style="margin-top:18px;" onclick="closeCart();showPage('shop')">Shop Now</button>
-    </div>`;
+    body.innerHTML=`<div class="cart-empty"><div class="empty-icon">🛒</div><p style="font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:6px;">Your cart is empty</p><p>Add some handmade treasures!</p><button class="btn btn-pink" style="margin-top:18px;" onclick="closeCart();showPage('shop')">Shop Now</button></div>`;
     foot.style.display='none';return;
   }
   let html='',subtotal=0;
   ids.forEach(id=>{
     const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
     const qty=cart[id];subtotal+=p.price*qty;
-    html+=`<div class="cart-item">
-      <div class="cart-item-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:'<div style="width:100%;height:100%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);">'+p.name+'</div>'}</div>
-      <div class="cart-item-info">
-        <div class="cart-item-name">${p.name}</div>
-        <div class="cart-item-price">₹${p.price} × ${qty} = ₹${p.price*qty}</div>
-        <div class="qty-control">
-          <button class="qty-btn" onclick="changeQty(${id},-1)">−</button>
-          <span class="qty-num">${qty}</span>
-          <button class="qty-btn" onclick="changeQty(${id},+1)">+</button>
-        </div>
-      </div>
-      <button class="cart-item-remove" onclick="removeFromCart(${id})">✕</button>
-    </div>`;
+    html+=`<div class="cart-item"><div class="cart-item-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:'<div style="width:100%;height:100%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);">'+p.name+'</div>'}</div><div class="cart-item-info"><div class="cart-item-name">${p.name}</div><div class="cart-item-price">₹${p.price} × ${qty} = ₹${p.price*qty}</div><div class="qty-control"><button class="qty-btn" onclick="changeQty(${id},-1)">−</button><span class="qty-num">${qty}</span><button class="qty-btn" onclick="changeQty(${id},+1)">+</button></div></div><button class="cart-item-remove" onclick="removeFromCart(${id})">✕</button></div>`;
   });
   body.innerHTML=html;
   document.getElementById('cartTotal').textContent='₹'+subtotal;
@@ -1395,9 +1215,7 @@ function checkoutWhatsApp(){
   window.open('https://wa.me/919472736370?text='+encodeURIComponent(msg),'_blank');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   TESTIMONIALS & INSTAGRAM
-═══════════════════════════════════════════════════════════ */
+/* ═══ TESTIMONIALS & INSTAGRAM ═══ */
 function renderTestimonials(){
   document.getElementById('testiGrid').innerHTML=TESTIMONIALS.map(t=>`
     <div class="testi-card">
@@ -1405,7 +1223,7 @@ function renderTestimonials(){
       <div class="testi-stars">★★★★★</div>
       <p class="testi-text">${t.text}</p>
       <div class="testi-author">
-        <div class="testi-av">${t.img?`<img src="${t.img}" alt="${t.name}" style="border-radius:50%;">`:`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--pink);background:var(--pink-pale);">${t.name.split(' ').map(w=>w[0]).join('')}</div>`}</div>
+        <div class="testi-av">${t.img?`<img src="${t.img}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`:`<span style="font-size:14px;font-weight:700;">${t.name.split(' ').map(w=>w[0]).join('')}</span>`}</div>
         <div><div class="testi-name">${t.name}</div><div class="testi-role">${t.role}</div></div>
       </div>
     </div>`).join('');
@@ -1414,13 +1232,11 @@ function renderInstagram(){
   const keys=['insta_1','insta_2','insta_3','insta_4','insta_5','insta_6'];
   document.getElementById('instaGrid').innerHTML=keys.map((k,i)=>{
     const src=SITE_IMAGES[k];
-    return `<div class="insta-tile"><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">${src?`<img src="${src}" alt="Instagram ${i+1}">`:`<div class="img-placeholder" style="font-size:10px;">Post ${i+1}<br><span style="font-size:8px;">Upload in Admin</span></div>`}</a><div class="insta-tile-overlay">📷</div></div>`;
+    return`<div class="insta-tile"><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">${src?`<img src="${src}" alt="Instagram ${i+1}">`:`<div class="img-placeholder" style="font-size:10px;">Post ${i+1}</div>`}</a><div class="insta-tile-overlay">📷</div></div>`;
   }).join('');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CONTACT FORM
-═══════════════════════════════════════════════════════════ */
+/* ═══ CONTACT ═══ */
 function submitContact(){
   const name=document.getElementById('contactName')?.value||'';
   const phone=document.getElementById('contactPhone')?.value||'';
@@ -1433,23 +1249,19 @@ function submitContact(){
   showToast('Redirecting to WhatsApp! 💬');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   TOAST
-═══════════════════════════════════════════════════════════ */
+/* ═══ TOAST ═══ */
 function showToast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ADMIN AUTH
-═══════════════════════════════════════════════════════════ */
+/* ═══ ADMIN AUTH ═══ */
 let adminLoggedIn=false;
 function adminLogin(){
   const u=document.getElementById('adminUser').value.trim();
   const p=document.getElementById('adminPass').value;
-  if(u===CREDENTIALS.user && p===CREDENTIALS.pass){
+  if(u===CREDENTIALS.user&&p===CREDENTIALS.pass){
     adminLoggedIn=true;
     document.getElementById('adminLogin').style.display='none';
     document.getElementById('adminDash').style.display='block';
@@ -1459,7 +1271,8 @@ function adminLogin(){
     renderAdminImagePreviews();
     startAdminClock();
     logActivity('🔐','Admin logged in','');
-  } else {
+    setSyncBanners('synced');
+  }else{
     document.getElementById('loginErr').textContent='Incorrect username or password.';
     document.getElementById('adminPass').value='';
   }
@@ -1476,112 +1289,79 @@ function startAdminClock(){
   const update=()=>{
     const now=new Date();
     const el=document.getElementById('adminDateTime');
-    if(el) el.textContent=now.toLocaleString('en-IN',{weekday:'short',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    if(el)el.textContent=now.toLocaleString('en-IN',{weekday:'short',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
   };
   update();setInterval(update,30000);
+}
+function setSyncBanners(state){
+  ['dashSyncBanner','prodSyncBanner','testiSyncBanner','imgSyncBanner'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    if(id==='imgSyncBanner'){el.className='sync-banner synced';el.textContent='☁️ Images sync to cloud automatically — visible on all devices.';return;}
+    if(state==='synced'){el.className='sync-banner synced';el.textContent='✅ Data loaded from cloud — changes sync to all devices automatically.';}
+    else{el.className='sync-banner';el.textContent='☁️ Loading from cloud...';}
+  });
 }
 function switchAdminTab(tab){
   document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.admin-nav-link').forEach(l=>l.classList.remove('active'));
   document.getElementById('asec-'+tab).classList.add('active');
   document.getElementById('atab-'+tab).classList.add('active');
-  if(tab==='dashboard') refreshDashboard();
-  if(tab==='products') renderAdminProducts();
-  if(tab==='testimonials') renderTestiEditGrid();
-  if(tab==='images') renderAdminImagePreviews();
-  if(tab==='settings') renderSettings();
+  if(tab==='dashboard')refreshDashboard();
+  if(tab==='products')renderAdminProducts();
+  if(tab==='testimonials')renderTestiEditGrid();
+  if(tab==='images')renderAdminImagePreviews();
+  if(tab==='settings')renderSettings();
 }
 
-/* ═══════════════════════════════════════════════════════════
-   DASHBOARD / ANALYTICS
-═══════════════════════════════════════════════════════════ */
+/* ═══ DASHBOARD ═══ */
 function refreshDashboard(){
   const totalViews=Object.values(ANALYTICS.pageViews||{}).reduce((a,b)=>a+b,0);
   document.getElementById('dc-views').textContent=totalViews;
   document.getElementById('dc-carts').textContent=ANALYTICS.cartOpens||0;
   document.getElementById('dc-wa').textContent=ANALYTICS.waClicks||0;
-  const totalPV=Object.values(ANALYTICS.productViews||{}).reduce((a,b)=>a+b,0);
-  document.getElementById('dc-prodviews').textContent=totalPV;
-  renderMiniBarChart('chart-prod-views',ANALYTICS.productViews||{},5,'views');
-  renderMiniBarChart('chart-prod-cart',ANALYTICS.productCart||{},5,'cart');
-  renderPageChart();
-  renderDailyChart();
-  renderActivityLog();
+  document.getElementById('dc-prodviews').textContent=Object.values(ANALYTICS.productViews||{}).reduce((a,b)=>a+b,0);
+  renderMiniBarChart('chart-prod-views',ANALYTICS.productViews||{},5);
+  renderMiniBarChart('chart-prod-cart',ANALYTICS.productCart||{},5);
+  renderPageChart();renderDailyChart();renderActivityLog();
 }
-
-function renderMiniBarChart(containerId,data,limit,type){
-  const container=document.getElementById(containerId);
-  if(!container) return;
+function renderMiniBarChart(containerId,data,limit){
+  const container=document.getElementById(containerId);if(!container)return;
   const sorted=Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,limit);
   const max=sorted.length?sorted[0][1]:1;
-  if(!sorted.length){container.innerHTML='<p style="font-size:13px;color:var(--text-light);padding:10px 0;">No data yet — start browsing!</p>';return;}
+  if(!sorted.length){container.innerHTML='<p style="font-size:13px;color:var(--text-light);padding:10px 0;">No data yet.</p>';return;}
   container.innerHTML=sorted.map(([id,val])=>{
     const p=PRODUCTS.find(x=>x.id===parseInt(id));
     const name=p?p.name:'Unknown';
-    const pct=Math.round((val/max)*100);
-    return `<div class="mini-bar">
-      <div class="mini-bar-label" title="${name}">${name}</div>
-      <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${pct}%"></div></div>
-      <div class="mini-bar-val">${val}</div>
-    </div>`;
+    return`<div class="mini-bar"><div class="mini-bar-label" title="${name}">${name}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((val/max)*100)}%"></div></div><div class="mini-bar-val">${val}</div></div>`;
   }).join('');
 }
-
 function renderPageChart(){
-  const container=document.getElementById('chart-pages');
-  if(!container) return;
+  const container=document.getElementById('chart-pages');if(!container)return;
   const pv=ANALYTICS.pageViews||{};
   const pages=['home','shop','about','contact','custom','shipping'];
   const max=Math.max(...pages.map(p=>pv[p]||0),1);
   container.innerHTML=pages.map(pg=>{
     const val=pv[pg]||0;
-    const pct=Math.round((val/max)*100);
-    return `<div class="mini-bar">
-      <div class="mini-bar-label">${pg.charAt(0).toUpperCase()+pg.slice(1)}</div>
-      <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${pct}%;background:var(--sage);"></div></div>
-      <div class="mini-bar-val">${val}</div>
-    </div>`;
+    return`<div class="mini-bar"><div class="mini-bar-label">${pg.charAt(0).toUpperCase()+pg.slice(1)}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((val/max)*100)}%;background:var(--sage);"></div></div><div class="mini-bar-val">${val}</div></div>`;
   }).join('');
 }
-
 function renderDailyChart(){
-  const container=document.getElementById('chart-daily');
-  if(!container) return;
+  const container=document.getElementById('chart-daily');if(!container)return;
   const daily=ANALYTICS.daily||{};
   const last7=[];
-  for(let i=6;i>=0;i--){
-    const d=new Date();d.setDate(d.getDate()-i);
-    const key=d.toISOString().split('T')[0];
-    const short=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
-    last7.push({key,short,data:daily[key]||{views:0,carts:0,wa:0}});
-  }
+  for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const key=d.toISOString().split('T')[0];const short=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});last7.push({key,short,data:daily[key]||{views:0,carts:0,wa:0}});}
   const maxVal=Math.max(...last7.map(d=>d.data.views+d.data.carts+d.data.wa),1);
-  container.innerHTML=last7.map(d=>{
-    const total=d.data.views+d.data.carts+d.data.wa;
-    const pct=Math.round((total/maxVal)*100);
-    return `<div class="mini-bar">
-      <div class="mini-bar-label">${d.short}</div>
-      <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${pct}%;background:var(--pink-light);"></div></div>
-      <div class="mini-bar-val">${total}</div>
-    </div>`;
-  }).join('');
+  container.innerHTML=last7.map(d=>{const total=d.data.views+d.data.carts+d.data.wa;return`<div class="mini-bar"><div class="mini-bar-label">${d.short}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((total/maxVal)*100)}%;background:var(--pink-light);"></div></div><div class="mini-bar-val">${total}</div></div>`;}).join('');
 }
-
 function renderActivityLog(){
-  const container=document.getElementById('activityLog');
-  if(!container) return;
+  const container=document.getElementById('activityLog');if(!container)return;
   const logs=ANALYTICS.activityLog||[];
   if(!logs.length){container.innerHTML='<p style="font-size:13px;color:var(--text-light);padding:10px 0;">No recent activity.</p>';return;}
-  container.innerHTML=logs.slice(0,10).map(l=>`
-    <div class="log-item">
-      <div class="log-icon">${l.icon}</div>
-      <div><div class="log-text">${l.text}${l.sub?' — <em>'+l.sub+'</em>':''}</div><div class="log-time">${l.time}</div></div>
-    </div>`).join('');
+  container.innerHTML=logs.slice(0,10).map(l=>`<div class="log-item"><div class="log-icon">${l.icon}</div><div><div class="log-text">${l.text}${l.sub?' — <em>'+l.sub+'</em>':''}</div><div class="log-time">${l.time}</div></div></div>`).join('');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ADMIN PRODUCTS TABLE
-═══════════════════════════════════════════════════════════ */
+/* ═══ ADMIN PRODUCTS ═══ */
 function renderAdminProducts(){
   document.getElementById('adminProductBody').innerHTML=PRODUCTS.map(p=>`
     <tr>
@@ -1591,13 +1371,9 @@ function renderAdminProducts(){
       <td>${p.category}</td>
       <td>${p.badge||'—'}</td>
       <td>${p.bestseller?'⭐ Yes':'No'}</td>
-      <td><div style="display:flex;gap:6px;">
-        <button class="btn btn-outline btn-sm" onclick="openEditProduct(${p.id})">Edit</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">Delete</button>
-      </div></td>
+      <td><div style="display:flex;gap:6px;"><button class="btn btn-outline btn-sm" onclick="openEditProduct(${p.id})">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">Delete</button></div></td>
     </tr>`).join('');
 }
-
 function openEditProduct(id){
   const p=PRODUCTS.find(x=>x.id===id);
   document.getElementById('editModalTitle').textContent='Edit: '+p.name;
@@ -1610,48 +1386,35 @@ function openAddProduct(){
   document.getElementById('editModalOverlay').classList.add('open');
 }
 function closeEditModal(){document.getElementById('editModalOverlay').classList.remove('open');}
-
 function buildProductForm(p){
   const cats=['Flower Pots','Keychains','Lamps','Custom'];
-  const isNew=!p;
-  const imgPreview=p&&p.img?`<img class="preview-img" src="${p.img}" alt="Preview" id="editImgPreview">`:
-    `<img class="preview-img" id="editImgPreview" style="display:none;">`;
-  return `
+  const imgPreview=p&&p.img?`<img class="preview-img" src="${p.img}" alt="Preview" id="editImgPreview" style="width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">`:`<img class="preview-img" id="editImgPreview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">`;
+  return`
   <div class="fg2"><label>Product Name</label><input type="text" id="ef-name" value="${p?p.name:''}"></div>
   <div class="inline-grid">
     <div class="fg2"><label>Price (₹)</label><input type="number" id="ef-price" value="${p?p.price:''}" min="1"></div>
     <div class="fg2"><label>Badge (optional)</label><input type="text" id="ef-badge" value="${p?p.badge:''}" placeholder="e.g. New, Bestseller"></div>
   </div>
-  <div class="fg2"><label>Category</label>
-    <select id="ef-cat">
-      ${cats.map(c=>`<option value="${c}" ${p&&p.category===c?'selected':''}>${c}</option>`).join('')}
-    </select>
-  </div>
+  <div class="fg2"><label>Category</label><select id="ef-cat">${cats.map(c=>`<option value="${c}" ${p&&p.category===c?'selected':''}>${c}</option>`).join('')}</select></div>
   <div class="fg2"><label>Description</label><textarea id="ef-desc">${p?p.desc:''}</textarea></div>
   <div class="fg2"><label>WhatsApp Message</label><textarea id="ef-wa">${p?p.whatsappMsg:''}</textarea></div>
   <div class="fg2">
     <label>Product Image</label>
     <div class="img-upload-box">
       ${imgPreview}
-      <p id="editImgHint">${p&&p.img?'Click to change image':'📷 Click to upload product image'}</p>
+      <p id="editImgHint">${p&&p.img?'✓ Image uploaded — click to change':'📷 Click to upload product image'}</p>
       <div class="upload-hint">JPG, PNG or WebP. Max 5MB.</div>
       <input type="file" accept="image/*" onchange="handleProductImgUpload(this)" id="ef-imgfile">
     </div>
   </div>
-  <div class="fg2">
-    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-      <input type="checkbox" id="ef-best" ${p&&p.bestseller?'checked':''} style="width:16px;height:16px;accent-color:var(--pink);">
-      Mark as Bestseller
-    </label>
-  </div>
+  <div class="fg2"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="ef-best" ${p&&p.bestseller?'checked':''} style="width:16px;height:16px;accent-color:var(--pink);"> Mark as Bestseller</label></div>
   <input type="hidden" id="ef-id" value="${p?p.id:''}">
   <input type="hidden" id="ef-curimg" value="${p&&p.img?p.img:''}">
   <div style="display:flex;gap:10px;margin-top:6px;">
-    <button class="btn btn-pink" style="flex:1;" onclick="saveProductFromForm()">💾 Save Product</button>
+    <button class="btn btn-pink" style="flex:1;" onclick="saveProductFromForm()">💾 Save & Sync to Cloud</button>
     <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
   </div>`;
 }
-
 function handleProductImgUpload(input){
   const file=input.files[0];if(!file)return;
   if(file.size>5*1024*1024){showToast('Image too large! Max 5MB.');return;}
@@ -1660,12 +1423,11 @@ function handleProductImgUpload(input){
     const prev=document.getElementById('editImgPreview');
     if(prev){prev.src=e.target.result;prev.style.display='block';}
     document.getElementById('ef-curimg').value=e.target.result;
-    document.getElementById('editImgHint').textContent='✓ Image selected';
+    document.getElementById('editImgHint').textContent='✓ Image ready to save';
   };
   reader.readAsDataURL(file);
 }
-
-function saveProductFromForm(){
+async function saveProductFromForm(){
   const name=document.getElementById('ef-name').value.trim();
   const price=parseInt(document.getElementById('ef-price').value);
   if(!name||!price){showToast('Name and price are required!');return;}
@@ -1677,38 +1439,31 @@ function saveProductFromForm(){
     category:document.getElementById('ef-cat').value,
     badge:document.getElementById('ef-badge').value.trim(),
     desc:document.getElementById('ef-desc').value.trim(),
-    whatsappMsg:document.getElementById('ef-wa').value.trim()||`Hi! I'm interested in the *${name}* (₹${price}). Can you please share availability and order details?`,
+    whatsappMsg:document.getElementById('ef-wa').value.trim()||`Hi! I'm interested in the *${name}* (₹${price}). Can you please share availability?`,
     bestseller:document.getElementById('ef-best').checked,
     img
   };
-  if(idVal){
-    const idx=PRODUCTS.findIndex(x=>x.id===parseInt(idVal));
-    if(idx>-1) PRODUCTS[idx]=prod;
-  } else {
-    PRODUCTS.push(prod);
-  }
-  saveProducts();
+  if(idVal){const idx=PRODUCTS.findIndex(x=>x.id===parseInt(idVal));if(idx>-1)PRODUCTS[idx]=prod;}
+  else PRODUCTS.push(prod);
+  await saveProducts();
   closeEditModal();
   renderAdminProducts();
   renderBestsellers();
-  showToast((idVal?'Product updated!':'Product added!')+' 🛍️');
-  logActivity('🛍️',(idVal?'Product updated':'Product added'),name);
+  renderShop();
+  showToast((idVal?'Product updated':'Product added')+' & synced to cloud! ☁️');
+  logActivity('🛍️',idVal?'Product updated':'Product added',name);
 }
-
-function deleteProduct(id){
-  if(!confirm('Delete this product?')) return;
+async function deleteProduct(id){
+  if(!confirm('Delete this product?'))return;
   const p=PRODUCTS.find(x=>x.id===id);
   PRODUCTS=PRODUCTS.filter(x=>x.id!==id);
-  saveProducts();
-  renderAdminProducts();
-  renderBestsellers();
+  await saveProducts();
+  renderAdminProducts();renderBestsellers();
   showToast('Product deleted!');
   logActivity('🗑️','Product deleted',p?.name||'');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ADMIN TESTIMONIALS
-═══════════════════════════════════════════════════════════ */
+/* ═══ ADMIN TESTIMONIALS ═══ */
 function renderTestiEditGrid(){
   document.getElementById('testiEditGrid').innerHTML=TESTIMONIALS.map((t,i)=>`
     <div class="testi-edit-card">
@@ -1717,96 +1472,81 @@ function renderTestiEditGrid(){
       <input type="text" value="${t.role}" id="te-role-${i}" placeholder="Location / Role">
       <textarea id="te-text-${i}">${t.text}</textarea>
       <div style="margin-top:6px;">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-mid);margin-bottom:4px;">Customer Photo</div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-mid);margin-bottom:4px;">Photo</div>
         <div style="display:flex;align-items:center;gap:8px;">
-          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--pink-pale);flex-shrink:0;" id="te-img-prev-${i}">
-            ${t.img?`<img src="${t.img}" style="width:100%;height:100%;object-fit:cover;">`:'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--pink);">'+t.name.split(' ').map(w=>w[0]).join('')+'</div>'}
+          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--pink-pale);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--pink);" id="te-img-prev-${i}">
+            ${t.img?`<img src="${t.img}" style="width:100%;height:100%;object-fit:cover;">`:`${t.name.split(' ').map(w=>w[0]).join('')}`}
           </div>
           <label style="cursor:pointer;font-size:12px;color:var(--pink);font-weight:700;padding:5px 10px;border:1px solid var(--pink);border-radius:var(--r-pill);">
-            📷 Upload
-            <input type="file" accept="image/*" style="display:none;" onchange="handleTestiImg(this,${i})">
+            📷 Upload<input type="file" accept="image/*" style="display:none;" onchange="handleTestiImg(this,${i})">
           </label>
         </div>
       </div>
     </div>`).join('');
 }
-
 function handleTestiImg(input,idx){
   const file=input.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=e=>{
     TESTIMONIALS[idx].img=e.target.result;
     const prev=document.getElementById(`te-img-prev-${idx}`);
-    if(prev) prev.innerHTML=`<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
+    if(prev)prev.innerHTML=`<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
   };
   reader.readAsDataURL(file);
 }
-
-function saveTestimonialsAdmin(){
+async function saveTestimonialsAdmin(){
   TESTIMONIALS.forEach((t,i)=>{
     t.name=document.getElementById(`te-name-${i}`)?.value||t.name;
     t.role=document.getElementById(`te-role-${i}`)?.value||t.role;
     t.text=document.getElementById(`te-text-${i}`)?.value||t.text;
   });
-  saveTestimonials();
+  await saveTestimonials();
   renderTestimonials();
-  showToast('Testimonials saved! 💬');
+  showToast('Testimonials saved & synced! ☁️');
   logActivity('💬','Testimonials updated','');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ADMIN SITE IMAGES
-═══════════════════════════════════════════════════════════ */
-function handleSiteImg(input,key){
+/* ═══ ADMIN SITE IMAGES ═══ */
+async function handleSiteImg(input,key){
   const file=input.files[0];if(!file)return;
   if(file.size>5*1024*1024){showToast('Image too large! Max 5MB.');return;}
   const reader=new FileReader();
-  reader.onload=e=>{
+  reader.onload=async e=>{
     SITE_IMAGES[key]=e.target.result;
-    saveSiteImages();
+    await saveSiteImages();
     updateAdminImgPreview(key,e.target.result);
     applyAllSiteImages();
     renderInstagram();
-    showToast('Image updated! 🖼️');
+    showToast('Image updated & synced to cloud! ☁️');
     logActivity('🖼️','Image uploaded',key);
   };
   reader.readAsDataURL(file);
 }
-
 function updateAdminImgPreview(key,src){
   const el=document.getElementById('prev-'+key);
-  if(el) {
-    el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"><input type="file" accept="image/*" onchange="handleSiteImg(this,'${key}')">`;
-  }
+  if(el){el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"><input type="file" accept="image/*" onchange="handleSiteImg(this,'${key}')">`;}
 }
-
 function renderAdminImagePreviews(){
   const keys=['logo','hero','team_sanskar','team_radhika','about_main','about_second','about_page','insta_1','insta_2','insta_3','insta_4','insta_5','insta_6'];
-  keys.forEach(key=>{
-    if(SITE_IMAGES[key]) updateAdminImgPreview(key,SITE_IMAGES[key]);
-  });
+  keys.forEach(key=>{if(SITE_IMAGES[key])updateAdminImgPreview(key,SITE_IMAGES[key]);});
 }
 
-/* ═══════════════════════════════════════════════════════════
-   SETTINGS
-═══════════════════════════════════════════════════════════ */
-function changeCredentials(){
+/* ═══ SETTINGS ═══ */
+async function changeCredentials(){
   const u=document.getElementById('newUser').value.trim();
   const p=document.getElementById('newPass').value;
   if(!u||!p){showToast('Please fill both fields!');return;}
   CREDENTIALS={user:u,pass:p};
-  localStorage.setItem('tlt_credentials',JSON.stringify(CREDENTIALS));
+  await saveCredentials();
   document.getElementById('newUser').value='';
   document.getElementById('newPass').value='';
-  showToast('Credentials updated! 🔐');
+  showToast('Credentials updated & synced! 🔐');
   logActivity('🔐','Credentials changed','');
 }
-
 function renderSettings(){
   const cats=[...new Set(PRODUCTS.map(p=>p.category))];
   document.getElementById('categoryList').innerHTML=cats.map(c=>`<span style="background:var(--pink-pale);color:var(--pink);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--r-pill);">${c}</span>`).join('');
 }
-
 function exportData(){
   const data={products:PRODUCTS,testimonials:TESTIMONIALS,siteImages:SITE_IMAGES,exportDate:new Date().toISOString()};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
@@ -1814,45 +1554,46 @@ function exportData(){
   a.download='tiny-little-things-backup-'+new Date().toISOString().split('T')[0]+'.json';
   a.click();showToast('Data exported! 📥');
 }
-
-function importData(input){
+async function importData(input){
   const file=input.files[0];if(!file)return;
   const reader=new FileReader();
-  reader.onload=e=>{
+  reader.onload=async e=>{
     try{
       const data=JSON.parse(e.target.result);
-      if(data.products) {PRODUCTS=data.products;saveProducts();}
-      if(data.testimonials) {TESTIMONIALS=data.testimonials;saveTestimonials();}
-      if(data.siteImages) {SITE_IMAGES=data.siteImages;saveSiteImages();}
+      if(data.products){PRODUCTS=data.products;await saveProducts();}
+      if(data.testimonials){TESTIMONIALS=data.testimonials;await saveTestimonials();}
+      if(data.siteImages){SITE_IMAGES=data.siteImages;await saveSiteImages();}
       renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
       applyAllSiteImages();renderTestimonials();renderInstagram();renderBestsellers();
-      showToast('Data imported successfully! 📤');
+      showToast('Data imported & synced to cloud! 📤');
     }catch(err){showToast('Invalid file format!');}
   };
   reader.readAsText(file);
 }
-
-function resetAll(){
+async function resetAll(){
   PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
   TESTIMONIALS=JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
-  SITE_IMAGES={};ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
-  saveProducts();saveTestimonials();saveSiteImages();saveAnalytics();
+  SITE_IMAGES={};
+  ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+  await Promise.all([saveProducts(),saveTestimonials(),saveSiteImages(),saveAnalytics()]);
   renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
   applyAllSiteImages();renderBestsellers();renderTestimonials();renderInstagram();
   showToast('Reset to defaults! ⚠️');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════════════════════ */
-applyAllSiteImages();
-renderCategories();
-renderBestsellers();
-renderTestimonials();
-renderInstagram();
-renderShop('All',1999);
-trackPageView('home');
-logActivity('👁️','Site visited','homepage');
+/* ═══ INIT ═══ */
+async function init(){
+  await loadAllFromCloud();
+  applyAllSiteImages();
+  renderCategories();
+  renderBestsellers();
+  renderTestimonials();
+  renderInstagram();
+  renderShop('All',1999);
+  trackPageView('home');
+  logActivity('👁️','Site visited','homepage');
+}
+init();
 </script>
 </body>
 </html>
