@@ -1611,46 +1611,6 @@ function openAddProduct(){
 }
 function closeEditModal(){document.getElementById('editModalOverlay').classList.remove('open');}
 
-function buildProductForm(p){
-  const cats=['Flower Pots','Keychains','Lamps','Custom'];
-  const isNew=!p;
-  const imgPreview=p&&p.img?`<img class="preview-img" src="${p.img}" alt="Preview" id="editImgPreview">`:
-    `<img class="preview-img" id="editImgPreview" style="display:none;">`;
-  return `
-  <div class="fg2"><label>Product Name</label><input type="text" id="ef-name" value="${p?p.name:''}"></div>
-  <div class="inline-grid">
-    <div class="fg2"><label>Price (₹)</label><input type="number" id="ef-price" value="${p?p.price:''}" min="1"></div>
-    <div class="fg2"><label>Badge (optional)</label><input type="text" id="ef-badge" value="${p?p.badge:''}" placeholder="e.g. New, Bestseller"></div>
-  </div>
-  <div class="fg2"><label>Category</label>
-    <select id="ef-cat">
-      ${cats.map(c=>`<option value="${c}" ${p&&p.category===c?'selected':''}>${c}</option>`).join('')}
-    </select>
-  </div>
-  <div class="fg2"><label>Description</label><textarea id="ef-desc">${p?p.desc:''}</textarea></div>
-  <div class="fg2"><label>WhatsApp Message</label><textarea id="ef-wa">${p?p.whatsappMsg:''}</textarea></div>
-  <div class="fg2">
-    <label>Product Image</label>
-    <div class="img-upload-box">
-      ${imgPreview}
-      <p id="editImgHint">${p&&p.img?'Click to change image':'📷 Click to upload product image'}</p>
-      <div class="upload-hint">JPG, PNG or WebP. Max 5MB.</div>
-      <input type="file" accept="image/*" onchange="handleProductImgUpload(this)" id="ef-imgfile">
-    </div>
-  </div>
-  <div class="fg2">
-    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-      <input type="checkbox" id="ef-best" ${p&&p.bestseller?'checked':''} style="width:16px;height:16px;accent-color:var(--pink);">
-      Mark as Bestseller
-    </label>
-  </div>
-  <input type="hidden" id="ef-id" value="${p?p.id:''}">
-  <input type="hidden" id="ef-curimg" value="${p&&p.img?p.img:''}">
-  <div style="display:flex;gap:10px;margin-top:6px;">
-    <button class="btn btn-pink" style="flex:1;" onclick="saveProductFromForm()">💾 Save Product</button>
-    <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
-  </div>`;
-}
 
 function handleProductImgUpload(input){
   const file=input.files[0];if(!file)return;
