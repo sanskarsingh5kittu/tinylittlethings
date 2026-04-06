@@ -1611,12 +1611,10 @@ function openAddProduct(){
 }
 function closeEditModal(){document.getElementById('editModalOverlay').classList.remove('open');}
 
-function closeEditModal(){document.getElementById('editModalOverlay').classList.remove('open');}
-
 function buildProductForm(p){
   const cats=['Flower Pots','Keychains','Lamps','Custom'];
   const isNew=!p;
-  const imgPreview=p&&p.img?`<img class="preview-img" src="${p.img}" alt="Preview" id="editImgPreview" style="display:block;">`:
+  const imgPreview=p&&p.img?`<img class="preview-img" src="${p.img}" alt="Preview" id="editImgPreview">`:
     `<img class="preview-img" id="editImgPreview" style="display:none;">`;
   return `
   <div class="fg2"><label>Product Name</label><input type="text" id="ef-name" value="${p?p.name:''}"></div>
@@ -1629,17 +1627,17 @@ function buildProductForm(p){
       ${cats.map(c=>`<option value="${c}" ${p&&p.category===c?'selected':''}>${c}</option>`).join('')}
     </select>
   </div>
-  <div class="fg2"><label>Description</label><textarea id="ef-desc">${p?p.desc:''}</textarea></div>    <div class="fg2"><label>WhatsApp Message</label><textarea id="ef-wa">${p?p.whatsappMsg:''}</textarea></div>
-
+  <div class="fg2"><label>Description</label><textarea id="ef-desc">${p?p.desc:''}</textarea></div>
+  <div class="fg2"><label>WhatsApp Message</label><textarea id="ef-wa">${p?p.whatsappMsg:''}</textarea></div>
   <div class="fg2">
-    <label>Product Image URL</label>
-    <input type="text" id="ef-imgurl" value="${p&&p.img?p.img:''}" placeholder="Paste Postimages or Imgur link here" oninput="document.getElementById('editImgPreview').src=this.value; document.getElementById('editImgPreview').style.display='block'; document.getElementById('ef-curimg').value=this.value;">
-    <div class="img-upload-box" style="margin-top:12px; cursor:default;">
+    <label>Product Image</label>
+    <div class="img-upload-box">
       ${imgPreview}
-      <p id="editImgHint" style="margin-top:8px;">${p&&p.img?'Current Image':'Preview will appear here'}</p>
+      <p id="editImgHint">${p&&p.img?'Click to change image':'📷 Click to upload product image'}</p>
+      <div class="upload-hint">JPG, PNG or WebP. Max 5MB.</div>
+      <input type="file" accept="image/*" onchange="handleProductImgUpload(this)" id="ef-imgfile">
     </div>
   </div>
-
   <div class="fg2">
     <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
       <input type="checkbox" id="ef-best" ${p&&p.bestseller?'checked':''} style="width:16px;height:16px;accent-color:var(--pink);">
@@ -1653,6 +1651,7 @@ function buildProductForm(p){
     <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
   </div>`;
 }
+
 function handleProductImgUpload(input){
   const file=input.files[0];if(!file)return;
   if(file.size>5*1024*1024){showToast('Image too large! Max 5MB.');return;}
