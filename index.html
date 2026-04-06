@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiny Little Things — Handmade with Love</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink:#e8748a;--pink-hover:#d45e75;--pink-light:#f2a8b5;--pink-pale:#fde8ed;
+  --sage:#8aab8c;--sage-hover:#6e9270;--sage-pale:#edf5ee;
+  --cream:#faf6f0;--warm-white:#fffcf8;--text-dark:#2e1f24;--text-mid:#7a5c62;
+  --text-light:#b8929a;--card-bg:#ffffff;--border:#f5e8ea;
+  --shadow-sm:0 2px 12px rgba(46,31,36,.07);--shadow:0 6px 28px rgba(46,31,36,.10);
+  --shadow-lg:0 16px 48px rgba(46,31,36,.15);--r:18px;--r-sm:10px;--r-pill:999px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:var(--warm-white);color:var(--text-dark);overflow-x:hidden;}
+img{display:block;width:100%;height:100%;object-fit:cover;}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;font-family:'Nunito',sans-serif;}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;}
+.page{display:none;animation:fadeIn .35s ease;}
+.page.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.announce{background:var(--sage);color:#fff;text-align:center;padding:9px 16px;font-size:13px;font-weight:600;letter-spacing:.2px;}
+header{position:sticky;top:0;z-index:900;background:rgba(255,252,248,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 5%;}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:68px;}
+.logo{display:flex;align-items:center;gap:11px;cursor:pointer;}
+.logo-mark{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 2px 10px rgba(232,116,138,.2);overflow:hidden;}
+.logo-mark img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--pink);line-height:1.1;}
+.logo-tag{font-size:10px;font-weight:600;color:var(--text-light);letter-spacing:1.2px;text-transform:uppercase;}
+nav{display:flex;gap:28px;}
+nav a{font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text-mid);transition:color .2s;cursor:pointer;padding:4px 0;border-bottom:2px solid transparent;}
+nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
+.header-actions{display:flex;align-items:center;gap:12px;}
+.cart-trigger{display:flex;align-items:center;gap:7px;background:var(--pink-pale);border:none;border-radius:var(--r-pill);padding:9px 18px;font-size:13px;font-weight:700;color:var(--pink);transition:all .2s;}
+.cart-trigger:hover{background:var(--pink);color:#fff;}
+.cart-badge{background:var(--pink);color:#fff;border-radius:50%;width:19px;height:19px;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;transition:transform .2s;}
+.cart-trigger:hover .cart-badge{background:#fff;color:var(--pink);}
+.cart-badge.bump{animation:bump .3s ease;}
+@keyframes bump{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
+.hamburger{display:none;background:none;border:none;font-size:24px;color:var(--text-dark);}
+.mobile-nav{display:none;position:sticky;top:68px;z-index:899;background:#fff;border-bottom:1px solid var(--border);padding:16px 5%;}
+.mobile-nav a{display:block;padding:11px 0;font-size:15px;font-weight:700;color:var(--text-mid);border-bottom:1px solid var(--border);cursor:pointer;}
+.mobile-nav a:last-child{border-bottom:none;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:var(--r-pill);font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;transition:all .22s;text-decoration:none;}
+.btn-pink{background:var(--pink);color:#fff;padding:13px 28px;font-size:14px;box-shadow:0 4px 16px rgba(232,116,138,.35);}
+.btn-pink:hover{background:var(--pink-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,116,138,.42);}
+.btn-outline{background:transparent;color:var(--pink);border:2px solid var(--pink);padding:11px 26px;font-size:14px;}
+.btn-outline:hover{background:var(--pink);color:#fff;transform:translateY(-2px);}
+.btn-sage{background:var(--sage);color:#fff;padding:13px 26px;font-size:14px;box-shadow:0 4px 14px rgba(138,171,140,.32);}
+.btn-sage:hover{background:var(--sage-hover);transform:translateY(-2px);}
+.btn-wa{background:#25d366;color:#fff;padding:13px 28px;font-size:14px;box-shadow:0 4px 14px rgba(37,211,102,.3);}
+.btn-wa:hover{background:#1fa855;transform:translateY(-2px);}
+.btn-white{background:#fff;color:var(--pink);padding:13px 28px;font-size:14px;box-shadow:0 4px 16px rgba(0,0,0,.13);}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.18);}
+.btn-sm{padding:8px 16px;font-size:12px;}
+.btn-danger{background:#e55;color:#fff;padding:8px 16px;font-size:12px;border-radius:var(--r-pill);}
+.btn-danger:hover{background:#c33;}
+.sec-title{text-align:center;margin-bottom:48px;}
+.sec-title .eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink);margin-bottom:8px;}
+.sec-title h2{font-size:clamp(28px,4vw,46px);font-weight:600;color:var(--text-dark);line-height:1.2;}
+.sec-title p{margin-top:10px;color:var(--text-mid);font-size:15px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75;}
+.pill-divider{width:56px;height:3px;background:linear-gradient(to right,var(--pink),var(--pink-light));border-radius:10px;margin:12px auto 0;}
+.product-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s;cursor:pointer;display:flex;flex-direction:column;}
+.product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);}
+.product-thumb{position:relative;overflow:hidden;aspect-ratio:4/3;}
+.product-thumb .img-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:600;color:var(--text-light);background:var(--cream);}
+.product-thumb img{transition:transform .4s;width:100%;height:100%;object-fit:cover;}
+.product-card:hover .product-thumb img{transform:scale(1.06);}
+.product-thumb .badge{position:absolute;top:10px;left:10px;background:var(--pink);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:var(--r-pill);letter-spacing:.5px;}
+.product-body{padding:16px;display:flex;flex-direction:column;flex:1;}
+.product-body h3{font-size:17px;font-weight:600;color:var(--text-dark);margin-bottom:4px;}
+.product-body .pdesc{font-size:12.5px;color:var(--text-light);line-height:1.5;flex:1;margin-bottom:14px;}
+.product-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;}
+.price{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--text-dark);line-height:1;}
+.price small{font-family:'Nunito',sans-serif;font-size:10px;font-weight:500;color:var(--text-light);}
+.product-actions{display:flex;gap:6px;}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s;}
+.drawer-overlay.open{opacity:1;pointer-events:all;}
+.cart-drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100vw);background:#fff;z-index:1101;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 48px rgba(46,31,36,.15);}
+.cart-drawer.open{transform:translateX(0);}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);}
+.drawer-head h2{font-size:22px;font-weight:600;color:var(--text-dark);}
+.drawer-close{background:var(--cream);border:none;width:36px;height:36px;border-radius:50%;font-size:18px;color:var(--text-mid);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;}
+.drawer-close:hover{background:var(--pink-pale);color:var(--pink);}
+.drawer-body{flex:1;overflow-y:auto;padding:16px 24px;}
+.cart-empty{text-align:center;padding:60px 20px;}
+.cart-empty .empty-icon{font-size:60px;margin-bottom:16px;}
+.cart-empty p{font-size:15px;color:var(--text-mid);}
+.cart-item{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.cart-item-img{width:70px;height:70px;border-radius:var(--r-sm);overflow:hidden;flex-shrink:0;background:var(--cream);}
+.cart-item-img img{width:100%;height:100%;object-fit:cover;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:2px;}
+.cart-item-price{font-size:13px;color:var(--pink);font-weight:700;margin-bottom:8px;}
+.qty-control{display:flex;align-items:center;gap:10px;}
+.qty-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);background:#fff;font-size:16px;font-weight:700;color:var(--text-mid);display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.qty-btn:hover{border-color:var(--pink);color:var(--pink);}
+.qty-num{font-size:14px;font-weight:700;min-width:22px;text-align:center;}
+.cart-item-remove{background:none;border:none;font-size:18px;color:var(--text-light);cursor:pointer;padding:2px;transition:color .2s;flex-shrink:0;}
+.cart-item-remove:hover{color:#e55;}
+.drawer-foot{padding:20px 24px;border-top:1px solid var(--border);}
+.cart-subtotal{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.cart-subtotal span{font-size:14px;color:var(--text-mid);}
+.cart-subtotal strong{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--text-dark);}
+.cart-note{font-size:11.5px;color:var(--text-light);margin-bottom:16px;}
+.cart-wa-btn{width:100%;padding:15px;font-size:15px;}
+.cart-clear{width:100%;margin-top:10px;background:none;border:1.5px solid var(--border);border-radius:var(--r-pill);padding:10px;font-size:13px;font-weight:600;color:var(--text-light);transition:all .2s;}
+.cart-clear:hover{border-color:#e55;color:#e55;}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1050;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:24px;max-width:860px;width:100%;max-height:92vh;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 30px 80px rgba(46,31,36,.25);}
+.modal-media{position:relative;min-height:360px;}
+.modal-media img{height:100%;border-radius:24px 0 0 24px;width:100%;object-fit:cover;}
+.modal-media .img-placeholder{width:100%;height:100%;min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-light);background:var(--cream);border-radius:24px 0 0 24px;}
+.modal-badge{position:absolute;top:14px;left:14px;background:var(--pink);color:#fff;font-size:10px;font-weight:800;padding:4px 12px;border-radius:var(--r-pill);}
+.modal-body{padding:36px;display:flex;flex-direction:column;}
+.modal-close{align-self:flex-end;background:var(--cream);border:none;width:34px;height:34px;border-radius:50%;font-size:16px;color:var(--text-mid);display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:10px;transition:all .2s;}
+.modal-close:hover{background:var(--pink-pale);color:var(--pink);}
+.modal-cat{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:6px;}
+.modal-name{font-size:clamp(22px,3vw,30px);font-weight:600;color:var(--text-dark);margin-bottom:4px;}
+.modal-price{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--pink);margin-bottom:6px;}
+.modal-stars{color:#f5a500;font-size:14px;margin-bottom:14px;}
+.modal-desc{font-size:14px;color:var(--text-mid);line-height:1.85;margin-bottom:18px;flex:1;}
+.modal-note{background:var(--pink-pale);border-radius:var(--r-sm);padding:12px 16px;font-size:13px;color:var(--text-mid);margin-bottom:20px;border-left:3px solid var(--pink);}
+.modal-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text-dark);color:#fff;padding:12px 22px;border-radius:var(--r-pill);font-size:13.5px;font-weight:700;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+/* HERO */
+.hero{min-height:90vh;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:80px 5%;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--warm-white) 0%,var(--pink-pale) 55%,var(--sage-pale) 100%);}
+.hero::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(232,116,138,.08) 0%,transparent 68%);right:-150px;top:-100px;pointer-events:none;}
+.hero-text{z-index:1;animation:slideUp .8s ease both;}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--pink-light);border-radius:var(--r-pill);padding:6px 16px;font-size:12px;font-weight:700;color:var(--pink);margin-bottom:22px;box-shadow:var(--shadow-sm);}
+.hero h1{font-size:clamp(36px,5.5vw,68px);font-weight:600;line-height:1.12;color:var(--text-dark);margin-bottom:18px;}
+.hero h1 em{color:var(--pink);font-style:italic;}
+.hero-sub{font-size:16px;color:var(--text-mid);line-height:1.8;margin-bottom:32px;max-width:460px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;}
+.hero-stats{display:flex;gap:32px;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--text-dark);line-height:1;}
+.stat-label{font-size:10.5px;color:var(--text-light);font-weight:700;text-transform:uppercase;letter-spacing:.9px;margin-top:2px;}
+.hero-visual{z-index:1;animation:slideUp .8s .15s ease both;opacity:0;animation-fill-mode:forwards;}
+.hero-img-wrap{border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:4/3;position:relative;}
+.hero-img-wrap img{width:100%;height:100%;object-fit:cover;}
+.hero-img-wrap .img-placeholder{width:100%;height:100%;min-height:350px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));font-size:14px;font-weight:600;color:var(--text-light);}
+.hero-float{position:absolute;bottom:20px;left:20px;background:#fff;border-radius:var(--r-sm);padding:12px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;}
+.hero-float-icon{width:38px;height:38px;border-radius:50%;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.hero-float p{font-size:11px;color:var(--text-light);line-height:1.4;}
+.hero-float strong{font-size:13px;color:var(--text-dark);}
+.intro-strip{background:#fff;padding:60px 5%;text-align:center;}
+.intro-strip-inner{max-width:720px;margin:0 auto;}
+.intro-strip h2{font-size:clamp(24px,3.5vw,40px);font-weight:600;color:var(--text-dark);margin-bottom:14px;}
+.intro-strip p{font-size:15.5px;color:var(--text-mid);line-height:1.9;margin-bottom:24px;}
+.intro-pills{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+.intro-pill{border-radius:var(--r-pill);padding:8px 18px;font-size:13px;font-weight:700;}
+.intro-pill.p{background:var(--pink-pale);color:var(--pink);}
+.intro-pill.s{background:var(--sage-pale);color:var(--sage);}
+.intro-pill.o{background:#fff3e8;color:#d97706;}
+.intro-pill.m{background:#edf5ee;color:#3d7a41;}
+.cats-section{padding:80px 5%;background:var(--cream);}
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;max-width:1100px;margin:0 auto;}
+.cat-card{background:#fff;border-radius:var(--r);padding:32px 20px;text-align:center;cursor:pointer;transition:all .3s;box-shadow:var(--shadow-sm);border:2px solid transparent;}
+.cat-card:hover{border-color:var(--pink-light);transform:translateY(-5px);box-shadow:var(--shadow-lg);}
+.cat-icon{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;overflow:hidden;}
+.cat-icon.pink-bg{background:var(--pink-pale);}
+.cat-icon.sage-bg{background:var(--sage-pale);}
+.cat-icon.peach-bg{background:#fff3e8;}
+.cat-icon.lavender-bg{background:#f0eeff;}
+.cat-card h3{font-size:19px;font-weight:600;color:var(--text-dark);margin-bottom:5px;}
+.cat-card p{font-size:12.5px;color:var(--text-light);line-height:1.5;}
+.best-section{padding:88px 5%;background:var(--warm-white);}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px;max-width:1100px;margin:0 auto;}
+.about-prev{padding:88px 5%;background:var(--cream);}
+.about-prev-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;max-width:1100px;margin:0 auto;}
+.about-imgs{position:relative;height:440px;}
+.about-main-img{position:absolute;width:62%;height:72%;top:0;left:0;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);}
+.about-sec-img{position:absolute;width:48%;height:58%;bottom:0;right:0;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);}
+.about-tag{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:var(--r-sm);padding:12px 18px;box-shadow:var(--shadow-lg);text-align:center;z-index:5;white-space:nowrap;}
+.about-tag p{font-size:10px;color:var(--text-light);font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.about-tag strong{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--pink);}
+.about-content .eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink);margin-bottom:10px;}
+.about-content h2{font-size:clamp(26px,3vw,40px);font-weight:600;line-height:1.3;color:var(--text-dark);margin-bottom:16px;}
+.about-content p{font-size:14.5px;color:var(--text-mid);line-height:1.85;margin-bottom:14px;}
+.founders-row{display:flex;gap:12px;margin:20px 0;}
+.founder-chip{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--pink-light);border-radius:var(--r-pill);padding:7px 14px 7px 7px;box-shadow:var(--shadow-sm);}
+.founder-av{width:34px;height:34px;border-radius:50%;overflow:hidden;background:var(--pink-pale);}
+.founder-av img{width:100%;height:100%;object-fit:cover;}
+.founder-chip span{font-size:13px;font-weight:700;color:var(--text-dark);}
+.why-section{padding:80px 5%;background:var(--warm-white);}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;max-width:1100px;margin:0 auto;}
+.why-card{text-align:center;padding:30px 18px;background:#fff;border-radius:var(--r);box-shadow:var(--shadow-sm);transition:transform .3s;}
+.why-card:hover{transform:translateY(-4px);}
+.why-icon{width:60px;height:60px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:28px;}
+.why-card h4{font-size:17px;font-weight:600;color:var(--text-dark);margin-bottom:6px;}
+.why-card p{font-size:12.5px;color:var(--text-light);line-height:1.55;}
+.testi-section{padding:90px 5%;background:linear-gradient(160deg,var(--pink-pale) 0%,var(--cream) 55%,var(--sage-pale) 100%);}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;max-width:1100px;margin:0 auto;}
+.testi-card{background:#fff;border-radius:var(--r);padding:28px;box-shadow:var(--shadow-sm);transition:transform .3s;}
+.testi-card:hover{transform:translateY(-4px);}
+.testi-quote{font-family:'Cormorant Garamond',serif;font-size:56px;color:var(--pink-light);line-height:.7;margin-bottom:10px;}
+.testi-stars{color:#f5a500;font-size:13px;margin-bottom:8px;}
+.testi-text{font-size:13.5px;line-height:1.85;color:var(--text-mid);font-style:italic;margin-bottom:18px;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-av{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--pink-pale);}
+.testi-av img{width:100%;height:100%;object-fit:cover;}
+.testi-name{font-size:14px;font-weight:800;color:var(--text-dark);}
+.testi-role{font-size:11.5px;color:var(--text-light);}
+.insta-section{padding:80px 5%;background:var(--cream);text-align:center;}
+.insta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:720px;margin:0 auto 28px;}
+.insta-tile{aspect-ratio:1;overflow:hidden;border-radius:var(--r-sm);position:relative;cursor:pointer;}
+.insta-tile img{transition:transform .4s;width:100%;height:100%;object-fit:cover;}
+.insta-tile:hover img{transform:scale(1.1);}
+.insta-tile .img-placeholder{width:100%;height:100%;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-light);}
+.insta-tile-overlay{position:absolute;inset:0;background:rgba(232,116,138,.4);display:flex;align-items:center;justify-content:center;font-size:24px;opacity:0;transition:opacity .3s;}
+.insta-tile:hover .insta-tile-overlay{opacity:1;}
+.cta-banner{padding:90px 5%;background:linear-gradient(135deg,var(--pink) 0%,#c94d6a 50%,var(--sage) 100%);text-align:center;color:#fff;position:relative;overflow:hidden;}
+.cta-banner h2{font-size:clamp(26px,4vw,50px);font-weight:600;margin-bottom:12px;color:#fff;}
+.cta-banner p{font-size:16px;opacity:.9;max-width:480px;margin:0 auto 30px;line-height:1.75;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 28px;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-brand .logo-name{color:var(--pink-light);font-size:24px;}
+.footer-brand p{margin-top:12px;font-size:13px;line-height:1.75;opacity:.65;}
+.footer-socials{display:flex;gap:9px;margin-top:18px;}
+.s-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:background .2s;text-decoration:none;}
+.s-btn:hover{background:var(--pink);}
+.footer-col h4{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#fff;margin-bottom:14px;}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.58);margin-bottom:8px;cursor:pointer;transition:color .2s;}
+.footer-col a:hover{color:var(--pink-light);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:12px;opacity:.45;}
+.page-banner{padding:64px 5%;text-align:center;background:linear-gradient(160deg,var(--pink-pale) 0%,var(--sage-pale) 100%);}
+.page-banner h1{font-size:clamp(30px,5vw,58px);font-weight:600;color:var(--text-dark);margin-bottom:12px;}
+.page-banner p{font-size:16px;color:var(--text-mid);max-width:520px;margin:0 auto;line-height:1.8;}
+.shop-wrap{display:grid;grid-template-columns:220px 1fr;gap:32px;padding:50px 5%;max-width:1200px;margin:0 auto;}
+.sidebar{position:sticky;top:90px;height:fit-content;}
+.sidebar-box{background:#fff;border-radius:var(--r);padding:24px;box-shadow:var(--shadow-sm);margin-bottom:16px;}
+.sidebar-box h3{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dark);margin-bottom:14px;}
+.cf-btn{display:block;width:100%;text-align:left;background:none;border:none;padding:9px 12px;font-size:13.5px;font-family:'Nunito',sans-serif;color:var(--text-mid);cursor:pointer;border-radius:var(--r-sm);transition:all .2s;margin-bottom:2px;}
+.cf-btn:hover,.cf-btn.active{background:var(--pink-pale);color:var(--pink);font-weight:700;}
+.price-wrap input[type=range]{width:100%;accent-color:var(--pink);margin:8px 0;}
+.price-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--text-light);}
+.shop-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.shop-head h2{font-size:21px;font-weight:700;color:var(--text-dark);}
+.shop-head span{font-size:13px;color:var(--text-light);}
+.about-story-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:80px 5%;max-width:1100px;margin:0 auto;}
+.about-story-img{border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;box-shadow:var(--shadow-lg);}
+.about-story-img img{width:100%;height:100%;object-fit:cover;}
+.team-section{padding:72px 5%;background:var(--cream);text-align:center;}
+.team-grid{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:40px;}
+.team-card{background:#fff;border-radius:var(--r);padding:34px 26px;box-shadow:var(--shadow-sm);text-align:center;min-width:200px;transition:transform .3s;}
+.team-card:hover{transform:translateY(-6px);}
+.team-av{width:88px;height:88px;border-radius:50%;overflow:hidden;margin:0 auto 14px;background:var(--pink-pale);}
+.team-av img{width:100%;height:100%;object-fit:cover;}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;padding:72px 5%;max-width:1100px;margin:0 auto;align-items:start;}
+.contact-info h2{font-size:27px;font-weight:600;color:var(--text-dark);margin-bottom:22px;}
+.contact-info>p{font-size:14.5px;color:var(--text-mid);line-height:1.85;margin-bottom:28px;}
+.c-item{display:flex;gap:14px;align-items:flex-start;margin-bottom:22px;}
+.c-icon{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.c-icon.pink-bg{background:var(--pink-pale);}
+.c-icon.green-bg{background:#e8f5e9;}
+.c-item h4{font-size:13.5px;font-weight:800;color:var(--text-dark);margin-bottom:2px;}
+.c-item p{font-size:13px;color:var(--text-mid);line-height:1.5;}
+.c-item a{color:var(--pink);font-weight:700;}
+.form-card{background:#fff;border-radius:var(--r);padding:34px;box-shadow:var(--shadow);}
+.form-card h2{font-size:24px;font-weight:600;color:var(--text-dark);margin-bottom:22px;}
+.fg{margin-bottom:16px;}
+.fg label{display:block;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dark);margin-bottom:6px;}
+.fg input,.fg textarea,.fg select{width:100%;padding:11px 15px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:14px;color:var(--text-dark);background:var(--warm-white);outline:none;transition:border-color .2s;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--pink);}
+.fg textarea{height:100px;resize:vertical;}
+.custom-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:40px auto;}
+.step-card{background:#fff;border-radius:var(--r);padding:30px 20px;box-shadow:var(--shadow-sm);text-align:center;}
+.step-num{width:46px;height:46px;border-radius:50%;background:var(--pink);color:#fff;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-family:'Cormorant Garamond',serif;}
+.step-card h3{font-size:17px;font-weight:600;color:var(--text-dark);margin-bottom:8px;}
+.step-card p{font-size:13px;color:var(--text-light);line-height:1.6;}
+.custom-cta{background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));border-radius:var(--r);padding:46px;text-align:center;max-width:900px;margin:0 auto 40px;}
+.custom-cta h3{font-size:28px;font-weight:600;color:var(--text-dark);margin-bottom:10px;}
+.custom-cta p{font-size:15px;color:var(--text-mid);margin-bottom:26px;}
+.ship-content{max-width:800px;margin:0 auto;padding:70px 5%;}
+.ship-section{margin-bottom:36px;}
+.ship-section h2{font-size:25px;font-weight:600;color:var(--text-dark);margin-bottom:14px;}
+.ship-section ul{list-style:none;}
+.ship-section ul li{padding:11px 0;border-bottom:1px solid var(--pink-pale);font-size:14.5px;color:var(--text-mid);line-height:1.7;display:flex;gap:10px;align-items:flex-start;}
+.ship-section ul li::before{content:'💖';flex-shrink:0;}
+
+/* ═══ ADMIN STYLES ═══ */
+.admin-login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));padding:20px;}
+.login-card{background:#fff;border-radius:24px;padding:48px 40px;max-width:420px;width:100%;box-shadow:var(--shadow-lg);text-align:center;}
+.login-card .logo-mark{width:70px;height:70px;margin:0 auto 20px;font-size:32px;}
+.login-card h2{font-size:28px;font-weight:600;color:var(--text-dark);margin-bottom:6px;}
+.login-card p{font-size:14px;color:var(--text-mid);margin-bottom:28px;}
+.login-card input{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:15px;outline:none;transition:border-color .2s;margin-bottom:14px;}
+.login-card input:focus{border-color:var(--pink);}
+.login-card .btn-pink{width:100%;padding:14px;font-size:15px;}
+.login-err{color:#e55;font-size:13px;margin-top:8px;}
+.admin-layout{min-height:100vh;background:var(--cream);}
+.admin-header{background:#fff;border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;}
+.admin-header h1{font-size:20px;font-weight:600;color:var(--text-dark);}
+.admin-header span{font-size:12px;color:var(--text-light);}
+.admin-body{display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 62px);}
+.admin-sidebar{background:#fff;border-right:1px solid var(--border);padding:24px 0;}
+.admin-nav-link{display:flex;align-items:center;gap:10px;padding:11px 24px;font-size:13.5px;font-weight:600;color:var(--text-mid);cursor:pointer;transition:all .2s;border-right:3px solid transparent;}
+.admin-nav-link:hover,.admin-nav-link.active{color:var(--pink);background:var(--pink-pale);border-right-color:var(--pink);}
+.admin-nav-link span{font-size:18px;}
+.admin-content{padding:32px;}
+.admin-section{display:none;}
+.admin-section.active{display:block;}
+.dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:32px;}
+.dash-card{background:#fff;border-radius:var(--r);padding:22px 20px;box-shadow:var(--shadow-sm);}
+.dash-card .dc-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-light);margin-bottom:6px;}
+.dash-card .dc-val{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--text-dark);line-height:1;}
+.dash-card .dc-sub{font-size:11.5px;color:var(--text-light);margin-top:4px;}
+.dash-card.pink-accent{border-top:3px solid var(--pink);}
+.dash-card.sage-accent{border-top:3px solid var(--sage);}
+.dash-card.amber-accent{border-top:3px solid #f5a500;}
+.dash-card.blue-accent{border-top:3px solid #4a90d9;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px;}
+.chart-box{background:#fff;border-radius:var(--r);padding:22px;box-shadow:var(--shadow-sm);}
+.chart-box h3{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:16px;}
+.mini-bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.mini-bar-label{font-size:12px;color:var(--text-mid);width:120px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mini-bar-track{flex:1;height:8px;background:var(--pink-pale);border-radius:10px;overflow:hidden;}
+.mini-bar-fill{height:100%;background:var(--pink);border-radius:10px;transition:width .5s ease;}
+.mini-bar-val{font-size:12px;font-weight:700;color:var(--text-dark);min-width:28px;text-align:right;}
+.activity-log{background:#fff;border-radius:var(--r);padding:22px;box-shadow:var(--shadow-sm);margin-bottom:28px;}
+.activity-log h3{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:14px;}
+.log-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--pink-pale);}
+.log-item:last-child{border-bottom:none;}
+.log-icon{width:32px;height:32px;border-radius:50%;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.log-text{font-size:13px;color:var(--text-mid);line-height:1.4;}
+.log-time{font-size:11px;color:var(--text-light);margin-top:2px;}
+.admin-table-wrap{background:#fff;border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:20px;}
+.admin-table-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.admin-table-head h3{font-size:15px;font-weight:700;color:var(--text-dark);}
+.admin-table{width:100%;border-collapse:collapse;}
+.admin-table th{padding:11px 16px;text-align:left;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--text-light);border-bottom:1px solid var(--border);}
+.admin-table td{padding:12px 16px;font-size:13.5px;color:var(--text-dark);border-bottom:1px solid var(--pink-pale);}
+.admin-table tr:last-child td{border-bottom:none;}
+.admin-table tr:hover td{background:var(--pink-pale);}
+.prod-thumb-mini{width:44px;height:44px;border-radius:8px;object-fit:cover;background:var(--cream);}
+.edit-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;}
+.edit-modal-overlay.open{display:flex;}
+.edit-modal{background:#fff;border-radius:20px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);}
+.edit-modal-head{padding:22px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.edit-modal-head h2{font-size:20px;font-weight:600;color:var(--text-dark);}
+.edit-modal-body{padding:28px;}
+.fg2{margin-bottom:18px;}
+.fg2 label{display:block;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dark);margin-bottom:7px;}
+.fg2 input,.fg2 textarea,.fg2 select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:14px;color:var(--text-dark);background:var(--warm-white);outline:none;transition:border-color .2s;}
+.fg2 input:focus,.fg2 textarea:focus,.fg2 select:focus{border-color:var(--pink);}
+.fg2 textarea{height:90px;resize:vertical;}
+.img-upload-box{border:2px dashed var(--pink-light);border-radius:var(--r-sm);padding:20px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.img-upload-box:hover{border-color:var(--pink);background:var(--pink-pale);}
+.img-upload-box input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:100px;}
+.img-upload-box .preview-img{width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;}
+.img-upload-box p{font-size:13px;color:var(--text-mid);}
+.img-upload-box .upload-hint{font-size:11px;color:var(--text-light);margin-top:4px;}
+.inline-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.settings-section{background:#fff;border-radius:var(--r);padding:28px;box-shadow:var(--shadow-sm);margin-bottom:22px;}
+.settings-section h3{font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.img-settings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.img-setting-item{text-align:center;}
+.img-setting-item label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-mid);display:block;margin-bottom:6px;}
+.img-setting-preview{width:100%;aspect-ratio:1;border-radius:var(--r-sm);overflow:hidden;background:var(--cream);border:2px dashed var(--border);position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.img-setting-preview img{width:100%;height:100%;object-fit:cover;}
+.img-setting-preview .upload-icon{font-size:24px;color:var(--text-light);}
+.img-setting-preview input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.img-setting-preview:hover{border-color:var(--pink);}
+.admin-page-title{font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:22px;}
+.testi-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.testi-edit-card{background:#fff;border-radius:var(--r-sm);padding:16px;box-shadow:var(--shadow-sm);border:1px solid var(--border);}
+.testi-edit-card h4{font-size:13px;font-weight:700;color:var(--text-dark);margin-bottom:10px;}
+.testi-edit-card input,.testi-edit-card textarea{width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:8px;font-family:'Nunito',sans-serif;font-size:13px;color:var(--text-dark);outline:none;margin-bottom:7px;}
+.testi-edit-card textarea{height:70px;resize:vertical;}
+.testi-edit-card input:focus,.testi-edit-card textarea:focus{border-color:var(--pink);}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;}.hero-visual{display:none;}
+  .about-prev-grid{grid-template-columns:1fr;}.about-imgs{display:none;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .shop-wrap{grid-template-columns:1fr;}.sidebar{position:static;}
+  .contact-grid{grid-template-columns:1fr;}
+  .custom-steps{grid-template-columns:1fr;}
+  .about-story-grid{grid-template-columns:1fr;}
+  .modal{grid-template-columns:1fr;}
+  .modal-media img,.modal-media .img-placeholder{border-radius:24px 24px 0 0;}
+  .dash-grid{grid-template-columns:1fr 1fr;}
+  .chart-row{grid-template-columns:1fr;}
+  .admin-body{grid-template-columns:1fr;}
+  .admin-sidebar{display:none;}
+  .testi-edit-grid{grid-template-columns:1fr;}
+  .img-settings-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:680px){
+  nav{display:none;}.hamburger{display:block;}
+  .hero-btns{flex-direction:column;}.hero-stats{gap:20px;}
+  .footer-grid{grid-template-columns:1fr;}
+  .insta-grid{grid-template-columns:repeat(2,1fr);}
+  .testi-grid{grid-template-columns:1fr;}
+  .products-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));}
+  .dash-grid{grid-template-columns:1fr;}
+  .inline-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="announce">Free shipping on orders above ₹999 &nbsp;|&nbsp; Handmade with love in India</div>
+
+<header>
+  <div class="header-inner">
+    <div class="logo" onclick="showPage('home')">
+      <div class="logo-mark" id="logoMark">🌸</div>
+      <div>
+        <div class="logo-name">Tiny Little Things</div>
+        <div class="logo-tag">Handmade with Love</div>
+      </div>
+    </div>
+    <nav>
+      <a id="nav-home" class="active" onclick="showPage('home')">Home</a>
+      <a id="nav-shop" onclick="showPage('shop')">Shop</a>
+      <a id="nav-custom" onclick="showPage('custom')">Custom Orders</a>
+      <a id="nav-about" onclick="showPage('about')">About</a>
+      <a id="nav-contact" onclick="showPage('contact')">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cart-trigger btn" onclick="openCart()">
+        Cart <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="hamburger" onclick="toggleMobileNav()">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a onclick="showPage('home');toggleMobileNav()">Home</a>
+  <a onclick="showPage('shop');toggleMobileNav()">Shop</a>
+  <a onclick="showPage('custom');toggleMobileNav()">Custom Orders</a>
+  <a onclick="showPage('about');toggleMobileNav()">About</a>
+  <a onclick="showPage('contact');toggleMobileNav()">Contact</a>
+</div>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeCart()"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h2>Your Cart</h2>
+    <button class="drawer-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot" style="display:none;">
+    <div class="cart-subtotal"><span>Subtotal</span><strong id="cartTotal">₹0</strong></div>
+    <p class="cart-note">Shipping calculated at checkout. Free above ₹999.</p>
+    <button class="btn btn-wa cart-wa-btn" onclick="checkoutWhatsApp()">Checkout via WhatsApp</button>
+    <button class="cart-clear" onclick="clearCart()">Clear Cart</button>
+  </div>
+</aside>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-media" id="modalMedia"></div>
+    <div class="modal-body">
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      <p class="modal-cat" id="modalCat"></p>
+      <h2 class="modal-name" id="modalName"></h2>
+      <div class="modal-price" id="modalPrice"></div>
+      <div class="modal-stars">★★★★★</div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-note">💖 Every piece is handmade — slight variations make it truly one-of-a-kind!</div>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Product Modal -->
+<div class="edit-modal-overlay" id="editModalOverlay">
+  <div class="edit-modal" id="editModalBox">
+    <div class="edit-modal-head">
+      <h2 id="editModalTitle">Edit Product</h2>
+      <button class="modal-close" onclick="closeEditModal()">✕</button>
+    </div>
+    <div class="edit-modal-body" id="editModalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══ HOME PAGE ══ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-badge">100% Handcrafted &nbsp;|&nbsp; Made in India</div>
+      <h1>Handmade<br>Treasures<br><em>Crafted with Love</em></h1>
+      <p class="hero-sub">Unique, cute &amp; aesthetic decor to brighten your space. Every piece lovingly crafted from premium pipe cleaners, made just for you.</p>
+      <div class="hero-btns">
+        <button class="btn btn-pink" onclick="showPage('shop')">Shop Now</button>
+        <a class="btn btn-outline" href="https://wa.me/919472736370?text=Hi!%20I%20visited%20your%20website%20and%20would%20love%20to%20browse%20your%20collection." target="_blank">Order on WhatsApp</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">100+</div><div class="stat-label">Happy Customers</div></div>
+        <div><div class="stat-num">100%</div><div class="stat-label">Handmade</div></div>
+        <div><div class="stat-num">PAN India</div><div class="stat-label">Delivery</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <div id="heroImgContainer" class="img-placeholder" style="min-height:380px;">
+          <span style="font-size:13px;font-weight:700;color:var(--text-mid);">Hero Image</span>
+          <span style="font-size:11px;color:var(--text-light);">Upload via Admin Panel</span>
+        </div>
+        <div class="hero-float">
+          <div class="hero-float-icon">🌸</div>
+          <div><strong>Premium Handmade</strong><p>Pipe cleaner art, crafted with care</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="intro-strip">
+    <div class="intro-strip-inner">
+      <h2>Welcome to Tiny Little Things</h2>
+      <p>A handmade brand where every product is carefully crafted with love and creativity. Each piece is unique, adding warmth and personality to your space. From vibrant flower pots to adorable keychains — we bring joy in every tiny detail.</p>
+      <div class="intro-pills">
+        <div class="intro-pill p">✨ 100% Handmade</div>
+        <div class="intro-pill s">Perfect for Gifting</div>
+        <div class="intro-pill o">Unique &amp; Customizable</div>
+        <div class="intro-pill m">Made in India</div>
+      </div>
+    </div>
+  </section>
+  <section class="cats-section">
+    <div class="sec-title"><div class="eyebrow">Browse by</div><h2>Our Collections</h2><div class="pill-divider"></div></div>
+    <div class="cats-grid" id="catsGrid"></div>
+  </section>
+  <section class="best-section">
+    <div class="sec-title"><div class="eyebrow">Top Picks</div><h2>Our Bestsellers</h2><p>Our most-loved handmade creations — adored by hundreds of happy customers.</p><div class="pill-divider"></div></div>
+    <div class="products-grid" id="bestsellersGrid"></div>
+    <div style="text-align:center;margin-top:38px;">
+      <button class="btn btn-pink" onclick="showPage('shop')">View All Products →</button>
+    </div>
+  </section>
+  <section class="about-prev">
+    <div class="about-prev-grid">
+      <div class="about-imgs">
+        <div class="about-main-img"><div id="aboutImg1Container" class="img-placeholder" style="width:100%;height:100%;min-height:250px;">About Image 1</div></div>
+        <div class="about-sec-img"><div id="aboutImg2Container" class="img-placeholder" style="width:100%;height:100%;min-height:200px;">About Image 2</div></div>
+        <div class="about-tag"><p>Happy Customers</p><strong>100+</strong></div>
+      </div>
+      <div class="about-content">
+        <div class="eyebrow">Our Story</div>
+        <h2>Made with Love,<br>Crafted for <em style="color:var(--pink);font-style:italic;">You</em></h2>
+        <p>Every piece at Tiny Little Things is born from passion and patience. We believe handmade art carries a warmth no machine can replicate — a sentiment, a story, a little piece of the maker's heart.</p>
+        <p>Founded with the dream of bringing beautiful, affordable handmade decor to every home in India, we craft each item with premium materials and meticulous attention to detail.</p>
+        <div class="founders-row">
+          <div class="founder-chip">
+            <div class="founder-av" id="founderSanskarContainer"><span style="font-size:9px;color:var(--text-light);">Photo</span></div>
+            <span>Sanskar Singh</span>
+          </div>
+          <div class="founder-chip">
+            <div class="founder-av" id="founderRadhikaContainer"><span style="font-size:9px;color:var(--text-light);">Photo</span></div>
+            <span>Radhika Kalra</span>
+          </div>
+        </div>
+        <button class="btn btn-pink" onclick="showPage('about')">Know Our Story</button>
+      </div>
+    </div>
+  </section>
+  <section class="why-section">
+    <div class="sec-title"><div class="eyebrow">Why choose us</div><h2>What Makes Us Special</h2><div class="pill-divider"></div></div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon" style="background:var(--pink-pale);">✨</div><h4>100% Handmade</h4><p>Every single piece is crafted by hand with love and care</p></div>
+      <div class="why-card"><div class="why-icon" style="background:var(--sage-pale);">🎁</div><h4>Perfect for Gifting</h4><p>Thoughtful, unique gifts for birthdays, anniversaries & all occasions</p></div>
+      <div class="why-card"><div class="why-icon" style="background:#fff3e8;">🎨</div><h4>Customizable</h4><p>Tell us your vision and we'll craft it into reality, just for you</p></div>
+      <div class="why-card"><div class="why-icon" style="background:#f0eeff;">🚚</div><h4>Pan India Delivery</h4><p>We ship to every corner of India with love and care</p></div>
+    </div>
+  </section>
+  <section class="testi-section">
+    <div class="sec-title"><div class="eyebrow">Customer Love</div><h2>What People Say</h2><div class="pill-divider"></div></div>
+    <div class="testi-grid" id="testiGrid"></div>
+  </section>
+  <section class="insta-section">
+    <div class="sec-title"><div class="eyebrow">Follow Along</div><h2>Find Us on Instagram</h2><p>Tag us @tiny_littlethings__ and we might feature you!</p></div>
+    <div class="insta-grid" id="instaGrid"></div>
+    <a class="btn btn-pink" href="https://www.instagram.com/tiny_littlethings__?igsh=MTNpYjZqdWlzZTBoOA==" target="_blank">Follow @tiny_littlethings__</a>
+  </section>
+  <section class="cta-banner">
+    <h2>Looking for something special?</h2>
+    <p>Explore our full collection and find your perfect piece — or reach out for a custom creation!</p>
+    <div class="cta-btns">
+      <button class="btn btn-white" onclick="showPage('shop')">Explore Collection</button>
+      <a class="btn btn-wa" href="https://wa.me/919472736370?text=Hi!%20I%20visited%20Tiny%20Little%20Things%20and%20would%20love%20to%20order%20something." target="_blank">Order on WhatsApp</a>
+    </div>
+  </section>
+</div>
+
+<!-- ══ SHOP PAGE ══ -->
+<div class="page" id="page-shop">
+  <div class="page-banner"><h1>Shop Our Collection</h1><p>Browse handmade products designed to add charm to your everyday life.</p></div>
+  <div class="shop-wrap">
+    <aside class="sidebar">
+      <div class="sidebar-box">
+        <h3>Categories</h3>
+        <button class="cf-btn active" onclick="filterShop('All',this)">All Products</button>
+        <button class="cf-btn" onclick="filterShop('Flower Pots',this)">Flower Pots</button>
+        <button class="cf-btn" onclick="filterShop('Keychains',this)">Keychains &amp; Bagcharms</button>
+        <button class="cf-btn" onclick="filterShop('Lamps',this)">Lamps &amp; Stands</button>
+        <button class="cf-btn" onclick="filterShop('Custom',this)">Custom Orders</button>
+      </div>
+      <div class="sidebar-box">
+        <h3>Price Range</h3>
+        <div class="price-wrap">
+          <input type="range" min="99" max="1999" value="1999" id="priceSlider" oninput="updatePrice(this.value)">
+          <div class="price-labels"><span>₹99</span><span id="priceLabel">Up to ₹1999</span></div>
+        </div>
+      </div>
+      <button class="btn btn-sage" style="width:100%;" onclick="showPage('custom')">Custom Order</button>
+    </aside>
+    <div>
+      <div class="shop-head"><h2 id="shopTitle">All Products</h2><span id="shopCount">— items</span></div>
+      <div class="products-grid" id="shopGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT PAGE ══ -->
+<div class="page" id="page-about">
+  <div class="page-banner"><h1>Our Story</h1><p>Born from creativity and a love for handmade art.</p></div>
+  <div class="about-story-grid">
+    <div class="about-story-img"><div id="aboutPageImgContainer" class="img-placeholder" style="width:100%;height:100%;min-height:400px;">About Page Image<br><span style="font-size:10px;">Upload via Admin</span></div></div>
+    <div>
+      <p style="font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink);margin-bottom:10px;">The Beginning</p>
+      <h2 style="font-size:clamp(24px,3vw,38px);font-weight:600;margin-bottom:18px;line-height:1.3;color:var(--text-dark);">Where Every Piece<br>Tells a Story</h2>
+      <p style="font-size:14.5px;color:var(--text-mid);line-height:1.9;margin-bottom:14px;">Tiny Little Things started with a simple belief — that handmade art has the power to bring joy, warmth, and personality into everyday spaces. What began as a creative hobby quickly grew into a brand loved by hundreds across India.</p>
+      <p style="font-size:14.5px;color:var(--text-mid);line-height:1.9;margin-bottom:14px;">Every piece you receive has been thoughtfully crafted by hand — shaped, twisted, and assembled with care so that it carries a little bit of our heart into your home.</p>
+      <p style="font-size:14.5px;color:var(--text-mid);line-height:1.9;margin-bottom:24px;">We specialize in pipe cleaner artistry — creating vibrant flower pots, adorable keychains, decorative lamps, and custom pieces designed to your exact vision.</p>
+      <button class="btn btn-pink" onclick="showPage('contact')">Get in Touch</button>
+    </div>
+  </div>
+  <div class="team-section">
+    <div class="sec-title"><div class="eyebrow">Meet the Makers</div><h2>The Hearts Behind Tiny Little Things</h2><div class="pill-divider"></div></div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-av" id="teamSanskarContainer"><span style="font-size:10px;color:var(--text-light);">Photo</span></div>
+        <h3>Sanskar Singh</h3><p>Co-Founder &amp; Artist</p>
+        <p style="font-size:12px;color:var(--text-light);margin-top:8px;line-height:1.6;">Bringing structure and creativity to every piece, crafting with precision and passion.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-av" id="teamRadhikaContainer"><span style="font-size:10px;color:var(--text-light);">Photo</span></div>
+        <h3>Radhika Kalra</h3><p>Co-Founder &amp; Designer</p>
+        <p style="font-size:12px;color:var(--text-light);margin-top:8px;line-height:1.6;">The aesthetic eye behind Tiny Little Things — designing pieces that make hearts smile.</p>
+      </div>
+    </div>
+  </div>
+  <section class="why-section" style="background:var(--cream);">
+    <div class="sec-title"><div class="eyebrow">Why choose us</div><h2>What Makes Us Special</h2><div class="pill-divider"></div></div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon" style="background:var(--pink-pale);">✨</div><h4>100% Handmade</h4><p>Each piece crafted entirely by hand with premium materials</p></div>
+      <div class="why-card"><div class="why-icon" style="background:var(--sage-pale);">🎁</div><h4>Gift Ready</h4><p>Perfect for birthdays, anniversaries, events & corporate gifting</p></div>
+      <div class="why-card"><div class="why-icon" style="background:#fff3e8;">🎨</div><h4>Unique Designs</h4><p>No two pieces are exactly the same — that's the beauty of handmade</p></div>
+      <div class="why-card"><div class="why-icon" style="background:#f0eeff;">💌</div><h4>Made with Love</h4><p>Every product carries warmth and genuine care</p></div>
+    </div>
+  </section>
+  <section class="cta-banner">
+    <h2>Let's Create Something Beautiful</h2>
+    <p>Have a custom idea or want to place an order?</p>
+    <div class="cta-btns">
+      <button class="btn btn-white" onclick="showPage('contact')">Get in Touch</button>
+      <a class="btn btn-wa" href="https://wa.me/919472736370" target="_blank">WhatsApp Us</a>
+    </div>
+  </section>
+</div>
+
+<!-- ══ CONTACT PAGE ══ -->
+<div class="page" id="page-contact">
+  <div class="page-banner"><h1>Get in Touch</h1><p>Have questions or want a custom order? We'd love to hear from you!</p></div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h2>We're Here for You</h2>
+      <p>Whether you want to place a custom order, ask about a product, or just say hi — we're always happy to chat. We usually reply within 24 hours.</p>
+      <div class="c-item"><div class="c-icon green-bg">💬</div><div><h4>WhatsApp</h4><p><a href="https://wa.me/919472736370">+91 9472736370</a></p><p style="font-size:11.5px;margin-top:3px;">Fastest way to reach us!</p></div></div>
+      <div class="c-item"><div class="c-icon pink-bg">📷</div><div><h4>Instagram</h4><p><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">@tiny_littlethings__</a></p></div></div>
+      <div class="c-item"><div class="c-icon pink-bg">📍</div><div><h4>Based in</h4><p>India — Shipping PAN India</p></div></div>
+      <div class="c-item"><div class="c-icon green-bg">⏰</div><div><h4>Response Time</h4><p>Within 24 hours</p></div></div>
+      <a class="btn btn-wa" href="https://wa.me/919472736370" target="_blank">Chat on WhatsApp</a>
+    </div>
+    <div class="form-card">
+      <h2>Send Us a Message</h2>
+      <div class="fg"><label>Your Name</label><input type="text" id="contactName" placeholder="Enter your name"></div>
+      <div class="fg"><label>Phone / WhatsApp</label><input type="tel" id="contactPhone" placeholder="+91 XXXXX XXXXX"></div>
+      <div class="fg"><label>What are you looking for?</label>
+        <select id="contactType">
+          <option value="">Select an option</option>
+          <option>Place an Order</option>
+          <option>Custom Order Inquiry</option>
+          <option>Product Question</option>
+          <option>Corporate / Bulk Order</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="fg"><label>Message</label><textarea id="contactMsg" placeholder="Tell us about what you need..."></textarea></div>
+      <button class="btn btn-pink" style="width:100%;" onclick="submitContact()">Send Message</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CUSTOM PAGE ══ -->
+<div class="page" id="page-custom">
+  <div class="page-banner"><h1>Custom Orders</h1><p>Want something personalized? We create custom handmade products just for you!</p></div>
+  <div style="padding:72px 5%;max-width:900px;margin:0 auto;text-align:center;">
+    <div class="sec-title" style="margin-bottom:0;"><div class="eyebrow">How it works</div><h2>3 Simple Steps</h2><div class="pill-divider"></div></div>
+    <div class="custom-steps">
+      <div class="step-card"><div class="step-num">1</div><h3>Share Your Idea</h3><p>DM us on WhatsApp or Instagram with your concept, reference images, colors, and any specific requirements.</p></div>
+      <div class="step-card"><div class="step-num">2</div><h3>We Craft It</h3><p>Our artisans bring your vision to life with premium materials and meticulous attention to every detail.</p></div>
+      <div class="step-card"><div class="step-num">3</div><h3>Delivered to You</h3><p>Your unique piece is carefully packaged and shipped to your doorstep with love.</p></div>
+    </div>
+    <div class="custom-cta">
+      <h3>Ready to Create Something Unique?</h3>
+      <p>DM us on WhatsApp or Instagram with your idea and we'll make it happen!</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a class="btn btn-wa" href="https://wa.me/919472736370?text=Hi!%20I%20have%20a%20custom%20order%20idea." target="_blank">WhatsApp Us</a>
+        <a class="btn btn-pink" href="https://www.instagram.com/tiny_littlethings__" target="_blank">Instagram DM</a>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:var(--r);padding:30px;box-shadow:var(--shadow-sm);">
+      <h3 style="font-size:22px;font-weight:600;color:var(--text-dark);margin-bottom:16px;">Popular Custom Requests</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:8px;">
+        <div style="background:var(--pink-pale);border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:var(--pink);">Wedding Favors</div>
+        <div style="background:var(--sage-pale);border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:var(--sage);">Birthday Gifts</div>
+        <div style="background:#fff3e8;border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:#d97706;">Corporate Gifting</div>
+        <div style="background:#f0eeff;border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:#7b6fce;">Return Gifts</div>
+        <div style="background:var(--pink-pale);border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:var(--pink);">Home Decor</div>
+        <div style="background:var(--sage-pale);border-radius:12px;padding:13px;text-align:center;font-size:13px;font-weight:700;color:var(--sage);">Anniversary Gifts</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SHIPPING PAGE ══ -->
+<div class="page" id="page-shipping">
+  <div class="page-banner"><h1>Shipping &amp; Returns</h1><p>Everything you need to know about delivery and our returns policy.</p></div>
+  <div class="ship-content">
+    <div class="ship-section"><h2>Shipping Information</h2>
+      <ul>
+        <li>Orders are processed within 2–4 business days after confirmation</li>
+        <li>Standard delivery time is 5–7 working days across India</li>
+        <li>Free shipping on orders above ₹999</li>
+        <li>Shipping charges may apply for orders below ₹999</li>
+        <li>We ship PAN India — from Kashmir to Kanyakumari!</li>
+        <li>All products are carefully packaged to ensure safe delivery</li>
+      </ul>
+    </div>
+    <div class="ship-section"><h2>Returns &amp; Exchanges</h2>
+      <ul>
+        <li>No returns on customized or personalized items</li>
+        <li>If you receive a damaged product, contact us within 24 hours of delivery</li>
+        <li>Please share photos of the damage via WhatsApp for quick resolution</li>
+        <li>We'll arrange a replacement or refund for damaged items</li>
+        <li>Slight variations in handmade items are natural and part of their charm</li>
+      </ul>
+    </div>
+    <div style="background:var(--pink-pale);border-radius:var(--r);padding:28px;text-align:center;">
+      <p style="font-size:16px;font-weight:700;color:var(--text-dark);margin-bottom:8px;">Have a question about your order?</p>
+      <p style="font-size:14px;color:var(--text-mid);margin-bottom:20px;">We're always here to help — just reach out!</p>
+      <a class="btn btn-wa" href="https://wa.me/919472736370" target="_blank">Contact Us on WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN PAGE ══ -->
+<div class="page" id="page-admin">
+  <!-- Login Screen -->
+  <div id="adminLogin" class="admin-login">
+    <div class="login-card">
+      <div class="logo-mark" style="width:70px;height:70px;margin:0 auto 20px;font-size:32px;border-radius:50%;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));display:flex;align-items:center;justify-content:center;">🌸</div>
+      <h2>Admin Panel</h2>
+      <p>Tiny Little Things — Manage your store</p>
+      <input type="text" id="adminUser" placeholder="Username" onkeydown="if(event.key==='Enter')adminLogin()">
+      <input type="password" id="adminPass" placeholder="Password" onkeydown="if(event.key==='Enter')adminLogin()">
+      <button class="btn btn-pink" onclick="adminLogin()">Login →</button>
+      <p class="login-err" id="loginErr"></p>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard (hidden until login) -->
+  <div id="adminDash" class="admin-layout" style="display:none;">
+    <div class="admin-header">
+      <div>
+        <h1>🌸 Tiny Little Things — Admin</h1>
+        <span id="adminDateTime"></span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <button class="btn btn-outline btn-sm" onclick="showPage('home')">← View Site</button>
+        <button class="btn btn-danger btn-sm" onclick="adminLogout()">Logout</button>
+      </div>
+    </div>
+    <div class="admin-body">
+      <div class="admin-sidebar">
+        <div class="admin-nav-link active" onclick="switchAdminTab('dashboard')" id="atab-dashboard"><span>📊</span> Dashboard</div>
+        <div class="admin-nav-link" onclick="switchAdminTab('products')" id="atab-products"><span>🛍️</span> Products</div>
+        <div class="admin-nav-link" onclick="switchAdminTab('testimonials')" id="atab-testimonials"><span>💬</span> Testimonials</div>
+        <div class="admin-nav-link" onclick="switchAdminTab('images')" id="atab-images"><span>🖼️</span> Site Images</div>
+        <div class="admin-nav-link" onclick="switchAdminTab('settings')" id="atab-settings"><span>⚙️</span> Settings</div>
+      </div>
+      <div class="admin-content">
+
+        <!-- DASHBOARD TAB -->
+        <div class="admin-section active" id="asec-dashboard">
+          <div class="admin-page-title">Analytics Dashboard</div>
+          <div class="dash-grid">
+            <div class="dash-card pink-accent"><div class="dc-label">Total Page Views</div><div class="dc-val" id="dc-views">0</div><div class="dc-sub">All time</div></div>
+            <div class="dash-card sage-accent"><div class="dc-label">Cart Opens</div><div class="dc-val" id="dc-carts">0</div><div class="dc-sub">All time</div></div>
+            <div class="dash-card amber-accent"><div class="dc-label">WhatsApp Taps</div><div class="dc-val" id="dc-wa">0</div><div class="dc-sub">All time</div></div>
+            <div class="dash-card blue-accent"><div class="dc-label">Products Viewed</div><div class="dc-val" id="dc-prodviews">0</div><div class="dc-sub">All time</div></div>
+          </div>
+          <div class="chart-row">
+            <div class="chart-box">
+              <h3>Most Viewed Products</h3>
+              <div id="chart-prod-views"></div>
+            </div>
+            <div class="chart-box">
+              <h3>Most Added to Cart</h3>
+              <div id="chart-prod-cart"></div>
+            </div>
+          </div>
+          <div class="chart-row">
+            <div class="chart-box">
+              <h3>Page Visits</h3>
+              <div id="chart-pages"></div>
+            </div>
+            <div class="chart-box">
+              <h3>Daily Activity (Last 7 Days)</h3>
+              <div id="chart-daily"></div>
+            </div>
+          </div>
+          <div class="activity-log">
+            <h3>Recent Activity</h3>
+            <div id="activityLog"></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:10px;">
+            <button class="btn btn-outline btn-sm" onclick="refreshDashboard()">🔄 Refresh</button>
+            <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset all analytics data?')){resetAnalytics();}">🗑️ Reset Analytics</button>
+          </div>
+        </div>
+
+        <!-- PRODUCTS TAB -->
+        <div class="admin-section" id="asec-products">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
+            <div class="admin-page-title" style="margin-bottom:0;">Manage Products</div>
+            <button class="btn btn-pink btn-sm" onclick="openAddProduct()">+ Add Product</button>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table" id="adminProductTable">
+              <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Category</th><th>Badge</th><th>Bestseller</th><th>Actions</th></tr></thead>
+              <tbody id="adminProductBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TESTIMONIALS TAB -->
+        <div class="admin-section" id="asec-testimonials">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
+            <div class="admin-page-title" style="margin-bottom:0;">Manage Testimonials</div>
+            <button class="btn btn-pink btn-sm" onclick="saveTestimonialsAdmin()">💾 Save All</button>
+          </div>
+          <div class="testi-edit-grid" id="testiEditGrid"></div>
+        </div>
+
+        <!-- IMAGES TAB -->
+        <div class="admin-section" id="asec-images">
+          <div class="admin-page-title">Site Images</div>
+          <div class="settings-section">
+            <h3>🌟 Hero & Logo</h3>
+            <div class="img-settings-grid">
+              <div class="img-setting-item">
+                <label>Logo Icon</label>
+                <div class="img-setting-preview" id="prev-logo">
+                  <div class="upload-icon">🌸</div>
+                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'logo')">
+                </div>
+              </div>
+              <div class="img-setting-item">
+                <label>Hero Image</label>
+                <div class="img-setting-preview" id="prev-hero">
+                  <div class="upload-icon">📷</div>
+                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'hero')">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="settings-section">
+            <h3>👥 Team Photos</h3>
+            <div class="img-settings-grid">
+              <div class="img-setting-item">
+                <label>Sanskar Singh</label>
+                <div class="img-setting-preview" id="prev-team_sanskar">
+                  <div class="upload-icon">👤</div>
+                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'team_sanskar')">
+                </div>
+              </div>
+              <div class="img-setting-item">
+                <label>Radhika Kalra</label>
+                <div class="img-setting-preview" id="prev-team_radhika">
+                  <div class="upload-icon">👤</div>
+                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'team_radhika')">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="settings-section">
+            <h3>📖 About Section</h3>
+            <div class="img-settings-grid">
+              <div class="img-setting-item">
+                <label>About Main</label>
+                <div class="img-setting-preview" id="prev-about_main">
+                  <div class="upload-icon">📷</div>
+                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'about_main')">
+                </div>
+              </div>
+              <div class="img-setting-item">
+                <label>About Secondary</label>
+                <div class="img-setting-preview" id="prev-about_second">
+                  <div class="upload-icon">📷</div>
+                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'about_second')">
+                </div>
+              </div>
+              <div class="img-setting-item">
+                <label>About Page</label>
+                <div class="img-setting-preview" id="prev-about_page">
+                  <div class="upload-icon">📷</div>
+                  <input type="file" accept="image/*" onchange="handleSiteImg(this,'about_page')">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="settings-section">
+            <h3>📸 Instagram Grid</h3>
+            <div class="img-settings-grid">
+              <div class="img-setting-item"><label>Post 1</label><div class="img-setting-preview" id="prev-insta_1"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_1')"></div></div>
+              <div class="img-setting-item"><label>Post 2</label><div class="img-setting-preview" id="prev-insta_2"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_2')"></div></div>
+              <div class="img-setting-item"><label>Post 3</label><div class="img-setting-preview" id="prev-insta_3"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_3')"></div></div>
+              <div class="img-setting-item"><label>Post 4</label><div class="img-setting-preview" id="prev-insta_4"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_4')"></div></div>
+              <div class="img-setting-item"><label>Post 5</label><div class="img-setting-preview" id="prev-insta_5"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_5')"></div></div>
+              <div class="img-setting-item"><label>Post 6</label><div class="img-setting-preview" id="prev-insta_6"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_6')"></div></div>
+            </div>
+          </div>
+          <div style="text-align:center;padding:10px;">
+            <p style="font-size:13px;color:var(--text-mid);">💡 Images are stored in your browser and persist across sessions. To add product images, edit the product in the Products tab.</p>
+          </div>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div class="admin-section" id="asec-settings">
+          <div class="admin-page-title">Settings</div>
+          <div class="settings-section">
+            <h3>🔐 Change Password</h3>
+            <div class="inline-grid">
+              <div class="fg2"><label>New Username</label><input type="text" id="newUser" placeholder="New username"></div>
+              <div class="fg2"><label>New Password</label><input type="password" id="newPass" placeholder="New password"></div>
+            </div>
+            <button class="btn btn-pink btn-sm" onclick="changeCredentials()">Update Credentials</button>
+          </div>
+          <div class="settings-section">
+            <h3>📦 Product Categories</h3>
+            <p style="font-size:13px;color:var(--text-mid);margin-bottom:14px;">Current categories used in products:</p>
+            <div id="categoryList" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+          </div>
+          <div class="settings-section">
+            <h3>🗃️ Data Management</h3>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button class="btn btn-sage btn-sm" onclick="exportData()">📥 Export Data</button>
+              <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFile').click()">📤 Import Data</button>
+              <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(this)">
+              <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset ALL data to defaults? This cannot be undone.'))resetAll();">⚠️ Reset to Defaults</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-name">Tiny Little Things</div>
+      <p>Handmade with love in India. Every piece tells a story — let yours begin with us.</p>
+      <div class="footer-socials">
+        <a class="s-btn" href="https://www.instagram.com/tiny_littlethings__" target="_blank">📷</a>
+        <a class="s-btn" href="https://wa.me/919472736370" target="_blank">💬</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a onclick="filterAndGo('Flower Pots')">Flower Pots</a>
+      <a onclick="filterAndGo('Keychains')">Keychains &amp; Bagcharms</a>
+      <a onclick="filterAndGo('Lamps')">Lamps &amp; Stands</a>
+      <a onclick="showPage('custom')">Custom Orders</a>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <a onclick="showPage('about')">About Us</a>
+      <a onclick="showPage('shipping')">Shipping &amp; Returns</a>
+      <a onclick="showPage('contact')">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="https://wa.me/919472736370" target="_blank">+91 9472736370</a>
+      <a href="https://www.instagram.com/tiny_littlethings__" target="_blank">@tiny_littlethings__</a>
+      <a onclick="showPage('admin')" style="opacity:.3;font-size:10px;cursor:pointer;">Admin</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Tiny Little Things. All rights reserved.</p>
+    <p>Handcrafted by Sanskar Singh &amp; Radhika Kalra — Made with love in India</p>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   DEFAULT DATA
+═══════════════════════════════════════════════════════════ */
+const DEFAULT_PRODUCTS = [
+  {id:1,name:"Sheep Flower Pot",price:299,category:"Flower Pots",badge:"Bestseller",desc:"Meet your new favourite desk companion! This adorable sheep-shaped handmade flower pot is lovingly crafted from premium pipe cleaners. The fluffy white sheep body paired with vibrant flowers makes it a joyful, eye-catching piece — perfect for your desk, shelf, or windowsill.",whatsappMsg:"Hi! I love the *Sheep Flower Pot* (₹299) on your website. Could you please confirm availability and share payment & delivery details? 🐑🌸",bestseller:true,img:""},
+  {id:2,name:"Sunflower Pot",price:249,category:"Flower Pots",badge:"Popular",desc:"Bring sunshine indoors with this bright and cheerful handmade Sunflower Pot! Crafted from vibrant yellow and brown pipe cleaners, this piece radiates warmth and positivity.",whatsappMsg:"Hi! I'm interested in the *Sunflower Pot* (₹249). Could you please confirm availability? 🌻",bestseller:true,img:""},
+  {id:3,name:"Sunflower Bunch Flower Pot",price:249,category:"Flower Pots",badge:"",desc:"A beautiful bouquet of handcrafted sunflowers arranged in an elegant handmade pot. Each sunflower is meticulously crafted from premium pipe cleaners.",whatsappMsg:"Hello! I'd love to order the *Sunflower Bunch Flower Pot* (₹249). Please share availability and order details. 🌻🌻",bestseller:false,img:""},
+  {id:4,name:"Pink Blossom Flower Pot",price:249,category:"Flower Pots",badge:"",desc:"Soft, romantic, and elegantly minimal — the Pink Blossom Flower Pot features delicate pink blooms in a beautifully crafted pot.",whatsappMsg:"Hi! I'm interested in the *Pink Blossom Flower Pot* (₹249). Could you please confirm availability? 🌸",bestseller:true,img:""},
+  {id:5,name:"Pair of Pink Tulips",price:249,category:"Flower Pots",badge:"",desc:"Timeless, delicate, and utterly charming — this Pair of Pink Tulips is handcrafted from premium pipe cleaners to capture the graceful elegance of real tulips.",whatsappMsg:"Hello! I'd love to order the *Pair of Pink Tulips* (₹249). Please share availability and order details. 🌷",bestseller:false,img:""},
+  {id:6,name:"Red Hibiscus Pot",price:249,category:"Flower Pots",badge:"New",desc:"Bold, vibrant, and full of character — the Red Hibiscus Pot is a striking handmade arrangement that commands attention. Crafted from deep red and green pipe cleaners.",whatsappMsg:"Hi! I'm in love with the *Red Hibiscus Pot* (₹249)! Could you confirm availability? 🌺",bestseller:false,img:""},
+  {id:7,name:"Strawberry Keychain",price:149,category:"Keychains",badge:"Cute!",desc:"Sweet, adorable, and absolutely irresistible — this handmade Strawberry Keychain is a mini work of art! Crafted from red and green pipe cleaners.",whatsappMsg:"Hi! The *Strawberry Keychain* (₹149) is so cute! Could you please share availability and order details? 🍓",bestseller:true,img:""},
+  {id:8,name:"Evil Eye Flower Keychain",price:149,category:"Keychains",badge:"Trending",desc:"Stylish protection meets adorable design in this handmade Evil Eye Flower Keychain! This vibrant blue and white creation combines the protective charm of the evil eye with beautiful flower petals.",whatsappMsg:"Hello! I'm interested in the *Evil Eye Flower Keychain* (₹149). Please share availability. 🧿🌸",bestseller:false,img:""},
+  {id:9,name:"Pink Bow Keychain",price:149,category:"Keychains",badge:"",desc:"Feminine, fun, and perfectly charming — the Pink Bow Keychain is a handmade delight! Crafted from soft pink pipe cleaners into a classic bow shape.",whatsappMsg:"Hi! I spotted the *Pink Bow Keychain* (₹149) and it's adorable! Could you please share order details? 🎀",bestseller:false,img:""},
+  {id:10,name:"Rainbow Dino Keychain",price:149,category:"Keychains",badge:"Fan Fav",desc:"Fun, quirky, and totally unique — the Rainbow Dino Keychain features a colourful rainbow backdrop with an adorable green dinosaur.",whatsappMsg:"Hello! The *Rainbow Dino Keychain* (₹149) is so fun! Please share availability and payment details. 🦕🌈",bestseller:true,img:""},
+  {id:11,name:"Watermelon Keychain",price:149,category:"Keychains",badge:"",desc:"Fresh, fun, and bursting with personality — the Watermelon Keychain is crafted from vibrant red, green, and black pipe cleaners.",whatsappMsg:"Hi! I love the *Watermelon Keychain* (₹149)! Please share availability and how to order. 🍉",bestseller:false,img:""},
+  {id:12,name:"Mango Keychain",price:149,category:"Keychains",badge:"",desc:"A charming ode to India's favourite fruit — the Mango Keychain is crafted in vibrant mango tones. A fantastic gifting option!",whatsappMsg:"Hello! The *Mango Keychain* (₹149) is adorable! Please confirm availability. 🥭",bestseller:false,img:""},
+  {id:13,name:"Teal Lily Lamp Stand",price:349,category:"Lamps",badge:"Artsy",desc:"Enchanting, dreamy, and entirely one-of-a-kind — the Teal Lily Lamp Stand elevates any room instantly. The striking teal lily bloom sits atop an elegantly crafted stand.",whatsappMsg:"Hi! I'm in love with the *Teal Lily Lamp Stand* (₹349)! Could you please confirm availability? 💐",bestseller:true,img:""},
+  {id:14,name:"Pink Tendril Lamp",price:349,category:"Lamps",badge:"",desc:"Whimsical, romantic, and beautifully crafted — the Pink Tendril Lamp adds magic to any space with delicate pink blossoms winding around an artfully shaped tendril stand.",whatsappMsg:"Hello! The *Pink Tendril Lamp* (₹349) is so beautiful! Please share availability and order details. 🌸✨",bestseller:false,img:""}
+];
+
+const DEFAULT_TESTIMONIALS = [
+  {name:"Divya Gupta",role:"Student, Lovely Professional University",text:"I ordered cute pipe cleaner flowers for my friend's birthday and honestly they looked even better than real ones! So aesthetic and long-lasting. Everyone in my class asked where I got them from.",img:""},
+  {name:"Manpreet Kaur",role:"Ludhiana",text:"Got a custom order done and it turned out exactly how I imagined. Super happy with the service! Will definitely order again.",img:""},
+  {name:"Simran Saini",role:"HR, Noida",text:"We ordered customized handmade pieces for our employee gifting, and the response was amazing. Such thoughtful and unique products.",img:""},
+  {name:"Dr. Anjali Verma",role:"Professor, Jalandhar",text:"I purchased these handcrafted items as return gifts for a college event. They were elegant, creative, and appreciated by everyone.",img:""},
+  {name:"Akash Tiwari",role:"Architecture Student",text:"It's refreshing to see such creativity in handmade art. These pieces reflect dedication and originality. Truly impressive work!",img:""},
+  {name:"Aditi Srivastava",role:"Lucknow, U.P.",text:"Beautiful craftsmanship and timely delivery. The products really stand out and create a lasting impression. Highly recommended!",img:""}
+];
+
+const CATEGORIES_DATA = [
+  {label:"Flower Pots",desc:"Vibrant pipe cleaner arrangements in adorable handcrafted pots",iconBg:"pink-bg",filter:"Flower Pots"},
+  {label:"Keychains & Bagcharms",desc:"Cute handmade charms — perfect gifts or everyday accessories",iconBg:"sage-bg",filter:"Keychains"},
+  {label:"Lamps & Stands",desc:"Whimsical decorative lamps to elevate your personal space",iconBg:"peach-bg",filter:"Lamps"},
+  {label:"Custom Orders",desc:"Tell us your idea — we'll craft something magical just for you",iconBg:"lavender-bg",filter:"Custom"}
+];
+
+/* ═══════════════════════════════════════════════════════════
+   STATE MANAGEMENT (localStorage persistence)
+═══════════════════════════════════════════════════════════ */
+function loadState() {
+  try {
+    const p = localStorage.getItem('tlt_products');
+    const t = localStorage.getItem('tlt_testimonials');
+    const i = localStorage.getItem('tlt_images');
+    const c = localStorage.getItem('tlt_credentials');
+    const a = localStorage.getItem('tlt_analytics');
+    PRODUCTS = p ? JSON.parse(p) : JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+    TESTIMONIALS = t ? JSON.parse(t) : JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
+    SITE_IMAGES = i ? JSON.parse(i) : {};
+    CREDENTIALS = c ? JSON.parse(c) : {user:'admin',pass:'tlt2025'};
+    ANALYTICS = a ? JSON.parse(a) : {pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+  } catch(e) {
+    PRODUCTS = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+    TESTIMONIALS = JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
+    SITE_IMAGES = {}; CREDENTIALS = {user:'admin',pass:'tlt2025'};
+    ANALYTICS = {pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+  }
+}
+
+function saveProducts() { localStorage.setItem('tlt_products', JSON.stringify(PRODUCTS)); }
+function saveTestimonials() { localStorage.setItem('tlt_testimonials', JSON.stringify(TESTIMONIALS)); }
+function saveSiteImages() { localStorage.setItem('tlt_images', JSON.stringify(SITE_IMAGES)); }
+function saveAnalytics() { localStorage.setItem('tlt_analytics', JSON.stringify(ANALYTICS)); }
+
+let PRODUCTS, TESTIMONIALS, SITE_IMAGES, CREDENTIALS, ANALYTICS;
+loadState();
+
+/* ═══════════════════════════════════════════════════════════
+   ANALYTICS TRACKING
+═══════════════════════════════════════════════════════════ */
+function trackPageView(page) {
+  ANALYTICS.pageViews[page] = (ANALYTICS.pageViews[page]||0)+1;
+  const today = new Date().toISOString().split('T')[0];
+  if(!ANALYTICS.daily[today]) ANALYTICS.daily[today]={views:0,carts:0,wa:0};
+  ANALYTICS.daily[today].views++;
+  saveAnalytics();
+}
+function trackCartOpen() {
+  ANALYTICS.cartOpens = (ANALYTICS.cartOpens||0)+1;
+  const today = new Date().toISOString().split('T')[0];
+  if(!ANALYTICS.daily[today]) ANALYTICS.daily[today]={views:0,carts:0,wa:0};
+  ANALYTICS.daily[today].carts++;
+  saveAnalytics();
+}
+function trackWA(context) {
+  ANALYTICS.waClicks = (ANALYTICS.waClicks||0)+1;
+  const today = new Date().toISOString().split('T')[0];
+  if(!ANALYTICS.daily[today]) ANALYTICS.daily[today]={views:0,carts:0,wa:0};
+  ANALYTICS.daily[today].wa++;
+  logActivity('💬','WhatsApp tapped', context||'');
+  saveAnalytics();
+}
+function trackProductView(id) {
+  ANALYTICS.productViews[id] = (ANALYTICS.productViews[id]||0)+1;
+  ANALYTICS.pageViews['products'] = (ANALYTICS.pageViews['products']||0)+1;
+  saveAnalytics();
+}
+function trackProductCart(id) {
+  ANALYTICS.productCart[id] = (ANALYTICS.productCart[id]||0)+1;
+  saveAnalytics();
+}
+function logActivity(icon, text, sub) {
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}) + ' · ' + now.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
+  ANALYTICS.activityLog = [{icon,text,sub,time:timeStr},...(ANALYTICS.activityLog||[])].slice(0,30);
+  saveAnalytics();
+}
+function resetAnalytics() {
+  ANALYTICS = {pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+  saveAnalytics();
+  refreshDashboard();
+  showToast('Analytics reset!');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE NAVIGATION
+═══════════════════════════════════════════════════════════ */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  const nav = document.getElementById('nav-'+name);
+  if(nav) nav.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(name !== 'admin') trackPageView(name);
+  if(name==='shop') renderShop();
+  if(name==='home'){renderBestsellers();renderTestimonials();renderInstagram();renderCategories();applyAllSiteImages();}
+}
+
+function filterAndGo(cat) {
+  currentFilter = cat;
+  showPage('shop');
+  setTimeout(()=>{
+    document.querySelectorAll('.cf-btn').forEach(b=>b.classList.toggle('active',b.textContent.includes(cat)));
+    document.getElementById('shopTitle').textContent = cat;
+    renderShop();
+  },100);
+}
+function toggleMobileNav(){
+  const m=document.getElementById('mobileNav');
+  m.style.display=m.style.display==='block'?'none':'block';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   IMAGE HELPERS
+═══════════════════════════════════════════════════════════ */
+function setContainerImg(containerId, src) {
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  if(src) {
+    el.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">`;
+  } else {
+    el.innerHTML = `<span style="font-size:11px;color:var(--text-light);">No Image</span>`;
+  }
+}
+
+function applyAllSiteImages() {
+  // Logo
+  const lm = document.getElementById('logoMark');
+  if(lm && SITE_IMAGES.logo) lm.innerHTML = `<img src="${SITE_IMAGES.logo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+  else if(lm) lm.innerHTML='🌸';
+  // Hero
+  const hc = document.getElementById('heroImgContainer');
+  if(hc) {
+    if(SITE_IMAGES.hero) hc.innerHTML=`<img src="${SITE_IMAGES.hero}" style="width:100%;height:100%;object-fit:cover;">`;
+    else hc.innerHTML=`<span style="font-size:13px;font-weight:700;color:var(--text-mid);">Hero Image</span><span style="font-size:11px;color:var(--text-light);">Upload via Admin Panel</span>`;
+  }
+  // About images
+  setContainerImg('aboutImg1Container', SITE_IMAGES.about_main);
+  setContainerImg('aboutImg2Container', SITE_IMAGES.about_second);
+  setContainerImg('aboutPageImgContainer', SITE_IMAGES.about_page);
+  // Team
+  const tsc=document.getElementById('teamSanskarContainer'),trc=document.getElementById('teamRadhikaContainer');
+  const fsc=document.getElementById('founderSanskarContainer'),frc=document.getElementById('founderRadhikaContainer');
+  if(SITE_IMAGES.team_sanskar){
+    if(tsc) tsc.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+    if(fsc) fsc.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+  }
+  if(SITE_IMAGES.team_radhika){
+    if(trc) trc.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+    if(frc) frc.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+  }
+}
+
+function imgHtml(p, cls='') {
+  if(p.img) return `<img src="${p.img}" alt="${p.name}" class="${cls}" style="width:100%;height:100%;object-fit:cover;">`;
+  return `<div class="img-placeholder" style="font-size:11px;font-weight:600;color:var(--text-light);text-align:center;">${p.name}<br><span style="font-size:9px;opacity:.7;">No image</span></div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER CATEGORIES
+═══════════════════════════════════════════════════════════ */
+function renderCategories() {
+  const cats = CATEGORIES_DATA;
+  document.getElementById('catsGrid').innerHTML = cats.map(c=>`
+    <div class="cat-card" onclick="${c.filter==='Custom'?"showPage('custom')":`filterAndGo('${c.filter}')`}">
+      <div class="cat-icon ${c.iconBg}" style="font-size:28px;">
+        ${c.filter==='Flower Pots'?'🌸':c.filter==='Keychains'?'🔑':c.filter==='Lamps'?'💡':'✨'}
+      </div>
+      <h3>${c.label}</h3>
+      <p>${c.desc}</p>
+    </div>`).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRODUCT CARD
+═══════════════════════════════════════════════════════════ */
+function renderCard(p) {
+  return `
+  <div class="product-card">
+    <div class="product-thumb" onclick="openModal(${p.id})">
+      ${imgHtml(p)}
+      ${p.badge?`<div class="badge">${p.badge}</div>`:''}
+    </div>
+    <div class="product-body">
+      <h3 onclick="openModal(${p.id})">${p.name}</h3>
+      <p class="pdesc">${p.desc.substring(0,72)}…</p>
+      <div class="product-footer">
+        <div class="price">₹${p.price}<br><small>+ shipping</small></div>
+        <div class="product-actions">
+          <a class="btn btn-sm" style="background:#e8f5e9;color:#2e7d32;font-size:11px;padding:7px 10px;border-radius:var(--r-pill);"
+             href="https://wa.me/919472736370?text=${encodeURIComponent(p.whatsappMsg)}" target="_blank"
+             onclick="trackWA('product:${p.id}')">WhatsApp</a>
+          <button class="btn btn-pink btn-sm" onclick="addToCart(${p.id})">+ Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderBestsellers() {
+  const best = PRODUCTS.filter(p=>p.bestseller);
+  document.getElementById('bestsellersGrid').innerHTML = best.map(renderCard).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SHOP
+═══════════════════════════════════════════════════════════ */
+let cart={}, currentMaxPrice=1999, currentFilter='All';
+
+function renderShop(cat,maxP) {
+  if(cat!==undefined) currentFilter=cat;
+  if(maxP!==undefined) currentMaxPrice=maxP;
+  const grid=document.getElementById('shopGrid');
+  if(!grid) return;
+  if(currentFilter==='Custom'){
+    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;">
+      <div style="font-size:52px;margin-bottom:14px;">✨</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3>
+      <p style="color:var(--text-mid);margin-bottom:22px;font-size:14px;">We create personalized pieces just for you!</p>
+      <button class="btn btn-pink" onclick="showPage('custom')">Explore Custom Orders</button>
+    </div>`;
+    document.getElementById('shopTitle').textContent='Custom Orders';
+    document.getElementById('shopCount').textContent='';
+    return;
+  }
+  const filtered=PRODUCTS.filter(p=>(currentFilter==='All'||p.category===currentFilter)&&p.price<=currentMaxPrice);
+  document.getElementById('shopCount').textContent=filtered.length+' items';
+  document.getElementById('shopTitle').textContent=currentFilter==='All'?'All Products':currentFilter;
+  grid.innerHTML=filtered.length?filtered.map(renderCard).join(''):`<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--text-light);">No products found in this range.</div>`;
+}
+
+function filterShop(cat,btn){
+  document.querySelectorAll('.cf-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderShop(cat);
+}
+function updatePrice(val){
+  document.getElementById('priceLabel').textContent='Up to ₹'+val;
+  renderShop(undefined,parseInt(val));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRODUCT MODAL
+═══════════════════════════════════════════════════════════ */
+function openModal(id) {
+  const p=PRODUCTS.find(x=>x.id===id);
+  trackProductView(id);
+  document.getElementById('modalCat').textContent=p.category;
+  document.getElementById('modalName').textContent=p.name;
+  document.getElementById('modalPrice').textContent='₹'+p.price+' + shipping';
+  document.getElementById('modalDesc').textContent=p.desc;
+  document.getElementById('modalMedia').innerHTML=
+    (p.img?`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;min-height:360px;border-radius:24px 0 0 24px;">`:
+    `<div class="img-placeholder" style="min-height:360px;font-size:12px;border-radius:24px 0 0 24px;">${p.name}</div>`)+
+    (p.badge?`<div class="modal-badge">${p.badge}</div>`:'');
+  document.getElementById('modalActions').innerHTML=`
+    <button class="btn btn-pink" onclick="addToCart(${id});closeModalDirect()">Add to Cart</button>
+    <a class="btn btn-wa" href="https://wa.me/919472736370?text=${encodeURIComponent(p.whatsappMsg)}" target="_blank" onclick="trackWA('modal:${id}')">Order on WhatsApp</a>`;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(e){if(e.target.id==='modalOverlay') closeModalDirect();}
+function closeModalDirect(){document.getElementById('modalOverlay').classList.remove('open');}
+
+/* ═══════════════════════════════════════════════════════════
+   CART
+═══════════════════════════════════════════════════════════ */
+function addToCart(id){
+  cart[id]=(cart[id]||0)+1;
+  trackProductCart(id);
+  updateCartBadge();
+  showToast('Added to cart! 🛒');
+  logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');
+}
+function removeFromCart(id){delete cart[id];updateCartBadge();renderCartDrawer();}
+function changeQty(id,delta){
+  cart[id]=(cart[id]||0)+delta;
+  if(cart[id]<=0) delete cart[id];
+  updateCartBadge();renderCartDrawer();
+}
+function clearCart(){cart={};updateCartBadge();renderCartDrawer();}
+function updateCartBadge(){
+  const total=Object.values(cart).reduce((a,b)=>a+b,0);
+  const badge=document.getElementById('cartBadge');
+  badge.textContent=total;
+  badge.classList.remove('bump');
+  void badge.offsetWidth;
+  badge.classList.add('bump');
+}
+function openCart(){
+  trackCartOpen();
+  renderCartDrawer();
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+}
+function closeCart(){
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+}
+function renderCartDrawer(){
+  const body=document.getElementById('cartBody');
+  const foot=document.getElementById('cartFoot');
+  const ids=Object.keys(cart).map(Number);
+  if(!ids.length){
+    body.innerHTML=`<div class="cart-empty"><div class="empty-icon">🛒</div>
+      <p style="font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:6px;">Your cart is empty</p>
+      <p>Add some handmade treasures!</p>
+      <button class="btn btn-pink" style="margin-top:18px;" onclick="closeCart();showPage('shop')">Shop Now</button>
+    </div>`;
+    foot.style.display='none';return;
+  }
+  let html='',subtotal=0;
+  ids.forEach(id=>{
+    const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
+    const qty=cart[id];subtotal+=p.price*qty;
+    html+=`<div class="cart-item">
+      <div class="cart-item-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:'<div style="width:100%;height:100%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);">'+p.name+'</div>'}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${p.name}</div>
+        <div class="cart-item-price">₹${p.price} × ${qty} = ₹${p.price*qty}</div>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty(${id},-1)">−</button>
+          <span class="qty-num">${qty}</span>
+          <button class="qty-btn" onclick="changeQty(${id},+1)">+</button>
+        </div>
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart(${id})">✕</button>
+    </div>`;
+  });
+  body.innerHTML=html;
+  document.getElementById('cartTotal').textContent='₹'+subtotal;
+  foot.style.display='block';
+}
+function checkoutWhatsApp(){
+  const ids=Object.keys(cart).map(Number);if(!ids.length)return;
+  let lines=ids.map(id=>{const p=PRODUCTS.find(x=>x.id===id);return`• ${p.name} × ${cart[id]} = ₹${p.price*cart[id]}`;});
+  const subtotal=ids.reduce((s,id)=>s+PRODUCTS.find(x=>x.id===id).price*cart[id],0);
+  const msg=`Hi! I'd like to place an order from Tiny Little Things:\n\n${lines.join('\n')}\n\nSubtotal: ₹${subtotal}\n\nPlease confirm availability and share payment details. Thank you!`;
+  trackWA('checkout');
+  window.open('https://wa.me/919472736370?text='+encodeURIComponent(msg),'_blank');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TESTIMONIALS & INSTAGRAM
+═══════════════════════════════════════════════════════════ */
+function renderTestimonials(){
+  document.getElementById('testiGrid').innerHTML=TESTIMONIALS.map(t=>`
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">${t.text}</p>
+      <div class="testi-author">
+        <div class="testi-av">${t.img?`<img src="${t.img}" alt="${t.name}" style="border-radius:50%;">`:`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--pink);background:var(--pink-pale);">${t.name.split(' ').map(w=>w[0]).join('')}</div>`}</div>
+        <div><div class="testi-name">${t.name}</div><div class="testi-role">${t.role}</div></div>
+      </div>
+    </div>`).join('');
+}
+function renderInstagram(){
+  const keys=['insta_1','insta_2','insta_3','insta_4','insta_5','insta_6'];
+  document.getElementById('instaGrid').innerHTML=keys.map((k,i)=>{
+    const src=SITE_IMAGES[k];
+    return `<div class="insta-tile"><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">${src?`<img src="${src}" alt="Instagram ${i+1}">`:`<div class="img-placeholder" style="font-size:10px;">Post ${i+1}<br><span style="font-size:8px;">Upload in Admin</span></div>`}</a><div class="insta-tile-overlay">📷</div></div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT FORM
+═══════════════════════════════════════════════════════════ */
+function submitContact(){
+  const name=document.getElementById('contactName')?.value||'';
+  const phone=document.getElementById('contactPhone')?.value||'';
+  const type=document.getElementById('contactType')?.value||'';
+  const msg=document.getElementById('contactMsg')?.value||'';
+  if(!name||!phone){showToast('Please fill in your name and phone!');return;}
+  logActivity('✉️','Contact form submitted',name+' — '+type);
+  const waMsg=`Hi! My name is ${name} (${phone}).\n\nEnquiry: ${type}\n\nMessage: ${msg}`;
+  window.open('https://wa.me/919472736370?text='+encodeURIComponent(waMsg),'_blank');
+  showToast('Redirecting to WhatsApp! 💬');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════════════ */
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN AUTH
+═══════════════════════════════════════════════════════════ */
+let adminLoggedIn=false;
+function adminLogin(){
+  const u=document.getElementById('adminUser').value.trim();
+  const p=document.getElementById('adminPass').value;
+  if(u===CREDENTIALS.user && p===CREDENTIALS.pass){
+    adminLoggedIn=true;
+    document.getElementById('adminLogin').style.display='none';
+    document.getElementById('adminDash').style.display='block';
+    renderAdminProducts();
+    renderTestiEditGrid();
+    refreshDashboard();
+    renderAdminImagePreviews();
+    startAdminClock();
+    logActivity('🔐','Admin logged in','');
+  } else {
+    document.getElementById('loginErr').textContent='Incorrect username or password.';
+    document.getElementById('adminPass').value='';
+  }
+}
+function adminLogout(){
+  adminLoggedIn=false;
+  document.getElementById('adminLogin').style.display='flex';
+  document.getElementById('adminDash').style.display='none';
+  document.getElementById('adminUser').value='';
+  document.getElementById('adminPass').value='';
+  document.getElementById('loginErr').textContent='';
+}
+function startAdminClock(){
+  const update=()=>{
+    const now=new Date();
+    const el=document.getElementById('adminDateTime');
+    if(el) el.textContent=now.toLocaleString('en-IN',{weekday:'short',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  };
+  update();setInterval(update,30000);
+}
+function switchAdminTab(tab){
+  document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('asec-'+tab).classList.add('active');
+  document.getElementById('atab-'+tab).classList.add('active');
+  if(tab==='dashboard') refreshDashboard();
+  if(tab==='products') renderAdminProducts();
+  if(tab==='testimonials') renderTestiEditGrid();
+  if(tab==='images') renderAdminImagePreviews();
+  if(tab==='settings') renderSettings();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DASHBOARD / ANALYTICS
+═══════════════════════════════════════════════════════════ */
+function refreshDashboard(){
+  const totalViews=Object.values(ANALYTICS.pageViews||{}).reduce((a,b)=>a+b,0);
+  document.getElementById('dc-views').textContent=totalViews;
+  document.getElementById('dc-carts').textContent=ANALYTICS.cartOpens||0;
+  document.getElementById('dc-wa').textContent=ANALYTICS.waClicks||0;
+  const totalPV=Object.values(ANALYTICS.productViews||{}).reduce((a,b)=>a+b,0);
+  document.getElementById('dc-prodviews').textContent=totalPV;
+  renderMiniBarChart('chart-prod-views',ANALYTICS.productViews||{},5,'views');
+  renderMiniBarChart('chart-prod-cart',ANALYTICS.productCart||{},5,'cart');
+  renderPageChart();
+  renderDailyChart();
+  renderActivityLog();
+}
+
+function renderMiniBarChart(containerId,data,limit,type){
+  const container=document.getElementById(containerId);
+  if(!container) return;
+  const sorted=Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,limit);
+  const max=sorted.length?sorted[0][1]:1;
+  if(!sorted.length){container.innerHTML='<p style="font-size:13px;color:var(--text-light);padding:10px 0;">No data yet — start browsing!</p>';return;}
+  container.innerHTML=sorted.map(([id,val])=>{
+    const p=PRODUCTS.find(x=>x.id===parseInt(id));
+    const name=p?p.name:'Unknown';
+    const pct=Math.round((val/max)*100);
+    return `<div class="mini-bar">
+      <div class="mini-bar-label" title="${name}">${name}</div>
+      <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${pct}%"></div></div>
+      <div class="mini-bar-val">${val}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderPageChart(){
+  const container=document.getElementById('chart-pages');
+  if(!container) return;
+  const pv=ANALYTICS.pageViews||{};
+  const pages=['home','shop','about','contact','custom','shipping'];
+  const max=Math.max(...pages.map(p=>pv[p]||0),1);
+  container.innerHTML=pages.map(pg=>{
+    const val=pv[pg]||0;
+    const pct=Math.round((val/max)*100);
+    return `<div class="mini-bar">
+      <div class="mini-bar-label">${pg.charAt(0).toUpperCase()+pg.slice(1)}</div>
+      <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${pct}%;background:var(--sage);"></div></div>
+      <div class="mini-bar-val">${val}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderDailyChart(){
+  const container=document.getElementById('chart-daily');
+  if(!container) return;
+  const daily=ANALYTICS.daily||{};
+  const last7=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const key=d.toISOString().split('T')[0];
+    const short=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
+    last7.push({key,short,data:daily[key]||{views:0,carts:0,wa:0}});
+  }
+  const maxVal=Math.max(...last7.map(d=>d.data.views+d.data.carts+d.data.wa),1);
+  container.innerHTML=last7.map(d=>{
+    const total=d.data.views+d.data.carts+d.data.wa;
+    const pct=Math.round((total/maxVal)*100);
+    return `<div class="mini-bar">
+      <div class="mini-bar-label">${d.short}</div>
+      <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${pct}%;background:var(--pink-light);"></div></div>
+      <div class="mini-bar-val">${total}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderActivityLog(){
+  const container=document.getElementById('activityLog');
+  if(!container) return;
+  const logs=ANALYTICS.activityLog||[];
+  if(!logs.length){container.innerHTML='<p style="font-size:13px;color:var(--text-light);padding:10px 0;">No recent activity.</p>';return;}
+  container.innerHTML=logs.slice(0,10).map(l=>`
+    <div class="log-item">
+      <div class="log-icon">${l.icon}</div>
+      <div><div class="log-text">${l.text}${l.sub?' — <em>'+l.sub+'</em>':''}</div><div class="log-time">${l.time}</div></div>
+    </div>`).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN PRODUCTS TABLE
+═══════════════════════════════════════════════════════════ */
+function renderAdminProducts(){
+  document.getElementById('adminProductBody').innerHTML=PRODUCTS.map(p=>`
+    <tr>
+      <td><div style="width:44px;height:44px;border-radius:8px;overflow:hidden;background:var(--cream);">${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;">`:'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);">No img</div>'}</div></td>
+      <td><strong>${p.name}</strong></td>
+      <td>₹${p.price}</td>
+      <td>${p.category}</td>
+      <td>${p.badge||'—'}</td>
+      <td>${p.bestseller?'⭐ Yes':'No'}</td>
+      <td><div style="display:flex;gap:6px;">
+        <button class="btn btn-outline btn-sm" onclick="openEditProduct(${p.id})">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">Delete</button>
+      </div></td>
+    </tr>`).join('');
+}
+
+function openEditProduct(id){
+  const p=PRODUCTS.find(x=>x.id===id);
+  document.getElementById('editModalTitle').textContent='Edit: '+p.name;
+  document.getElementById('editModalBody').innerHTML=buildProductForm(p);
+  document.getElementById('editModalOverlay').classList.add('open');
+}
+function openAddProduct(){
+  document.getElementById('editModalTitle').textContent='Add New Product';
+  document.getElementById('editModalBody').innerHTML=buildProductForm(null);
+  document.getElementById('editModalOverlay').classList.add('open');
+}
+function closeEditModal(){document.getElementById('editModalOverlay').classList.remove('open');}
+
+function buildProductForm(p){
+  const cats=['Flower Pots','Keychains','Lamps','Custom'];
+  const isNew=!p;
+  const imgPreview=p&&p.img?`<img class="preview-img" src="${p.img}" alt="Preview" id="editImgPreview">`:
+    `<img class="preview-img" id="editImgPreview" style="display:none;">`;
+  return `
+  <div class="fg2"><label>Product Name</label><input type="text" id="ef-name" value="${p?p.name:''}"></div>
+  <div class="inline-grid">
+    <div class="fg2"><label>Price (₹)</label><input type="number" id="ef-price" value="${p?p.price:''}" min="1"></div>
+    <div class="fg2"><label>Badge (optional)</label><input type="text" id="ef-badge" value="${p?p.badge:''}" placeholder="e.g. New, Bestseller"></div>
+  </div>
+  <div class="fg2"><label>Category</label>
+    <select id="ef-cat">
+      ${cats.map(c=>`<option value="${c}" ${p&&p.category===c?'selected':''}>${c}</option>`).join('')}
+    </select>
+  </div>
+  <div class="fg2"><label>Description</label><textarea id="ef-desc">${p?p.desc:''}</textarea></div>
+  <div class="fg2"><label>WhatsApp Message</label><textarea id="ef-wa">${p?p.whatsappMsg:''}</textarea></div>
+  <div class="fg2">
+    <label>Product Image</label>
+    <div class="img-upload-box">
+      ${imgPreview}
+      <p id="editImgHint">${p&&p.img?'Click to change image':'📷 Click to upload product image'}</p>
+      <div class="upload-hint">JPG, PNG or WebP. Max 5MB.</div>
+      <input type="file" accept="image/*" onchange="handleProductImgUpload(this)" id="ef-imgfile">
+    </div>
+  </div>
+  <div class="fg2">
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+      <input type="checkbox" id="ef-best" ${p&&p.bestseller?'checked':''} style="width:16px;height:16px;accent-color:var(--pink);">
+      Mark as Bestseller
+    </label>
+  </div>
+  <input type="hidden" id="ef-id" value="${p?p.id:''}">
+  <input type="hidden" id="ef-curimg" value="${p&&p.img?p.img:''}">
+  <div style="display:flex;gap:10px;margin-top:6px;">
+    <button class="btn btn-pink" style="flex:1;" onclick="saveProductFromForm()">💾 Save Product</button>
+    <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
+  </div>`;
+}
+
+function handleProductImgUpload(input){
+  const file=input.files[0];if(!file)return;
+  if(file.size>5*1024*1024){showToast('Image too large! Max 5MB.');return;}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const prev=document.getElementById('editImgPreview');
+    if(prev){prev.src=e.target.result;prev.style.display='block';}
+    document.getElementById('ef-curimg').value=e.target.result;
+    document.getElementById('editImgHint').textContent='✓ Image selected';
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveProductFromForm(){
+  const name=document.getElementById('ef-name').value.trim();
+  const price=parseInt(document.getElementById('ef-price').value);
+  if(!name||!price){showToast('Name and price are required!');return;}
+  const idVal=document.getElementById('ef-id').value;
+  const img=document.getElementById('ef-curimg').value;
+  const prod={
+    id:idVal?parseInt(idVal):Date.now(),
+    name,price,
+    category:document.getElementById('ef-cat').value,
+    badge:document.getElementById('ef-badge').value.trim(),
+    desc:document.getElementById('ef-desc').value.trim(),
+    whatsappMsg:document.getElementById('ef-wa').value.trim()||`Hi! I'm interested in the *${name}* (₹${price}). Can you please share availability and order details?`,
+    bestseller:document.getElementById('ef-best').checked,
+    img
+  };
+  if(idVal){
+    const idx=PRODUCTS.findIndex(x=>x.id===parseInt(idVal));
+    if(idx>-1) PRODUCTS[idx]=prod;
+  } else {
+    PRODUCTS.push(prod);
+  }
+  saveProducts();
+  closeEditModal();
+  renderAdminProducts();
+  renderBestsellers();
+  showToast((idVal?'Product updated!':'Product added!')+' 🛍️');
+  logActivity('🛍️',(idVal?'Product updated':'Product added'),name);
+}
+
+function deleteProduct(id){
+  if(!confirm('Delete this product?')) return;
+  const p=PRODUCTS.find(x=>x.id===id);
+  PRODUCTS=PRODUCTS.filter(x=>x.id!==id);
+  saveProducts();
+  renderAdminProducts();
+  renderBestsellers();
+  showToast('Product deleted!');
+  logActivity('🗑️','Product deleted',p?.name||'');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN TESTIMONIALS
+═══════════════════════════════════════════════════════════ */
+function renderTestiEditGrid(){
+  document.getElementById('testiEditGrid').innerHTML=TESTIMONIALS.map((t,i)=>`
+    <div class="testi-edit-card">
+      <h4>Review ${i+1}</h4>
+      <input type="text" value="${t.name}" id="te-name-${i}" placeholder="Customer name">
+      <input type="text" value="${t.role}" id="te-role-${i}" placeholder="Location / Role">
+      <textarea id="te-text-${i}">${t.text}</textarea>
+      <div style="margin-top:6px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-mid);margin-bottom:4px;">Customer Photo</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--pink-pale);flex-shrink:0;" id="te-img-prev-${i}">
+            ${t.img?`<img src="${t.img}" style="width:100%;height:100%;object-fit:cover;">`:'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--pink);">'+t.name.split(' ').map(w=>w[0]).join('')+'</div>'}
+          </div>
+          <label style="cursor:pointer;font-size:12px;color:var(--pink);font-weight:700;padding:5px 10px;border:1px solid var(--pink);border-radius:var(--r-pill);">
+            📷 Upload
+            <input type="file" accept="image/*" style="display:none;" onchange="handleTestiImg(this,${i})">
+          </label>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function handleTestiImg(input,idx){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    TESTIMONIALS[idx].img=e.target.result;
+    const prev=document.getElementById(`te-img-prev-${idx}`);
+    if(prev) prev.innerHTML=`<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveTestimonialsAdmin(){
+  TESTIMONIALS.forEach((t,i)=>{
+    t.name=document.getElementById(`te-name-${i}`)?.value||t.name;
+    t.role=document.getElementById(`te-role-${i}`)?.value||t.role;
+    t.text=document.getElementById(`te-text-${i}`)?.value||t.text;
+  });
+  saveTestimonials();
+  renderTestimonials();
+  showToast('Testimonials saved! 💬');
+  logActivity('💬','Testimonials updated','');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN SITE IMAGES
+═══════════════════════════════════════════════════════════ */
+function handleSiteImg(input,key){
+  const file=input.files[0];if(!file)return;
+  if(file.size>5*1024*1024){showToast('Image too large! Max 5MB.');return;}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    SITE_IMAGES[key]=e.target.result;
+    saveSiteImages();
+    updateAdminImgPreview(key,e.target.result);
+    applyAllSiteImages();
+    renderInstagram();
+    showToast('Image updated! 🖼️');
+    logActivity('🖼️','Image uploaded',key);
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateAdminImgPreview(key,src){
+  const el=document.getElementById('prev-'+key);
+  if(el) {
+    el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"><input type="file" accept="image/*" onchange="handleSiteImg(this,'${key}')">`;
+  }
+}
+
+function renderAdminImagePreviews(){
+  const keys=['logo','hero','team_sanskar','team_radhika','about_main','about_second','about_page','insta_1','insta_2','insta_3','insta_4','insta_5','insta_6'];
+  keys.forEach(key=>{
+    if(SITE_IMAGES[key]) updateAdminImgPreview(key,SITE_IMAGES[key]);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SETTINGS
+═══════════════════════════════════════════════════════════ */
+function changeCredentials(){
+  const u=document.getElementById('newUser').value.trim();
+  const p=document.getElementById('newPass').value;
+  if(!u||!p){showToast('Please fill both fields!');return;}
+  CREDENTIALS={user:u,pass:p};
+  localStorage.setItem('tlt_credentials',JSON.stringify(CREDENTIALS));
+  document.getElementById('newUser').value='';
+  document.getElementById('newPass').value='';
+  showToast('Credentials updated! 🔐');
+  logActivity('🔐','Credentials changed','');
+}
+
+function renderSettings(){
+  const cats=[...new Set(PRODUCTS.map(p=>p.category))];
+  document.getElementById('categoryList').innerHTML=cats.map(c=>`<span style="background:var(--pink-pale);color:var(--pink);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--r-pill);">${c}</span>`).join('');
+}
+
+function exportData(){
+  const data={products:PRODUCTS,testimonials:TESTIMONIALS,siteImages:SITE_IMAGES,exportDate:new Date().toISOString()};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='tiny-little-things-backup-'+new Date().toISOString().split('T')[0]+'.json';
+  a.click();showToast('Data exported! 📥');
+}
+
+function importData(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      if(data.products) {PRODUCTS=data.products;saveProducts();}
+      if(data.testimonials) {TESTIMONIALS=data.testimonials;saveTestimonials();}
+      if(data.siteImages) {SITE_IMAGES=data.siteImages;saveSiteImages();}
+      renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
+      applyAllSiteImages();renderTestimonials();renderInstagram();renderBestsellers();
+      showToast('Data imported successfully! 📤');
+    }catch(err){showToast('Invalid file format!');}
+  };
+  reader.readAsText(file);
+}
+
+function resetAll(){
+  PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+  TESTIMONIALS=JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
+  SITE_IMAGES={};ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+  saveProducts();saveTestimonials();saveSiteImages();saveAnalytics();
+  renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
+  applyAllSiteImages();renderBestsellers();renderTestimonials();renderInstagram();
+  showToast('Reset to defaults! ⚠️');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════ */
+applyAllSiteImages();
+renderCategories();
+renderBestsellers();
+renderTestimonials();
+renderInstagram();
+renderShop('All',1999);
+trackPageView('home');
+logActivity('👁️','Site visited','homepage');
+</script>
+</body>
+</html>
