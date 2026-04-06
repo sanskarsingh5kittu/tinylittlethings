@@ -247,7 +247,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .price-wrap input[type=range]{width:100%;accent-color:var(--pink);margin:8px 0;}
 .price-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--text-light);}
 .shop-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
-.shop-head h2{font-size:21px;font-weight:700;color:var(--text-dark);}
+.shop-head h2{font-size:21px;font-weight:700;color:var(--text-dark);margin-bottom:22px;}
 .shop-head span{font-size:13px;color:var(--text-light);}
 .about-story-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:80px 5%;max-width:1100px;margin:0 auto;}
 .about-story-img{border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;box-shadow:var(--shadow-lg);}
@@ -1609,7 +1609,6 @@ function openAddProduct(){
   document.getElementById('editModalBody').innerHTML=buildProductForm(null);
   document.getElementById('editModalOverlay').classList.add('open');
 }
-function closeEditModal(){document.getElementById('editModalOverlay').classList.remove('open');}
 
 function closeEditModal(){document.getElementById('editModalOverlay').classList.remove('open');}
 
@@ -1652,18 +1651,6 @@ function buildProductForm(p){
     <button class="btn btn-pink" style="flex:1;" onclick="saveProductFromForm()">💾 Save Product</button>
     <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
   </div>`;
-}
-function handleProductImgUpload(input){
-  const file=input.files[0];if(!file)return;
-  if(file.size>5*1024*1024){showToast('Image too large! Max 5MB.');return;}
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const prev=document.getElementById('editImgPreview');
-    if(prev){prev.src=e.target.result;prev.style.display='block';}
-    document.getElementById('ef-curimg').value=e.target.result;
-    document.getElementById('editImgHint').textContent='✓ Image selected';
-  };
-  reader.readAsDataURL(file);
 }
 
 function saveProductFromForm(){
