@@ -3,8 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiny Little Things — Handmade with Love</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ═══════════════════════════════════════════════════════════
+     FIREBASE SETUP — REPLACE WITH YOUR OWN CONFIG
+     1. Go to https://console.firebase.google.com
+     2. Create a project (free)
+     3. Go to Project Settings → General → Your apps → Add web app
+     4. Copy the firebaseConfig object and paste below
+     5. Enable Firestore: Build → Firestore Database → Create database (test mode)
+     6. Enable Storage: Build → Storage → Get started (test mode)
+     7. That's it! Images and data will sync across ALL devices.
+     ═══════════════════════════════════════════════════════════ -->
+
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+  import { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+  import { getStorage, ref, uploadString, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
+
+  // ════════════════════════════════════════════════
+  // ⬇️  PASTE YOUR FIREBASE CONFIG HERE
+  // ════════════════════════════════════════════════
+  const firebaseConfig = {
+    apiKey: "PASTE_YOUR_API_KEY",
+    authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
+    projectId: "PASTE_YOUR_PROJECT_ID",
+    storageBucket: "PASTE_YOUR_PROJECT.appspot.com",
+    messagingSenderId: "PASTE_YOUR_SENDER_ID",
+    appId: "PASTE_YOUR_APP_ID"
+  };
+  // ════════════════════════════════════════════════
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  // Expose to global scope for non-module scripts
+  window._fb = { db, storage, doc, setDoc, getDoc, collection, getDocs, deleteDoc, onSnapshot, ref, uploadString, getDownloadURL, deleteObject };
+  window._fbReady = true;
+  window.dispatchEvent(new Event('fb-ready'));
+</script>
+
 <style>
 :root{--pink:#e8748a;--pink-hover:#d45e75;--pink-light:#f2a8b5;--pink-pale:#fde8ed;--sage:#8aab8c;--sage-hover:#6e9270;--sage-pale:#edf5ee;--cream:#faf6f0;--warm-white:#fffcf8;--text-dark:#2e1f24;--text-mid:#7a5c62;--text-light:#b8929a;--card-bg:#ffffff;--border:#f5e8ea;--shadow-sm:0 2px 12px rgba(46,31,36,.07);--shadow:0 6px 28px rgba(46,31,36,.10);--shadow-lg:0 16px 48px rgba(46,31,36,.15);--r:18px;--r-sm:10px;--r-pill:999px;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -123,9 +164,15 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .modal-actions{display:flex;gap:10px;flex-wrap:wrap;}
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text-dark);color:#fff;padding:12px 22px;border-radius:var(--r-pill);font-size:13.5px;font-weight:700;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
-.sync-banner{background:var(--pink-pale);border:1px solid var(--pink-light);border-radius:var(--r-sm);padding:10px 16px;font-size:13px;color:var(--text-mid);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.sync-banner.synced{background:#edf5ee;border-color:#8aab8c;color:#3d7a41;}
-.sync-banner.error{background:#fff3e8;border-color:#d97706;color:#92400e;}
+/* Firebase status banner */
+.fb-status{position:fixed;top:76px;right:16px;z-index:800;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 14px;font-size:12px;font-weight:700;color:var(--text-mid);box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:6px;transition:all .5s;max-width:260px;}
+.fb-status.saving{color:var(--pink);border-color:var(--pink-light);}
+.fb-status.saved{color:var(--sage);border-color:#8aab8c;}
+.fb-status.error{color:#c0392b;border-color:#e74c3c;background:#fff5f5;}
+.fb-status.hidden{opacity:0;pointer-events:none;}
+.fb-setup-banner{background:#fff3cd;border:1px solid #ffc107;border-radius:var(--r-sm);padding:14px 18px;margin:16px 0;font-size:13px;color:#856404;line-height:1.7;}
+.fb-setup-banner strong{display:block;font-size:14px;margin-bottom:6px;}
+.fb-setup-banner code{background:rgba(0,0,0,.07);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:12px;}
 .hero{min-height:90vh;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:80px 5%;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--warm-white) 0%,var(--pink-pale) 55%,var(--sage-pale) 100%);}
 .hero::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(232,116,138,.08) 0%,transparent 68%);right:-150px;top:-100px;pointer-events:none;}
 .hero-text{z-index:1;animation:slideUp .8s ease both;}
@@ -139,9 +186,9 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .stat-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--text-dark);line-height:1;}
 .stat-label{font-size:10.5px;color:var(--text-light);font-weight:700;text-transform:uppercase;letter-spacing:.9px;margin-top:2px;}
 .hero-visual{z-index:1;animation:slideUp .8s .15s ease both;opacity:0;animation-fill-mode:forwards;}
-.hero-img-wrap{border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:4/3;position:relative;}
+.hero-img-wrap{border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:4/3;position:relative;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));}
 .hero-img-wrap img{width:100%;height:100%;object-fit:cover;}
-.hero-img-wrap .img-placeholder{width:100%;height:100%;min-height:350px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));font-size:14px;font-weight:600;color:var(--text-light);}
+.hero-img-placeholder{width:100%;height:100%;min-height:350px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:600;color:var(--text-light);}
 .hero-float{position:absolute;bottom:20px;left:20px;background:#fff;border-radius:var(--r-sm);padding:12px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;}
 .hero-float-icon{width:38px;height:38px;border-radius:50%;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:18px;}
 .hero-float p{font-size:11px;color:var(--text-light);line-height:1.4;}
@@ -198,10 +245,10 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .testi-role{font-size:11.5px;color:var(--text-light);}
 .insta-section{padding:80px 5%;background:var(--cream);text-align:center;}
 .insta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:720px;margin:0 auto 28px;}
-.insta-tile{aspect-ratio:1;overflow:hidden;border-radius:var(--r-sm);position:relative;cursor:pointer;}
+.insta-tile{aspect-ratio:1;overflow:hidden;border-radius:var(--r-sm);position:relative;cursor:pointer;background:var(--pink-pale);}
 .insta-tile img{transition:transform .4s;width:100%;height:100%;object-fit:cover;}
 .insta-tile:hover img{transform:scale(1.1);}
-.insta-tile .img-placeholder{width:100%;height:100%;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-light);}
+.insta-tile .img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-light);}
 .insta-tile-overlay{position:absolute;inset:0;background:rgba(232,116,138,.4);display:flex;align-items:center;justify-content:center;font-size:24px;opacity:0;transition:opacity .3s;}
 .insta-tile:hover .insta-tile-overlay{opacity:1;}
 .cta-banner{padding:90px 5%;background:linear-gradient(135deg,var(--pink) 0%,#c94d6a 50%,var(--sage) 100%);text-align:center;color:#fff;position:relative;overflow:hidden;}
@@ -357,10 +404,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .testi-edit-card input,.testi-edit-card textarea{width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:8px;font-family:'Nunito',sans-serif;font-size:13px;color:var(--text-dark);outline:none;margin-bottom:7px;}
 .testi-edit-card textarea{height:70px;resize:vertical;}
 .testi-edit-card input:focus,.testi-edit-card textarea:focus{border-color:var(--pink);}
-.storage-indicator{position:fixed;top:80px;right:16px;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 14px;font-size:12px;font-weight:600;color:var(--text-mid);z-index:800;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:6px;transition:opacity .5s;}
-.storage-indicator.saving{color:var(--pink);}
-.storage-indicator.saved{color:var(--sage);}
-.storage-indicator.hidden{opacity:0;pointer-events:none;}
+.upload-progress{height:4px;background:var(--pink-pale);border-radius:10px;margin-top:8px;overflow:hidden;}
+.upload-progress-fill{height:100%;background:var(--pink);border-radius:10px;transition:width .3s;}
 @media(max-width:960px){
 .hero{grid-template-columns:1fr;}.hero-visual{display:none;}
 .about-prev-grid{grid-template-columns:1fr;}.about-imgs{display:none;}
@@ -392,8 +437,7 @@ nav{display:none;}.hamburger{display:block;}
 </head>
 <body>
 
-<div class="storage-indicator hidden" id="storageIndicator">💾 Saving...</div>
-
+<div class="fb-status hidden" id="fbStatus">☁️ Connecting...</div>
 <div class="announce">Free shipping on orders above ₹999 &nbsp;|&nbsp; Handmade with love in India</div>
 
 <header>
@@ -431,10 +475,7 @@ nav{display:none;}.hamburger{display:block;}
 
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeCart()"></div>
 <aside class="cart-drawer" id="cartDrawer">
-  <div class="drawer-head">
-    <h2>Your Cart</h2>
-    <button class="drawer-close" onclick="closeCart()">✕</button>
-  </div>
+  <div class="drawer-head"><h2>Your Cart</h2><button class="drawer-close" onclick="closeCart()">✕</button></div>
   <div class="drawer-body" id="cartBody"></div>
   <div class="drawer-foot" id="cartFoot" style="display:none;">
     <div class="cart-subtotal"><span>Subtotal</span><strong id="cartTotal">₹0</strong></div>
@@ -461,7 +502,7 @@ nav{display:none;}.hamburger{display:block;}
 </div>
 
 <div class="edit-modal-overlay" id="editModalOverlay">
-  <div class="edit-modal" id="editModalBox">
+  <div class="edit-modal">
     <div class="edit-modal-head">
       <h2 id="editModalTitle">Edit Product</h2>
       <button class="modal-close" onclick="closeEditModal()">✕</button>
@@ -481,7 +522,7 @@ nav{display:none;}.hamburger{display:block;}
       <p class="hero-sub">Unique, cute &amp; aesthetic decor to brighten your space. Every piece lovingly crafted from premium pipe cleaners, made just for you.</p>
       <div class="hero-btns">
         <button class="btn btn-pink" onclick="showPage('shop')">Shop Now</button>
-        <a class="btn btn-outline" href="https://wa.me/919472736370?text=Hi!%20I%20visited%20your%20website%20and%20would%20love%20to%20browse%20your%20collection." target="_blank">Order on WhatsApp</a>
+        <a class="btn btn-outline" href="https://wa.me/919472736370?text=Hi!%20I%20visited%20your%20website%20and%20would%20love%20to%20browse%20your%20collection." target="_blank" onclick="trackWA('hero-cta')">Order on WhatsApp</a>
       </div>
       <div class="hero-stats">
         <div><div class="stat-num">100+</div><div class="stat-label">Happy Customers</div></div>
@@ -491,9 +532,8 @@ nav{display:none;}.hamburger{display:block;}
     </div>
     <div class="hero-visual">
       <div class="hero-img-wrap">
-        <div id="heroImgContainer" class="img-placeholder" style="min-height:380px;">
-          <span style="font-size:13px;font-weight:700;color:var(--text-mid);">Hero Image</span>
-          <span style="font-size:11px;color:var(--text-light);">Upload via Admin Panel</span>
+        <div id="heroImgWrap">
+          <div class="hero-img-placeholder"><span>🌸</span><span>Hero image — upload in Admin Panel</span></div>
         </div>
         <div class="hero-float">
           <div class="hero-float-icon">🌸</div>
@@ -526,8 +566,8 @@ nav{display:none;}.hamburger{display:block;}
   <section class="about-prev">
     <div class="about-prev-grid">
       <div class="about-imgs">
-        <div class="about-main-img"><div id="aboutImg1Container" class="img-placeholder" style="width:100%;height:100%;min-height:250px;">About Image 1</div></div>
-        <div class="about-sec-img"><div id="aboutImg2Container" class="img-placeholder" style="width:100%;height:100%;min-height:200px;">About Image 2</div></div>
+        <div class="about-main-img" id="aboutMain"></div>
+        <div class="about-sec-img" id="aboutSecond"></div>
         <div class="about-tag"><p>Happy Customers</p><strong>100+</strong></div>
       </div>
       <div class="about-content">
@@ -536,14 +576,8 @@ nav{display:none;}.hamburger{display:block;}
         <p>Every piece at Tiny Little Things is born from passion and patience. We believe handmade art carries a warmth no machine can replicate.</p>
         <p>Founded with the dream of bringing beautiful, affordable handmade decor to every home in India.</p>
         <div class="founders-row">
-          <div class="founder-chip">
-            <div class="founder-av" id="founderSanskarContainer">👤</div>
-            <span>Sanskar Singh</span>
-          </div>
-          <div class="founder-chip">
-            <div class="founder-av" id="founderRadhikaContainer">👤</div>
-            <span>Radhika Kalra</span>
-          </div>
+          <div class="founder-chip"><div class="founder-av" id="founderSanskar">👤</div><span>Sanskar Singh</span></div>
+          <div class="founder-chip"><div class="founder-av" id="founderRadhika">👤</div><span>Radhika Kalra</span></div>
         </div>
         <button class="btn btn-pink" onclick="showPage('about')">Know Our Story</button>
       </div>
@@ -572,7 +606,7 @@ nav{display:none;}.hamburger{display:block;}
     <p>Explore our full collection and find your perfect piece — or reach out for a custom creation!</p>
     <div class="cta-btns">
       <button class="btn btn-white" onclick="showPage('shop')">Explore Collection</button>
-      <a class="btn btn-wa" href="https://wa.me/919472736370?text=Hi!%20I%20visited%20Tiny%20Little%20Things%20and%20would%20love%20to%20order%20something." target="_blank">Order on WhatsApp</a>
+      <a class="btn btn-wa" href="https://wa.me/919472736370?text=Hi!%20I%20visited%20Tiny%20Little%20Things%20and%20would%20love%20to%20order%20something." target="_blank" onclick="trackWA('cta-banner')">Order on WhatsApp</a>
     </div>
   </section>
 </div>
@@ -610,8 +644,8 @@ nav{display:none;}.hamburger{display:block;}
 <div class="page" id="page-about">
   <div class="page-banner"><h1>Our Story</h1><p>Born from creativity and a love for handmade art.</p></div>
   <div class="about-story-grid">
-    <div class="about-story-img" id="aboutPageImgContainer">
-      <span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image<br><span style="font-size:10px;">Upload via Admin</span></span>
+    <div class="about-story-img" id="aboutPageImg">
+      <span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image — Upload via Admin</span>
     </div>
     <div>
       <p style="font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink);margin-bottom:10px;">The Beginning</p>
@@ -626,12 +660,12 @@ nav{display:none;}.hamburger{display:block;}
     <div class="sec-title"><div class="eyebrow">Meet the Makers</div><h2>The Hearts Behind Tiny Little Things</h2><div class="pill-divider"></div></div>
     <div class="team-grid">
       <div class="team-card">
-        <div class="team-av" id="teamSanskarContainer">👤</div>
+        <div class="team-av" id="teamSanskar">👤</div>
         <h3>Sanskar Singh</h3><p>Co-Founder &amp; Artist</p>
         <p style="font-size:12px;color:var(--text-light);margin-top:8px;line-height:1.6;">Bringing structure and creativity to every piece.</p>
       </div>
       <div class="team-card">
-        <div class="team-av" id="teamRadhikaContainer">👤</div>
+        <div class="team-av" id="teamRadhika">👤</div>
         <h3>Radhika Kalra</h3><p>Co-Founder &amp; Designer</p>
         <p style="font-size:12px;color:var(--text-light);margin-top:8px;line-height:1.6;">The aesthetic eye behind Tiny Little Things.</p>
       </div>
@@ -642,7 +676,7 @@ nav{display:none;}.hamburger{display:block;}
     <p>Have a custom idea or want to place an order?</p>
     <div class="cta-btns">
       <button class="btn btn-white" onclick="showPage('contact')">Get in Touch</button>
-      <a class="btn btn-wa" href="https://wa.me/919472736370" target="_blank">WhatsApp Us</a>
+      <a class="btn btn-wa" href="https://wa.me/919472736370" target="_blank" onclick="trackWA('about-cta')">WhatsApp Us</a>
     </div>
   </section>
 </div>
@@ -658,7 +692,7 @@ nav{display:none;}.hamburger{display:block;}
       <div class="c-item"><div class="c-icon pink-bg">📷</div><div><h4>Instagram</h4><p><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">@tiny_littlethings__</a></p></div></div>
       <div class="c-item"><div class="c-icon pink-bg">📍</div><div><h4>Based in</h4><p>India — Shipping PAN India</p></div></div>
       <div class="c-item"><div class="c-icon green-bg">⏰</div><div><h4>Response Time</h4><p>Within 24 hours</p></div></div>
-      <a class="btn btn-wa" href="https://wa.me/919472736370" target="_blank">Chat on WhatsApp</a>
+      <a class="btn btn-wa" href="https://wa.me/919472736370" target="_blank" onclick="trackWA('contact-page')">Chat on WhatsApp</a>
     </div>
     <div class="form-card">
       <h2>Send Us a Message</h2>
@@ -667,11 +701,8 @@ nav{display:none;}.hamburger{display:block;}
       <div class="fg"><label>What are you looking for?</label>
         <select id="contactType">
           <option value="">Select an option</option>
-          <option>Place an Order</option>
-          <option>Custom Order Inquiry</option>
-          <option>Product Question</option>
-          <option>Corporate / Bulk Order</option>
-          <option>Other</option>
+          <option>Place an Order</option><option>Custom Order Inquiry</option>
+          <option>Product Question</option><option>Corporate / Bulk Order</option><option>Other</option>
         </select>
       </div>
       <div class="fg"><label>Message</label><textarea id="contactMsg" placeholder="Tell us about what you need..."></textarea></div>
@@ -694,7 +725,7 @@ nav{display:none;}.hamburger{display:block;}
       <h3>Ready to Create Something Unique?</h3>
       <p>DM us on WhatsApp or Instagram with your idea!</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-        <a class="btn btn-wa" href="https://wa.me/919472736370?text=Hi!%20I%20have%20a%20custom%20order%20idea." target="_blank">WhatsApp Us</a>
+        <a class="btn btn-wa" href="https://wa.me/919472736370?text=Hi!%20I%20have%20a%20custom%20order%20idea." target="_blank" onclick="trackWA('custom-page')">WhatsApp Us</a>
         <a class="btn btn-pink" href="https://www.instagram.com/tiny_littlethings__" target="_blank">Instagram DM</a>
       </div>
     </div>
@@ -730,6 +761,11 @@ nav{display:none;}.hamburger{display:block;}
       <div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;">🌸</div>
       <h2>Admin Panel</h2>
       <p>Tiny Little Things — Manage your store</p>
+      <div id="fbSetupWarning" style="display:none;" class="fb-setup-banner">
+        <strong>⚠️ Firebase Not Configured</strong>
+        This admin panel requires Firebase to save data across devices. Please configure Firebase by editing the <code>firebaseConfig</code> at the top of this HTML file. 
+        <a href="https://console.firebase.google.com" target="_blank" style="color:var(--pink);font-weight:700;">Set up Firebase Free →</a>
+      </div>
       <input type="text" id="adminUser" placeholder="Username" onkeydown="if(event.key==='Enter')adminLogin()">
       <input type="password" id="adminPass" placeholder="Password" onkeydown="if(event.key==='Enter')adminLogin()">
       <button class="btn btn-pink" onclick="adminLogin()">Login →</button>
@@ -739,10 +775,7 @@ nav{display:none;}.hamburger{display:block;}
 
   <div id="adminDash" class="admin-layout" style="display:none;">
     <div class="admin-header">
-      <div>
-        <h1>🌸 Tiny Little Things — Admin</h1>
-        <span id="adminDateTime"></span>
-      </div>
+      <div><h1>🌸 Tiny Little Things — Admin</h1><span id="adminDateTime"></span></div>
       <div style="display:flex;gap:10px;align-items:center;">
         <span id="syncStatus" style="font-size:12px;color:var(--sage);font-weight:600;"></span>
         <button class="btn btn-outline btn-sm" onclick="showPage('home')">← View Site</button>
@@ -762,7 +795,6 @@ nav{display:none;}.hamburger{display:block;}
         <!-- DASHBOARD -->
         <div class="admin-section active" id="asec-dashboard">
           <div class="admin-page-title">Analytics Dashboard</div>
-          <div class="sync-banner" id="dashSyncBanner">☁️ Loading analytics from cloud...</div>
           <div class="dash-grid">
             <div class="dash-card pink-accent"><div class="dc-label">Total Page Views</div><div class="dc-val" id="dc-views">0</div><div class="dc-sub">All time</div></div>
             <div class="dash-card sage-accent"><div class="dc-label">Cart Opens</div><div class="dc-val" id="dc-carts">0</div><div class="dc-sub">All time</div></div>
@@ -790,9 +822,8 @@ nav{display:none;}.hamburger{display:block;}
             <div class="admin-page-title" style="margin-bottom:0;">Manage Products</div>
             <button class="btn btn-pink btn-sm" onclick="openAddProduct()">+ Add Product</button>
           </div>
-          <div class="sync-banner" id="prodSyncBanner">☁️ Loading products from cloud...</div>
           <div class="admin-table-wrap">
-            <table class="admin-table" id="adminProductTable">
+            <table class="admin-table">
               <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Category</th><th>Badge</th><th>Bestseller</th><th>Actions</th></tr></thead>
               <tbody id="adminProductBody"></tbody>
             </table>
@@ -805,14 +836,18 @@ nav{display:none;}.hamburger{display:block;}
             <div class="admin-page-title" style="margin-bottom:0;">Manage Testimonials</div>
             <button class="btn btn-pink btn-sm" onclick="saveTestimonialsAdmin()">💾 Save All</button>
           </div>
-          <div class="sync-banner" id="testiSyncBanner">☁️ Loading testimonials from cloud...</div>
           <div class="testi-edit-grid" id="testiEditGrid"></div>
         </div>
 
         <!-- IMAGES -->
         <div class="admin-section" id="asec-images">
           <div class="admin-page-title">Site Images</div>
-          <div class="sync-banner" id="imgSyncBanner">☁️ Images sync to cloud automatically — visible on all devices.</div>
+          <div class="fb-setup-banner" id="imgFirebaseNote" style="background:#edf5ee;border-color:#8aab8c;color:#2d6a31;display:none;">
+            ✅ Images are stored in Firebase Storage and visible on all devices automatically.
+          </div>
+          <div class="fb-setup-banner" id="imgLocalNote">
+            ⚠️ Firebase not configured — images will be stored locally (this browser only). Configure Firebase to sync images across all devices.
+          </div>
           <div class="settings-section">
             <h3>🌟 Hero &amp; Logo</h3>
             <div class="img-settings-grid">
@@ -846,7 +881,6 @@ nav{display:none;}.hamburger{display:block;}
               <div class="img-setting-item"><label>Post 6</label><div class="img-setting-preview" id="prev-insta_6"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_6')"></div></div>
             </div>
           </div>
-          <div style="text-align:center;padding:10px;"><p style="font-size:13px;color:var(--text-mid);">☁️ All images are stored in the cloud and visible on every device &amp; browser automatically.</p></div>
         </div>
 
         <!-- SETTINGS -->
@@ -861,14 +895,10 @@ nav{display:none;}.hamburger{display:block;}
             <button class="btn btn-pink btn-sm" onclick="changeCredentials()">Update Credentials</button>
           </div>
           <div class="settings-section">
-            <h3>📦 Product Categories</h3>
-            <div id="categoryList" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
-          </div>
-          <div class="settings-section">
             <h3>🗃️ Data Management</h3>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button class="btn btn-sage btn-sm" onclick="exportData()">📥 Export Data</button>
-              <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFile').click()">📤 Import Data</button>
+              <button class="btn btn-sage btn-sm" onclick="exportData()">📥 Export Backup</button>
+              <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFile').click()">📤 Import Backup</button>
               <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(this)">
               <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset ALL data to defaults?'))resetAll();">⚠️ Reset to Defaults</button>
             </div>
@@ -907,7 +937,7 @@ nav{display:none;}.hamburger{display:block;}
       <h4>Connect</h4>
       <a href="https://wa.me/919472736370" target="_blank">+91 9472736370</a>
       <a href="https://www.instagram.com/tiny_littlethings__" target="_blank">@tiny_littlethings__</a>
-      <a onclick="showPage('admin')" style="opacity:.3;font-size:10px;cursor:pointer;">Admin</a>
+      <a onclick="showPage('admin')" style="opacity:.3;font-size:10px;">Admin</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -917,104 +947,244 @@ nav{display:none;}.hamburger{display:block;}
 </footer>
 
 <script>
-const DEFAULT_PRODUCTS=[{id:1,name:"Sheep Flower Pot",price:299,category:"Flower Pots",badge:"Bestseller",desc:"Meet your new favourite desk companion! This adorable sheep-shaped handmade flower pot is lovingly crafted from premium pipe cleaners.",whatsappMsg:"Hi! I love the *Sheep Flower Pot* (₹299). Could you please confirm availability? 🐑🌸",bestseller:true,img:""},{id:2,name:"Sunflower Pot",price:249,category:"Flower Pots",badge:"Popular",desc:"Bring sunshine indoors with this bright and cheerful handmade Sunflower Pot! Crafted from vibrant yellow and brown pipe cleaners.",whatsappMsg:"Hi! I'm interested in the *Sunflower Pot* (₹249). Could you please confirm availability? 🌻",bestseller:true,img:""},{id:3,name:"Pink Blossom Flower Pot",price:249,category:"Flower Pots",badge:"",desc:"Soft, romantic, and elegantly minimal — the Pink Blossom Flower Pot features delicate pink blooms.",whatsappMsg:"Hi! I'm interested in the *Pink Blossom Flower Pot* (₹249). 🌸",bestseller:true,img:""},{id:4,name:"Pair of Pink Tulips",price:249,category:"Flower Pots",badge:"",desc:"Timeless, delicate, and utterly charming — this Pair of Pink Tulips is handcrafted from premium pipe cleaners.",whatsappMsg:"Hello! I'd love to order the *Pair of Pink Tulips* (₹249). 🌷",bestseller:false,img:""},{id:5,name:"Red Hibiscus Pot",price:249,category:"Flower Pots",badge:"New",desc:"Bold, vibrant, and full of character — the Red Hibiscus Pot is a striking handmade arrangement.",whatsappMsg:"Hi! I'm in love with the *Red Hibiscus Pot* (₹249)! 🌺",bestseller:false,img:""},{id:6,name:"Strawberry Keychain",price:149,category:"Keychains",badge:"Cute!",desc:"Sweet, adorable, and absolutely irresistible — this handmade Strawberry Keychain is a mini work of art!",whatsappMsg:"Hi! The *Strawberry Keychain* (₹149) is so cute! 🍓",bestseller:true,img:""},{id:7,name:"Evil Eye Flower Keychain",price:149,category:"Keychains",badge:"Trending",desc:"Stylish protection meets adorable design in this handmade Evil Eye Flower Keychain!",whatsappMsg:"Hello! I'm interested in the *Evil Eye Flower Keychain* (₹149). 🧿🌸",bestseller:false,img:""},{id:8,name:"Pink Bow Keychain",price:149,category:"Keychains",badge:"",desc:"Feminine, fun, and perfectly charming — the Pink Bow Keychain is a handmade delight!",whatsappMsg:"Hi! I spotted the *Pink Bow Keychain* (₹149)! 🎀",bestseller:false,img:""},{id:9,name:"Rainbow Dino Keychain",price:149,category:"Keychains",badge:"Fan Fav",desc:"Fun, quirky, and totally unique — the Rainbow Dino Keychain features a colourful rainbow backdrop.",whatsappMsg:"Hello! The *Rainbow Dino Keychain* (₹149) is so fun! 🦕🌈",bestseller:true,img:""},{id:10,name:"Teal Lily Lamp Stand",price:349,category:"Lamps",badge:"Artsy",desc:"Enchanting, dreamy, and entirely one-of-a-kind — the Teal Lily Lamp Stand elevates any room instantly.",whatsappMsg:"Hi! I'm in love with the *Teal Lily Lamp Stand* (₹349)! 💐",bestseller:true,img:""},{id:11,name:"Pink Tendril Lamp",price:349,category:"Lamps",badge:"",desc:"Whimsical, romantic, and beautifully crafted — the Pink Tendril Lamp adds magic to any space.",whatsappMsg:"Hello! The *Pink Tendril Lamp* (₹349) is so beautiful! 🌸✨",bestseller:false,img:""}];
+// ═══════════════════════════════════════════
+// DEFAULT DATA
+// ═══════════════════════════════════════════
+const DEFAULT_PRODUCTS=[
+  {id:1,name:"Sheep Flower Pot",price:299,category:"Flower Pots",badge:"Bestseller",desc:"Meet your new favourite desk companion! This adorable sheep-shaped handmade flower pot is lovingly crafted from premium pipe cleaners.",whatsappMsg:"Hi! I love the *Sheep Flower Pot* (₹299). Could you please confirm availability? 🐑🌸",bestseller:true,img:""},
+  {id:2,name:"Sunflower Pot",price:249,category:"Flower Pots",badge:"Popular",desc:"Bring sunshine indoors with this bright and cheerful handmade Sunflower Pot! Crafted from vibrant yellow and brown pipe cleaners.",whatsappMsg:"Hi! I'm interested in the *Sunflower Pot* (₹249). Could you please confirm availability? 🌻",bestseller:true,img:""},
+  {id:3,name:"Pink Blossom Flower Pot",price:249,category:"Flower Pots",badge:"",desc:"Soft, romantic, and elegantly minimal — the Pink Blossom Flower Pot features delicate pink blooms.",whatsappMsg:"Hi! I'm interested in the *Pink Blossom Flower Pot* (₹249). 🌸",bestseller:true,img:""},
+  {id:4,name:"Pair of Pink Tulips",price:249,category:"Flower Pots",badge:"",desc:"Timeless, delicate, and utterly charming — this Pair of Pink Tulips is handcrafted from premium pipe cleaners.",whatsappMsg:"Hello! I'd love to order the *Pair of Pink Tulips* (₹249). 🌷",bestseller:false,img:""},
+  {id:5,name:"Red Hibiscus Pot",price:249,category:"Flower Pots",badge:"New",desc:"Bold, vibrant, and full of character — the Red Hibiscus Pot is a striking handmade arrangement.",whatsappMsg:"Hi! I'm in love with the *Red Hibiscus Pot* (₹249)! 🌺",bestseller:false,img:""},
+  {id:6,name:"Strawberry Keychain",price:149,category:"Keychains",badge:"Cute!",desc:"Sweet, adorable, and absolutely irresistible — this handmade Strawberry Keychain is a mini work of art!",whatsappMsg:"Hi! The *Strawberry Keychain* (₹149) is so cute! 🍓",bestseller:true,img:""},
+  {id:7,name:"Evil Eye Flower Keychain",price:149,category:"Keychains",badge:"Trending",desc:"Stylish protection meets adorable design in this handmade Evil Eye Flower Keychain!",whatsappMsg:"Hello! I'm interested in the *Evil Eye Flower Keychain* (₹149). 🧿🌸",bestseller:false,img:""},
+  {id:8,name:"Pink Bow Keychain",price:149,category:"Keychains",badge:"",desc:"Feminine, fun, and perfectly charming — the Pink Bow Keychain is a handmade delight!",whatsappMsg:"Hi! I spotted the *Pink Bow Keychain* (₹149)! 🎀",bestseller:false,img:""},
+  {id:9,name:"Rainbow Dino Keychain",price:149,category:"Keychains",badge:"Fan Fav",desc:"Fun, quirky, and totally unique — the Rainbow Dino Keychain features a colourful rainbow backdrop.",whatsappMsg:"Hello! The *Rainbow Dino Keychain* (₹149) is so fun! 🦕🌈",bestseller:true,img:""},
+  {id:10,name:"Teal Lily Lamp Stand",price:349,category:"Lamps",badge:"Artsy",desc:"Enchanting, dreamy, and entirely one-of-a-kind — the Teal Lily Lamp Stand elevates any room instantly.",whatsappMsg:"Hi! I'm in love with the *Teal Lily Lamp Stand* (₹349)! 💐",bestseller:true,img:""},
+  {id:11,name:"Pink Tendril Lamp",price:349,category:"Lamps",badge:"",desc:"Whimsical, romantic, and beautifully crafted — the Pink Tendril Lamp adds magic to any space.",whatsappMsg:"Hello! The *Pink Tendril Lamp* (₹349) is so beautiful! 🌸✨",bestseller:false,img:""}
+];
+const DEFAULT_TESTIMONIALS=[
+  {name:"Divya Gupta",role:"Student, Lovely Professional University",text:"I ordered cute pipe cleaner flowers for my friend's birthday and honestly they looked even better than real ones! So aesthetic and long-lasting.",img:""},
+  {name:"Manpreet Kaur",role:"Ludhiana",text:"Got a custom order done and it turned out exactly how I imagined. Super happy with the service! Will definitely order again.",img:""},
+  {name:"Simran Saini",role:"HR, Noida",text:"We ordered customized handmade pieces for our employee gifting, and the response was amazing. Such thoughtful and unique products.",img:""},
+  {name:"Dr. Anjali Verma",role:"Professor, Jalandhar",text:"I purchased these handcrafted items as return gifts for a college event. They were elegant, creative, and appreciated by everyone.",img:""},
+  {name:"Akash Tiwari",role:"Architecture Student",text:"It's refreshing to see such creativity in handmade art. These pieces reflect dedication and originality. Truly impressive work!",img:""},
+  {name:"Aditi Srivastava",role:"Lucknow, U.P.",text:"Beautiful craftsmanship and timely delivery. The products really stand out and create a lasting impression. Highly recommended!",img:""}
+];
+const CATS=[
+  {label:"Flower Pots",desc:"Vibrant pipe cleaner arrangements in adorable handcrafted pots",filter:"Flower Pots"},
+  {label:"Keychains & Bagcharms",desc:"Cute handmade charms — perfect gifts or everyday accessories",filter:"Keychains"},
+  {label:"Lamps & Stands",desc:"Whimsical decorative lamps to elevate your personal space",filter:"Lamps"},
+  {label:"Custom Orders",desc:"Tell us your idea — we'll craft something magical just for you",filter:"Custom"}
+];
 
-const DEFAULT_TESTIMONIALS=[{name:"Divya Gupta",role:"Student, Lovely Professional University",text:"I ordered cute pipe cleaner flowers for my friend's birthday and honestly they looked even better than real ones! So aesthetic and long-lasting.",img:""},{name:"Manpreet Kaur",role:"Ludhiana",text:"Got a custom order done and it turned out exactly how I imagined. Super happy with the service! Will definitely order again.",img:""},{name:"Simran Saini",role:"HR, Noida",text:"We ordered customized handmade pieces for our employee gifting, and the response was amazing. Such thoughtful and unique products.",img:""},{name:"Dr. Anjali Verma",role:"Professor, Jalandhar",text:"I purchased these handcrafted items as return gifts for a college event. They were elegant, creative, and appreciated by everyone.",img:""},{name:"Akash Tiwari",role:"Architecture Student",text:"It's refreshing to see such creativity in handmade art. These pieces reflect dedication and originality. Truly impressive work!",img:""},{name:"Aditi Srivastava",role:"Lucknow, U.P.",text:"Beautiful craftsmanship and timely delivery. The products really stand out and create a lasting impression. Highly recommended!",img:""}];
-
-const CATEGORIES_DATA=[{label:"Flower Pots",desc:"Vibrant pipe cleaner arrangements in adorable handcrafted pots",filter:"Flower Pots"},{label:"Keychains & Bagcharms",desc:"Cute handmade charms — perfect gifts or everyday accessories",filter:"Keychains"},{label:"Lamps & Stands",desc:"Whimsical decorative lamps to elevate your personal space",filter:"Lamps"},{label:"Custom Orders",desc:"Tell us your idea — we'll craft something magical just for you",filter:"Custom"}];
-
-/* ═══ CLOUD STORAGE (window.storage) ═══ */
+// ═══════════════════════════════════════════
+// RUNTIME STATE
+// ═══════════════════════════════════════════
 let PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
 let TESTIMONIALS=JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
 let SITE_IMAGES={};
 let CREDENTIALS={user:'admin',pass:'tlt2025'};
 let ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+let cart={},currentMaxPrice=1999,currentFilter='All';
+let FB=null; // Firebase helpers, set when ready
+let fbConfigured=false;
 
-let _saveTimer=null;
-function showSaveIndicator(state){
-  const el=document.getElementById('storageIndicator');
+// ═══════════════════════════════════════════
+// STATUS INDICATOR
+// ═══════════════════════════════════════════
+let _stTimer=null;
+function setStatus(msg,type,dur=2500){
+  const el=document.getElementById('fbStatus');
   if(!el)return;
-  el.className='storage-indicator '+(state==='saving'?'saving':'saved');
-  el.textContent=state==='saving'?'☁️ Saving...':'✅ Saved to cloud';
-  el.classList.remove('hidden');
-  clearTimeout(_saveTimer);
-  _saveTimer=setTimeout(()=>el.classList.add('hidden'),2500);
+  clearTimeout(_stTimer);
+  el.textContent=msg;
+  el.className='fb-status '+type;
+  if(dur>0)_stTimer=setTimeout(()=>el.className='fb-status hidden',dur);
 }
 
-async function cloudSave(key,val){
+// ═══════════════════════════════════════════
+// FIREBASE INTEGRATION
+// ═══════════════════════════════════════════
+window.addEventListener('fb-ready',async()=>{
+  FB=window._fb;
+  // Check if config is real (not placeholder)
+  if(window._fb && window._fb.db && window._fb.db.app.options.apiKey && !window._fb.db.app.options.apiKey.startsWith('PASTE')){
+    fbConfigured=true;
+    document.getElementById('imgFirebaseNote').style.display='block';
+    document.getElementById('imgLocalNote').style.display='none';
+    setStatus('☁️ Connecting to cloud...','saving',0);
+    try{
+      await loadFromFirebase();
+      setStatus('✅ Cloud connected','saved');
+      applyAllData();
+    }catch(e){
+      console.error('Firebase load error:',e);
+      setStatus('⚠️ Cloud error — using local data','error',4000);
+      loadFromLocal();
+      applyAllData();
+    }
+  }else{
+    // Not configured — use localStorage
+    fbConfigured=false;
+    document.getElementById('fbSetupWarning').style.display='block';
+    setStatus('⚠️ Firebase not set up — data is local only','error',6000);
+    loadFromLocal();
+    applyAllData();
+  }
+});
+
+// Fallback if firebase module fails to load
+setTimeout(()=>{
+  if(!window._fbReady){
+    fbConfigured=false;
+    document.getElementById('fbSetupWarning').style.display='block';
+    setStatus('⚠️ Firebase not set up — data is local only','error',6000);
+    loadFromLocal();
+    applyAllData();
+  }
+},3000);
+
+// ═══════════════════════════════════════════
+// FIREBASE CRUD
+// ═══════════════════════════════════════════
+async function fbSet(docPath, data){
+  if(!fbConfigured||!FB)return false;
   try{
-    showSaveIndicator('saving');
-    await window.storage.set(key,JSON.stringify(val),true);
-    showSaveIndicator('saved');
-    const ss=document.getElementById('syncStatus');
-    if(ss){ss.textContent='✅ Synced';setTimeout(()=>{ss.textContent=''},2000);}
-  }catch(e){
-    console.error('Cloud save error:',e);
-    const ss=document.getElementById('syncStatus');
-    if(ss) ss.textContent='⚠️ Save failed';
+    const {db,doc,setDoc}=FB;
+    const parts=docPath.split('/');
+    const ref=doc(db,...parts);
+    await setDoc(ref,data);
+    return true;
+  }catch(e){console.error('fbSet error',e);return false;}
+}
+async function fbGet(docPath){
+  if(!fbConfigured||!FB)return null;
+  try{
+    const {db,doc,getDoc}=FB;
+    const parts=docPath.split('/');
+    const ref=doc(db,...parts);
+    const snap=await getDoc(ref);
+    return snap.exists()?snap.data():null;
+  }catch(e){console.error('fbGet error',e);return null;}
+}
+
+async function loadFromFirebase(){
+  const [p,t,s,c,a]=await Promise.all([
+    fbGet('tlt/products'),
+    fbGet('tlt/testimonials'),
+    fbGet('tlt/siteImages'),
+    fbGet('tlt/credentials'),
+    fbGet('tlt/analytics')
+  ]);
+  if(p&&p.data)PRODUCTS=p.data;
+  if(t&&t.data)TESTIMONIALS=t.data;
+  if(s&&s.data)SITE_IMAGES=s.data;
+  if(c&&c.user)CREDENTIALS=c;
+  if(a)ANALYTICS=Object.assign(ANALYTICS,a);
+}
+
+// ═══════════════════════════════════════════
+// LOCALSTORAGE FALLBACK (same-browser only)
+// ═══════════════════════════════════════════
+function saveLocal(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){}}
+function loadLocal(key){try{const v=localStorage.getItem(key);return v?JSON.parse(v):null;}catch(e){return null;}}
+function loadFromLocal(){
+  const p=loadLocal('tlt_products');if(p)PRODUCTS=p;
+  const t=loadLocal('tlt_testimonials');if(t)TESTIMONIALS=t;
+  const s=loadLocal('tlt_siteImages');if(s)SITE_IMAGES=s;
+  const c=loadLocal('tlt_credentials');if(c)CREDENTIALS=c;
+  const a=loadLocal('tlt_analytics');if(a)ANALYTICS=Object.assign(ANALYTICS,a);
+}
+
+// Universal save — tries Firebase first, always saves to localStorage as backup
+async function saveData(key,data){
+  saveLocal('tlt_'+key,data);
+  if(fbConfigured){
+    setStatus('☁️ Saving...','saving',0);
+    const ok=await fbSet('tlt/'+key,{data});
+    if(ok){
+      setStatus('✅ Saved to cloud','saved');
+      const ss=document.getElementById('syncStatus');
+      if(ss){ss.textContent='✅ Synced';setTimeout(()=>ss.textContent='',2000);}
+    }else{
+      setStatus('⚠️ Cloud save failed — saved locally','error',4000);
+    }
   }
 }
 
-async function cloudLoad(key){
-  try{
-    const r=await window.storage.get(key,true);
-    return r?JSON.parse(r.value):null;
-  }catch(e){return null;}
+// Specialized saves
+async function saveProducts(){
+  saveLocal('tlt_products',PRODUCTS);
+  if(fbConfigured){
+    setStatus('☁️ Saving products...','saving',0);
+    const ok=await fbSet('tlt/products',{data:PRODUCTS});
+    if(ok)setStatus('✅ Products saved to cloud','saved');
+    else setStatus('⚠️ Cloud save failed','error',3000);
+  }
+}
+async function saveTestimonials(){
+  saveLocal('tlt_testimonials',TESTIMONIALS);
+  if(fbConfigured){
+    const ok=await fbSet('tlt/testimonials',{data:TESTIMONIALS});
+    if(ok)setStatus('✅ Testimonials saved','saved');
+  }
+}
+async function saveSiteImages(){
+  saveLocal('tlt_siteImages',SITE_IMAGES);
+  if(fbConfigured){
+    // Images can be large — store in Firestore as base64 (works for < 1MB per image)
+    // For larger images, Firebase Storage would be needed
+    setStatus('☁️ Saving image...','saving',0);
+    const ok=await fbSet('tlt/siteImages',{data:SITE_IMAGES});
+    if(ok)setStatus('✅ Image saved to cloud — visible on all devices!','saved');
+    else setStatus('⚠️ Image too large for cloud — try compressing it','error',5000);
+  }
+}
+async function saveCredentials(){
+  saveLocal('tlt_credentials',CREDENTIALS);
+  if(fbConfigured)await fbSet('tlt/credentials',CREDENTIALS);
+}
+async function saveAnalytics(){
+  saveLocal('tlt_analytics',ANALYTICS);
+  if(fbConfigured)await fbSet('tlt/analytics',ANALYTICS);
 }
 
-async function loadAllFromCloud(){
-  const [p,t,i,c,a]=await Promise.all([
-    cloudLoad('tlt_products'),
-    cloudLoad('tlt_testimonials'),
-    cloudLoad('tlt_site_images'),
-    cloudLoad('tlt_credentials'),
-    cloudLoad('tlt_analytics')
-  ]);
-  if(p) PRODUCTS=p;
-  if(t) TESTIMONIALS=t;
-  if(i) SITE_IMAGES=i;
-  if(c) CREDENTIALS=c;
-  if(a) ANALYTICS=a;
+// ═══════════════════════════════════════════
+// APPLY DATA TO PAGE
+// ═══════════════════════════════════════════
+function applyAllData(){
+  applyAllSiteImages();
+  renderCategories();
+  renderBestsellers();
+  renderTestimonials();
+  renderInstagram();
+  renderShop('All',1999);
 }
 
-async function saveProducts(){await cloudSave('tlt_products',PRODUCTS);}
-async function saveTestimonials(){await cloudSave('tlt_testimonials',TESTIMONIALS);}
-async function saveSiteImages(){await cloudSave('tlt_site_images',SITE_IMAGES);}
-async function saveAnalytics(){await cloudSave('tlt_analytics',ANALYTICS);}
-async function saveCredentials(){await cloudSave('tlt_credentials',CREDENTIALS);}
-
-/* ═══ ANALYTICS ═══ */
+// ═══════════════════════════════════════════
+// ANALYTICS
+// ═══════════════════════════════════════════
+function today(){return new Date().toISOString().split('T')[0];}
+function ensureDay(){if(!ANALYTICS.daily[today()])ANALYTICS.daily[today()]={views:0,carts:0,wa:0};}
 function trackPageView(page){
   ANALYTICS.pageViews[page]=(ANALYTICS.pageViews[page]||0)+1;
-  const today=new Date().toISOString().split('T')[0];
-  if(!ANALYTICS.daily[today])ANALYTICS.daily[today]={views:0,carts:0,wa:0};
-  ANALYTICS.daily[today].views++;
+  ensureDay();ANALYTICS.daily[today()].views++;
   saveAnalytics();
 }
 function trackCartOpen(){
   ANALYTICS.cartOpens=(ANALYTICS.cartOpens||0)+1;
-  const today=new Date().toISOString().split('T')[0];
-  if(!ANALYTICS.daily[today])ANALYTICS.daily[today]={views:0,carts:0,wa:0};
-  ANALYTICS.daily[today].carts++;
+  ensureDay();ANALYTICS.daily[today()].carts++;
   saveAnalytics();
 }
 function trackWA(ctx){
   ANALYTICS.waClicks=(ANALYTICS.waClicks||0)+1;
-  const today=new Date().toISOString().split('T')[0];
-  if(!ANALYTICS.daily[today])ANALYTICS.daily[today]={views:0,carts:0,wa:0};
-  ANALYTICS.daily[today].wa++;
+  ensureDay();ANALYTICS.daily[today()].wa++;
   logActivity('💬','WhatsApp tapped',ctx||'');
   saveAnalytics();
 }
-function trackProductView(id){
-  ANALYTICS.productViews[id]=(ANALYTICS.productViews[id]||0)+1;
-  ANALYTICS.pageViews['products']=(ANALYTICS.pageViews['products']||0)+1;
-  saveAnalytics();
-}
-function trackProductCart(id){
-  ANALYTICS.productCart[id]=(ANALYTICS.productCart[id]||0)+1;
-  saveAnalytics();
-}
+function trackProductView(id){ANALYTICS.productViews[id]=(ANALYTICS.productViews[id]||0)+1;saveAnalytics();}
+function trackProductCart(id){ANALYTICS.productCart[id]=(ANALYTICS.productCart[id]||0)+1;saveAnalytics();}
 function logActivity(icon,text,sub){
   const now=new Date();
   const ts=now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})+' · '+now.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
@@ -1023,29 +1193,26 @@ function logActivity(icon,text,sub){
 }
 async function resetAnalytics(){
   ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
-  await saveAnalytics();
-  refreshDashboard();
-  showToast('Analytics reset!');
+  await saveAnalytics();refreshDashboard();showToast('Analytics reset!');
 }
 
-/* ═══ PAGE NAV ═══ */
+// ═══════════════════════════════════════════
+// PAGE NAV
+// ═══════════════════════════════════════════
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
-  const nav=document.getElementById('nav-'+name);
-  if(nav)nav.classList.add('active');
+  const nav=document.getElementById('nav-'+name);if(nav)nav.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
   if(name!=='admin')trackPageView(name);
   if(name==='shop')renderShop();
-  if(name==='home'){renderBestsellers();renderTestimonials();renderInstagram();renderCategories();applyAllSiteImages();}
+  if(name==='home')applyAllData();
 }
 function filterAndGo(cat){
-  currentFilter=cat;
-  showPage('shop');
+  currentFilter=cat;showPage('shop');
   setTimeout(()=>{
     document.querySelectorAll('.cf-btn').forEach(b=>b.classList.toggle('active',b.textContent.includes(cat)));
-    document.getElementById('shopTitle').textContent=cat;
     renderShop();
   },100);
 }
@@ -1054,54 +1221,62 @@ function toggleMobileNav(){
   m.style.display=m.style.display==='block'?'none':'block';
 }
 
-/* ═══ IMAGES ═══ */
-function setContainerImg(containerId,src){
-  const el=document.getElementById(containerId);
+// ═══════════════════════════════════════════
+// SITE IMAGES
+// ═══════════════════════════════════════════
+function setImgEl(el,src,style=''){
   if(!el)return;
-  if(src)el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">`;
-  else el.innerHTML=`<span style="font-size:11px;color:var(--text-light);">No Image</span>`;
+  if(src){el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;${style}">`;}
+  else el.innerHTML='';
 }
 function applyAllSiteImages(){
+  // Logo
   const lm=document.getElementById('logoMark');
-  if(lm&&SITE_IMAGES.logo)lm.innerHTML=`<img src="${SITE_IMAGES.logo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
-  else if(lm)lm.innerHTML='🌸';
-  const hc=document.getElementById('heroImgContainer');
-  if(hc){
-    if(SITE_IMAGES.hero)hc.innerHTML=`<img src="${SITE_IMAGES.hero}" style="width:100%;height:100%;object-fit:cover;">`;
-    else hc.innerHTML=`<span style="font-size:13px;font-weight:700;color:var(--text-mid);">Hero Image</span><span style="font-size:11px;color:var(--text-light);">Upload via Admin Panel</span>`;
+  if(lm){if(SITE_IMAGES.logo)lm.innerHTML=`<img src="${SITE_IMAGES.logo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;else lm.innerHTML='🌸';}
+  // Hero
+  const hw=document.getElementById('heroImgWrap');
+  if(hw){
+    if(SITE_IMAGES.hero)hw.innerHTML=`<img src="${SITE_IMAGES.hero}" style="width:100%;height:100%;object-fit:cover;">`;
+    else hw.innerHTML=`<div class="hero-img-placeholder"><span>🌸</span><span>Hero image — upload in Admin Panel</span></div>`;
   }
-  setContainerImg('aboutImg1Container',SITE_IMAGES.about_main);
-  setContainerImg('aboutImg2Container',SITE_IMAGES.about_second);
-  const apc=document.getElementById('aboutPageImgContainer');
-  if(apc){
-    if(SITE_IMAGES.about_page)apc.innerHTML=`<img src="${SITE_IMAGES.about_page}" style="width:100%;height:100%;object-fit:cover;">`;
-    else apc.innerHTML=`<span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image</span>`;
-  }
-  ['teamSanskarContainer','founderSanskarContainer'].forEach(id=>{
+  // About images on home
+  const am=document.getElementById('aboutMain');
+  if(am){if(SITE_IMAGES.about_main)am.innerHTML=`<img src="${SITE_IMAGES.about_main}" style="width:100%;height:100%;object-fit:cover;">`;else am.style.background='var(--pink-pale)';}
+  const as=document.getElementById('aboutSecond');
+  if(as){if(SITE_IMAGES.about_second)as.innerHTML=`<img src="${SITE_IMAGES.about_second}" style="width:100%;height:100%;object-fit:cover;">`;else as.style.background='var(--sage-pale)';}
+  // About page
+  const ap=document.getElementById('aboutPageImg');
+  if(ap){if(SITE_IMAGES.about_page)ap.innerHTML=`<img src="${SITE_IMAGES.about_page}" style="width:100%;height:100%;object-fit:cover;">`;else ap.innerHTML=`<span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image — Upload via Admin</span>`;}
+  // Team avatars (all occurrences)
+  ['teamSanskar','founderSanskar'].forEach(id=>{
     const el=document.getElementById(id);
     if(el){if(SITE_IMAGES.team_sanskar)el.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;else el.innerHTML='👤';}
   });
-  ['teamRadhikaContainer','founderRadhikaContainer'].forEach(id=>{
+  ['teamRadhika','founderRadhika'].forEach(id=>{
     const el=document.getElementById(id);
     if(el){if(SITE_IMAGES.team_radhika)el.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;else el.innerHTML='👤';}
   });
 }
-function imgHtml(p){
-  if(p.img)return`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">`;
-  return`<div class="img-placeholder" style="font-size:11px;font-weight:600;color:var(--text-light);text-align:center;">${p.name}</div>`;
-}
 
-/* ═══ CATEGORIES ═══ */
+// ═══════════════════════════════════════════
+// CATEGORIES
+// ═══════════════════════════════════════════
 function renderCategories(){
-  const icons={Flower_Pots:'🌸',Keychains:'🔑',Lamps:'💡',Custom:'✨'};
-  document.getElementById('catsGrid').innerHTML=CATEGORIES_DATA.map(c=>`
+  const icons={'Flower Pots':'🌸','Keychains':'🔑','Lamps':'💡','Custom':'✨'};
+  document.getElementById('catsGrid').innerHTML=CATS.map(c=>`
     <div class="cat-card" onclick="${c.filter==='Custom'?"showPage('custom')":`filterAndGo('${c.filter}')`}">
-      <div class="cat-icon" style="background:var(--pink-pale);font-size:28px;">${c.filter==='Flower Pots'?'🌸':c.filter==='Keychains'?'🔑':c.filter==='Lamps'?'💡':'✨'}</div>
-      <h3>${c.label}</h3><p>${c.desc}</p>
+      <div class="cat-icon" style="background:var(--pink-pale);">${icons[c.filter]||'✨'}</div>
+      <h3>${c.label}</h3><p style="font-size:13px;color:var(--text-light);margin-top:6px;">${c.desc}</p>
     </div>`).join('');
 }
 
-/* ═══ PRODUCT CARD ═══ */
+// ═══════════════════════════════════════════
+// PRODUCT RENDERING
+// ═══════════════════════════════════════════
+function imgHtml(p,style=''){
+  if(p.img)return`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;${style}">`;
+  return`<div class="img-placeholder">${p.name}</div>`;
+}
 function renderCard(p){
   return`<div class="product-card">
     <div class="product-thumb" onclick="openModal(${p.id})">${imgHtml(p)}${p.badge?`<div class="badge">${p.badge}</div>`:''}</div>
@@ -1124,18 +1299,16 @@ function renderBestsellers(){
   document.getElementById('bestsellersGrid').innerHTML=PRODUCTS.filter(p=>p.bestseller).map(renderCard).join('');
 }
 
-/* ═══ SHOP ═══ */
-let cart={},currentMaxPrice=1999,currentFilter='All';
+// ═══════════════════════════════════════════
+// SHOP
+// ═══════════════════════════════════════════
 function renderShop(cat,maxP){
   if(cat!==undefined)currentFilter=cat;
   if(maxP!==undefined)currentMaxPrice=maxP;
-  const grid=document.getElementById('shopGrid');
-  if(!grid)return;
+  const grid=document.getElementById('shopGrid');if(!grid)return;
   if(currentFilter==='Custom'){
     grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><div style="font-size:52px;margin-bottom:14px;">✨</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom Orders</button></div>`;
-    document.getElementById('shopTitle').textContent='Custom Orders';
-    document.getElementById('shopCount').textContent='';
-    return;
+    document.getElementById('shopTitle').textContent='Custom Orders';document.getElementById('shopCount').textContent='';return;
   }
   const filtered=PRODUCTS.filter(p=>(currentFilter==='All'||p.category===currentFilter)&&p.price<=currentMaxPrice);
   document.getElementById('shopCount').textContent=filtered.length+' items';
@@ -1147,15 +1320,13 @@ function filterShop(cat,btn){
   if(btn)btn.classList.add('active');
   renderShop(cat);
 }
-function updatePrice(val){
-  document.getElementById('priceLabel').textContent='Up to ₹'+val;
-  renderShop(undefined,parseInt(val));
-}
+function updatePrice(val){document.getElementById('priceLabel').textContent='Up to ₹'+val;renderShop(undefined,parseInt(val));}
 
-/* ═══ MODAL ═══ */
+// ═══════════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════════
 function openModal(id){
-  const p=PRODUCTS.find(x=>x.id===id);
-  if(!p)return;
+  const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
   trackProductView(id);
   document.getElementById('modalCat').textContent=p.category;
   document.getElementById('modalName').textContent=p.name;
@@ -1173,24 +1344,30 @@ function openModal(id){
 function closeModal(e){if(e.target.id==='modalOverlay')closeModalDirect();}
 function closeModalDirect(){document.getElementById('modalOverlay').classList.remove('open');}
 
-/* ═══ CART ═══ */
-function addToCart(id){cart[id]=(cart[id]||0)+1;trackProductCart(id);updateCartBadge();showToast('Added to cart! 🛒');logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');}
+// ═══════════════════════════════════════════
+// CART
+// ═══════════════════════════════════════════
+function addToCart(id){
+  cart[id]=(cart[id]||0)+1;trackProductCart(id);updateCartBadge();showToast('Added to cart! 🛒');
+  logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');
+}
 function removeFromCart(id){delete cart[id];updateCartBadge();renderCartDrawer();}
-function changeQty(id,delta){cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];updateCartBadge();renderCartDrawer();}
+function changeQty(id,delta){
+  cart[id]=(cart[id]||0)+delta;
+  if(cart[id]<=0)delete cart[id];
+  updateCartBadge();renderCartDrawer();
+}
 function clearCart(){cart={};updateCartBadge();renderCartDrawer();}
 function updateCartBadge(){
   const total=Object.values(cart).reduce((a,b)=>a+b,0);
   const badge=document.getElementById('cartBadge');
-  badge.textContent=total;
-  badge.classList.remove('bump');
-  void badge.offsetWidth;
-  badge.classList.add('bump');
+  badge.textContent=total;badge.classList.remove('bump');
+  void badge.offsetWidth;badge.classList.add('bump');
 }
 function openCart(){trackCartOpen();renderCartDrawer();document.getElementById('cartDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');}
 function renderCartDrawer(){
-  const body=document.getElementById('cartBody');
-  const foot=document.getElementById('cartFoot');
+  const body=document.getElementById('cartBody'),foot=document.getElementById('cartFoot');
   const ids=Object.keys(cart).map(Number);
   if(!ids.length){
     body.innerHTML=`<div class="cart-empty"><div class="empty-icon">🛒</div><p style="font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:6px;">Your cart is empty</p><p>Add some handmade treasures!</p><button class="btn btn-pink" style="margin-top:18px;" onclick="closeCart();showPage('shop')">Shop Now</button></div>`;
@@ -1200,22 +1377,22 @@ function renderCartDrawer(){
   ids.forEach(id=>{
     const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
     const qty=cart[id];subtotal+=p.price*qty;
-    html+=`<div class="cart-item"><div class="cart-item-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:'<div style="width:100%;height:100%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);">'+p.name+'</div>'}</div><div class="cart-item-info"><div class="cart-item-name">${p.name}</div><div class="cart-item-price">₹${p.price} × ${qty} = ₹${p.price*qty}</div><div class="qty-control"><button class="qty-btn" onclick="changeQty(${id},-1)">−</button><span class="qty-num">${qty}</span><button class="qty-btn" onclick="changeQty(${id},+1)">+</button></div></div><button class="cart-item-remove" onclick="removeFromCart(${id})">✕</button></div>`;
+    html+=`<div class="cart-item"><div class="cart-item-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:`<div style="width:100%;height:100%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);text-align:center;padding:4px;">${p.name}</div>`}</div><div class="cart-item-info"><div class="cart-item-name">${p.name}</div><div class="cart-item-price">₹${p.price} × ${qty} = ₹${p.price*qty}</div><div class="qty-control"><button class="qty-btn" onclick="changeQty(${id},-1)">−</button><span class="qty-num">${qty}</span><button class="qty-btn" onclick="changeQty(${id},+1)">+</button></div></div><button class="cart-item-remove" onclick="removeFromCart(${id})">✕</button></div>`;
   });
-  body.innerHTML=html;
-  document.getElementById('cartTotal').textContent='₹'+subtotal;
-  foot.style.display='block';
+  body.innerHTML=html;document.getElementById('cartTotal').textContent='₹'+subtotal;foot.style.display='block';
 }
 function checkoutWhatsApp(){
   const ids=Object.keys(cart).map(Number);if(!ids.length)return;
-  let lines=ids.map(id=>{const p=PRODUCTS.find(x=>x.id===id);return`• ${p.name} × ${cart[id]} = ₹${p.price*cart[id]}`;});
+  const lines=ids.map(id=>{const p=PRODUCTS.find(x=>x.id===id);return`• ${p.name} × ${cart[id]} = ₹${p.price*cart[id]}`;});
   const subtotal=ids.reduce((s,id)=>s+PRODUCTS.find(x=>x.id===id).price*cart[id],0);
   const msg=`Hi! I'd like to place an order from Tiny Little Things:\n\n${lines.join('\n')}\n\nSubtotal: ₹${subtotal}\n\nPlease confirm availability and share payment details. Thank you!`;
   trackWA('checkout');
   window.open('https://wa.me/919472736370?text='+encodeURIComponent(msg),'_blank');
 }
 
-/* ═══ TESTIMONIALS & INSTAGRAM ═══ */
+// ═══════════════════════════════════════════
+// TESTIMONIALS & INSTAGRAM
+// ═══════════════════════════════════════════
 function renderTestimonials(){
   document.getElementById('testiGrid').innerHTML=TESTIMONIALS.map(t=>`
     <div class="testi-card">
@@ -1232,11 +1409,13 @@ function renderInstagram(){
   const keys=['insta_1','insta_2','insta_3','insta_4','insta_5','insta_6'];
   document.getElementById('instaGrid').innerHTML=keys.map((k,i)=>{
     const src=SITE_IMAGES[k];
-    return`<div class="insta-tile"><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">${src?`<img src="${src}" alt="Instagram ${i+1}">`:`<div class="img-placeholder" style="font-size:10px;">Post ${i+1}</div>`}</a><div class="insta-tile-overlay">📷</div></div>`;
+    return`<div class="insta-tile"><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">${src?`<img src="${src}" alt="Instagram ${i+1}">`:`<div class="img-placeholder">Post ${i+1}</div>`}</a><div class="insta-tile-overlay">📷</div></div>`;
   }).join('');
 }
 
-/* ═══ CONTACT ═══ */
+// ═══════════════════════════════════════════
+// CONTACT
+// ═══════════════════════════════════════════
 function submitContact(){
   const name=document.getElementById('contactName')?.value||'';
   const phone=document.getElementById('contactPhone')?.value||'';
@@ -1249,14 +1428,17 @@ function submitContact(){
   showToast('Redirecting to WhatsApp! 💬');
 }
 
-/* ═══ TOAST ═══ */
+// ═══════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════
 function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-/* ═══ ADMIN AUTH ═══ */
+// ═══════════════════════════════════════════
+// ADMIN AUTH
+// ═══════════════════════════════════════════
 let adminLoggedIn=false;
 function adminLogin(){
   const u=document.getElementById('adminUser').value.trim();
@@ -1265,13 +1447,8 @@ function adminLogin(){
     adminLoggedIn=true;
     document.getElementById('adminLogin').style.display='none';
     document.getElementById('adminDash').style.display='block';
-    renderAdminProducts();
-    renderTestiEditGrid();
-    refreshDashboard();
-    renderAdminImagePreviews();
-    startAdminClock();
+    renderAdminProducts();renderTestiEditGrid();refreshDashboard();renderAdminImagePreviews();startAdminClock();
     logActivity('🔐','Admin logged in','');
-    setSyncBanners('synced');
   }else{
     document.getElementById('loginErr').textContent='Incorrect username or password.';
     document.getElementById('adminPass').value='';
@@ -1281,26 +1458,12 @@ function adminLogout(){
   adminLoggedIn=false;
   document.getElementById('adminLogin').style.display='flex';
   document.getElementById('adminDash').style.display='none';
-  document.getElementById('adminUser').value='';
-  document.getElementById('adminPass').value='';
+  document.getElementById('adminUser').value='';document.getElementById('adminPass').value='';
   document.getElementById('loginErr').textContent='';
 }
 function startAdminClock(){
-  const update=()=>{
-    const now=new Date();
-    const el=document.getElementById('adminDateTime');
-    if(el)el.textContent=now.toLocaleString('en-IN',{weekday:'short',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-  };
+  const update=()=>{const el=document.getElementById('adminDateTime');if(el)el.textContent=new Date().toLocaleString('en-IN',{weekday:'short',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});};
   update();setInterval(update,30000);
-}
-function setSyncBanners(state){
-  ['dashSyncBanner','prodSyncBanner','testiSyncBanner','imgSyncBanner'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-    if(id==='imgSyncBanner'){el.className='sync-banner synced';el.textContent='☁️ Images sync to cloud automatically — visible on all devices.';return;}
-    if(state==='synced'){el.className='sync-banner synced';el.textContent='✅ Data loaded from cloud — changes sync to all devices automatically.';}
-    else{el.className='sync-banner';el.textContent='☁️ Loading from cloud...';}
-  });
 }
 function switchAdminTab(tab){
   document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
@@ -1311,13 +1474,14 @@ function switchAdminTab(tab){
   if(tab==='products')renderAdminProducts();
   if(tab==='testimonials')renderTestiEditGrid();
   if(tab==='images')renderAdminImagePreviews();
-  if(tab==='settings')renderSettings();
 }
 
-/* ═══ DASHBOARD ═══ */
+// ═══════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════
 function refreshDashboard(){
-  const totalViews=Object.values(ANALYTICS.pageViews||{}).reduce((a,b)=>a+b,0);
-  document.getElementById('dc-views').textContent=totalViews;
+  const total=Object.values(ANALYTICS.pageViews||{}).reduce((a,b)=>a+b,0);
+  document.getElementById('dc-views').textContent=total;
   document.getElementById('dc-carts').textContent=ANALYTICS.cartOpens||0;
   document.getElementById('dc-wa').textContent=ANALYTICS.waClicks||0;
   document.getElementById('dc-prodviews').textContent=Object.values(ANALYTICS.productViews||{}).reduce((a,b)=>a+b,0);
@@ -1325,53 +1489,51 @@ function refreshDashboard(){
   renderMiniBarChart('chart-prod-cart',ANALYTICS.productCart||{},5);
   renderPageChart();renderDailyChart();renderActivityLog();
 }
-function renderMiniBarChart(containerId,data,limit){
-  const container=document.getElementById(containerId);if(!container)return;
+function renderMiniBarChart(cid,data,limit){
+  const c=document.getElementById(cid);if(!c)return;
   const sorted=Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,limit);
   const max=sorted.length?sorted[0][1]:1;
-  if(!sorted.length){container.innerHTML='<p style="font-size:13px;color:var(--text-light);padding:10px 0;">No data yet.</p>';return;}
-  container.innerHTML=sorted.map(([id,val])=>{
+  if(!sorted.length){c.innerHTML='<p style="font-size:13px;color:var(--text-light);padding:10px 0;">No data yet.</p>';return;}
+  c.innerHTML=sorted.map(([id,val])=>{
     const p=PRODUCTS.find(x=>x.id===parseInt(id));
-    const name=p?p.name:'Unknown';
-    return`<div class="mini-bar"><div class="mini-bar-label" title="${name}">${name}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((val/max)*100)}%"></div></div><div class="mini-bar-val">${val}</div></div>`;
+    return`<div class="mini-bar"><div class="mini-bar-label" title="${p?.name||id}">${p?.name||id}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((val/max)*100)}%"></div></div><div class="mini-bar-val">${val}</div></div>`;
   }).join('');
 }
 function renderPageChart(){
-  const container=document.getElementById('chart-pages');if(!container)return;
+  const c=document.getElementById('chart-pages');if(!c)return;
   const pv=ANALYTICS.pageViews||{};
   const pages=['home','shop','about','contact','custom','shipping'];
   const max=Math.max(...pages.map(p=>pv[p]||0),1);
-  container.innerHTML=pages.map(pg=>{
-    const val=pv[pg]||0;
-    return`<div class="mini-bar"><div class="mini-bar-label">${pg.charAt(0).toUpperCase()+pg.slice(1)}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((val/max)*100)}%;background:var(--sage);"></div></div><div class="mini-bar-val">${val}</div></div>`;
-  }).join('');
+  c.innerHTML=pages.map(pg=>`<div class="mini-bar"><div class="mini-bar-label">${pg.charAt(0).toUpperCase()+pg.slice(1)}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round(((pv[pg]||0)/max)*100)}%;background:var(--sage);"></div></div><div class="mini-bar-val">${pv[pg]||0}</div></div>`).join('');
 }
 function renderDailyChart(){
-  const container=document.getElementById('chart-daily');if(!container)return;
+  const c=document.getElementById('chart-daily');if(!c)return;
   const daily=ANALYTICS.daily||{};
   const last7=[];
   for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const key=d.toISOString().split('T')[0];const short=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});last7.push({key,short,data:daily[key]||{views:0,carts:0,wa:0}});}
   const maxVal=Math.max(...last7.map(d=>d.data.views+d.data.carts+d.data.wa),1);
-  container.innerHTML=last7.map(d=>{const total=d.data.views+d.data.carts+d.data.wa;return`<div class="mini-bar"><div class="mini-bar-label">${d.short}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((total/maxVal)*100)}%;background:var(--pink-light);"></div></div><div class="mini-bar-val">${total}</div></div>`;}).join('');
+  c.innerHTML=last7.map(d=>{const total=d.data.views+d.data.carts+d.data.wa;return`<div class="mini-bar"><div class="mini-bar-label">${d.short}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((total/maxVal)*100)}%;background:var(--pink-light);"></div></div><div class="mini-bar-val">${total}</div></div>`;}).join('');
 }
 function renderActivityLog(){
-  const container=document.getElementById('activityLog');if(!container)return;
+  const c=document.getElementById('activityLog');if(!c)return;
   const logs=ANALYTICS.activityLog||[];
-  if(!logs.length){container.innerHTML='<p style="font-size:13px;color:var(--text-light);padding:10px 0;">No recent activity.</p>';return;}
-  container.innerHTML=logs.slice(0,10).map(l=>`<div class="log-item"><div class="log-icon">${l.icon}</div><div><div class="log-text">${l.text}${l.sub?' — <em>'+l.sub+'</em>':''}</div><div class="log-time">${l.time}</div></div></div>`).join('');
+  if(!logs.length){c.innerHTML='<p style="font-size:13px;color:var(--text-light);padding:10px 0;">No recent activity.</p>';return;}
+  c.innerHTML=logs.slice(0,10).map(l=>`<div class="log-item"><div class="log-icon">${l.icon}</div><div><div class="log-text">${l.text}${l.sub?' — <em>'+l.sub+'</em>':''}</div><div class="log-time">${l.time}</div></div></div>`).join('');
 }
 
-/* ═══ ADMIN PRODUCTS ═══ */
+// ═══════════════════════════════════════════
+// ADMIN PRODUCTS
+// ═══════════════════════════════════════════
 function renderAdminProducts(){
   document.getElementById('adminProductBody').innerHTML=PRODUCTS.map(p=>`
     <tr>
-      <td><div style="width:44px;height:44px;border-radius:8px;overflow:hidden;background:var(--cream);">${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;">`:'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);">No img</div>'}</div></td>
-      <td><strong>${p.name}</strong></td>
-      <td>₹${p.price}</td>
-      <td>${p.category}</td>
-      <td>${p.badge||'—'}</td>
-      <td>${p.bestseller?'⭐ Yes':'No'}</td>
-      <td><div style="display:flex;gap:6px;"><button class="btn btn-outline btn-sm" onclick="openEditProduct(${p.id})">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">Delete</button></div></td>
+      <td><div style="width:44px;height:44px;border-radius:8px;overflow:hidden;background:var(--cream);">${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;">`:'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--text-light);">No img</div>'}</div></td>
+      <td><strong>${p.name}</strong></td><td>₹${p.price}</td><td>${p.category}</td>
+      <td>${p.badge||'—'}</td><td>${p.bestseller?'⭐ Yes':'No'}</td>
+      <td><div style="display:flex;gap:6px;">
+        <button class="btn btn-outline btn-sm" onclick="openEditProduct(${p.id})">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">Delete</button>
+      </div></td>
     </tr>`).join('');
 }
 function openEditProduct(id){
@@ -1388,42 +1550,63 @@ function openAddProduct(){
 function closeEditModal(){document.getElementById('editModalOverlay').classList.remove('open');}
 function buildProductForm(p){
   const cats=['Flower Pots','Keychains','Lamps','Custom'];
-  const imgPreview=p&&p.img?`<img class="preview-img" src="${p.img}" alt="Preview" id="editImgPreview" style="width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">`:`<img class="preview-img" id="editImgPreview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">`;
   return`
   <div class="fg2"><label>Product Name</label><input type="text" id="ef-name" value="${p?p.name:''}"></div>
   <div class="inline-grid">
     <div class="fg2"><label>Price (₹)</label><input type="number" id="ef-price" value="${p?p.price:''}" min="1"></div>
     <div class="fg2"><label>Badge (optional)</label><input type="text" id="ef-badge" value="${p?p.badge:''}" placeholder="e.g. New, Bestseller"></div>
   </div>
-  <div class="fg2"><label>Category</label><select id="ef-cat">${cats.map(c=>`<option value="${c}" ${p&&p.category===c?'selected':''}>${c}</option>`).join('')}</select></div>
+  <div class="fg2"><label>Category</label><select id="ef-cat">${cats.map(c=>`<option value="${c}"${p&&p.category===c?' selected':''}>${c}</option>`).join('')}</select></div>
   <div class="fg2"><label>Description</label><textarea id="ef-desc">${p?p.desc:''}</textarea></div>
   <div class="fg2"><label>WhatsApp Message</label><textarea id="ef-wa">${p?p.whatsappMsg:''}</textarea></div>
   <div class="fg2">
     <label>Product Image</label>
     <div class="img-upload-box">
-      ${imgPreview}
+      ${p&&p.img?`<img class="preview-img" src="${p.img}" id="editImgPreview" style="width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">`:`<img id="editImgPreview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">`}
       <p id="editImgHint">${p&&p.img?'✓ Image uploaded — click to change':'📷 Click to upload product image'}</p>
-      <div class="upload-hint">JPG, PNG or WebP. Max 5MB.</div>
-      <input type="file" accept="image/*" onchange="handleProductImgUpload(this)" id="ef-imgfile">
+      <div class="upload-hint">JPG, PNG or WebP. Recommended: under 1MB for best cloud sync.</div>
+      <div class="upload-progress" id="uploadProgress" style="display:none;"><div class="upload-progress-fill" id="uploadProgressFill" style="width:0%"></div></div>
+      <input type="file" accept="image/*" onchange="handleProductImgUpload(this)">
     </div>
   </div>
-  <div class="fg2"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="ef-best" ${p&&p.bestseller?'checked':''} style="width:16px;height:16px;accent-color:var(--pink);"> Mark as Bestseller</label></div>
+  <div class="fg2"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="ef-best"${p&&p.bestseller?' checked':''} style="width:16px;height:16px;accent-color:var(--pink);"> Mark as Bestseller</label></div>
   <input type="hidden" id="ef-id" value="${p?p.id:''}">
   <input type="hidden" id="ef-curimg" value="${p&&p.img?p.img:''}">
   <div style="display:flex;gap:10px;margin-top:6px;">
-    <button class="btn btn-pink" style="flex:1;" onclick="saveProductFromForm()">💾 Save & Sync to Cloud</button>
+    <button class="btn btn-pink" style="flex:1;" onclick="saveProductFromForm()">💾 Save${fbConfigured?' & Sync to Cloud':''}</button>
     <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
   </div>`;
 }
 function handleProductImgUpload(input){
   const file=input.files[0];if(!file)return;
-  if(file.size>5*1024*1024){showToast('Image too large! Max 5MB.');return;}
+  const prog=document.getElementById('uploadProgress');
+  const fill=document.getElementById('uploadProgressFill');
+  if(prog)prog.style.display='block';
+  // Compress image before storing
+  const canvas=document.createElement('canvas');
+  const ctx2=canvas.getContext('2d');
+  const img2=new Image();
   const reader=new FileReader();
   reader.onload=e=>{
-    const prev=document.getElementById('editImgPreview');
-    if(prev){prev.src=e.target.result;prev.style.display='block';}
-    document.getElementById('ef-curimg').value=e.target.result;
-    document.getElementById('editImgHint').textContent='✓ Image ready to save';
+    img2.onload=()=>{
+      // Resize to max 800px wide
+      const maxW=800,maxH=800;
+      let w=img2.width,h=img2.height;
+      if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
+      if(h>maxH){w=Math.round(w*maxH/h);h=maxH;}
+      canvas.width=w;canvas.height=h;
+      ctx2.drawImage(img2,0,0,w,h);
+      if(fill)fill.style.width='70%';
+      // Quality 0.8 for good balance
+      const compressed=canvas.toDataURL('image/jpeg',0.82);
+      if(fill)fill.style.width='100%';
+      setTimeout(()=>{if(prog)prog.style.display='none';},400);
+      const prev=document.getElementById('editImgPreview');
+      if(prev){prev.src=compressed;prev.style.display='block';}
+      document.getElementById('ef-curimg').value=compressed;
+      document.getElementById('editImgHint').textContent='✓ Image ready ('+Math.round(compressed.length/1024)+'KB)';
+    };
+    img2.src=e.target.result;
   };
   reader.readAsDataURL(file);
 }
@@ -1434,36 +1617,31 @@ async function saveProductFromForm(){
   const idVal=document.getElementById('ef-id').value;
   const img=document.getElementById('ef-curimg').value;
   const prod={
-    id:idVal?parseInt(idVal):Date.now(),
-    name,price,
+    id:idVal?parseInt(idVal):Date.now(),name,price,
     category:document.getElementById('ef-cat').value,
     badge:document.getElementById('ef-badge').value.trim(),
     desc:document.getElementById('ef-desc').value.trim(),
     whatsappMsg:document.getElementById('ef-wa').value.trim()||`Hi! I'm interested in the *${name}* (₹${price}). Can you please share availability?`,
-    bestseller:document.getElementById('ef-best').checked,
-    img
+    bestseller:document.getElementById('ef-best').checked,img
   };
   if(idVal){const idx=PRODUCTS.findIndex(x=>x.id===parseInt(idVal));if(idx>-1)PRODUCTS[idx]=prod;}
   else PRODUCTS.push(prod);
   await saveProducts();
-  closeEditModal();
-  renderAdminProducts();
-  renderBestsellers();
-  renderShop();
-  showToast((idVal?'Product updated':'Product added')+' & synced to cloud! ☁️');
+  closeEditModal();renderAdminProducts();renderBestsellers();renderShop();
+  showToast((idVal?'Product updated':'Product added')+(fbConfigured?' & synced to cloud ☁️':'')+'!');
   logActivity('🛍️',idVal?'Product updated':'Product added',name);
 }
 async function deleteProduct(id){
   if(!confirm('Delete this product?'))return;
   const p=PRODUCTS.find(x=>x.id===id);
   PRODUCTS=PRODUCTS.filter(x=>x.id!==id);
-  await saveProducts();
-  renderAdminProducts();renderBestsellers();
-  showToast('Product deleted!');
-  logActivity('🗑️','Product deleted',p?.name||'');
+  await saveProducts();renderAdminProducts();renderBestsellers();
+  showToast('Product deleted!');logActivity('🗑️','Product deleted',p?.name||'');
 }
 
-/* ═══ ADMIN TESTIMONIALS ═══ */
+// ═══════════════════════════════════════════
+// ADMIN TESTIMONIALS
+// ═══════════════════════════════════════════
 function renderTestiEditGrid(){
   document.getElementById('testiEditGrid').innerHTML=TESTIMONIALS.map((t,i)=>`
     <div class="testi-edit-card">
@@ -1486,13 +1664,18 @@ function renderTestiEditGrid(){
 }
 function handleTestiImg(input,idx){
   const file=input.files[0];if(!file)return;
+  const canvas=document.createElement('canvas');const ctx2=canvas.getContext('2d');const img2=new Image();
   const reader=new FileReader();
   reader.onload=e=>{
-    TESTIMONIALS[idx].img=e.target.result;
-    const prev=document.getElementById(`te-img-prev-${idx}`);
-    if(prev)prev.innerHTML=`<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
-  };
-  reader.readAsDataURL(file);
+    img2.onload=()=>{
+      const s=88;canvas.width=s;canvas.height=s;
+      ctx2.drawImage(img2,0,0,s,s);
+      const compressed=canvas.toDataURL('image/jpeg',0.85);
+      TESTIMONIALS[idx].img=compressed;
+      const prev=document.getElementById(`te-img-prev-${idx}`);
+      if(prev)prev.innerHTML=`<img src="${compressed}" style="width:100%;height:100%;object-fit:cover;">`;
+    };img2.src=e.target.result;
+  };reader.readAsDataURL(file);
 }
 async function saveTestimonialsAdmin(){
   TESTIMONIALS.forEach((t,i)=>{
@@ -1500,27 +1683,36 @@ async function saveTestimonialsAdmin(){
     t.role=document.getElementById(`te-role-${i}`)?.value||t.role;
     t.text=document.getElementById(`te-text-${i}`)?.value||t.text;
   });
-  await saveTestimonials();
-  renderTestimonials();
-  showToast('Testimonials saved & synced! ☁️');
+  await saveTestimonials();renderTestimonials();
+  showToast('Testimonials saved'+(fbConfigured?' & synced! ☁️':'!')+'');
   logActivity('💬','Testimonials updated','');
 }
 
-/* ═══ ADMIN SITE IMAGES ═══ */
+// ═══════════════════════════════════════════
+// ADMIN SITE IMAGES
+// ═══════════════════════════════════════════
 async function handleSiteImg(input,key){
   const file=input.files[0];if(!file)return;
-  if(file.size>5*1024*1024){showToast('Image too large! Max 5MB.');return;}
+  const canvas=document.createElement('canvas');const ctx2=canvas.getContext('2d');const img2=new Image();
   const reader=new FileReader();
   reader.onload=async e=>{
-    SITE_IMAGES[key]=e.target.result;
-    await saveSiteImages();
-    updateAdminImgPreview(key,e.target.result);
-    applyAllSiteImages();
-    renderInstagram();
-    showToast('Image updated & synced to cloud! ☁️');
-    logActivity('🖼️','Image uploaded',key);
-  };
-  reader.readAsDataURL(file);
+    img2.onload=async()=>{
+      // Resize to max 1200px
+      const maxW=1200;
+      let w=img2.width,h=img2.height;
+      if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
+      canvas.width=w;canvas.height=h;ctx2.drawImage(img2,0,0,w,h);
+      const compressed=canvas.toDataURL('image/jpeg',0.85);
+      const sizeKB=Math.round(compressed.length/1024);
+      SITE_IMAGES[key]=compressed;
+      updateAdminImgPreview(key,compressed);
+      applyAllSiteImages();renderInstagram();
+      showToast(`Uploading image (${sizeKB}KB)...`);
+      await saveSiteImages();
+      showToast('Image saved'+(fbConfigured?' to cloud — visible everywhere!':' (this browser only — set up Firebase for cross-device)')+'');
+      logActivity('🖼️','Image uploaded',key+' ('+sizeKB+'KB)');
+    };img2.src=e.target.result;
+  };reader.readAsDataURL(file);
 }
 function updateAdminImgPreview(key,src){
   const el=document.getElementById('prev-'+key);
@@ -1531,28 +1723,24 @@ function renderAdminImagePreviews(){
   keys.forEach(key=>{if(SITE_IMAGES[key])updateAdminImgPreview(key,SITE_IMAGES[key]);});
 }
 
-/* ═══ SETTINGS ═══ */
+// ═══════════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════════
 async function changeCredentials(){
   const u=document.getElementById('newUser').value.trim();
   const p=document.getElementById('newPass').value;
   if(!u||!p){showToast('Please fill both fields!');return;}
   CREDENTIALS={user:u,pass:p};
   await saveCredentials();
-  document.getElementById('newUser').value='';
-  document.getElementById('newPass').value='';
-  showToast('Credentials updated & synced! 🔐');
-  logActivity('🔐','Credentials changed','');
-}
-function renderSettings(){
-  const cats=[...new Set(PRODUCTS.map(p=>p.category))];
-  document.getElementById('categoryList').innerHTML=cats.map(c=>`<span style="background:var(--pink-pale);color:var(--pink);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--r-pill);">${c}</span>`).join('');
+  document.getElementById('newUser').value='';document.getElementById('newPass').value='';
+  showToast('Credentials updated'+(fbConfigured?' & synced! 🔐':'!')+'');
 }
 function exportData(){
   const data={products:PRODUCTS,testimonials:TESTIMONIALS,siteImages:SITE_IMAGES,exportDate:new Date().toISOString()};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download='tiny-little-things-backup-'+new Date().toISOString().split('T')[0]+'.json';
-  a.click();showToast('Data exported! 📥');
+  a.click();showToast('Backup exported! 📥');
 }
 async function importData(input){
   const file=input.files[0];if(!file)return;
@@ -1565,10 +1753,9 @@ async function importData(input){
       if(data.siteImages){SITE_IMAGES=data.siteImages;await saveSiteImages();}
       renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
       applyAllSiteImages();renderTestimonials();renderInstagram();renderBestsellers();
-      showToast('Data imported & synced to cloud! 📤');
+      showToast('Backup imported'+(fbConfigured?' & synced! ☁️':'!')+'');
     }catch(err){showToast('Invalid file format!');}
-  };
-  reader.readAsText(file);
+  };reader.readAsText(file);
 }
 async function resetAll(){
   PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
@@ -1578,22 +1765,17 @@ async function resetAll(){
   await Promise.all([saveProducts(),saveTestimonials(),saveSiteImages(),saveAnalytics()]);
   renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
   applyAllSiteImages();renderBestsellers();renderTestimonials();renderInstagram();
-  showToast('Reset to defaults! ⚠️');
+  showToast('Reset to defaults!');
 }
 
-/* ═══ INIT ═══ */
-async function init(){
-  await loadAllFromCloud();
-  applyAllSiteImages();
-  renderCategories();
-  renderBestsellers();
-  renderTestimonials();
-  renderInstagram();
-  renderShop('All',1999);
-  trackPageView('home');
-  logActivity('👁️','Site visited','homepage');
-}
-init();
+// ═══════════════════════════════════════════
+// INIT — load from localStorage immediately so page renders fast
+// Firebase will override once connected
+// ═══════════════════════════════════════════
+loadFromLocal();
+applyAllData();
+trackPageView('home');
+logActivity('👁️','Site visited','homepage');
 </script>
 </body>
-</html>
+        </html>
