@@ -14,36 +14,31 @@
      3. Go to Project Settings → General → Your apps → Add web app
      4. Copy the firebaseConfig object and paste below
      5. Enable Firestore: Build → Firestore Database → Create database (test mode)
-     6. Enable Storage: Build → Storage → Get started (test mode)
-     7. That's it! Images and data will sync across ALL devices.
+     6. NO Storage needed — everything saves to Firestore for free!
      ═══════════════════════════════════════════════════════════ -->
 
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
   import { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-  import { getStorage, ref, uploadString, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
 
   // ════════════════════════════════════════════════
   // ⬇️  PASTE YOUR FIREBASE CONFIG HERE
   // ════════════════════════════════════════════════
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDz2eX2qBRCsGeIUIN1sTsLLzlISVhaKME",
-  authDomain: "tinylittle-things.firebaseapp.com",
-  projectId: "tinylittle-things",
-  storageBucket: "tinylittle-things.firebasestorage.app",
-  messagingSenderId: "595373265570",
-  appId: "1:595373265570:web:c2942fc0dcc9ace255fdfb",
-  measurementId: "G-MVBC1G33KN"
+  const firebaseConfig = {
+    apiKey: "PASTE_YOUR_API_KEY",
+    authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
+    projectId: "PASTE_YOUR_PROJECT_ID",
+    storageBucket: "PASTE_YOUR_PROJECT.appspot.com",
+    messagingSenderId: "PASTE_YOUR_SENDER_ID",
+    appId: "PASTE_YOUR_APP_ID"
   };
   // ════════════════════════════════════════════════
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  const storage = getStorage(app);
 
   // Expose to global scope for non-module scripts
-  window._fb = { db, storage, doc, setDoc, getDoc, collection, getDocs, deleteDoc, onSnapshot, ref, uploadString, getDownloadURL, deleteObject };
+  window._fb = { db, doc, setDoc, getDoc, collection, getDocs, deleteDoc, onSnapshot };
   window._fbReady = true;
   window.dispatchEvent(new Event('fb-ready'));
 </script>
@@ -166,8 +161,7 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .modal-actions{display:flex;gap:10px;flex-wrap:wrap;}
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text-dark);color:#fff;padding:12px 22px;border-radius:var(--r-pill);font-size:13.5px;font-weight:700;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
-/* Firebase status banner */
-.fb-status{position:fixed;top:76px;right:16px;z-index:800;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 14px;font-size:12px;font-weight:700;color:var(--text-mid);box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:6px;transition:all .5s;max-width:260px;}
+.fb-status{position:fixed;top:76px;right:16px;z-index:800;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 14px;font-size:12px;font-weight:700;color:var(--text-mid);box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:6px;transition:all .5s;max-width:280px;}
 .fb-status.saving{color:var(--pink);border-color:var(--pink-light);}
 .fb-status.saved{color:var(--sage);border-color:#8aab8c;}
 .fb-status.error{color:#c0392b;border-color:#e74c3c;background:#fff5f5;}
@@ -408,6 +402,11 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .testi-edit-card input:focus,.testi-edit-card textarea:focus{border-color:var(--pink);}
 .upload-progress{height:4px;background:var(--pink-pale);border-radius:10px;margin-top:8px;overflow:hidden;}
 .upload-progress-fill{height:100%;background:var(--pink);border-radius:10px;transition:width .3s;}
+/* Image upload size hint */
+.size-note{font-size:11px;padding:4px 10px;border-radius:var(--r-pill);display:inline-block;margin-top:4px;}
+.size-ok{background:#edf5ee;color:#2d6a31;}
+.size-warn{background:#fff3e8;color:#92400e;}
+.size-err{background:#fde8ed;color:#9b1c1c;}
 @media(max-width:960px){
 .hero{grid-template-columns:1fr;}.hero-visual{display:none;}
 .about-prev-grid{grid-template-columns:1fr;}.about-imgs{display:none;}
@@ -765,7 +764,7 @@ nav{display:none;}.hamburger{display:block;}
       <p>Tiny Little Things — Manage your store</p>
       <div id="fbSetupWarning" style="display:none;" class="fb-setup-banner">
         <strong>⚠️ Firebase Not Configured</strong>
-        This admin panel requires Firebase to save data across devices. Please configure Firebase by editing the <code>firebaseConfig</code> at the top of this HTML file. 
+        This admin panel requires Firebase to save data across devices. Please configure Firebase by editing the <code>firebaseConfig</code> at the top of this HTML file.
         <a href="https://console.firebase.google.com" target="_blank" style="color:var(--pink);font-weight:700;">Set up Firebase Free →</a>
       </div>
       <input type="text" id="adminUser" placeholder="Username" onkeydown="if(event.key==='Enter')adminLogin()">
@@ -845,10 +844,10 @@ nav{display:none;}.hamburger{display:block;}
         <div class="admin-section" id="asec-images">
           <div class="admin-page-title">Site Images</div>
           <div class="fb-setup-banner" id="imgFirebaseNote" style="background:#edf5ee;border-color:#8aab8c;color:#2d6a31;display:none;">
-            ✅ Images are stored in Firebase Storage and visible on all devices automatically.
+            ✅ Images are stored as compressed Base64 in Firestore — each image gets its own document so nothing ever hits the 1MB limit. Fully free, visible on all devices.
           </div>
           <div class="fb-setup-banner" id="imgLocalNote">
-            ⚠️ Firebase not configured — images will be stored locally (this browser only). Configure Firebase to sync images across all devices.
+            ⚠️ Firebase not configured — images will be stored in this browser only. Configure Firebase to sync images across all devices.
           </div>
           <div class="settings-section">
             <h3>🌟 Hero &amp; Logo</h3>
@@ -985,11 +984,11 @@ const CATS=[
 // ═══════════════════════════════════════════
 let PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
 let TESTIMONIALS=JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
-let SITE_IMAGES={};
+let SITE_IMAGES={};  // in-memory cache; each key saved as its own Firestore doc
 let CREDENTIALS={user:'admin',pass:'tlt2025'};
 let ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
 let cart={},currentMaxPrice=1999,currentFilter='All';
-let FB=null; // Firebase helpers, set when ready
+let FB=null;
 let fbConfigured=false;
 
 // ═══════════════════════════════════════════
@@ -997,11 +996,9 @@ let fbConfigured=false;
 // ═══════════════════════════════════════════
 let _stTimer=null;
 function setStatus(msg,type,dur=2500){
-  const el=document.getElementById('fbStatus');
-  if(!el)return;
+  const el=document.getElementById('fbStatus');if(!el)return;
   clearTimeout(_stTimer);
-  el.textContent=msg;
-  el.className='fb-status '+type;
+  el.textContent=msg;el.className='fb-status '+type;
   if(dur>0)_stTimer=setTimeout(()=>el.className='fb-status hidden',dur);
 }
 
@@ -1010,8 +1007,8 @@ function setStatus(msg,type,dur=2500){
 // ═══════════════════════════════════════════
 window.addEventListener('fb-ready',async()=>{
   FB=window._fb;
-  // Check if config is real (not placeholder)
-  if(window._fb && window._fb.db && window._fb.db.app.options.apiKey && !window._fb.db.app.options.apiKey.startsWith('PASTE')){
+  const key=window._fb.db.app.options.apiKey||'';
+  if(key && !key.startsWith('PASTE')){
     fbConfigured=true;
     document.getElementById('imgFirebaseNote').style.display='block';
     document.getElementById('imgLocalNote').style.display='none';
@@ -1023,71 +1020,85 @@ window.addEventListener('fb-ready',async()=>{
     }catch(e){
       console.error('Firebase load error:',e);
       setStatus('⚠️ Cloud error — using local data','error',4000);
-      loadFromLocal();
-      applyAllData();
+      loadFromLocal();applyAllData();
     }
   }else{
-    // Not configured — use localStorage
     fbConfigured=false;
     document.getElementById('fbSetupWarning').style.display='block';
     setStatus('⚠️ Firebase not set up — data is local only','error',6000);
-    loadFromLocal();
-    applyAllData();
+    loadFromLocal();applyAllData();
   }
 });
-
-// Fallback if firebase module fails to load
 setTimeout(()=>{
   if(!window._fbReady){
     fbConfigured=false;
     document.getElementById('fbSetupWarning').style.display='block';
     setStatus('⚠️ Firebase not set up — data is local only','error',6000);
-    loadFromLocal();
-    applyAllData();
+    loadFromLocal();applyAllData();
   }
 },3000);
 
 // ═══════════════════════════════════════════
-// FIREBASE CRUD
+// FIRESTORE HELPERS
+// Each document path: collection/docId
+// We use a flat structure:
+//   tlt_data/products          → {data:[...]}
+//   tlt_data/testimonials      → {data:[...]}
+//   tlt_data/credentials       → {user, pass}
+//   tlt_data/analytics         → {...}
+//   tlt_images/<key>           → {img: "data:image/jpeg;base64,..."}
+//     e.g. tlt_images/hero, tlt_images/logo, tlt_images/insta_1 ...
+// This way images never share a document, so the 1MB limit per doc is safe.
 // ═══════════════════════════════════════════
-async function fbSet(docPath, data){
+async function fbSetDoc(col,docId,data){
   if(!fbConfigured||!FB)return false;
   try{
     const {db,doc,setDoc}=FB;
-    const parts=docPath.split('/');
-    const ref=doc(db,...parts);
-    await setDoc(ref,data);
+    await setDoc(doc(db,col,docId),data);
     return true;
-  }catch(e){console.error('fbSet error',e);return false;}
+  }catch(e){console.error('fbSetDoc',col,docId,e);return false;}
 }
-async function fbGet(docPath){
+async function fbGetDoc(col,docId){
   if(!fbConfigured||!FB)return null;
   try{
     const {db,doc,getDoc}=FB;
-    const parts=docPath.split('/');
-    const ref=doc(db,...parts);
-    const snap=await getDoc(ref);
+    const snap=await getDoc(doc(db,col,docId));
     return snap.exists()?snap.data():null;
-  }catch(e){console.error('fbGet error',e);return null;}
+  }catch(e){console.error('fbGetDoc',col,docId,e);return null;}
+}
+async function fbGetAllDocs(col){
+  if(!fbConfigured||!FB)return [];
+  try{
+    const {db,collection,getDocs}=FB;
+    const snap=await getDocs(collection(db,col));
+    const result={};
+    snap.forEach(d=>result[d.id]=d.data());
+    return result;
+  }catch(e){console.error('fbGetAllDocs',col,e);return {};}
 }
 
 async function loadFromFirebase(){
-  const [p,t,s,c,a]=await Promise.all([
-    fbGet('tlt/products'),
-    fbGet('tlt/testimonials'),
-    fbGet('tlt/siteImages'),
-    fbGet('tlt/credentials'),
-    fbGet('tlt/analytics')
+  // Load non-image data
+  const [p,t,c,a]=await Promise.all([
+    fbGetDoc('tlt_data','products'),
+    fbGetDoc('tlt_data','testimonials'),
+    fbGetDoc('tlt_data','credentials'),
+    fbGetDoc('tlt_data','analytics')
   ]);
   if(p&&p.data)PRODUCTS=p.data;
   if(t&&t.data)TESTIMONIALS=t.data;
-  if(s&&s.data)SITE_IMAGES=s.data;
   if(c&&c.user)CREDENTIALS=c;
   if(a)ANALYTICS=Object.assign(ANALYTICS,a);
+
+  // Load images — each key is its own document in tlt_images collection
+  const imgs=await fbGetAllDocs('tlt_images');
+  Object.keys(imgs).forEach(key=>{
+    if(imgs[key]&&imgs[key].img)SITE_IMAGES[key]=imgs[key].img;
+  });
 }
 
 // ═══════════════════════════════════════════
-// LOCALSTORAGE FALLBACK (same-browser only)
+// LOCALSTORAGE FALLBACK
 // ═══════════════════════════════════════════
 function saveLocal(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){}}
 function loadLocal(key){try{const v=localStorage.getItem(key);return v?JSON.parse(v):null;}catch(e){return null;}}
@@ -1099,28 +1110,14 @@ function loadFromLocal(){
   const a=loadLocal('tlt_analytics');if(a)ANALYTICS=Object.assign(ANALYTICS,a);
 }
 
-// Universal save — tries Firebase first, always saves to localStorage as backup
-async function saveData(key,data){
-  saveLocal('tlt_'+key,data);
-  if(fbConfigured){
-    setStatus('☁️ Saving...','saving',0);
-    const ok=await fbSet('tlt/'+key,{data});
-    if(ok){
-      setStatus('✅ Saved to cloud','saved');
-      const ss=document.getElementById('syncStatus');
-      if(ss){ss.textContent='✅ Synced';setTimeout(()=>ss.textContent='',2000);}
-    }else{
-      setStatus('⚠️ Cloud save failed — saved locally','error',4000);
-    }
-  }
-}
-
-// Specialized saves
+// ═══════════════════════════════════════════
+// SAVE HELPERS
+// ═══════════════════════════════════════════
 async function saveProducts(){
   saveLocal('tlt_products',PRODUCTS);
   if(fbConfigured){
     setStatus('☁️ Saving products...','saving',0);
-    const ok=await fbSet('tlt/products',{data:PRODUCTS});
+    const ok=await fbSetDoc('tlt_data','products',{data:PRODUCTS});
     if(ok)setStatus('✅ Products saved to cloud','saved');
     else setStatus('⚠️ Cloud save failed','error',3000);
   }
@@ -1128,29 +1125,93 @@ async function saveProducts(){
 async function saveTestimonials(){
   saveLocal('tlt_testimonials',TESTIMONIALS);
   if(fbConfigured){
-    const ok=await fbSet('tlt/testimonials',{data:TESTIMONIALS});
+    const ok=await fbSetDoc('tlt_data','testimonials',{data:TESTIMONIALS});
     if(ok)setStatus('✅ Testimonials saved','saved');
-  }
-}
-async function saveSiteImages(){
-  saveLocal('tlt_siteImages',SITE_IMAGES);
-  if(fbConfigured){
-    // Images can be large — store in Firestore as base64 (works for < 1MB per image)
-    // For larger images, Firebase Storage would be needed
-    setStatus('☁️ Saving image...','saving',0);
-    const ok=await fbSet('tlt/siteImages',{data:SITE_IMAGES});
-    if(ok)setStatus('✅ Image saved to cloud — visible on all devices!','saved');
-    else setStatus('⚠️ Image too large for cloud — try compressing it','error',5000);
   }
 }
 async function saveCredentials(){
   saveLocal('tlt_credentials',CREDENTIALS);
-  if(fbConfigured)await fbSet('tlt/credentials',CREDENTIALS);
+  if(fbConfigured)await fbSetDoc('tlt_data','credentials',CREDENTIALS);
 }
 async function saveAnalytics(){
   saveLocal('tlt_analytics',ANALYTICS);
-  if(fbConfigured)await fbSet('tlt/analytics',ANALYTICS);
+  if(fbConfigured)await fbSetDoc('tlt_data','analytics',ANALYTICS);
 }
+
+// KEY FUNCTION: save a single image as its own Firestore document
+// tlt_images/<key> → {img: "data:image/jpeg;base64,..."}
+// Each doc is one image, so the 1MB limit is per-image — not per collection.
+async function saveSingleImage(key,base64){
+  // Also store in localStorage cache
+  SITE_IMAGES[key]=base64;
+  const allImgs=loadLocal('tlt_siteImages')||{};
+  allImgs[key]=base64;
+  saveLocal('tlt_siteImages',allImgs);
+
+  if(fbConfigured){
+    setStatus('☁️ Saving image...','saving',0);
+    const sizeKB=Math.round(base64.length/1024);
+    // Warn if approaching limit (Firestore doc limit is 1MB = ~1024KB, base64 overhead ~33%)
+    if(sizeKB>700){
+      setStatus('⚠️ Image very large ('+sizeKB+'KB) — try a smaller photo','error',5000);
+      return false;
+    }
+    const ok=await fbSetDoc('tlt_images',key,{img:base64});
+    if(ok){
+      setStatus('✅ Image saved to cloud ('+sizeKB+'KB) — visible on all devices!','saved',3000);
+      const ss=document.getElementById('syncStatus');
+      if(ss){ss.textContent='✅ Synced';setTimeout(()=>ss.textContent='',2000);}
+      return true;
+    }else{
+      setStatus('⚠️ Cloud save failed — try a smaller image','error',4000);
+      return false;
+    }
+  }
+  return true;
+}
+
+// ═══════════════════════════════════════════
+// IMAGE COMPRESSION
+// Target: ≤600KB after compression (safe for Firestore 1MB limit)
+// ═══════════════════════════════════════════
+function compressImage(file, maxW, maxH, quality){
+  return new Promise(resolve=>{
+    const canvas=document.createElement('canvas');
+    const ctx=canvas.getContext('2d');
+    const img=new Image();
+    const reader=new FileReader();
+    reader.onload=e=>{
+      img.onload=()=>{
+        let w=img.width,h=img.height;
+        if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
+        if(h>maxH){w=Math.round(w*maxH/h);h=maxH;}
+        canvas.width=w;canvas.height=h;
+        ctx.drawImage(img,0,0,w,h);
+        resolve(canvas.toDataURL('image/jpeg',quality));
+      };
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// Compression settings per image type
+const IMG_SETTINGS={
+  logo:       {maxW:200,  maxH:200,  quality:0.85},
+  hero:       {maxW:1000, maxH:750,  quality:0.80},
+  about_main: {maxW:800,  maxH:800,  quality:0.80},
+  about_second:{maxW:800, maxH:800,  quality:0.80},
+  about_page: {maxW:800,  maxH:1000, quality:0.80},
+  team_sanskar:{maxW:300, maxH:300,  quality:0.85},
+  team_radhika:{maxW:300, maxH:300,  quality:0.85},
+  insta_1:    {maxW:600,  maxH:600,  quality:0.78},
+  insta_2:    {maxW:600,  maxH:600,  quality:0.78},
+  insta_3:    {maxW:600,  maxH:600,  quality:0.78},
+  insta_4:    {maxW:600,  maxH:600,  quality:0.78},
+  insta_5:    {maxW:600,  maxH:600,  quality:0.78},
+  insta_6:    {maxW:600,  maxH:600,  quality:0.78},
+};
+const DEFAULT_IMG_SETTINGS={maxW:800,maxH:800,quality:0.80};
 
 // ═══════════════════════════════════════════
 // APPLY DATA TO PAGE
@@ -1169,22 +1230,9 @@ function applyAllData(){
 // ═══════════════════════════════════════════
 function today(){return new Date().toISOString().split('T')[0];}
 function ensureDay(){if(!ANALYTICS.daily[today()])ANALYTICS.daily[today()]={views:0,carts:0,wa:0};}
-function trackPageView(page){
-  ANALYTICS.pageViews[page]=(ANALYTICS.pageViews[page]||0)+1;
-  ensureDay();ANALYTICS.daily[today()].views++;
-  saveAnalytics();
-}
-function trackCartOpen(){
-  ANALYTICS.cartOpens=(ANALYTICS.cartOpens||0)+1;
-  ensureDay();ANALYTICS.daily[today()].carts++;
-  saveAnalytics();
-}
-function trackWA(ctx){
-  ANALYTICS.waClicks=(ANALYTICS.waClicks||0)+1;
-  ensureDay();ANALYTICS.daily[today()].wa++;
-  logActivity('💬','WhatsApp tapped',ctx||'');
-  saveAnalytics();
-}
+function trackPageView(page){ANALYTICS.pageViews[page]=(ANALYTICS.pageViews[page]||0)+1;ensureDay();ANALYTICS.daily[today()].views++;saveAnalytics();}
+function trackCartOpen(){ANALYTICS.cartOpens=(ANALYTICS.cartOpens||0)+1;ensureDay();ANALYTICS.daily[today()].carts++;saveAnalytics();}
+function trackWA(ctx){ANALYTICS.waClicks=(ANALYTICS.waClicks||0)+1;ensureDay();ANALYTICS.daily[today()].wa++;logActivity('💬','WhatsApp tapped',ctx||'');saveAnalytics();}
 function trackProductView(id){ANALYTICS.productViews[id]=(ANALYTICS.productViews[id]||0)+1;saveAnalytics();}
 function trackProductCart(id){ANALYTICS.productCart[id]=(ANALYTICS.productCart[id]||0)+1;saveAnalytics();}
 function logActivity(icon,text,sub){
@@ -1226,30 +1274,20 @@ function toggleMobileNav(){
 // ═══════════════════════════════════════════
 // SITE IMAGES
 // ═══════════════════════════════════════════
-function setImgEl(el,src,style=''){
-  if(!el)return;
-  if(src){el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;${style}">`;}
-  else el.innerHTML='';
-}
 function applyAllSiteImages(){
-  // Logo
   const lm=document.getElementById('logoMark');
   if(lm){if(SITE_IMAGES.logo)lm.innerHTML=`<img src="${SITE_IMAGES.logo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;else lm.innerHTML='🌸';}
-  // Hero
   const hw=document.getElementById('heroImgWrap');
   if(hw){
     if(SITE_IMAGES.hero)hw.innerHTML=`<img src="${SITE_IMAGES.hero}" style="width:100%;height:100%;object-fit:cover;">`;
     else hw.innerHTML=`<div class="hero-img-placeholder"><span>🌸</span><span>Hero image — upload in Admin Panel</span></div>`;
   }
-  // About images on home
   const am=document.getElementById('aboutMain');
   if(am){if(SITE_IMAGES.about_main)am.innerHTML=`<img src="${SITE_IMAGES.about_main}" style="width:100%;height:100%;object-fit:cover;">`;else am.style.background='var(--pink-pale)';}
-  const as=document.getElementById('aboutSecond');
-  if(as){if(SITE_IMAGES.about_second)as.innerHTML=`<img src="${SITE_IMAGES.about_second}" style="width:100%;height:100%;object-fit:cover;">`;else as.style.background='var(--sage-pale)';}
-  // About page
+  const as2=document.getElementById('aboutSecond');
+  if(as2){if(SITE_IMAGES.about_second)as2.innerHTML=`<img src="${SITE_IMAGES.about_second}" style="width:100%;height:100%;object-fit:cover;">`;else as2.style.background='var(--sage-pale)';}
   const ap=document.getElementById('aboutPageImg');
   if(ap){if(SITE_IMAGES.about_page)ap.innerHTML=`<img src="${SITE_IMAGES.about_page}" style="width:100%;height:100%;object-fit:cover;">`;else ap.innerHTML=`<span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image — Upload via Admin</span>`;}
-  // Team avatars (all occurrences)
   ['teamSanskar','founderSanskar'].forEach(id=>{
     const el=document.getElementById(id);
     if(el){if(SITE_IMAGES.team_sanskar)el.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;else el.innerHTML='👤';}
@@ -1275,8 +1313,8 @@ function renderCategories(){
 // ═══════════════════════════════════════════
 // PRODUCT RENDERING
 // ═══════════════════════════════════════════
-function imgHtml(p,style=''){
-  if(p.img)return`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;${style}">`;
+function imgHtml(p){
+  if(p.img)return`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">`;
   return`<div class="img-placeholder">${p.name}</div>`;
 }
 function renderCard(p){
@@ -1319,8 +1357,7 @@ function renderShop(cat,maxP){
 }
 function filterShop(cat,btn){
   document.querySelectorAll('.cf-btn').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  renderShop(cat);
+  if(btn)btn.classList.add('active');renderShop(cat);
 }
 function updatePrice(val){document.getElementById('priceLabel').textContent='Up to ₹'+val;renderShop(undefined,parseInt(val));}
 
@@ -1349,22 +1386,14 @@ function closeModalDirect(){document.getElementById('modalOverlay').classList.re
 // ═══════════════════════════════════════════
 // CART
 // ═══════════════════════════════════════════
-function addToCart(id){
-  cart[id]=(cart[id]||0)+1;trackProductCart(id);updateCartBadge();showToast('Added to cart! 🛒');
-  logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');
-}
+function addToCart(id){cart[id]=(cart[id]||0)+1;trackProductCart(id);updateCartBadge();showToast('Added to cart! 🛒');logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');}
 function removeFromCart(id){delete cart[id];updateCartBadge();renderCartDrawer();}
-function changeQty(id,delta){
-  cart[id]=(cart[id]||0)+delta;
-  if(cart[id]<=0)delete cart[id];
-  updateCartBadge();renderCartDrawer();
-}
+function changeQty(id,delta){cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];updateCartBadge();renderCartDrawer();}
 function clearCart(){cart={};updateCartBadge();renderCartDrawer();}
 function updateCartBadge(){
   const total=Object.values(cart).reduce((a,b)=>a+b,0);
   const badge=document.getElementById('cartBadge');
-  badge.textContent=total;badge.classList.remove('bump');
-  void badge.offsetWidth;badge.classList.add('bump');
+  badge.textContent=total;badge.classList.remove('bump');void badge.offsetWidth;badge.classList.add('bump');
 }
 function openCart(){trackCartOpen();renderCartDrawer();document.getElementById('cartDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');}
@@ -1566,7 +1595,7 @@ function buildProductForm(p){
     <div class="img-upload-box">
       ${p&&p.img?`<img class="preview-img" src="${p.img}" id="editImgPreview" style="width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">`:`<img id="editImgPreview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">`}
       <p id="editImgHint">${p&&p.img?'✓ Image uploaded — click to change':'📷 Click to upload product image'}</p>
-      <div class="upload-hint">JPG, PNG or WebP. Recommended: under 1MB for best cloud sync.</div>
+      <div class="upload-hint">Compressed automatically. Recommended: under 2MB original photo.</div>
       <div class="upload-progress" id="uploadProgress" style="display:none;"><div class="upload-progress-fill" id="uploadProgressFill" style="width:0%"></div></div>
       <input type="file" accept="image/*" onchange="handleProductImgUpload(this)">
     </div>
@@ -1579,39 +1608,29 @@ function buildProductForm(p){
     <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
   </div>`;
 }
-function handleProductImgUpload(input){
+
+async function handleProductImgUpload(input){
   const file=input.files[0];if(!file)return;
   const prog=document.getElementById('uploadProgress');
   const fill=document.getElementById('uploadProgressFill');
+  const hint=document.getElementById('editImgHint');
   if(prog)prog.style.display='block';
-  // Compress image before storing
-  const canvas=document.createElement('canvas');
-  const ctx2=canvas.getContext('2d');
-  const img2=new Image();
-  const reader=new FileReader();
-  reader.onload=e=>{
-    img2.onload=()=>{
-      // Resize to max 800px wide
-      const maxW=800,maxH=800;
-      let w=img2.width,h=img2.height;
-      if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
-      if(h>maxH){w=Math.round(w*maxH/h);h=maxH;}
-      canvas.width=w;canvas.height=h;
-      ctx2.drawImage(img2,0,0,w,h);
-      if(fill)fill.style.width='70%';
-      // Quality 0.8 for good balance
-      const compressed=canvas.toDataURL('image/jpeg',0.82);
-      if(fill)fill.style.width='100%';
-      setTimeout(()=>{if(prog)prog.style.display='none';},400);
-      const prev=document.getElementById('editImgPreview');
-      if(prev){prev.src=compressed;prev.style.display='block';}
-      document.getElementById('ef-curimg').value=compressed;
-      document.getElementById('editImgHint').textContent='✓ Image ready ('+Math.round(compressed.length/1024)+'KB)';
-    };
-    img2.src=e.target.result;
-  };
-  reader.readAsDataURL(file);
+  if(fill)fill.style.width='30%';
+  if(hint)hint.textContent='⏳ Compressing image...';
+
+  const compressed=await compressImage(file,800,800,0.82);
+  if(fill)fill.style.width='100%';
+  setTimeout(()=>{if(prog)prog.style.display='none';},400);
+
+  const sizeKB=Math.round(compressed.length/1024);
+  const prev=document.getElementById('editImgPreview');
+  if(prev){prev.src=compressed;prev.style.display='block';}
+  document.getElementById('ef-curimg').value=compressed;
+
+  const cls=sizeKB<400?'size-ok':sizeKB<700?'size-warn':'size-err';
+  if(hint)hint.innerHTML=`✓ Ready <span class="${cls} size-note">${sizeKB}KB${sizeKB>700?' — try a smaller photo':''}</span>`;
 }
+
 async function saveProductFromForm(){
   const name=document.getElementById('ef-name').value.trim();
   const price=parseInt(document.getElementById('ef-price').value);
@@ -1664,20 +1683,12 @@ function renderTestiEditGrid(){
       </div>
     </div>`).join('');
 }
-function handleTestiImg(input,idx){
+async function handleTestiImg(input,idx){
   const file=input.files[0];if(!file)return;
-  const canvas=document.createElement('canvas');const ctx2=canvas.getContext('2d');const img2=new Image();
-  const reader=new FileReader();
-  reader.onload=e=>{
-    img2.onload=()=>{
-      const s=88;canvas.width=s;canvas.height=s;
-      ctx2.drawImage(img2,0,0,s,s);
-      const compressed=canvas.toDataURL('image/jpeg',0.85);
-      TESTIMONIALS[idx].img=compressed;
-      const prev=document.getElementById(`te-img-prev-${idx}`);
-      if(prev)prev.innerHTML=`<img src="${compressed}" style="width:100%;height:100%;object-fit:cover;">`;
-    };img2.src=e.target.result;
-  };reader.readAsDataURL(file);
+  const compressed=await compressImage(file,150,150,0.85);
+  TESTIMONIALS[idx].img=compressed;
+  const prev=document.getElementById(`te-img-prev-${idx}`);
+  if(prev)prev.innerHTML=`<img src="${compressed}" style="width:100%;height:100%;object-fit:cover;">`;
 }
 async function saveTestimonialsAdmin(){
   TESTIMONIALS.forEach((t,i)=>{
@@ -1692,36 +1703,35 @@ async function saveTestimonialsAdmin(){
 
 // ═══════════════════════════════════════════
 // ADMIN SITE IMAGES
+// Each image is saved as its own Firestore document in the tlt_images collection.
+// This keeps every document well under the 1MB limit.
 // ═══════════════════════════════════════════
 async function handleSiteImg(input,key){
   const file=input.files[0];if(!file)return;
-  const canvas=document.createElement('canvas');const ctx2=canvas.getContext('2d');const img2=new Image();
-  const reader=new FileReader();
-  reader.onload=async e=>{
-    img2.onload=async()=>{
-      // Resize to max 1200px
-      const maxW=1200;
-      let w=img2.width,h=img2.height;
-      if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
-      canvas.width=w;canvas.height=h;ctx2.drawImage(img2,0,0,w,h);
-      const compressed=canvas.toDataURL('image/jpeg',0.85);
-      const sizeKB=Math.round(compressed.length/1024);
-      SITE_IMAGES[key]=compressed;
-      updateAdminImgPreview(key,compressed);
-      applyAllSiteImages();renderInstagram();
-      showToast(`Uploading image (${sizeKB}KB)...`);
-      await saveSiteImages();
-      showToast('Image saved'+(fbConfigured?' to cloud — visible everywhere!':' (this browser only — set up Firebase for cross-device)')+'');
-      logActivity('🖼️','Image uploaded',key+' ('+sizeKB+'KB)');
-    };img2.src=e.target.result;
-  };reader.readAsDataURL(file);
+  showToast('⏳ Compressing image...');
+  const settings=IMG_SETTINGS[key]||DEFAULT_IMG_SETTINGS;
+  const compressed=await compressImage(file,settings.maxW,settings.maxH,settings.quality);
+  const sizeKB=Math.round(compressed.length/1024);
+
+  // Update in-memory and page
+  SITE_IMAGES[key]=compressed;
+  updateAdminImgPreview(key,compressed);
+  applyAllSiteImages();
+  renderInstagram();
+
+  // Save: one document per image in Firestore
+  const ok=await saveSingleImage(key,compressed);
+  if(ok){
+    showToast(`Image saved (${sizeKB}KB)`+(fbConfigured?' to cloud ☁️':''));
+    logActivity('🖼️','Image uploaded',key+' ('+sizeKB+'KB)');
+  }
 }
 function updateAdminImgPreview(key,src){
   const el=document.getElementById('prev-'+key);
   if(el){el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"><input type="file" accept="image/*" onchange="handleSiteImg(this,'${key}')">`;}
 }
 function renderAdminImagePreviews(){
-  const keys=['logo','hero','team_sanskar','team_radhika','about_main','about_second','about_page','insta_1','insta_2','insta_3','insta_4','insta_5','insta_6'];
+  const keys=Object.keys(IMG_SETTINGS);
   keys.forEach(key=>{if(SITE_IMAGES[key])updateAdminImgPreview(key,SITE_IMAGES[key]);});
 }
 
@@ -1752,7 +1762,12 @@ async function importData(input){
       const data=JSON.parse(e.target.result);
       if(data.products){PRODUCTS=data.products;await saveProducts();}
       if(data.testimonials){TESTIMONIALS=data.testimonials;await saveTestimonials();}
-      if(data.siteImages){SITE_IMAGES=data.siteImages;await saveSiteImages();}
+      if(data.siteImages){
+        // Import images one-by-one into Firestore
+        for(const key of Object.keys(data.siteImages)){
+          if(data.siteImages[key])await saveSingleImage(key,data.siteImages[key]);
+        }
+      }
       renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
       applyAllSiteImages();renderTestimonials();renderInstagram();renderBestsellers();
       showToast('Backup imported'+(fbConfigured?' & synced! ☁️':'!')+'');
@@ -1762,17 +1777,21 @@ async function importData(input){
 async function resetAll(){
   PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
   TESTIMONIALS=JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
-  SITE_IMAGES={};
-  ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
-  await Promise.all([saveProducts(),saveTestimonials(),saveSiteImages(),saveAnalytics()]);
+  SITE_IMAGES={};ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+  await Promise.all([saveProducts(),saveTestimonials(),saveAnalytics()]);
+  // Clear all image docs from Firestore
+  if(fbConfigured&&FB){
+    const keys=Object.keys(IMG_SETTINGS);
+    await Promise.all(keys.map(k=>fbSetDoc('tlt_images',k,{img:''})));
+  }
+  saveLocal('tlt_siteImages',{});
   renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
   applyAllSiteImages();renderBestsellers();renderTestimonials();renderInstagram();
   showToast('Reset to defaults!');
 }
 
 // ═══════════════════════════════════════════
-// INIT — load from localStorage immediately so page renders fast
-// Firebase will override once connected
+// INIT
 // ═══════════════════════════════════════════
 loadFromLocal();
 applyAllData();
@@ -1780,4 +1799,4 @@ trackPageView('home');
 logActivity('👁️','Site visited','homepage');
 </script>
 </body>
-        </html>
+                                                                                                                         </html>
