@@ -14,9 +14,8 @@
   const firebaseConfig = {
     apiKey: "AIzaSyDz2eX2qBRCsGeIUIN1sTsLLzlISVhaKME",
     authDomain: "tinylittle-things.firebaseapp.com",
-    databaseURL: "https://tinylittle-things-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "tinylittle-things",
-    storageBucket: "tinylittle-things.firebasestorage.app",
+    storageBucket: "tinylittle-things.appspot.com", // ✅ FIXED
     messagingSenderId: "595373265570",
     appId: "1:595373265570:web:c2942fc0dcc9ace255fdfb",
     measurementId: "G-MVBC1G33KN"
@@ -24,9 +23,12 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+
   window._fb = { db, doc, setDoc, getDoc, collection, getDocs, deleteDoc, onSnapshot };
   window._fbReady = true;
   window.dispatchEvent(new Event('fb-ready'));
+
+  console.log("✅ Firebase Initialized");
 </script>
 
 <style>
@@ -1121,13 +1123,27 @@ setTimeout(()=>{
 // ═══════════════════════════════════════════
 // FIRESTORE HELPERS
 // ═══════════════════════════════════════════
-async function fbSetDoc(col,docId,data){
-  if(!fbConfigured||!FB)return false;
+async function fbSetDoc(col, docId, data){
+  if(!fbConfigured || !FB){
+    console.warn("Firebase not configured");
+    return false;
+  }
+
   try{
-    const {db,doc,setDoc}=FB;
-    await setDoc(doc(db,col,docId),data);
+    const {db, doc, setDoc} = FB;
+    await setDoc(doc(db, col, docId), data);
+
+    console.log("✅ Saved to Firestore:", col, docId);
     return true;
-  }catch(e){console.error('fbSetDoc',col,docId,e);return false;}
+
+  }catch(e){
+    console.error("❌ FIREBASE ERROR:", e.code, e.message);
+
+    setStatus("❌ " + (e.code || "error"), "error", 4000);
+    alert("Firebase Error: " + e.message);
+
+    return false;
+  }
 }
 async function fbGetDoc(col,docId){
   if(!fbConfigured||!FB)return null;
