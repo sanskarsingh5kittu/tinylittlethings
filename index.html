@@ -7,47 +7,40 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- ═══════════════════════════════════════════════════════════
-     FIREBASE SETUP — REPLACE WITH YOUR OWN CONFIG
-     1. Go to https://console.firebase.google.com
-     2. Create a project (free)
-     3. Go to Project Settings → General → Your apps → Add web app
-     4. Copy the firebaseConfig object and paste below
-     5. Enable Firestore: Build → Firestore Database → Create database (test mode)
-     6. NO Storage needed — everything saves to Firestore for free!
-     ═══════════════════════════════════════════════════════════ -->
-
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
   import { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
-  // ════════════════════════════════════════════════
-  // ⬇️  PASTE YOUR FIREBASE CONFIG HERE
-  // ════════════════════════════════════════════════
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDz2eX2qBRCsGeIUIN1sTsLLzlISVhaKME",
-  authDomain: "tinylittle-things.firebaseapp.com",
-  databaseURL: "https://tinylittle-things-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tinylittle-things",
-  storageBucket: "tinylittle-things.firebasestorage.app",
-  messagingSenderId: "595373265570",
-  appId: "1:595373265570:web:c2942fc0dcc9ace255fdfb",
-  measurementId: "G-MVBC1G33KN"
-};
-  // ════════════════════════════════════════════════
+  const firebaseConfig = {
+    apiKey: "AIzaSyDz2eX2qBRCsGeIUIN1sTsLLzlISVhaKME",
+    authDomain: "tinylittle-things.firebaseapp.com",
+    databaseURL: "https://tinylittle-things-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tinylittle-things",
+    storageBucket: "tinylittle-things.firebasestorage.app",
+    messagingSenderId: "595373265570",
+    appId: "1:595373265570:web:c2942fc0dcc9ace255fdfb",
+    measurementId: "G-MVBC1G33KN"
+  };
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-
-  // Expose to global scope for non-module scripts
   window._fb = { db, doc, setDoc, getDoc, collection, getDocs, deleteDoc, onSnapshot };
   window._fbReady = true;
   window.dispatchEvent(new Event('fb-ready'));
 </script>
 
 <style>
-:root{--pink:#e8748a;--pink-hover:#d45e75;--pink-light:#f2a8b5;--pink-pale:#fde8ed;--sage:#8aab8c;--sage-hover:#6e9270;--sage-pale:#edf5ee;--cream:#faf6f0;--warm-white:#fffcf8;--text-dark:#2e1f24;--text-mid:#7a5c62;--text-light:#b8929a;--card-bg:#ffffff;--border:#f5e8ea;--shadow-sm:0 2px 12px rgba(46,31,36,.07);--shadow:0 6px 28px rgba(46,31,36,.10);--shadow-lg:0 16px 48px rgba(46,31,36,.15);--r:18px;--r-sm:10px;--r-pill:999px;}
+:root{
+  --pink:#e8748a;--pink-hover:#d45e75;--pink-light:#f2a8b5;--pink-pale:#fde8ed;
+  --sage:#8aab8c;--sage-hover:#6e9270;--sage-pale:#edf5ee;
+  --cream:#faf6f0;--warm-white:#fffcf8;
+  --text-dark:#2e1f24;--text-mid:#7a5c62;--text-light:#b8929a;
+  --card-bg:#ffffff;--border:#f5e8ea;
+  --shadow-sm:0 2px 12px rgba(46,31,36,.07);
+  --shadow:0 6px 28px rgba(46,31,36,.10);
+  --shadow-lg:0 16px 48px rgba(46,31,36,.15);
+  --r:18px;--r-sm:10px;--r-pill:999px;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'Nunito',sans-serif;background:var(--warm-white);color:var(--text-dark);overflow-x:hidden;}
@@ -55,14 +48,20 @@ img{display:block;width:100%;height:100%;object-fit:cover;}
 a{text-decoration:none;color:inherit;}
 button{cursor:pointer;font-family:'Nunito',sans-serif;}
 h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;}
+
+/* PAGE TRANSITIONS */
 .page{display:none;animation:fadeIn .35s ease;}
 .page.active{display:block;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ANNOUNCE */
 .announce{background:var(--sage);color:#fff;text-align:center;padding:9px 16px;font-size:13px;font-weight:600;letter-spacing:.2px;}
+
+/* HEADER */
 header{position:sticky;top:0;z-index:900;background:rgba(255,252,248,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 5%;}
 .header-inner{display:flex;align-items:center;justify-content:space-between;height:68px;}
 .logo{display:flex;align-items:center;gap:11px;cursor:pointer;}
-.logo-mark{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 2px 10px rgba(232,116,138,.2);overflow:hidden;}
+.logo-mark{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 2px 10px rgba(232,116,138,.2);overflow:hidden;flex-shrink:0;}
 .logo-mark img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
 .logo-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--pink);line-height:1.1;}
 .logo-tag{font-size:10px;font-weight:600;color:var(--text-light);letter-spacing:1.2px;text-transform:uppercase;}
@@ -80,6 +79,8 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .mobile-nav{display:none;position:sticky;top:68px;z-index:899;background:#fff;border-bottom:1px solid var(--border);padding:16px 5%;}
 .mobile-nav a{display:block;padding:11px 0;font-size:15px;font-weight:700;color:var(--text-mid);border-bottom:1px solid var(--border);cursor:pointer;}
 .mobile-nav a:last-child{border-bottom:none;}
+
+/* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:var(--r-pill);font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;transition:all .22s;text-decoration:none;}
 .btn-pink{background:var(--pink);color:#fff;padding:13px 28px;font-size:14px;box-shadow:0 4px 16px rgba(232,116,138,.35);}
 .btn-pink:hover{background:var(--pink-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,116,138,.42);}
@@ -94,14 +95,18 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .btn-sm{padding:8px 16px;font-size:12px;}
 .btn-danger{background:#e55;color:#fff;padding:8px 16px;font-size:12px;border-radius:var(--r-pill);}
 .btn-danger:hover{background:#c33;}
+
+/* SECTION TITLES */
 .sec-title{text-align:center;margin-bottom:48px;}
 .sec-title .eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink);margin-bottom:8px;}
 .sec-title h2{font-size:clamp(28px,4vw,46px);font-weight:600;color:var(--text-dark);line-height:1.2;}
 .sec-title p{margin-top:10px;color:var(--text-mid);font-size:15px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75;}
 .pill-divider{width:56px;height:3px;background:linear-gradient(to right,var(--pink),var(--pink-light));border-radius:10px;margin:12px auto 0;}
+
+/* PRODUCT CARDS */
 .product-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s;cursor:pointer;display:flex;flex-direction:column;}
 .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);}
-.product-thumb{position:relative;overflow:hidden;aspect-ratio:4/3;}
+.product-thumb{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--cream);}
 .product-thumb .img-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:600;color:var(--text-light);background:var(--cream);}
 .product-thumb img{transition:transform .4s;width:100%;height:100%;object-fit:cover;}
 .product-card:hover .product-thumb img{transform:scale(1.06);}
@@ -113,6 +118,8 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .price{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--text-dark);line-height:1;}
 .price small{font-family:'Nunito',sans-serif;font-size:10px;font-weight:500;color:var(--text-light);}
 .product-actions{display:flex;gap:6px;}
+
+/* CART DRAWER */
 .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1100;opacity:0;pointer-events:none;transition:opacity .3s;}
 .drawer-overlay.open{opacity:1;pointer-events:all;}
 .cart-drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100vw);background:#fff;z-index:1101;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 48px rgba(46,31,36,.15);}
@@ -145,11 +152,13 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .cart-wa-btn{width:100%;padding:15px;font-size:15px;}
 .cart-clear{width:100%;margin-top:10px;background:none;border:1.5px solid var(--border);border-radius:var(--r-pill);padding:10px;font-size:13px;font-weight:600;color:var(--text-light);transition:all .2s;}
 .cart-clear:hover{border-color:#e55;color:#e55;}
+
+/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1050;display:none;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
 .modal{background:#fff;border-radius:24px;max-width:860px;width:100%;max-height:92vh;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 30px 80px rgba(46,31,36,.25);}
-.modal-media{position:relative;min-height:360px;}
-.modal-media img{height:100%;border-radius:24px 0 0 24px;width:100%;object-fit:cover;}
+.modal-media{position:relative;min-height:360px;background:var(--cream);border-radius:24px 0 0 24px;overflow:hidden;}
+.modal-media img{height:100%;width:100%;object-fit:cover;border-radius:24px 0 0 24px;}
 .modal-media .img-placeholder{width:100%;height:100%;min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-light);background:var(--cream);border-radius:24px 0 0 24px;}
 .modal-badge{position:absolute;top:14px;left:14px;background:var(--pink);color:#fff;font-size:10px;font-weight:800;padding:4px 12px;border-radius:var(--r-pill);}
 .modal-body{padding:36px;display:flex;flex-direction:column;}
@@ -162,9 +171,13 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .modal-desc{font-size:14px;color:var(--text-mid);line-height:1.85;margin-bottom:18px;flex:1;}
 .modal-note{background:var(--pink-pale);border-radius:var(--r-sm);padding:12px 16px;font-size:13px;color:var(--text-mid);margin-bottom:20px;border-left:3px solid var(--pink);}
 .modal-actions{display:flex;gap:10px;flex-wrap:wrap;}
+
+/* TOAST */
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text-dark);color:#fff;padding:12px 22px;border-radius:var(--r-pill);font-size:13.5px;font-weight:700;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
-.fb-status{position:fixed;top:76px;right:16px;z-index:800;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 14px;font-size:12px;font-weight:700;color:var(--text-mid);box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:6px;transition:all .5s;max-width:280px;}
+
+/* STATUS */
+.fb-status{position:fixed;top:76px;right:16px;z-index:800;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 14px;font-size:12px;font-weight:700;color:var(--text-mid);box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:6px;transition:all .5s;max-width:300px;}
 .fb-status.saving{color:var(--pink);border-color:var(--pink-light);}
 .fb-status.saved{color:var(--sage);border-color:#8aab8c;}
 .fb-status.error{color:#c0392b;border-color:#e74c3c;background:#fff5f5;}
@@ -172,6 +185,8 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .fb-setup-banner{background:#fff3cd;border:1px solid #ffc107;border-radius:var(--r-sm);padding:14px 18px;margin:16px 0;font-size:13px;color:#856404;line-height:1.7;}
 .fb-setup-banner strong{display:block;font-size:14px;margin-bottom:6px;}
 .fb-setup-banner code{background:rgba(0,0,0,.07);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:12px;}
+
+/* HERO */
 .hero{min-height:90vh;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:80px 5%;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--warm-white) 0%,var(--pink-pale) 55%,var(--sage-pale) 100%);}
 .hero::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(232,116,138,.08) 0%,transparent 68%);right:-150px;top:-100px;pointer-events:none;}
 .hero-text{z-index:1;animation:slideUp .8s ease both;}
@@ -192,6 +207,8 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .hero-float-icon{width:38px;height:38px;border-radius:50%;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:18px;}
 .hero-float p{font-size:11px;color:var(--text-light);line-height:1.4;}
 .hero-float strong{font-size:13px;color:var(--text-dark);}
+
+/* INTRO STRIP */
 .intro-strip{background:#fff;padding:60px 5%;text-align:center;}
 .intro-strip-inner{max-width:720px;margin:0 auto;}
 .intro-strip h2{font-size:clamp(24px,3.5vw,40px);font-weight:600;color:var(--text-dark);margin-bottom:14px;}
@@ -202,18 +219,24 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .intro-pill.s{background:var(--sage-pale);color:var(--sage);}
 .intro-pill.o{background:#fff3e8;color:#d97706;}
 .intro-pill.m{background:#edf5ee;color:#3d7a41;}
+
+/* CATEGORIES */
 .cats-section{padding:80px 5%;background:var(--cream);}
 .cats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;max-width:1100px;margin:0 auto;}
 .cat-card{background:#fff;border-radius:var(--r);padding:32px 20px;text-align:center;cursor:pointer;transition:all .3s;box-shadow:var(--shadow-sm);border:2px solid transparent;}
 .cat-card:hover{border-color:var(--pink-light);transform:translateY(-5px);box-shadow:var(--shadow-lg);}
 .cat-icon{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:28px;}
+
+/* PRODUCTS GRID */
 .best-section{padding:88px 5%;background:var(--warm-white);}
 .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px;max-width:1100px;margin:0 auto;}
+
+/* ABOUT PREVIEW */
 .about-prev{padding:88px 5%;background:var(--cream);}
 .about-prev-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;max-width:1100px;margin:0 auto;}
 .about-imgs{position:relative;height:440px;}
-.about-main-img{position:absolute;width:62%;height:72%;top:0;left:0;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);}
-.about-sec-img{position:absolute;width:48%;height:58%;bottom:0;right:0;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);}
+.about-main-img{position:absolute;width:62%;height:72%;top:0;left:0;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);background:var(--pink-pale);}
+.about-sec-img{position:absolute;width:48%;height:58%;bottom:0;right:0;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg);background:var(--sage-pale);}
 .about-tag{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:var(--r-sm);padding:12px 18px;box-shadow:var(--shadow-lg);text-align:center;z-index:5;white-space:nowrap;}
 .about-tag p{font-size:10px;color:var(--text-light);font-weight:700;text-transform:uppercase;letter-spacing:1px;}
 .about-tag strong{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--pink);}
@@ -222,8 +245,11 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .about-content p{font-size:14.5px;color:var(--text-mid);line-height:1.85;margin-bottom:14px;}
 .founders-row{display:flex;gap:12px;margin:20px 0;}
 .founder-chip{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--pink-light);border-radius:var(--r-pill);padding:7px 14px 7px 7px;box-shadow:var(--shadow-sm);}
-.founder-av{width:34px;height:34px;border-radius:50%;overflow:hidden;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);}
+.founder-av{width:34px;height:34px;border-radius:50%;overflow:hidden;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);flex-shrink:0;}
+.founder-av img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
 .founder-chip span{font-size:13px;font-weight:700;color:var(--text-dark);}
+
+/* WHY */
 .why-section{padding:80px 5%;background:var(--warm-white);}
 .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;max-width:1100px;margin:0 auto;}
 .why-card{text-align:center;padding:30px 18px;background:#fff;border-radius:var(--r);box-shadow:var(--shadow-sm);transition:transform .3s;}
@@ -231,6 +257,8 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .why-icon{width:60px;height:60px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:28px;}
 .why-card h4{font-size:17px;font-weight:600;color:var(--text-dark);margin-bottom:6px;}
 .why-card p{font-size:12.5px;color:var(--text-light);line-height:1.55;}
+
+/* TESTIMONIALS */
 .testi-section{padding:90px 5%;background:linear-gradient(160deg,var(--pink-pale) 0%,var(--cream) 55%,var(--sage-pale) 100%);}
 .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;max-width:1100px;margin:0 auto;}
 .testi-card{background:#fff;border-radius:var(--r);padding:28px;box-shadow:var(--shadow-sm);transition:transform .3s;}
@@ -240,8 +268,11 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .testi-text{font-size:13.5px;line-height:1.85;color:var(--text-mid);font-style:italic;margin-bottom:18px;}
 .testi-author{display:flex;align-items:center;gap:12px;}
 .testi-av{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--pink);}
+.testi-av img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
 .testi-name{font-size:14px;font-weight:800;color:var(--text-dark);}
 .testi-role{font-size:11.5px;color:var(--text-light);}
+
+/* INSTAGRAM */
 .insta-section{padding:80px 5%;background:var(--cream);text-align:center;}
 .insta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:720px;margin:0 auto 28px;}
 .insta-tile{aspect-ratio:1;overflow:hidden;border-radius:var(--r-sm);position:relative;cursor:pointer;background:var(--pink-pale);}
@@ -250,10 +281,14 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .insta-tile .img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-light);}
 .insta-tile-overlay{position:absolute;inset:0;background:rgba(232,116,138,.4);display:flex;align-items:center;justify-content:center;font-size:24px;opacity:0;transition:opacity .3s;}
 .insta-tile:hover .insta-tile-overlay{opacity:1;}
+
+/* CTA BANNER */
 .cta-banner{padding:90px 5%;background:linear-gradient(135deg,var(--pink) 0%,#c94d6a 50%,var(--sage) 100%);text-align:center;color:#fff;position:relative;overflow:hidden;}
 .cta-banner h2{font-size:clamp(26px,4vw,50px);font-weight:600;margin-bottom:12px;color:#fff;}
 .cta-banner p{font-size:16px;opacity:.9;max-width:480px;margin:0 auto 30px;line-height:1.75;}
 .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
 footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 28px;}
 .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
 .footer-brand .logo-name{color:var(--pink-light);font-size:24px;}
@@ -266,9 +301,13 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .footer-col a:hover{color:var(--pink-light);}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
 .footer-bottom p{font-size:12px;opacity:.45;}
+
+/* PAGE BANNERS */
 .page-banner{padding:64px 5%;text-align:center;background:linear-gradient(160deg,var(--pink-pale) 0%,var(--sage-pale) 100%);}
 .page-banner h1{font-size:clamp(30px,5vw,58px);font-weight:600;color:var(--text-dark);margin-bottom:12px;}
 .page-banner p{font-size:16px;color:var(--text-mid);max-width:520px;margin:0 auto;line-height:1.8;}
+
+/* SHOP */
 .shop-wrap{display:grid;grid-template-columns:220px 1fr;gap:32px;padding:50px 5%;max-width:1200px;margin:0 auto;}
 .sidebar{position:sticky;top:90px;height:fit-content;}
 .sidebar-box{background:#fff;border-radius:var(--r);padding:24px;box-shadow:var(--shadow-sm);margin-bottom:16px;}
@@ -280,13 +319,19 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .shop-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
 .shop-head h2{font-size:21px;font-weight:700;color:var(--text-dark);}
 .shop-head span{font-size:13px;color:var(--text-light);}
+
+/* ABOUT PAGE */
 .about-story-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:80px 5%;max-width:1100px;margin:0 auto;}
 .about-story-img{border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;box-shadow:var(--shadow-lg);background:var(--cream);display:flex;align-items:center;justify-content:center;}
+.about-story-img img{width:100%;height:100%;object-fit:cover;}
 .team-section{padding:72px 5%;background:var(--cream);text-align:center;}
 .team-grid{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:40px;}
 .team-card{background:#fff;border-radius:var(--r);padding:34px 26px;box-shadow:var(--shadow-sm);text-align:center;min-width:200px;transition:transform .3s;}
 .team-card:hover{transform:translateY(-6px);}
 .team-av{width:88px;height:88px;border-radius:50%;overflow:hidden;margin:0 auto 14px;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:28px;}
+.team-av img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+
+/* CONTACT */
 .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;padding:72px 5%;max-width:1100px;margin:0 auto;align-items:start;}
 .contact-info h2{font-size:27px;font-weight:600;color:var(--text-dark);margin-bottom:22px;}
 .contact-info>p{font-size:14.5px;color:var(--text-mid);line-height:1.85;margin-bottom:28px;}
@@ -304,6 +349,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .fg input,.fg textarea,.fg select{width:100%;padding:11px 15px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:14px;color:var(--text-dark);background:var(--warm-white);outline:none;transition:border-color .2s;}
 .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--pink);}
 .fg textarea{height:100px;resize:vertical;}
+
+/* CUSTOM ORDER */
 .custom-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:40px auto;}
 .step-card{background:#fff;border-radius:var(--r);padding:30px 20px;box-shadow:var(--shadow-sm);text-align:center;}
 .step-num{width:46px;height:46px;border-radius:50%;background:var(--pink);color:#fff;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-family:'Cormorant Garamond',serif;}
@@ -312,12 +359,16 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .custom-cta{background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));border-radius:var(--r);padding:46px;text-align:center;max-width:900px;margin:0 auto 40px;}
 .custom-cta h3{font-size:28px;font-weight:600;color:var(--text-dark);margin-bottom:10px;}
 .custom-cta p{font-size:15px;color:var(--text-mid);margin-bottom:26px;}
+
+/* SHIPPING */
 .ship-content{max-width:800px;margin:0 auto;padding:70px 5%;}
 .ship-section{margin-bottom:36px;}
 .ship-section h2{font-size:25px;font-weight:600;color:var(--text-dark);margin-bottom:14px;}
 .ship-section ul{list-style:none;}
 .ship-section ul li{padding:11px 0;border-bottom:1px solid var(--pink-pale);font-size:14.5px;color:var(--text-mid);line-height:1.7;display:flex;gap:10px;align-items:flex-start;}
 .ship-section ul li::before{content:'💖';flex-shrink:0;}
+
+/* ADMIN */
 .admin-login{min-height:60vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));padding:20px;}
 .login-card{background:#fff;border-radius:24px;padding:48px 40px;max-width:420px;width:100%;box-shadow:var(--shadow-lg);text-align:center;}
 .login-card h2{font-size:28px;font-weight:600;color:var(--text-dark);margin-bottom:6px;}
@@ -405,37 +456,39 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .testi-edit-card input:focus,.testi-edit-card textarea:focus{border-color:var(--pink);}
 .upload-progress{height:4px;background:var(--pink-pale);border-radius:10px;margin-top:8px;overflow:hidden;}
 .upload-progress-fill{height:100%;background:var(--pink);border-radius:10px;transition:width .3s;}
-/* Image upload size hint */
 .size-note{font-size:11px;padding:4px 10px;border-radius:var(--r-pill);display:inline-block;margin-top:4px;}
 .size-ok{background:#edf5ee;color:#2d6a31;}
 .size-warn{background:#fff3e8;color:#92400e;}
 .size-err{background:#fde8ed;color:#9b1c1c;}
+
+/* RESPONSIVE */
 @media(max-width:960px){
-.hero{grid-template-columns:1fr;}.hero-visual{display:none;}
-.about-prev-grid{grid-template-columns:1fr;}.about-imgs{display:none;}
-.footer-grid{grid-template-columns:1fr 1fr;}
-.shop-wrap{grid-template-columns:1fr;}.sidebar{position:static;}
-.contact-grid{grid-template-columns:1fr;}
-.custom-steps{grid-template-columns:1fr;}
-.about-story-grid{grid-template-columns:1fr;}
-.modal{grid-template-columns:1fr;}
-.modal-media img,.modal-media .img-placeholder{border-radius:24px 24px 0 0;}
-.dash-grid{grid-template-columns:1fr 1fr;}
-.chart-row{grid-template-columns:1fr;}
-.admin-body{grid-template-columns:1fr;}
-.admin-sidebar{display:none;}
-.testi-edit-grid{grid-template-columns:1fr;}
-.img-settings-grid{grid-template-columns:1fr 1fr;}
+  .hero{grid-template-columns:1fr;}.hero-visual{display:none;}
+  .about-prev-grid{grid-template-columns:1fr;}.about-imgs{display:none;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .shop-wrap{grid-template-columns:1fr;}.sidebar{position:static;}
+  .contact-grid{grid-template-columns:1fr;}
+  .custom-steps{grid-template-columns:1fr;}
+  .about-story-grid{grid-template-columns:1fr;}
+  .modal{grid-template-columns:1fr;}
+  .modal-media img,.modal-media .img-placeholder{border-radius:24px 24px 0 0;}
+  .modal-media{border-radius:24px 24px 0 0 !important;}
+  .dash-grid{grid-template-columns:1fr 1fr;}
+  .chart-row{grid-template-columns:1fr;}
+  .admin-body{grid-template-columns:1fr;}
+  .admin-sidebar{display:none;}
+  .testi-edit-grid{grid-template-columns:1fr;}
+  .img-settings-grid{grid-template-columns:1fr 1fr;}
 }
 @media(max-width:680px){
-nav{display:none;}.hamburger{display:block;}
-.hero-btns{flex-direction:column;}.hero-stats{gap:20px;}
-.footer-grid{grid-template-columns:1fr;}
-.insta-grid{grid-template-columns:repeat(2,1fr);}
-.testi-grid{grid-template-columns:1fr;}
-.products-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));}
-.dash-grid{grid-template-columns:1fr;}
-.inline-grid{grid-template-columns:1fr;}
+  nav{display:none;}.hamburger{display:block;}
+  .hero-btns{flex-direction:column;}.hero-stats{gap:20px;}
+  .footer-grid{grid-template-columns:1fr;}
+  .insta-grid{grid-template-columns:repeat(2,1fr);}
+  .testi-grid{grid-template-columns:1fr;}
+  .products-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));}
+  .dash-grid{grid-template-columns:1fr;}
+  .inline-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -767,8 +820,7 @@ nav{display:none;}.hamburger{display:block;}
       <p>Tiny Little Things — Manage your store</p>
       <div id="fbSetupWarning" style="display:none;" class="fb-setup-banner">
         <strong>⚠️ Firebase Not Configured</strong>
-        This admin panel requires Firebase to save data across devices. Please configure Firebase by editing the <code>firebaseConfig</code> at the top of this HTML file.
-        <a href="https://console.firebase.google.com" target="_blank" style="color:var(--pink);font-weight:700;">Set up Firebase Free →</a>
+        This admin panel requires Firebase to save data across devices.
       </div>
       <input type="text" id="adminUser" placeholder="Username" onkeydown="if(event.key==='Enter')adminLogin()">
       <input type="password" id="adminPass" placeholder="Password" onkeydown="if(event.key==='Enter')adminLogin()">
@@ -795,7 +847,6 @@ nav{display:none;}.hamburger{display:block;}
         <div class="admin-nav-link" onclick="switchAdminTab('settings')" id="atab-settings"><span>⚙️</span> Settings</div>
       </div>
       <div class="admin-content">
-
         <!-- DASHBOARD -->
         <div class="admin-section active" id="asec-dashboard">
           <div class="admin-page-title">Analytics Dashboard</div>
@@ -819,7 +870,6 @@ nav{display:none;}.hamburger{display:block;}
             <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset all analytics?')){resetAnalytics();}">🗑️ Reset Analytics</button>
           </div>
         </div>
-
         <!-- PRODUCTS -->
         <div class="admin-section" id="asec-products">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
@@ -833,7 +883,6 @@ nav{display:none;}.hamburger{display:block;}
             </table>
           </div>
         </div>
-
         <!-- TESTIMONIALS -->
         <div class="admin-section" id="asec-testimonials">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
@@ -842,15 +891,14 @@ nav{display:none;}.hamburger{display:block;}
           </div>
           <div class="testi-edit-grid" id="testiEditGrid"></div>
         </div>
-
         <!-- IMAGES -->
         <div class="admin-section" id="asec-images">
           <div class="admin-page-title">Site Images</div>
           <div class="fb-setup-banner" id="imgFirebaseNote" style="background:#edf5ee;border-color:#8aab8c;color:#2d6a31;display:none;">
-            ✅ Images are stored as compressed Base64 in Firestore — each image gets its own document so nothing ever hits the 1MB limit. Fully free, visible on all devices.
+            ✅ Images saved as Base64 in Firestore — each image is its own document. Fully free, synced across all devices instantly.
           </div>
           <div class="fb-setup-banner" id="imgLocalNote">
-            ⚠️ Firebase not configured — images will be stored in this browser only. Configure Firebase to sync images across all devices.
+            ⚠️ Firebase not configured — images will be stored in this browser only.
           </div>
           <div class="settings-section">
             <h3>🌟 Hero &amp; Logo</h3>
@@ -886,7 +934,6 @@ nav{display:none;}.hamburger{display:block;}
             </div>
           </div>
         </div>
-
         <!-- SETTINGS -->
         <div class="admin-section" id="asec-settings">
           <div class="admin-page-title">Settings</div>
@@ -908,7 +955,6 @@ nav{display:none;}.hamburger{display:block;}
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -981,18 +1027,33 @@ const CATS=[
   {label:"Lamps & Stands",desc:"Whimsical decorative lamps to elevate your personal space",filter:"Lamps"},
   {label:"Custom Orders",desc:"Tell us your idea — we'll craft something magical just for you",filter:"Custom"}
 ];
+const IMG_SETTINGS={
+  logo:{maxW:200,maxH:200,quality:0.85},
+  hero:{maxW:1000,maxH:750,quality:0.80},
+  about_main:{maxW:800,maxH:800,quality:0.80},
+  about_second:{maxW:800,maxH:800,quality:0.80},
+  about_page:{maxW:800,maxH:1000,quality:0.80},
+  team_sanskar:{maxW:300,maxH:300,quality:0.85},
+  team_radhika:{maxW:300,maxH:300,quality:0.85},
+  insta_1:{maxW:600,maxH:600,quality:0.78},
+  insta_2:{maxW:600,maxH:600,quality:0.78},
+  insta_3:{maxW:600,maxH:600,quality:0.78},
+  insta_4:{maxW:600,maxH:600,quality:0.78},
+  insta_5:{maxW:600,maxH:600,quality:0.78},
+  insta_6:{maxW:600,maxH:600,quality:0.78}
+};
+const DEFAULT_IMG={maxW:800,maxH:800,quality:0.80};
 
 // ═══════════════════════════════════════════
 // RUNTIME STATE
 // ═══════════════════════════════════════════
 let PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
 let TESTIMONIALS=JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
-let SITE_IMAGES={};  // in-memory cache; each key saved as its own Firestore doc
+let SITE_IMAGES={};
 let CREDENTIALS={user:'admin',pass:'tlt2025'};
 let ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
 let cart={},currentMaxPrice=1999,currentFilter='All';
-let FB=null;
-let fbConfigured=false;
+let FB=null,fbConfigured=false;
 
 // ═══════════════════════════════════════════
 // STATUS INDICATOR
@@ -1006,52 +1067,59 @@ function setStatus(msg,type,dur=2500){
 }
 
 // ═══════════════════════════════════════════
-// FIREBASE INTEGRATION
+// FIREBASE INIT — FIX: load images then re-render immediately
 // ═══════════════════════════════════════════
 window.addEventListener('fb-ready',async()=>{
   FB=window._fb;
-  const key=window._fb.db.app.options.apiKey||'';
-  if(key && !key.startsWith('PASTE')){
+  const key=(FB.db.app.options.apiKey||'');
+  if(key&&!key.startsWith('PASTE')){
     fbConfigured=true;
     document.getElementById('imgFirebaseNote').style.display='block';
     document.getElementById('imgLocalNote').style.display='none';
     setStatus('☁️ Connecting to cloud...','saving',0);
     try{
-      await loadFromFirebase();
-      setStatus('✅ Cloud connected','saved');
-      applyAllData();
+      // Step 1: Load non-image data first (fast)
+      await loadNonImageDataFromFirebase();
+      // Step 2: Apply text/product data immediately
+      renderCategories();
+      renderBestsellers();
+      renderTestimonials();
+      renderShop();
+      // Step 3: Load images (potentially slower) then apply
+      setStatus('☁️ Loading images...','saving',0);
+      await loadImagesFromFirebase();
+      // Step 4: NOW apply images to DOM — this is the critical fix
+      applyAllSiteImages();
+      renderInstagram();
+      setStatus('✅ All images loaded','saved',3000);
     }catch(e){
       console.error('Firebase load error:',e);
       setStatus('⚠️ Cloud error — using local data','error',4000);
-      loadFromLocal();applyAllData();
+      loadFromLocal();
+      applyAllData();
     }
   }else{
     fbConfigured=false;
     document.getElementById('fbSetupWarning').style.display='block';
     setStatus('⚠️ Firebase not set up — data is local only','error',6000);
-    loadFromLocal();applyAllData();
+    loadFromLocal();
+    applyAllData();
   }
 });
+
+// Fallback if Firebase SDK never fires
 setTimeout(()=>{
   if(!window._fbReady){
     fbConfigured=false;
     document.getElementById('fbSetupWarning').style.display='block';
     setStatus('⚠️ Firebase not set up — data is local only','error',6000);
-    loadFromLocal();applyAllData();
+    loadFromLocal();
+    applyAllData();
   }
-},3000);
+},4000);
 
 // ═══════════════════════════════════════════
 // FIRESTORE HELPERS
-// Each document path: collection/docId
-// We use a flat structure:
-//   tlt_data/products          → {data:[...]}
-//   tlt_data/testimonials      → {data:[...]}
-//   tlt_data/credentials       → {user, pass}
-//   tlt_data/analytics         → {...}
-//   tlt_images/<key>           → {img: "data:image/jpeg;base64,..."}
-//     e.g. tlt_images/hero, tlt_images/logo, tlt_images/insta_1 ...
-// This way images never share a document, so the 1MB limit per doc is safe.
 // ═══════════════════════════════════════════
 async function fbSetDoc(col,docId,data){
   if(!fbConfigured||!FB)return false;
@@ -1070,7 +1138,7 @@ async function fbGetDoc(col,docId){
   }catch(e){console.error('fbGetDoc',col,docId,e);return null;}
 }
 async function fbGetAllDocs(col){
-  if(!fbConfigured||!FB)return [];
+  if(!fbConfigured||!FB)return {};
   try{
     const {db,collection,getDocs}=FB;
     const snap=await getDocs(collection(db,col));
@@ -1080,37 +1148,58 @@ async function fbGetAllDocs(col){
   }catch(e){console.error('fbGetAllDocs',col,e);return {};}
 }
 
-async function loadFromFirebase(){
-  // Load non-image data
+// ═══════════════════════════════════════════
+// SPLIT LOAD: non-image data vs images
+// This is the core fix — images are loaded separately so we
+// can call applyAllSiteImages() AFTER they're in memory
+// ═══════════════════════════════════════════
+async function loadNonImageDataFromFirebase(){
   const [p,t,c,a]=await Promise.all([
     fbGetDoc('tlt_data','products'),
     fbGetDoc('tlt_data','testimonials'),
     fbGetDoc('tlt_data','credentials'),
     fbGetDoc('tlt_data','analytics')
   ]);
-  if(p&&p.data)PRODUCTS=p.data;
-  if(t&&t.data)TESTIMONIALS=t.data;
+  if(p&&p.data&&Array.isArray(p.data))PRODUCTS=p.data;
+  if(t&&t.data&&Array.isArray(t.data))TESTIMONIALS=t.data;
   if(c&&c.user)CREDENTIALS=c;
-  if(a)ANALYTICS=Object.assign(ANALYTICS,a);
+  if(a)ANALYTICS=Object.assign({pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]},a);
+}
 
-  // Load images — each key is its own document in tlt_images collection
+async function loadImagesFromFirebase(){
+  // Load all image documents from tlt_images collection
   const imgs=await fbGetAllDocs('tlt_images');
+  let loaded=0;
   Object.keys(imgs).forEach(key=>{
-    if(imgs[key]&&imgs[key].img)SITE_IMAGES[key]=imgs[key].img;
+    // FIX: Only store images that are real base64 data (not empty strings from reset)
+    const imgVal=imgs[key]&&imgs[key].img;
+    if(imgVal&&typeof imgVal==='string'&&imgVal.length>200&&imgVal.startsWith('data:')){
+      SITE_IMAGES[key]=imgVal;
+      loaded++;
+    }
   });
+  // Also load product images stored inline
+  // (already loaded with products above, no extra step needed)
+  console.log('Loaded '+loaded+' site images from Firebase');
+}
+
+// Combined loader used as fallback
+async function loadFromFirebase(){
+  await loadNonImageDataFromFirebase();
+  await loadImagesFromFirebase();
 }
 
 // ═══════════════════════════════════════════
 // LOCALSTORAGE FALLBACK
 // ═══════════════════════════════════════════
-function saveLocal(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){}}
+function saveLocal(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){console.warn('localStorage full or blocked');}}
 function loadLocal(key){try{const v=localStorage.getItem(key);return v?JSON.parse(v):null;}catch(e){return null;}}
 function loadFromLocal(){
-  const p=loadLocal('tlt_products');if(p)PRODUCTS=p;
-  const t=loadLocal('tlt_testimonials');if(t)TESTIMONIALS=t;
-  const s=loadLocal('tlt_siteImages');if(s)SITE_IMAGES=s;
-  const c=loadLocal('tlt_credentials');if(c)CREDENTIALS=c;
-  const a=loadLocal('tlt_analytics');if(a)ANALYTICS=Object.assign(ANALYTICS,a);
+  const p=loadLocal('tlt_products');if(p&&Array.isArray(p))PRODUCTS=p;
+  const t=loadLocal('tlt_testimonials');if(t&&Array.isArray(t))TESTIMONIALS=t;
+  const s=loadLocal('tlt_siteImages');if(s&&typeof s==='object')SITE_IMAGES=s;
+  const c=loadLocal('tlt_credentials');if(c&&c.user)CREDENTIALS=c;
+  const a=loadLocal('tlt_analytics');if(a)ANALYTICS=Object.assign({pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]},a);
 }
 
 // ═══════════════════════════════════════════
@@ -1141,32 +1230,36 @@ async function saveAnalytics(){
   if(fbConfigured)await fbSetDoc('tlt_data','analytics',ANALYTICS);
 }
 
-// KEY FUNCTION: save a single image as its own Firestore document
-// tlt_images/<key> → {img: "data:image/jpeg;base64,..."}
-// Each doc is one image, so the 1MB limit is per-image — not per collection.
+// KEY FIX: Each image = its own Firestore document in tlt_images collection
 async function saveSingleImage(key,base64){
-  // Also store in localStorage cache
+  // Validate: must be real base64
+  if(!base64||!base64.startsWith('data:')){return false;}
+
+  // Update in-memory cache
   SITE_IMAGES[key]=base64;
-  const allImgs=loadLocal('tlt_siteImages')||{};
-  allImgs[key]=base64;
-  saveLocal('tlt_siteImages',allImgs);
+
+  // Update localStorage cache
+  try{
+    const allImgs=loadLocal('tlt_siteImages')||{};
+    allImgs[key]=base64;
+    saveLocal('tlt_siteImages',allImgs);
+  }catch(e){console.warn('Could not save image to localStorage:',e);}
 
   if(fbConfigured){
-    setStatus('☁️ Saving image...','saving',0);
     const sizeKB=Math.round(base64.length/1024);
-    // Warn if approaching limit (Firestore doc limit is 1MB = ~1024KB, base64 overhead ~33%)
     if(sizeKB>700){
-      setStatus('⚠️ Image very large ('+sizeKB+'KB) — try a smaller photo','error',5000);
+      setStatus('⚠️ Image too large ('+sizeKB+'KB) — try a smaller photo','error',5000);
       return false;
     }
+    setStatus('☁️ Saving image to cloud...','saving',0);
     const ok=await fbSetDoc('tlt_images',key,{img:base64});
     if(ok){
-      setStatus('✅ Image saved to cloud ('+sizeKB+'KB) — visible on all devices!','saved',3000);
+      setStatus('✅ Image saved ('+sizeKB+'KB) — visible on all devices!','saved',3000);
       const ss=document.getElementById('syncStatus');
-      if(ss){ss.textContent='✅ Synced';setTimeout(()=>ss.textContent='',2000);}
+      if(ss){ss.textContent='✅ Synced';setTimeout(()=>ss.textContent='',3000);}
       return true;
     }else{
-      setStatus('⚠️ Cloud save failed — try a smaller image','error',4000);
+      setStatus('⚠️ Cloud save failed','error',4000);
       return false;
     }
   }
@@ -1175,9 +1268,8 @@ async function saveSingleImage(key,base64){
 
 // ═══════════════════════════════════════════
 // IMAGE COMPRESSION
-// Target: ≤600KB after compression (safe for Firestore 1MB limit)
 // ═══════════════════════════════════════════
-function compressImage(file, maxW, maxH, quality){
+function compressImage(file,maxW,maxH,quality){
   return new Promise(resolve=>{
     const canvas=document.createElement('canvas');
     const ctx=canvas.getContext('2d');
@@ -1192,32 +1284,16 @@ function compressImage(file, maxW, maxH, quality){
         ctx.drawImage(img,0,0,w,h);
         resolve(canvas.toDataURL('image/jpeg',quality));
       };
+      img.onerror=()=>resolve('');
       img.src=e.target.result;
     };
+    reader.onerror=()=>resolve('');
     reader.readAsDataURL(file);
   });
 }
 
-// Compression settings per image type
-const IMG_SETTINGS={
-  logo:       {maxW:200,  maxH:200,  quality:0.85},
-  hero:       {maxW:1000, maxH:750,  quality:0.80},
-  about_main: {maxW:800,  maxH:800,  quality:0.80},
-  about_second:{maxW:800, maxH:800,  quality:0.80},
-  about_page: {maxW:800,  maxH:1000, quality:0.80},
-  team_sanskar:{maxW:300, maxH:300,  quality:0.85},
-  team_radhika:{maxW:300, maxH:300,  quality:0.85},
-  insta_1:    {maxW:600,  maxH:600,  quality:0.78},
-  insta_2:    {maxW:600,  maxH:600,  quality:0.78},
-  insta_3:    {maxW:600,  maxH:600,  quality:0.78},
-  insta_4:    {maxW:600,  maxH:600,  quality:0.78},
-  insta_5:    {maxW:600,  maxH:600,  quality:0.78},
-  insta_6:    {maxW:600,  maxH:600,  quality:0.78},
-};
-const DEFAULT_IMG_SETTINGS={maxW:800,maxH:800,quality:0.80};
-
 // ═══════════════════════════════════════════
-// APPLY DATA TO PAGE
+// APPLY ALL DATA
 // ═══════════════════════════════════════════
 function applyAllData(){
   applyAllSiteImages();
@@ -1225,7 +1301,7 @@ function applyAllData(){
   renderBestsellers();
   renderTestimonials();
   renderInstagram();
-  renderShop('All',1999);
+  renderShop();
 }
 
 // ═══════════════════════════════════════════
@@ -1275,29 +1351,90 @@ function toggleMobileNav(){
 }
 
 // ═══════════════════════════════════════════
-// SITE IMAGES
+// SITE IMAGES — APPLY TO DOM
+// FIX: Robust null checks + correct element targeting
 // ═══════════════════════════════════════════
+function setImgOrPlaceholder(el,imgKey,placeholderHtml,imgStyle){
+  if(!el)return;
+  const src=SITE_IMAGES[imgKey];
+  if(src&&src.startsWith('data:')){
+    el.innerHTML=`<img src="${src}" alt="${imgKey}" style="${imgStyle||'width:100%;height:100%;object-fit:cover;'}">`;
+  }else{
+    el.innerHTML=placeholderHtml;
+  }
+}
+
 function applyAllSiteImages(){
+  // LOGO
   const lm=document.getElementById('logoMark');
-  if(lm){if(SITE_IMAGES.logo)lm.innerHTML=`<img src="${SITE_IMAGES.logo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;else lm.innerHTML='🌸';}
+  if(lm){
+    if(SITE_IMAGES.logo&&SITE_IMAGES.logo.startsWith('data:')){
+      lm.innerHTML=`<img src="${SITE_IMAGES.logo}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+    }else{
+      lm.innerHTML='🌸';
+    }
+  }
+
+  // HERO IMAGE
   const hw=document.getElementById('heroImgWrap');
   if(hw){
-    if(SITE_IMAGES.hero)hw.innerHTML=`<img src="${SITE_IMAGES.hero}" style="width:100%;height:100%;object-fit:cover;">`;
-    else hw.innerHTML=`<div class="hero-img-placeholder"><span>🌸</span><span>Hero image — upload in Admin Panel</span></div>`;
+    if(SITE_IMAGES.hero&&SITE_IMAGES.hero.startsWith('data:')){
+      hw.innerHTML=`<img src="${SITE_IMAGES.hero}" alt="hero" style="width:100%;height:100%;object-fit:cover;">`;
+    }else{
+      hw.innerHTML=`<div class="hero-img-placeholder"><span>🌸</span><span>Hero image — upload in Admin Panel</span></div>`;
+    }
   }
+
+  // ABOUT SECTION (home page preview)
   const am=document.getElementById('aboutMain');
-  if(am){if(SITE_IMAGES.about_main)am.innerHTML=`<img src="${SITE_IMAGES.about_main}" style="width:100%;height:100%;object-fit:cover;">`;else am.style.background='var(--pink-pale)';}
+  if(am){
+    if(SITE_IMAGES.about_main&&SITE_IMAGES.about_main.startsWith('data:')){
+      am.innerHTML=`<img src="${SITE_IMAGES.about_main}" alt="about main" style="width:100%;height:100%;object-fit:cover;">`;
+    }else{
+      am.style.background='var(--pink-pale)';am.innerHTML='';
+    }
+  }
   const as2=document.getElementById('aboutSecond');
-  if(as2){if(SITE_IMAGES.about_second)as2.innerHTML=`<img src="${SITE_IMAGES.about_second}" style="width:100%;height:100%;object-fit:cover;">`;else as2.style.background='var(--sage-pale)';}
+  if(as2){
+    if(SITE_IMAGES.about_second&&SITE_IMAGES.about_second.startsWith('data:')){
+      as2.innerHTML=`<img src="${SITE_IMAGES.about_second}" alt="about secondary" style="width:100%;height:100%;object-fit:cover;">`;
+    }else{
+      as2.style.background='var(--sage-pale)';as2.innerHTML='';
+    }
+  }
+
+  // ABOUT PAGE
   const ap=document.getElementById('aboutPageImg');
-  if(ap){if(SITE_IMAGES.about_page)ap.innerHTML=`<img src="${SITE_IMAGES.about_page}" style="width:100%;height:100%;object-fit:cover;">`;else ap.innerHTML=`<span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image — Upload via Admin</span>`;}
-  ['teamSanskar','founderSanskar'].forEach(id=>{
+  if(ap){
+    if(SITE_IMAGES.about_page&&SITE_IMAGES.about_page.startsWith('data:')){
+      ap.innerHTML=`<img src="${SITE_IMAGES.about_page}" alt="about page" style="width:100%;height:100%;object-fit:cover;">`;
+    }else{
+      ap.innerHTML=`<span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image — Upload via Admin</span>`;
+    }
+  }
+
+  // TEAM — SANSKAR (multiple elements)
+  const teamSanskarEls=['teamSanskar','founderSanskar'];
+  teamSanskarEls.forEach(id=>{
     const el=document.getElementById(id);
-    if(el){if(SITE_IMAGES.team_sanskar)el.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;else el.innerHTML='👤';}
+    if(!el)return;
+    if(SITE_IMAGES.team_sanskar&&SITE_IMAGES.team_sanskar.startsWith('data:')){
+      el.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" alt="Sanskar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+    }else{
+      el.innerHTML='👤';
+    }
   });
-  ['teamRadhika','founderRadhika'].forEach(id=>{
+
+  // TEAM — RADHIKA (multiple elements)
+  const teamRadhikaEls=['teamRadhika','founderRadhika'];
+  teamRadhikaEls.forEach(id=>{
     const el=document.getElementById(id);
-    if(el){if(SITE_IMAGES.team_radhika)el.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;else el.innerHTML='👤';}
+    if(!el)return;
+    if(SITE_IMAGES.team_radhika&&SITE_IMAGES.team_radhika.startsWith('data:')){
+      el.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" alt="Radhika" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+    }else{
+      el.innerHTML='👤';
+    }
   });
 }
 
@@ -1306,18 +1443,22 @@ function applyAllSiteImages(){
 // ═══════════════════════════════════════════
 function renderCategories(){
   const icons={'Flower Pots':'🌸','Keychains':'🔑','Lamps':'💡','Custom':'✨'};
-  document.getElementById('catsGrid').innerHTML=CATS.map(c=>`
+  const grid=document.getElementById('catsGrid');if(!grid)return;
+  grid.innerHTML=CATS.map(c=>`
     <div class="cat-card" onclick="${c.filter==='Custom'?"showPage('custom')":`filterAndGo('${c.filter}')`}">
       <div class="cat-icon" style="background:var(--pink-pale);">${icons[c.filter]||'✨'}</div>
-      <h3>${c.label}</h3><p style="font-size:13px;color:var(--text-light);margin-top:6px;">${c.desc}</p>
+      <h3>${c.label}</h3>
+      <p style="font-size:13px;color:var(--text-light);margin-top:6px;">${c.desc}</p>
     </div>`).join('');
 }
 
 // ═══════════════════════════════════════════
 // PRODUCT RENDERING
 // ═══════════════════════════════════════════
-function imgHtml(p){
-  if(p.img)return`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">`;
+function imgHtml(p,style){
+  if(p.img&&p.img.startsWith('data:')){
+    return`<img src="${p.img}" alt="${p.name}" style="${style||'width:100%;height:100%;object-fit:cover;'}">`;
+  }
   return`<div class="img-placeholder">${p.name}</div>`;
 }
 function renderCard(p){
@@ -1325,13 +1466,13 @@ function renderCard(p){
     <div class="product-thumb" onclick="openModal(${p.id})">${imgHtml(p)}${p.badge?`<div class="badge">${p.badge}</div>`:''}</div>
     <div class="product-body">
       <h3 onclick="openModal(${p.id})">${p.name}</h3>
-      <p class="pdesc">${p.desc.substring(0,72)}…</p>
+      <p class="pdesc">${(p.desc||'').substring(0,72)}…</p>
       <div class="product-footer">
         <div class="price">₹${p.price}<br><small>+ shipping</small></div>
         <div class="product-actions">
           <a class="btn btn-sm" style="background:#e8f5e9;color:#2e7d32;font-size:11px;padding:7px 10px;border-radius:var(--r-pill);"
-             href="https://wa.me/919472736370?text=${encodeURIComponent(p.whatsappMsg)}" target="_blank"
-             onclick="trackWA('product:${p.id}')">WhatsApp</a>
+             href="https://wa.me/919472736370?text=${encodeURIComponent(p.whatsappMsg||'Hi! I am interested in '+p.name+' (₹'+p.price+')')}"
+             target="_blank" onclick="trackWA('product:${p.id}')">WhatsApp</a>
           <button class="btn btn-pink btn-sm" onclick="addToCart(${p.id})">+ Cart</button>
         </div>
       </div>
@@ -1339,7 +1480,8 @@ function renderCard(p){
   </div>`;
 }
 function renderBestsellers(){
-  document.getElementById('bestsellersGrid').innerHTML=PRODUCTS.filter(p=>p.bestseller).map(renderCard).join('');
+  const grid=document.getElementById('bestsellersGrid');if(!grid)return;
+  grid.innerHTML=PRODUCTS.filter(p=>p.bestseller).map(renderCard).join('');
 }
 
 // ═══════════════════════════════════════════
@@ -1351,18 +1493,28 @@ function renderShop(cat,maxP){
   const grid=document.getElementById('shopGrid');if(!grid)return;
   if(currentFilter==='Custom'){
     grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><div style="font-size:52px;margin-bottom:14px;">✨</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom Orders</button></div>`;
-    document.getElementById('shopTitle').textContent='Custom Orders';document.getElementById('shopCount').textContent='';return;
+    document.getElementById('shopTitle').textContent='Custom Orders';
+    document.getElementById('shopCount').textContent='';
+    return;
   }
-  const filtered=PRODUCTS.filter(p=>(currentFilter==='All'||p.category===currentFilter)&&p.price<=currentMaxPrice);
+  const filtered=PRODUCTS.filter(p=>{
+    const catMatch=currentFilter==='All'||p.category===currentFilter;
+    const priceMatch=p.price<=currentMaxPrice;
+    return catMatch&&priceMatch;
+  });
   document.getElementById('shopCount').textContent=filtered.length+' items';
   document.getElementById('shopTitle').textContent=currentFilter==='All'?'All Products':currentFilter;
   grid.innerHTML=filtered.length?filtered.map(renderCard).join(''):`<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--text-light);">No products found.</div>`;
 }
 function filterShop(cat,btn){
   document.querySelectorAll('.cf-btn').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');renderShop(cat);
+  if(btn)btn.classList.add('active');
+  renderShop(cat);
 }
-function updatePrice(val){document.getElementById('priceLabel').textContent='Up to ₹'+val;renderShop(undefined,parseInt(val));}
+function updatePrice(val){
+  document.getElementById('priceLabel').textContent='Up to ₹'+val;
+  renderShop(undefined,parseInt(val));
+}
 
 // ═══════════════════════════════════════════
 // MODAL
@@ -1374,13 +1526,15 @@ function openModal(id){
   document.getElementById('modalName').textContent=p.name;
   document.getElementById('modalPrice').textContent='₹'+p.price+' + shipping';
   document.getElementById('modalDesc').textContent=p.desc;
-  document.getElementById('modalMedia').innerHTML=
-    (p.img?`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;min-height:360px;border-radius:24px 0 0 24px;">`:
-    `<div class="img-placeholder" style="min-height:360px;font-size:12px;border-radius:24px 0 0 24px;">${p.name}</div>`)+
-    (p.badge?`<div class="modal-badge">${p.badge}</div>`:'');
+  const mediaEl=document.getElementById('modalMedia');
+  if(p.img&&p.img.startsWith('data:')){
+    mediaEl.innerHTML=`<img src="${p.img}" alt="${p.name}">${p.badge?`<div class="modal-badge">${p.badge}</div>`:''}`;
+  }else{
+    mediaEl.innerHTML=`<div class="img-placeholder" style="min-height:360px;font-size:12px;">${p.name}</div>${p.badge?`<div class="modal-badge">${p.badge}</div>`:''}`;
+  }
   document.getElementById('modalActions').innerHTML=`
     <button class="btn btn-pink" onclick="addToCart(${id});closeModalDirect()">Add to Cart</button>
-    <a class="btn btn-wa" href="https://wa.me/919472736370?text=${encodeURIComponent(p.whatsappMsg)}" target="_blank" onclick="trackWA('modal:${id}')">Order on WhatsApp</a>`;
+    <a class="btn btn-wa" href="https://wa.me/919472736370?text=${encodeURIComponent(p.whatsappMsg||'Hi! I am interested in '+p.name)}" target="_blank" onclick="trackWA('modal:${id}')">Order on WhatsApp</a>`;
   document.getElementById('modalOverlay').classList.add('open');
 }
 function closeModal(e){if(e.target.id==='modalOverlay')closeModalDirect();}
@@ -1389,20 +1543,40 @@ function closeModalDirect(){document.getElementById('modalOverlay').classList.re
 // ═══════════════════════════════════════════
 // CART
 // ═══════════════════════════════════════════
-function addToCart(id){cart[id]=(cart[id]||0)+1;trackProductCart(id);updateCartBadge();showToast('Added to cart! 🛒');logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');}
+function addToCart(id){
+  cart[id]=(cart[id]||0)+1;
+  trackProductCart(id);
+  updateCartBadge();
+  showToast('Added to cart! 🛒');
+  logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');
+}
 function removeFromCart(id){delete cart[id];updateCartBadge();renderCartDrawer();}
-function changeQty(id,delta){cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];updateCartBadge();renderCartDrawer();}
+function changeQty(id,delta){
+  cart[id]=(cart[id]||0)+delta;
+  if(cart[id]<=0)delete cart[id];
+  updateCartBadge();renderCartDrawer();
+}
 function clearCart(){cart={};updateCartBadge();renderCartDrawer();}
 function updateCartBadge(){
   const total=Object.values(cart).reduce((a,b)=>a+b,0);
   const badge=document.getElementById('cartBadge');
-  badge.textContent=total;badge.classList.remove('bump');void badge.offsetWidth;badge.classList.add('bump');
+  badge.textContent=total;
+  badge.classList.remove('bump');
+  void badge.offsetWidth;
+  badge.classList.add('bump');
 }
-function openCart(){trackCartOpen();renderCartDrawer();document.getElementById('cartDrawer').classList.add('open');document.getElementById('drawerOverlay').classList.add('open');}
-function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');}
+function openCart(){
+  trackCartOpen();renderCartDrawer();
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+}
+function closeCart(){
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+}
 function renderCartDrawer(){
   const body=document.getElementById('cartBody'),foot=document.getElementById('cartFoot');
-  const ids=Object.keys(cart).map(Number);
+  const ids=Object.keys(cart).map(Number).filter(id=>cart[id]>0);
   if(!ids.length){
     body.innerHTML=`<div class="cart-empty"><div class="empty-icon">🛒</div><p style="font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:6px;">Your cart is empty</p><p>Add some handmade treasures!</p><button class="btn btn-pink" style="margin-top:18px;" onclick="closeCart();showPage('shop')">Shop Now</button></div>`;
     foot.style.display='none';return;
@@ -1411,14 +1585,28 @@ function renderCartDrawer(){
   ids.forEach(id=>{
     const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
     const qty=cart[id];subtotal+=p.price*qty;
-    html+=`<div class="cart-item"><div class="cart-item-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:`<div style="width:100%;height:100%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);text-align:center;padding:4px;">${p.name}</div>`}</div><div class="cart-item-info"><div class="cart-item-name">${p.name}</div><div class="cart-item-price">₹${p.price} × ${qty} = ₹${p.price*qty}</div><div class="qty-control"><button class="qty-btn" onclick="changeQty(${id},-1)">−</button><span class="qty-num">${qty}</span><button class="qty-btn" onclick="changeQty(${id},+1)">+</button></div></div><button class="cart-item-remove" onclick="removeFromCart(${id})">✕</button></div>`;
+    html+=`<div class="cart-item">
+      <div class="cart-item-img">${p.img&&p.img.startsWith('data:')?`<img src="${p.img}" alt="${p.name}">`:`<div style="width:100%;height:100%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);text-align:center;padding:4px;">${p.name}</div>`}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${p.name}</div>
+        <div class="cart-item-price">₹${p.price} × ${qty} = ₹${p.price*qty}</div>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty(${id},-1)">−</button>
+          <span class="qty-num">${qty}</span>
+          <button class="qty-btn" onclick="changeQty(${id},+1)">+</button>
+        </div>
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart(${id})">✕</button>
+    </div>`;
   });
-  body.innerHTML=html;document.getElementById('cartTotal').textContent='₹'+subtotal;foot.style.display='block';
+  body.innerHTML=html;
+  document.getElementById('cartTotal').textContent='₹'+subtotal;
+  foot.style.display='block';
 }
 function checkoutWhatsApp(){
-  const ids=Object.keys(cart).map(Number);if(!ids.length)return;
+  const ids=Object.keys(cart).map(Number).filter(id=>cart[id]>0);if(!ids.length)return;
   const lines=ids.map(id=>{const p=PRODUCTS.find(x=>x.id===id);return`• ${p.name} × ${cart[id]} = ₹${p.price*cart[id]}`;});
-  const subtotal=ids.reduce((s,id)=>s+PRODUCTS.find(x=>x.id===id).price*cart[id],0);
+  const subtotal=ids.reduce((s,id)=>s+(PRODUCTS.find(x=>x.id===id).price*cart[id]),0);
   const msg=`Hi! I'd like to place an order from Tiny Little Things:\n\n${lines.join('\n')}\n\nSubtotal: ₹${subtotal}\n\nPlease confirm availability and share payment details. Thank you!`;
   trackWA('checkout');
   window.open('https://wa.me/919472736370?text='+encodeURIComponent(msg),'_blank');
@@ -1428,22 +1616,30 @@ function checkoutWhatsApp(){
 // TESTIMONIALS & INSTAGRAM
 // ═══════════════════════════════════════════
 function renderTestimonials(){
-  document.getElementById('testiGrid').innerHTML=TESTIMONIALS.map(t=>`
+  const grid=document.getElementById('testiGrid');if(!grid)return;
+  grid.innerHTML=TESTIMONIALS.map(t=>`
     <div class="testi-card">
       <div class="testi-quote">"</div>
       <div class="testi-stars">★★★★★</div>
       <p class="testi-text">${t.text}</p>
       <div class="testi-author">
-        <div class="testi-av">${t.img?`<img src="${t.img}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`:`<span style="font-size:14px;font-weight:700;">${t.name.split(' ').map(w=>w[0]).join('')}</span>`}</div>
+        <div class="testi-av">${t.img&&t.img.startsWith('data:')?`<img src="${t.img}" alt="${t.name}">`:`<span style="font-size:14px;font-weight:700;">${(t.name||'?').split(' ').map(w=>w[0]).join('')}</span>`}</div>
         <div><div class="testi-name">${t.name}</div><div class="testi-role">${t.role}</div></div>
       </div>
     </div>`).join('');
 }
 function renderInstagram(){
+  const grid=document.getElementById('instaGrid');if(!grid)return;
   const keys=['insta_1','insta_2','insta_3','insta_4','insta_5','insta_6'];
-  document.getElementById('instaGrid').innerHTML=keys.map((k,i)=>{
+  grid.innerHTML=keys.map((k,i)=>{
     const src=SITE_IMAGES[k];
-    return`<div class="insta-tile"><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">${src?`<img src="${src}" alt="Instagram ${i+1}">`:`<div class="img-placeholder">Post ${i+1}</div>`}</a><div class="insta-tile-overlay">📷</div></div>`;
+    const hasImg=src&&src.startsWith('data:');
+    return`<div class="insta-tile">
+      <a href="https://www.instagram.com/tiny_littlethings__" target="_blank">
+        ${hasImg?`<img src="${src}" alt="Instagram post ${i+1}">`:`<div class="img-placeholder">Post ${i+1}</div>`}
+      </a>
+      <div class="insta-tile-overlay">📷</div>
+    </div>`;
   }).join('');
 }
 
@@ -1451,8 +1647,8 @@ function renderInstagram(){
 // CONTACT
 // ═══════════════════════════════════════════
 function submitContact(){
-  const name=document.getElementById('contactName')?.value||'';
-  const phone=document.getElementById('contactPhone')?.value||'';
+  const name=(document.getElementById('contactName')?.value||'').trim();
+  const phone=(document.getElementById('contactPhone')?.value||'').trim();
   const type=document.getElementById('contactType')?.value||'';
   const msg=document.getElementById('contactMsg')?.value||'';
   if(!name||!phone){showToast('Please fill in your name and phone!');return;}
@@ -1465,9 +1661,12 @@ function submitContact(){
 // ═══════════════════════════════════════════
 // TOAST
 // ═══════════════════════════════════════════
+let _toastTimer=null;
 function showToast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
 }
 
 // ═══════════════════════════════════════════
@@ -1475,8 +1674,8 @@ function showToast(msg){
 // ═══════════════════════════════════════════
 let adminLoggedIn=false;
 function adminLogin(){
-  const u=document.getElementById('adminUser').value.trim();
-  const p=document.getElementById('adminPass').value;
+  const u=(document.getElementById('adminUser').value||'').trim();
+  const p=document.getElementById('adminPass').value||'';
   if(u===CREDENTIALS.user&&p===CREDENTIALS.pass){
     adminLoggedIn=true;
     document.getElementById('adminLogin').style.display='none';
@@ -1492,7 +1691,8 @@ function adminLogout(){
   adminLoggedIn=false;
   document.getElementById('adminLogin').style.display='flex';
   document.getElementById('adminDash').style.display='none';
-  document.getElementById('adminUser').value='';document.getElementById('adminPass').value='';
+  document.getElementById('adminUser').value='';
+  document.getElementById('adminPass').value='';
   document.getElementById('loginErr').textContent='';
 }
 function startAdminClock(){
@@ -1544,9 +1744,17 @@ function renderDailyChart(){
   const c=document.getElementById('chart-daily');if(!c)return;
   const daily=ANALYTICS.daily||{};
   const last7=[];
-  for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const key=d.toISOString().split('T')[0];const short=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});last7.push({key,short,data:daily[key]||{views:0,carts:0,wa:0}});}
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const key=d.toISOString().split('T')[0];
+    const short=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
+    last7.push({key,short,data:daily[key]||{views:0,carts:0,wa:0}});
+  }
   const maxVal=Math.max(...last7.map(d=>d.data.views+d.data.carts+d.data.wa),1);
-  c.innerHTML=last7.map(d=>{const total=d.data.views+d.data.carts+d.data.wa;return`<div class="mini-bar"><div class="mini-bar-label">${d.short}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((total/maxVal)*100)}%;background:var(--pink-light);"></div></div><div class="mini-bar-val">${total}</div></div>`;}).join('');
+  c.innerHTML=last7.map(d=>{
+    const total=d.data.views+d.data.carts+d.data.wa;
+    return`<div class="mini-bar"><div class="mini-bar-label">${d.short}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((total/maxVal)*100)}%;background:var(--pink-light);"></div></div><div class="mini-bar-val">${total}</div></div>`;
+  }).join('');
 }
 function renderActivityLog(){
   const c=document.getElementById('activityLog');if(!c)return;
@@ -1561,7 +1769,7 @@ function renderActivityLog(){
 function renderAdminProducts(){
   document.getElementById('adminProductBody').innerHTML=PRODUCTS.map(p=>`
     <tr>
-      <td><div style="width:44px;height:44px;border-radius:8px;overflow:hidden;background:var(--cream);">${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;">`:'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--text-light);">No img</div>'}</div></td>
+      <td><div style="width:44px;height:44px;border-radius:8px;overflow:hidden;background:var(--cream);">${p.img&&p.img.startsWith('data:')?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;">`:'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--text-light);">No img</div>'}</div></td>
       <td><strong>${p.name}</strong></td><td>₹${p.price}</td><td>${p.category}</td>
       <td>${p.badge||'—'}</td><td>${p.bestseller?'⭐ Yes':'No'}</td>
       <td><div style="display:flex;gap:6px;">
@@ -1571,7 +1779,7 @@ function renderAdminProducts(){
     </tr>`).join('');
 }
 function openEditProduct(id){
-  const p=PRODUCTS.find(x=>x.id===id);
+  const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
   document.getElementById('editModalTitle').textContent='Edit: '+p.name;
   document.getElementById('editModalBody').innerHTML=buildProductForm(p);
   document.getElementById('editModalOverlay').classList.add('open');
@@ -1584,34 +1792,37 @@ function openAddProduct(){
 function closeEditModal(){document.getElementById('editModalOverlay').classList.remove('open');}
 function buildProductForm(p){
   const cats=['Flower Pots','Keychains','Lamps','Custom'];
+  const hasImg=p&&p.img&&p.img.startsWith('data:');
   return`
-  <div class="fg2"><label>Product Name</label><input type="text" id="ef-name" value="${p?p.name:''}"></div>
+  <div class="fg2"><label>Product Name</label><input type="text" id="ef-name" value="${p?escHtml(p.name):''}"></div>
   <div class="inline-grid">
     <div class="fg2"><label>Price (₹)</label><input type="number" id="ef-price" value="${p?p.price:''}" min="1"></div>
-    <div class="fg2"><label>Badge (optional)</label><input type="text" id="ef-badge" value="${p?p.badge:''}" placeholder="e.g. New, Bestseller"></div>
+    <div class="fg2"><label>Badge (optional)</label><input type="text" id="ef-badge" value="${p?escHtml(p.badge||''):''}" placeholder="e.g. New, Bestseller"></div>
   </div>
   <div class="fg2"><label>Category</label><select id="ef-cat">${cats.map(c=>`<option value="${c}"${p&&p.category===c?' selected':''}>${c}</option>`).join('')}</select></div>
-  <div class="fg2"><label>Description</label><textarea id="ef-desc">${p?p.desc:''}</textarea></div>
-  <div class="fg2"><label>WhatsApp Message</label><textarea id="ef-wa">${p?p.whatsappMsg:''}</textarea></div>
+  <div class="fg2"><label>Description</label><textarea id="ef-desc">${p?escHtml(p.desc||''):''}</textarea></div>
+  <div class="fg2"><label>WhatsApp Message</label><textarea id="ef-wa">${p?escHtml(p.whatsappMsg||''):''}</textarea></div>
   <div class="fg2">
     <label>Product Image</label>
     <div class="img-upload-box">
-      ${p&&p.img?`<img class="preview-img" src="${p.img}" id="editImgPreview" style="width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">`:`<img id="editImgPreview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">`}
-      <p id="editImgHint">${p&&p.img?'✓ Image uploaded — click to change':'📷 Click to upload product image'}</p>
-      <div class="upload-hint">Compressed automatically. Recommended: under 2MB original photo.</div>
+      <img id="editImgPreview" src="${hasImg?p.img:''}" style="${hasImg?'':'display:none;'}width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">
+      <p id="editImgHint">${hasImg?'✓ Image uploaded — click to change':'📷 Click to upload product image'}</p>
+      <div class="upload-hint">Compressed automatically. Recommended: under 2MB original.</div>
       <div class="upload-progress" id="uploadProgress" style="display:none;"><div class="upload-progress-fill" id="uploadProgressFill" style="width:0%"></div></div>
       <input type="file" accept="image/*" onchange="handleProductImgUpload(this)">
     </div>
   </div>
   <div class="fg2"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;"><input type="checkbox" id="ef-best"${p&&p.bestseller?' checked':''} style="width:16px;height:16px;accent-color:var(--pink);"> Mark as Bestseller</label></div>
   <input type="hidden" id="ef-id" value="${p?p.id:''}">
-  <input type="hidden" id="ef-curimg" value="${p&&p.img?p.img:''}">
+  <input type="hidden" id="ef-curimg" value="${hasImg?p.img:''}">
   <div style="display:flex;gap:10px;margin-top:6px;">
     <button class="btn btn-pink" style="flex:1;" onclick="saveProductFromForm()">💾 Save${fbConfigured?' & Sync to Cloud':''}</button>
     <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
   </div>`;
 }
-
+function escHtml(str){
+  return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 async function handleProductImgUpload(input){
   const file=input.files[0];if(!file)return;
   const prog=document.getElementById('uploadProgress');
@@ -1620,39 +1831,38 @@ async function handleProductImgUpload(input){
   if(prog)prog.style.display='block';
   if(fill)fill.style.width='30%';
   if(hint)hint.textContent='⏳ Compressing image...';
-
   const compressed=await compressImage(file,800,800,0.82);
+  if(!compressed){if(hint)hint.textContent='❌ Failed to load image';return;}
   if(fill)fill.style.width='100%';
   setTimeout(()=>{if(prog)prog.style.display='none';},400);
-
   const sizeKB=Math.round(compressed.length/1024);
   const prev=document.getElementById('editImgPreview');
   if(prev){prev.src=compressed;prev.style.display='block';}
   document.getElementById('ef-curimg').value=compressed;
-
   const cls=sizeKB<400?'size-ok':sizeKB<700?'size-warn':'size-err';
   if(hint)hint.innerHTML=`✓ Ready <span class="${cls} size-note">${sizeKB}KB${sizeKB>700?' — try a smaller photo':''}</span>`;
 }
-
 async function saveProductFromForm(){
-  const name=document.getElementById('ef-name').value.trim();
+  const name=(document.getElementById('ef-name').value||'').trim();
   const price=parseInt(document.getElementById('ef-price').value);
   if(!name||!price){showToast('Name and price are required!');return;}
   const idVal=document.getElementById('ef-id').value;
   const img=document.getElementById('ef-curimg').value;
   const prod={
-    id:idVal?parseInt(idVal):Date.now(),name,price,
+    id:idVal?parseInt(idVal):Date.now(),
+    name,price,
     category:document.getElementById('ef-cat').value,
-    badge:document.getElementById('ef-badge').value.trim(),
-    desc:document.getElementById('ef-desc').value.trim(),
-    whatsappMsg:document.getElementById('ef-wa').value.trim()||`Hi! I'm interested in the *${name}* (₹${price}). Can you please share availability?`,
-    bestseller:document.getElementById('ef-best').checked,img
+    badge:(document.getElementById('ef-badge').value||'').trim(),
+    desc:(document.getElementById('ef-desc').value||'').trim(),
+    whatsappMsg:(document.getElementById('ef-wa').value||'').trim()||`Hi! I'm interested in the *${name}* (₹${price}). Can you please share availability?`,
+    bestseller:document.getElementById('ef-best').checked,
+    img
   };
-  if(idVal){const idx=PRODUCTS.findIndex(x=>x.id===parseInt(idVal));if(idx>-1)PRODUCTS[idx]=prod;}
+  if(idVal){const idx=PRODUCTS.findIndex(x=>x.id===parseInt(idVal));if(idx>-1)PRODUCTS[idx]=prod;else PRODUCTS.push(prod);}
   else PRODUCTS.push(prod);
   await saveProducts();
   closeEditModal();renderAdminProducts();renderBestsellers();renderShop();
-  showToast((idVal?'Product updated':'Product added')+(fbConfigured?' & synced to cloud ☁️':'')+'!');
+  showToast((idVal?'Product updated':'Product added')+(fbConfigured?' & synced ☁️':'')+'!');
   logActivity('🛍️',idVal?'Product updated':'Product added',name);
 }
 async function deleteProduct(id){
@@ -1660,7 +1870,8 @@ async function deleteProduct(id){
   const p=PRODUCTS.find(x=>x.id===id);
   PRODUCTS=PRODUCTS.filter(x=>x.id!==id);
   await saveProducts();renderAdminProducts();renderBestsellers();
-  showToast('Product deleted!');logActivity('🗑️','Product deleted',p?.name||'');
+  showToast('Product deleted!');
+  logActivity('🗑️','Product deleted',p?.name||'');
 }
 
 // ═══════════════════════════════════════════
@@ -1670,14 +1881,14 @@ function renderTestiEditGrid(){
   document.getElementById('testiEditGrid').innerHTML=TESTIMONIALS.map((t,i)=>`
     <div class="testi-edit-card">
       <h4>Review ${i+1}</h4>
-      <input type="text" value="${t.name}" id="te-name-${i}" placeholder="Customer name">
-      <input type="text" value="${t.role}" id="te-role-${i}" placeholder="Location / Role">
-      <textarea id="te-text-${i}">${t.text}</textarea>
+      <input type="text" value="${escHtml(t.name||'')}" id="te-name-${i}" placeholder="Customer name">
+      <input type="text" value="${escHtml(t.role||'')}" id="te-role-${i}" placeholder="Location / Role">
+      <textarea id="te-text-${i}">${escHtml(t.text||'')}</textarea>
       <div style="margin-top:6px;">
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-mid);margin-bottom:4px;">Photo</div>
         <div style="display:flex;align-items:center;gap:8px;">
           <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--pink-pale);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--pink);" id="te-img-prev-${i}">
-            ${t.img?`<img src="${t.img}" style="width:100%;height:100%;object-fit:cover;">`:`${t.name.split(' ').map(w=>w[0]).join('')}`}
+            ${t.img&&t.img.startsWith('data:')?`<img src="${t.img}" style="width:100%;height:100%;object-fit:cover;">`:`${(t.name||'?').split(' ').map(w=>w[0]).join('')}`}
           </div>
           <label style="cursor:pointer;font-size:12px;color:var(--pink);font-weight:700;padding:5px 10px;border:1px solid var(--pink);border-radius:var(--r-pill);">
             📷 Upload<input type="file" accept="image/*" style="display:none;" onchange="handleTestiImg(this,${i})">
@@ -1689,15 +1900,15 @@ function renderTestiEditGrid(){
 async function handleTestiImg(input,idx){
   const file=input.files[0];if(!file)return;
   const compressed=await compressImage(file,150,150,0.85);
+  if(!compressed)return;
   TESTIMONIALS[idx].img=compressed;
   const prev=document.getElementById(`te-img-prev-${idx}`);
   if(prev)prev.innerHTML=`<img src="${compressed}" style="width:100%;height:100%;object-fit:cover;">`;
 }
 async function saveTestimonialsAdmin(){
   TESTIMONIALS.forEach((t,i)=>{
-    t.name=document.getElementById(`te-name-${i}`)?.value||t.name;
-    t.role=document.getElementById(`te-role-${i}`)?.value||t.role;
-    t.text=document.getElementById(`te-text-${i}`)?.value||t.text;
+    const n=document.getElementById(`te-name-${i}`);const r=document.getElementById(`te-role-${i}`);const tx=document.getElementById(`te-text-${i}`);
+    if(n)t.name=n.value;if(r)t.role=r.value;if(tx)t.text=tx.value;
   });
   await saveTestimonials();renderTestimonials();
   showToast('Testimonials saved'+(fbConfigured?' & synced! ☁️':'!')+'');
@@ -1706,44 +1917,54 @@ async function saveTestimonialsAdmin(){
 
 // ═══════════════════════════════════════════
 // ADMIN SITE IMAGES
-// Each image is saved as its own Firestore document in the tlt_images collection.
-// This keeps every document well under the 1MB limit.
+// FIX: After saving, immediately apply to DOM so
+// the change is visible without page reload
 // ═══════════════════════════════════════════
 async function handleSiteImg(input,key){
   const file=input.files[0];if(!file)return;
   showToast('⏳ Compressing image...');
-  const settings=IMG_SETTINGS[key]||DEFAULT_IMG_SETTINGS;
+  const settings=IMG_SETTINGS[key]||DEFAULT_IMG;
   const compressed=await compressImage(file,settings.maxW,settings.maxH,settings.quality);
+  if(!compressed){showToast('❌ Failed to load image');return;}
   const sizeKB=Math.round(compressed.length/1024);
-
-  // Update in-memory and page
+  if(sizeKB>700){
+    showToast('⚠️ Image too large ('+sizeKB+'KB). Please use a smaller photo.');
+    return;
+  }
+  // Update in-memory + DOM immediately (before cloud save finishes)
   SITE_IMAGES[key]=compressed;
   updateAdminImgPreview(key,compressed);
+  // Apply to the live site pages right away
   applyAllSiteImages();
   renderInstagram();
-
-  // Save: one document per image in Firestore
+  // Save to cloud/local
   const ok=await saveSingleImage(key,compressed);
   if(ok){
-    showToast(`Image saved (${sizeKB}KB)`+(fbConfigured?' to cloud ☁️':''));
+    showToast(`✅ Image saved (${sizeKB}KB)${fbConfigured?' — visible on all devices!':''}`);
     logActivity('🖼️','Image uploaded',key+' ('+sizeKB+'KB)');
   }
 }
 function updateAdminImgPreview(key,src){
   const el=document.getElementById('prev-'+key);
-  if(el){el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"><input type="file" accept="image/*" onchange="handleSiteImg(this,'${key}')">`;}
+  if(!el)return;
+  el.innerHTML=`<img src="${src}" alt="${key}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+    <input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="handleSiteImg(this,'${key}')">`;
 }
 function renderAdminImagePreviews(){
-  const keys=Object.keys(IMG_SETTINGS);
-  keys.forEach(key=>{if(SITE_IMAGES[key])updateAdminImgPreview(key,SITE_IMAGES[key]);});
+  // Re-render all image previews in the admin panel
+  Object.keys(IMG_SETTINGS).forEach(key=>{
+    if(SITE_IMAGES[key]&&SITE_IMAGES[key].startsWith('data:')){
+      updateAdminImgPreview(key,SITE_IMAGES[key]);
+    }
+  });
 }
 
 // ═══════════════════════════════════════════
 // SETTINGS
 // ═══════════════════════════════════════════
 async function changeCredentials(){
-  const u=document.getElementById('newUser').value.trim();
-  const p=document.getElementById('newPass').value;
+  const u=(document.getElementById('newUser').value||'').trim();
+  const p=document.getElementById('newPass').value||'';
   if(!u||!p){showToast('Please fill both fields!');return;}
   CREDENTIALS={user:u,pass:p};
   await saveCredentials();
@@ -1753,9 +1974,11 @@ async function changeCredentials(){
 function exportData(){
   const data={products:PRODUCTS,testimonials:TESTIMONIALS,siteImages:SITE_IMAGES,exportDate:new Date().toISOString()};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
   a.download='tiny-little-things-backup-'+new Date().toISOString().split('T')[0]+'.json';
-  a.click();showToast('Backup exported! 📥');
+  a.click();
+  showToast('Backup exported! 📥');
 }
 async function importData(input){
   const file=input.files[0];if(!file)return;
@@ -1763,38 +1986,42 @@ async function importData(input){
   reader.onload=async e=>{
     try{
       const data=JSON.parse(e.target.result);
-      if(data.products){PRODUCTS=data.products;await saveProducts();}
-      if(data.testimonials){TESTIMONIALS=data.testimonials;await saveTestimonials();}
-      if(data.siteImages){
-        // Import images one-by-one into Firestore
+      if(data.products&&Array.isArray(data.products)){PRODUCTS=data.products;await saveProducts();}
+      if(data.testimonials&&Array.isArray(data.testimonials)){TESTIMONIALS=data.testimonials;await saveTestimonials();}
+      if(data.siteImages&&typeof data.siteImages==='object'){
         for(const key of Object.keys(data.siteImages)){
-          if(data.siteImages[key])await saveSingleImage(key,data.siteImages[key]);
+          const img=data.siteImages[key];
+          if(img&&img.startsWith('data:'))await saveSingleImage(key,img);
         }
       }
       renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
       applyAllSiteImages();renderTestimonials();renderInstagram();renderBestsellers();
       showToast('Backup imported'+(fbConfigured?' & synced! ☁️':'!')+'');
-    }catch(err){showToast('Invalid file format!');}
-  };reader.readAsText(file);
+    }catch(err){showToast('Invalid backup file!');}
+  };
+  reader.readAsText(file);
+  input.value=''; // Reset so same file can be imported again
 }
 async function resetAll(){
   PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
   TESTIMONIALS=JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
-  SITE_IMAGES={};ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+  SITE_IMAGES={};
+  ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
   await Promise.all([saveProducts(),saveTestimonials(),saveAnalytics()]);
-  // Clear all image docs from Firestore
   if(fbConfigured&&FB){
+    // Clear image docs — set img to empty string (don't delete, keeps doc structure)
     const keys=Object.keys(IMG_SETTINGS);
     await Promise.all(keys.map(k=>fbSetDoc('tlt_images',k,{img:''})));
   }
   saveLocal('tlt_siteImages',{});
   renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
-  applyAllSiteImages();renderBestsellers();renderTestimonials();renderInstagram();
+  applyAllSiteImages();renderBestsellers();renderTestimonials();renderInstagram();renderShop();
   showToast('Reset to defaults!');
 }
 
 // ═══════════════════════════════════════════
-// INIT
+// INIT — Load from local first for instant render,
+// Firebase will override when it loads (via fb-ready event)
 // ═══════════════════════════════════════════
 loadFromLocal();
 applyAllData();
@@ -1802,4 +2029,4 @@ trackPageView('home');
 logActivity('👁️','Site visited','homepage');
 </script>
 </body>
-                                                                                                                         </html>
+         </html>
