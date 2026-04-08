@@ -15,7 +15,7 @@
     apiKey: "AIzaSyDz2eX2qBRCsGeIUIN1sTsLLzlISVhaKME",
     authDomain: "tinylittle-things.firebaseapp.com",
     projectId: "tinylittle-things",
-    storageBucket: "tinylittle-things.appspot.com", // ✅ FIXED
+    storageBucket: "tinylittle-things.appspot.com",
     messagingSenderId: "595373265570",
     appId: "1:595373265570:web:c2942fc0dcc9ace255fdfb",
     measurementId: "G-MVBC1G33KN"
@@ -56,8 +56,60 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;}
 .page.active{display:block;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* ANNOUNCE */
-.announce{background:var(--sage);color:#fff;text-align:center;padding:9px 16px;font-size:13px;font-weight:600;letter-spacing:.2px;}
+/* ═══════════════════════════════════════════
+   ANNOUNCE BAR — ENHANCED MARQUEE STYLE
+   ═══════════════════════════════════════════ */
+.announce{
+  background:linear-gradient(90deg,#5a8a5c 0%,#6e9c70 40%,#5a8a5c 100%);
+  color:#fff;
+  overflow:hidden;
+  height:38px;
+  display:flex;
+  align-items:center;
+  position:relative;
+}
+.announce::before,.announce::after{
+  content:'';
+  position:absolute;
+  top:0;bottom:0;width:60px;z-index:2;pointer-events:none;
+}
+.announce::before{left:0;background:linear-gradient(to right,#5a8a5c,transparent);}
+.announce::after{right:0;background:linear-gradient(to left,#5a8a5c,transparent);}
+
+.announce-track{
+  display:flex;
+  align-items:center;
+  white-space:nowrap;
+  animation:marquee 32s linear infinite;
+  gap:0;
+}
+.announce-track:hover{animation-play-state:paused;}
+
+@keyframes marquee{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+
+.announce-item{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:0 28px;
+  font-size:12.5px;
+  font-weight:700;
+  letter-spacing:.3px;
+}
+.announce-item .a-icon{
+  font-size:14px;
+  animation:pulse-icon 2s ease-in-out infinite;
+}
+@keyframes pulse-icon{0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
+
+.announce-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:rgba(255,255,255,.45);
+  flex-shrink:0;
+}
 
 /* HEADER */
 header{position:sticky;top:0;z-index:900;background:rgba(255,252,248,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 5%;}
@@ -81,6 +133,93 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .mobile-nav{display:none;position:sticky;top:68px;z-index:899;background:#fff;border-bottom:1px solid var(--border);padding:16px 5%;}
 .mobile-nav a{display:block;padding:11px 0;font-size:15px;font-weight:700;color:var(--text-mid);border-bottom:1px solid var(--border);cursor:pointer;}
 .mobile-nav a:last-child{border-bottom:none;}
+
+/* ═══════════════════════════════════════════
+   SEARCH BAR
+   ═══════════════════════════════════════════ */
+.search-bar-wrap{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:14px 5%;
+}
+.search-bar-inner{
+  max-width:720px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.search-input-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.search-box{
+  flex:1;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:var(--cream);
+  border:2px solid var(--border);
+  border-radius:var(--r-pill);
+  padding:10px 18px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.search-box:focus-within{
+  border-color:var(--pink-light);
+  box-shadow:0 0 0 3px rgba(232,116,138,.1);
+  background:#fff;
+}
+.search-box .search-icon{font-size:16px;color:var(--text-light);flex-shrink:0;}
+.search-box input{
+  flex:1;
+  border:none;
+  background:transparent;
+  font-family:'Nunito',sans-serif;
+  font-size:14px;
+  color:var(--text-dark);
+  outline:none;
+}
+.search-box input::placeholder{color:var(--text-light);}
+.search-box .clear-btn{
+  background:none;border:none;font-size:16px;color:var(--text-light);
+  cursor:pointer;padding:0;line-height:1;transition:color .2s;
+  display:none;
+}
+.search-box.has-text .clear-btn{display:block;}
+.search-box.has-text .clear-btn:hover{color:var(--pink);}
+
+.search-cats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  align-items:center;
+}
+.search-cat-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--text-light);margin-right:4px;flex-shrink:0;
+}
+.search-cat-pill{
+  background:var(--cream);
+  border:1.5px solid var(--border);
+  border-radius:var(--r-pill);
+  padding:5px 13px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--text-mid);
+  cursor:pointer;
+  transition:all .2s;
+  font-family:'Nunito',sans-serif;
+}
+.search-cat-pill:hover{border-color:var(--pink-light);color:var(--pink);background:var(--pink-pale);}
+.search-cat-pill.active{background:var(--pink);border-color:var(--pink);color:#fff;}
+
+.search-results-info{
+  font-size:12.5px;color:var(--text-light);font-weight:600;
+  padding:4px 0 0 4px;
+  display:none;
+}
+.search-results-info.visible{display:block;}
 
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:var(--r-pill);font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;transition:all .22s;text-decoration:none;}
@@ -328,10 +467,17 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .about-story-img img{width:100%;height:100%;object-fit:cover;}
 .team-section{padding:72px 5%;background:var(--cream);text-align:center;}
 .team-grid{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:40px;}
-.team-card{background:#fff;border-radius:var(--r);padding:34px 26px;box-shadow:var(--shadow-sm);text-align:center;min-width:200px;transition:transform .3s;}
+.team-card{background:#fff;border-radius:var(--r);padding:34px 26px;box-shadow:var(--shadow-sm);text-align:center;min-width:200px;max-width:280px;transition:transform .3s;}
 .team-card:hover{transform:translateY(-6px);}
 .team-av{width:88px;height:88px;border-radius:50%;overflow:hidden;margin:0 auto 14px;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:28px;}
 .team-av img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+
+/* TEAM ROLES TAGS */
+.team-role-tags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-top:10px;}
+.team-role-tag{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:var(--r-pill);}
+.team-role-tag.pink{background:var(--pink-pale);color:var(--pink);}
+.team-role-tag.sage{background:var(--sage-pale);color:var(--sage-hover);}
+.team-role-tag.amber{background:#fff3e8;color:#b45309;}
 
 /* CONTACT */
 .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;padding:72px 5%;max-width:1100px;margin:0 auto;align-items:start;}
@@ -352,7 +498,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--pink);}
 .fg textarea{height:100px;resize:vertical;}
 
-/* CUSTOM ORDER */
+/* ═══════════════════════════════════════════
+   CUSTOM ORDER PAGE — BULK/CORPORATE SECTION
+   ═══════════════════════════════════════════ */
 .custom-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:40px auto;}
 .step-card{background:#fff;border-radius:var(--r);padding:30px 20px;box-shadow:var(--shadow-sm);text-align:center;}
 .step-num{width:46px;height:46px;border-radius:50%;background:var(--pink);color:#fff;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-family:'Cormorant Garamond',serif;}
@@ -361,6 +509,93 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .custom-cta{background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));border-radius:var(--r);padding:46px;text-align:center;max-width:900px;margin:0 auto 40px;}
 .custom-cta h3{font-size:28px;font-weight:600;color:var(--text-dark);margin-bottom:10px;}
 .custom-cta p{font-size:15px;color:var(--text-mid);margin-bottom:26px;}
+
+/* Bulk/Corporate Section */
+.bulk-section{
+  background:linear-gradient(135deg,#1a2e3b 0%,#2c4a5a 60%,#1e3a4a 100%);
+  border-radius:var(--r);
+  padding:56px 46px;
+  max-width:900px;
+  margin:0 auto 48px;
+  position:relative;
+  overflow:hidden;
+  color:#fff;
+}
+.bulk-section::before{
+  content:'';
+  position:absolute;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,116,138,.15) 0%,transparent 70%);
+  top:-100px;right:-80px;pointer-events:none;
+}
+.bulk-section::after{
+  content:'';
+  position:absolute;
+  width:250px;height:250px;border-radius:50%;
+  background:radial-gradient(circle,rgba(138,171,140,.12) 0%,transparent 70%);
+  bottom:-60px;left:-40px;pointer-events:none;
+}
+.bulk-eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(232,116,138,.2);
+  border:1px solid rgba(232,116,138,.35);
+  border-radius:var(--r-pill);
+  padding:5px 14px;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--pink-light);
+  margin-bottom:18px;
+}
+.bulk-section h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(26px,3.5vw,40px);
+  font-weight:600;
+  color:#fff;
+  margin-bottom:10px;
+  line-height:1.2;
+}
+.bulk-section>p{
+  font-size:14.5px;
+  color:rgba(255,255,255,.7);
+  line-height:1.8;
+  max-width:580px;
+  margin-bottom:32px;
+}
+.bulk-features{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-bottom:36px;
+  position:relative;z-index:1;
+}
+.bulk-feature{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--r-sm);
+  padding:18px;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.bulk-feature-icon{
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(232,116,138,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.bulk-feature h4{font-size:13.5px;font-weight:700;color:#fff;margin-bottom:3px;}
+.bulk-feature p{font-size:12px;color:rgba(255,255,255,.58);line-height:1.5;}
+.bulk-actions{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1;}
+.btn-bulk-wa{background:#25d366;color:#fff;padding:13px 26px;font-size:14px;box-shadow:0 4px 14px rgba(37,211,102,.3);border-radius:var(--r-pill);border:none;display:inline-flex;align-items:center;gap:8px;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;transition:all .22s;}
+.btn-bulk-wa:hover{background:#1fa855;transform:translateY(-2px);}
+.btn-bulk-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);padding:12px 24px;font-size:14px;border-radius:var(--r-pill);font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;transition:all .22s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;}
+.btn-bulk-outline:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6);}
+
+.bulk-divider{
+  max-width:900px;margin:0 auto 40px;
+  display:flex;align-items:center;gap:16px;
+}
+.bulk-divider-line{flex:1;height:1px;background:var(--border);}
+.bulk-divider span{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-light);}
 
 /* SHIPPING */
 .ship-content{max-width:800px;margin:0 auto;padding:70px 5%;}
@@ -463,12 +698,14 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .size-warn{background:#fff3e8;color:#92400e;}
 .size-err{background:#fde8ed;color:#9b1c1c;}
 
-/* RESPONSIVE */
+/* ═══════════════════════════════════════════
+   RESPONSIVE — MOBILE FIXES
+   ═══════════════════════════════════════════ */
 @media(max-width:960px){
   .hero{grid-template-columns:1fr;}.hero-visual{display:none;}
   .about-prev-grid{grid-template-columns:1fr;}.about-imgs{display:none;}
   .footer-grid{grid-template-columns:1fr 1fr;}
-  .shop-wrap{grid-template-columns:1fr;}.sidebar{position:static;}
+  .shop-wrap{grid-template-columns:1fr;padding:24px 4%;}.sidebar{position:static;}
   .contact-grid{grid-template-columns:1fr;}
   .custom-steps{grid-template-columns:1fr;}
   .about-story-grid{grid-template-columns:1fr;}
@@ -481,23 +718,131 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   .admin-sidebar{display:none;}
   .testi-edit-grid{grid-template-columns:1fr;}
   .img-settings-grid{grid-template-columns:1fr 1fr;}
+  .bulk-features{grid-template-columns:1fr;}
+  .bulk-section{padding:36px 28px;}
 }
+
 @media(max-width:680px){
   nav{display:none;}.hamburger{display:block;}
-  .hero-btns{flex-direction:column;}.hero-stats{gap:20px;}
+
+  /* Mobile hero */
+  .hero{padding:48px 5% 56px;min-height:auto;}
+  .hero h1{font-size:36px;}
+  .hero-btns{flex-direction:column;}
+  .hero-stats{gap:20px;}
+
+  /* Mobile search */
+  .search-bar-wrap{padding:12px 4%;}
+  .search-cats{gap:6px;}
+  .search-cat-pill{font-size:11px;padding:4px 10px;}
+
+  /* ✅ Mobile products grid — 2 per row, clean */
+  .products-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    max-width:100%;
+    margin:0;
+  }
+  .product-body{padding:10px 10px 12px;}
+  .product-body h3{font-size:13.5px;margin-bottom:3px;}
+  .product-body .pdesc{font-size:11px;margin-bottom:10px;}
+  .price{font-size:17px;}
+  /* Stack the actions vertically on small cards */
+  .product-footer{flex-direction:column;align-items:flex-start;gap:8px;}
+  .product-actions{width:100%;display:flex;gap:5px;}
+  .product-actions .btn{flex:1;text-align:center;font-size:11px;padding:7px 6px;}
+  .product-actions a.btn{font-size:10px;padding:7px 5px;}
+
+  /* Mobile shop sidebar becomes horizontal scroll */
+  .sidebar{display:flex;flex-direction:column;gap:10px;}
+  .sidebar-box{border-radius:var(--r-sm);padding:16px;}
+  .shop-head{flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:14px;}
+
+  /* Footer */
   .footer-grid{grid-template-columns:1fr;}
+
+  /* Instagram */
   .insta-grid{grid-template-columns:repeat(2,1fr);}
+
+  /* Testimonials */
   .testi-grid{grid-template-columns:1fr;}
-  .products-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));}
-  .dash-grid{grid-template-columns:1fr;}
+
+  /* Team cards on mobile */
+  .team-card{min-width:0;width:100%;}
+  .team-grid{flex-direction:column;align-items:center;}
+
+  /* Bulk section mobile */
+  .bulk-features{grid-template-columns:1fr;}
+  .bulk-section{padding:28px 20px;}
+  .bulk-section h2{font-size:24px;}
+  .bulk-actions{flex-direction:column;}
+  .btn-bulk-wa,.btn-bulk-outline{justify-content:center;}
+
+  /* Page banner */
+  .page-banner{padding:40px 5%;}
+
+  /* Dash */
+  .dash-grid{grid-template-columns:1fr 1fr;}
+
+  /* About */
+  .about-story-grid{padding:40px 5%;}
+
+  /* Contact grid */
+  .contact-grid{padding:40px 5%;}
+
+  /* Custom steps */
+  .custom-steps{grid-template-columns:1fr;margin:24px auto;}
+  .custom-cta{padding:28px 20px;}
+
+  /* Inline grid in admin */
   .inline-grid{grid-template-columns:1fr;}
+
+  /* Footer bottom */
+  .footer-bottom{flex-direction:column;text-align:center;}
+
+  /* Announce bar text size */
+  .announce-item{font-size:11.5px;padding:0 18px;}
+}
+
+@media(max-width:400px){
+  .products-grid{grid-template-columns:1fr;}
+  .dash-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
 <div class="fb-status hidden" id="fbStatus">☁️ Connecting...</div>
-<div class="announce">Free shipping on orders above ₹999 &nbsp;|&nbsp; Handmade with love in India</div>
+
+<!-- ═══════════════════════════════════════════
+     ANNOUNCE BAR — MARQUEE
+     ═══════════════════════════════════════════ -->
+<div class="announce" aria-label="Site announcements">
+  <div class="announce-track" id="announceTrack">
+    <!-- Content duplicated for seamless loop -->
+    <span class="announce-item"><span class="a-icon">🚚</span> Free shipping on orders above ₹999</span>
+    <span class="announce-dot"></span>
+    <span class="announce-item"><span class="a-icon">🏢</span> Corporate &amp; bulk orders accepted</span>
+    <span class="announce-dot"></span>
+    <span class="announce-item"><span class="a-icon">🌸</span> 100% handmade with love in India</span>
+    <span class="announce-dot"></span>
+    <span class="announce-item"><span class="a-icon">🎁</span> Perfect for gifting — birthdays, events &amp; occasions</span>
+    <span class="announce-dot"></span>
+    <span class="announce-item"><span class="a-icon">✨</span> Customized orders welcome — DM us your idea!</span>
+    <span class="announce-dot"></span>
+    <!-- Duplicate for seamless loop -->
+    <span class="announce-item"><span class="a-icon">🚚</span> Free shipping on orders above ₹999</span>
+    <span class="announce-dot"></span>
+    <span class="announce-item"><span class="a-icon">🏢</span> Corporate &amp; bulk orders accepted</span>
+    <span class="announce-dot"></span>
+    <span class="announce-item"><span class="a-icon">🌸</span> 100% handmade with love in India</span>
+    <span class="announce-dot"></span>
+    <span class="announce-item"><span class="a-icon">🎁</span> Perfect for gifting — birthdays, events &amp; occasions</span>
+    <span class="announce-dot"></span>
+    <span class="announce-item"><span class="a-icon">✨</span> Customized orders welcome — DM us your idea!</span>
+    <span class="announce-dot"></span>
+  </div>
+</div>
 
 <header>
   <div class="header-inner">
@@ -574,6 +919,29 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 
 <!-- HOME PAGE -->
 <div class="page active" id="page-home">
+
+  <!-- SEARCH BAR — HOME -->
+  <div class="search-bar-wrap">
+    <div class="search-bar-inner">
+      <div class="search-input-row">
+        <div class="search-box" id="homeSearchBox">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="homeSearchInput" placeholder="Search products, categories…" oninput="onHomeSearch(this.value)" autocomplete="off">
+          <button class="clear-btn" onclick="clearHomeSearch()" title="Clear search">✕</button>
+        </div>
+      </div>
+      <div class="search-cats">
+        <span class="search-cat-label">Browse:</span>
+        <button class="search-cat-pill active" onclick="homeSearchCat('All',this)">All</button>
+        <button class="search-cat-pill" onclick="homeSearchCat('Flower Pots',this)">🌸 Flower Pots</button>
+        <button class="search-cat-pill" onclick="homeSearchCat('Keychains',this)">🔑 Keychains</button>
+        <button class="search-cat-pill" onclick="homeSearchCat('Lamps',this)">💡 Lamps</button>
+        <button class="search-cat-pill" onclick="homeSearchCat('Custom',this)">✨ Custom</button>
+      </div>
+      <div class="search-results-info" id="homeSearchInfo"></div>
+    </div>
+  </div>
+
   <section class="hero">
     <div class="hero-text">
       <div class="hero-badge">100% Handcrafted &nbsp;|&nbsp; Made in India</div>
@@ -601,78 +969,110 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
       </div>
     </div>
   </section>
-  <section class="intro-strip">
-    <div class="intro-strip-inner">
-      <h2>Welcome to Tiny Little Things</h2>
-      <p>A handmade brand where every product is carefully crafted with love and creativity. Each piece is unique, adding warmth and personality to your space.</p>
-      <div class="intro-pills">
-        <div class="intro-pill p">✨ 100% Handmade</div>
-        <div class="intro-pill s">Perfect for Gifting</div>
-        <div class="intro-pill o">Unique &amp; Customizable</div>
-        <div class="intro-pill m">Made in India</div>
-      </div>
-    </div>
-  </section>
-  <section class="cats-section">
-    <div class="sec-title"><div class="eyebrow">Browse by</div><h2>Our Collections</h2><div class="pill-divider"></div></div>
-    <div class="cats-grid" id="catsGrid"></div>
-  </section>
-  <section class="best-section">
-    <div class="sec-title"><div class="eyebrow">Top Picks</div><h2>Our Bestsellers</h2><p>Our most-loved handmade creations — adored by hundreds of happy customers.</p><div class="pill-divider"></div></div>
-    <div class="products-grid" id="bestsellersGrid"></div>
-    <div style="text-align:center;margin-top:38px;"><button class="btn btn-pink" onclick="showPage('shop')">View All Products →</button></div>
-  </section>
-  <section class="about-prev">
-    <div class="about-prev-grid">
-      <div class="about-imgs">
-        <div class="about-main-img" id="aboutMain"></div>
-        <div class="about-sec-img" id="aboutSecond"></div>
-        <div class="about-tag"><p>Happy Customers</p><strong>100+</strong></div>
-      </div>
-      <div class="about-content">
-        <div class="eyebrow">Our Story</div>
-        <h2>Made with Love,<br>Crafted for <em style="color:var(--pink);font-style:italic;">You</em></h2>
-        <p>Every piece at Tiny Little Things is born from passion and patience. We believe handmade art carries a warmth no machine can replicate.</p>
-        <p>Founded with the dream of bringing beautiful, affordable handmade decor to every home in India.</p>
-        <div class="founders-row">
-          <div class="founder-chip"><div class="founder-av" id="founderSanskar">👤</div><span>Sanskar Singh</span></div>
-          <div class="founder-chip"><div class="founder-av" id="founderRadhika">👤</div><span>Radhika Kalra</span></div>
+
+  <!-- Home search results (shown when searching) -->
+  <div id="homeSearchResults" style="display:none;padding:32px 5%;max-width:1200px;margin:0 auto;">
+    <div class="shop-head"><h2 id="homeSearchResultTitle">Search Results</h2><span id="homeSearchResultCount"></span></div>
+    <div class="products-grid" id="homeSearchGrid"></div>
+  </div>
+
+  <div id="homeDefaultContent">
+    <section class="intro-strip">
+      <div class="intro-strip-inner">
+        <h2>Welcome to Tiny Little Things</h2>
+        <p>A handmade brand where every product is carefully crafted with love and creativity. Each piece is unique, adding warmth and personality to your space.</p>
+        <div class="intro-pills">
+          <div class="intro-pill p">✨ 100% Handmade</div>
+          <div class="intro-pill s">Perfect for Gifting</div>
+          <div class="intro-pill o">Unique &amp; Customizable</div>
+          <div class="intro-pill m">Made in India</div>
         </div>
-        <button class="btn btn-pink" onclick="showPage('about')">Know Our Story</button>
       </div>
-    </div>
-  </section>
-  <section class="why-section">
-    <div class="sec-title"><div class="eyebrow">Why choose us</div><h2>What Makes Us Special</h2><div class="pill-divider"></div></div>
-    <div class="why-grid">
-      <div class="why-card"><div class="why-icon" style="background:var(--pink-pale);">✨</div><h4>100% Handmade</h4><p>Every single piece is crafted by hand with love and care</p></div>
-      <div class="why-card"><div class="why-icon" style="background:var(--sage-pale);">🎁</div><h4>Perfect for Gifting</h4><p>Thoughtful, unique gifts for birthdays, anniversaries &amp; all occasions</p></div>
-      <div class="why-card"><div class="why-icon" style="background:#fff3e8;">🎨</div><h4>Customizable</h4><p>Tell us your vision and we'll craft it into reality, just for you</p></div>
-      <div class="why-card"><div class="why-icon" style="background:#f0eeff;">🚚</div><h4>Pan India Delivery</h4><p>We ship to every corner of India with love and care</p></div>
-    </div>
-  </section>
-  <section class="testi-section">
-    <div class="sec-title"><div class="eyebrow">Customer Love</div><h2>What People Say</h2><div class="pill-divider"></div></div>
-    <div class="testi-grid" id="testiGrid"></div>
-  </section>
-  <section class="insta-section">
-    <div class="sec-title"><div class="eyebrow">Follow Along</div><h2>Find Us on Instagram</h2><p>Tag us @tiny_littlethings__ and we might feature you!</p></div>
-    <div class="insta-grid" id="instaGrid"></div>
-    <a class="btn btn-pink" href="https://www.instagram.com/tiny_littlethings__?igsh=MTNpYjZqdWlzZTBoOA==" target="_blank">Follow @tiny_littlethings__</a>
-  </section>
-  <section class="cta-banner">
-    <h2>Looking for something special?</h2>
-    <p>Explore our full collection and find your perfect piece — or reach out for a custom creation!</p>
-    <div class="cta-btns">
-      <button class="btn btn-white" onclick="showPage('shop')">Explore Collection</button>
-      <a class="btn btn-wa" href="https://wa.me/919472736370?text=Hi!%20I%20visited%20Tiny%20Little%20Things%20and%20would%20love%20to%20order%20something." target="_blank" onclick="trackWA('cta-banner')">Order on WhatsApp</a>
-    </div>
-  </section>
+    </section>
+    <section class="cats-section">
+      <div class="sec-title"><div class="eyebrow">Browse by</div><h2>Our Collections</h2><div class="pill-divider"></div></div>
+      <div class="cats-grid" id="catsGrid"></div>
+    </section>
+    <section class="best-section">
+      <div class="sec-title"><div class="eyebrow">Top Picks</div><h2>Our Bestsellers</h2><p>Our most-loved handmade creations — adored by hundreds of happy customers.</p><div class="pill-divider"></div></div>
+      <div class="products-grid" id="bestsellersGrid"></div>
+      <div style="text-align:center;margin-top:38px;"><button class="btn btn-pink" onclick="showPage('shop')">View All Products →</button></div>
+    </section>
+    <section class="about-prev">
+      <div class="about-prev-grid">
+        <div class="about-imgs">
+          <div class="about-main-img" id="aboutMain"></div>
+          <div class="about-sec-img" id="aboutSecond"></div>
+          <div class="about-tag"><p>Happy Customers</p><strong>100+</strong></div>
+        </div>
+        <div class="about-content">
+          <div class="eyebrow">Our Story</div>
+          <h2>Made with Love,<br>Crafted for <em style="color:var(--pink);font-style:italic;">You</em></h2>
+          <p>Every piece at Tiny Little Things is born from passion and patience. We believe handmade art carries a warmth no machine can replicate.</p>
+          <p>Founded with the dream of bringing beautiful, affordable handmade decor to every home in India.</p>
+          <div class="founders-row">
+            <div class="founder-chip"><div class="founder-av" id="founderSanskar">👤</div><span>Sanskar Singh</span></div>
+            <div class="founder-chip"><div class="founder-av" id="founderRadhika">👤</div><span>Radhika Kalra</span></div>
+          </div>
+          <button class="btn btn-pink" onclick="showPage('about')">Know Our Story</button>
+        </div>
+      </div>
+    </section>
+    <section class="why-section">
+      <div class="sec-title"><div class="eyebrow">Why choose us</div><h2>What Makes Us Special</h2><div class="pill-divider"></div></div>
+      <div class="why-grid">
+        <div class="why-card"><div class="why-icon" style="background:var(--pink-pale);">✨</div><h4>100% Handmade</h4><p>Every single piece is crafted by hand with love and care</p></div>
+        <div class="why-card"><div class="why-icon" style="background:var(--sage-pale);">🎁</div><h4>Perfect for Gifting</h4><p>Thoughtful, unique gifts for birthdays, anniversaries &amp; all occasions</p></div>
+        <div class="why-card"><div class="why-icon" style="background:#fff3e8;">🎨</div><h4>Customizable</h4><p>Tell us your vision and we'll craft it into reality, just for you</p></div>
+        <div class="why-card"><div class="why-icon" style="background:#f0eeff;">🚚</div><h4>Pan India Delivery</h4><p>We ship to every corner of India with love and care</p></div>
+      </div>
+    </section>
+    <section class="testi-section">
+      <div class="sec-title"><div class="eyebrow">Customer Love</div><h2>What People Say</h2><div class="pill-divider"></div></div>
+      <div class="testi-grid" id="testiGrid"></div>
+    </section>
+    <section class="insta-section">
+      <div class="sec-title"><div class="eyebrow">Follow Along</div><h2>Find Us on Instagram</h2><p>Tag us @tiny_littlethings__ and we might feature you!</p></div>
+      <div class="insta-grid" id="instaGrid"></div>
+      <a class="btn btn-pink" href="https://www.instagram.com/tiny_littlethings__?igsh=MTNpYjZqdWlzZTBoOA==" target="_blank">Follow @tiny_littlethings__</a>
+    </section>
+    <section class="cta-banner">
+      <h2>Looking for something special?</h2>
+      <p>Explore our full collection and find your perfect piece — or reach out for a custom creation!</p>
+      <div class="cta-btns">
+        <button class="btn btn-white" onclick="showPage('shop')">Explore Collection</button>
+        <a class="btn btn-wa" href="https://wa.me/919472736370?text=Hi!%20I%20visited%20Tiny%20Little%20Things%20and%20would%20love%20to%20order%20something." target="_blank" onclick="trackWA('cta-banner')">Order on WhatsApp</a>
+      </div>
+    </section>
+  </div>
 </div>
 
 <!-- SHOP PAGE -->
 <div class="page" id="page-shop">
   <div class="page-banner"><h1>Shop Our Collection</h1><p>Browse handmade products designed to add charm to your everyday life.</p></div>
+
+  <!-- SEARCH BAR — SHOP -->
+  <div class="search-bar-wrap">
+    <div class="search-bar-inner">
+      <div class="search-input-row">
+        <div class="search-box" id="shopSearchBox">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="shopSearchInput" placeholder="Search by name, description…" oninput="onShopSearch(this.value)" autocomplete="off">
+          <button class="clear-btn" onclick="clearShopSearch()" title="Clear search">✕</button>
+        </div>
+      </div>
+      <div class="search-cats">
+        <span class="search-cat-label">Category:</span>
+        <button class="search-cat-pill active" onclick="filterShopSearch('All',this)">All</button>
+        <button class="search-cat-pill" onclick="filterShopSearch('Flower Pots',this)">🌸 Flower Pots</button>
+        <button class="search-cat-pill" onclick="filterShopSearch('Keychains',this)">🔑 Keychains</button>
+        <button class="search-cat-pill" onclick="filterShopSearch('Lamps',this)">💡 Lamps</button>
+        <button class="search-cat-pill" onclick="filterShopSearch('Custom',this)">✨ Custom</button>
+      </div>
+      <div class="search-results-info" id="shopSearchInfo"></div>
+    </div>
+  </div>
+
   <div class="shop-wrap">
     <aside class="sidebar">
       <div class="sidebar-box">
@@ -718,15 +1118,33 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   <div class="team-section">
     <div class="sec-title"><div class="eyebrow">Meet the Makers</div><h2>The Hearts Behind Tiny Little Things</h2><div class="pill-divider"></div></div>
     <div class="team-grid">
+      <!-- SANSKAR — Updated roles -->
       <div class="team-card">
         <div class="team-av" id="teamSanskar">👤</div>
-        <h3>Sanskar Singh</h3><p>Co-Founder &amp; Artist</p>
-        <p style="font-size:12px;color:var(--text-light);margin-top:8px;line-height:1.6;">Bringing structure and creativity to every piece.</p>
+        <h3>Sanskar Singh</h3>
+        <p style="font-size:13px;font-weight:700;color:var(--pink);margin-bottom:8px;">Co-Founder</p>
+        <div class="team-role-tags">
+          <span class="team-role-tag pink">🎨 Designer</span>
+          <span class="team-role-tag pink">✏️ Artist</span>
+          <span class="team-role-tag amber">💻 Web & Tech</span>
+          <span class="team-role-tag sage">📱 Social Media</span>
+          <span class="team-role-tag amber">🛒 E-Commerce</span>
+          <span class="team-role-tag sage">🔬 R&amp;D</span>
+        </div>
+        <p style="font-size:12px;color:var(--text-light);margin-top:12px;line-height:1.6;">The creative and digital force behind Tiny Little Things — designing products, building the brand, and driving innovation.</p>
       </div>
+      <!-- RADHIKA — Updated roles -->
       <div class="team-card">
         <div class="team-av" id="teamRadhika">👤</div>
-        <h3>Radhika Kalra</h3><p>Co-Founder &amp; Designer</p>
-        <p style="font-size:12px;color:var(--text-light);margin-top:8px;line-height:1.6;">The aesthetic eye behind Tiny Little Things.</p>
+        <h3>Radhika Kalra</h3>
+        <p style="font-size:13px;font-weight:700;color:var(--pink);margin-bottom:8px;">Co-Founder</p>
+        <div class="team-role-tags">
+          <span class="team-role-tag pink">✏️ Artist</span>
+          <span class="team-role-tag sage">⚙️ Operations</span>
+          <span class="team-role-tag amber">💰 Finance</span>
+          <span class="team-role-tag sage">📦 Fulfillment</span>
+        </div>
+        <p style="font-size:12px;color:var(--text-light);margin-top:12px;line-height:1.6;">The operational heart of the brand — crafting with precision while keeping every order, process, and penny perfectly in place.</p>
       </div>
     </div>
   </div>
@@ -773,7 +1191,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 <!-- CUSTOM PAGE -->
 <div class="page" id="page-custom">
   <div class="page-banner"><h1>Custom Orders</h1><p>Want something personalized? We create custom handmade products just for you!</p></div>
-  <div style="padding:72px 5%;max-width:900px;margin:0 auto;text-align:center;">
+  <div style="padding:72px 5% 0;max-width:900px;margin:0 auto;text-align:center;">
     <div class="sec-title" style="margin-bottom:0;"><div class="eyebrow">How it works</div><h2>3 Simple Steps</h2><div class="pill-divider"></div></div>
     <div class="custom-steps">
       <div class="step-card"><div class="step-num">1</div><h3>Share Your Idea</h3><p>DM us on WhatsApp or Instagram with your concept, colors, and requirements.</p></div>
@@ -786,6 +1204,79 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         <a class="btn btn-wa" href="https://wa.me/919472736370?text=Hi!%20I%20have%20a%20custom%20order%20idea." target="_blank" onclick="trackWA('custom-page')">WhatsApp Us</a>
         <a class="btn btn-pink" href="https://www.instagram.com/tiny_littlethings__" target="_blank">Instagram DM</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BULK / CORPORATE ORDERS SECTION -->
+  <div style="padding:0 5% 80px;max-width:900px;margin:0 auto;">
+
+    <div class="bulk-divider">
+      <div class="bulk-divider-line"></div>
+      <span>Also Offering</span>
+      <div class="bulk-divider-line"></div>
+    </div>
+
+    <div class="bulk-section">
+      <div class="bulk-eyebrow">🏢 For Businesses &amp; Events</div>
+      <h2>Bulk &amp; Corporate<br>Orders Welcome</h2>
+      <p>Planning a corporate gifting event, employee appreciation drive, or large celebration? We craft premium handmade pieces at scale — every single one made with the same love and care as an individual order.</p>
+
+      <div class="bulk-features">
+        <div class="bulk-feature">
+          <div class="bulk-feature-icon">🎁</div>
+          <div>
+            <h4>Corporate Gifting</h4>
+            <p>Unique, artisanal gifts that leave a lasting impression on clients, employees, and partners.</p>
+          </div>
+        </div>
+        <div class="bulk-feature">
+          <div class="bulk-feature-icon">🎊</div>
+          <div>
+            <h4>Event Return Gifts</h4>
+            <p>Weddings, college events, conferences — our handmade pieces make memories tangible.</p>
+          </div>
+        </div>
+        <div class="bulk-feature">
+          <div class="bulk-feature-icon">📦</div>
+          <div>
+            <h4>Minimum Order: 10 Pieces</h4>
+            <p>We accept bulk orders starting from 10 units, with special pricing for larger quantities.</p>
+          </div>
+        </div>
+        <div class="bulk-feature">
+          <div class="bulk-feature-icon">✏️</div>
+          <div>
+            <h4>Brand Customization</h4>
+            <p>Add your brand colors, logo packaging, or personalized notes — we handle it all.</p>
+          </div>
+        </div>
+        <div class="bulk-feature">
+          <div class="bulk-feature-icon">💰</div>
+          <div>
+            <h4>Volume Discounts</h4>
+            <p>Get attractive pricing for bulk orders. The more you order, the more you save.</p>
+          </div>
+        </div>
+        <div class="bulk-feature">
+          <div class="bulk-feature-icon">🚚</div>
+          <div>
+            <h4>PAN India Delivery</h4>
+            <p>We ship bulk orders across India with careful packaging to ensure safe delivery.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bulk-actions">
+        <a class="btn-bulk-wa" href="https://wa.me/919472736370?text=Hi!%20I%27m%20interested%20in%20a%20bulk%20%2F%20corporate%20order%20from%20Tiny%20Little%20Things.%20Can%20you%20share%20details%3F" target="_blank" onclick="trackWA('bulk-order')">
+          💬 WhatsApp for Bulk Inquiry
+        </a>
+        <a class="btn-bulk-outline" href="https://www.instagram.com/tiny_littlethings__" target="_blank">
+          📷 Instagram DM
+        </a>
+        <a class="btn-bulk-outline" onclick="showPage('contact')">
+          ✉️ Send a Message
+        </a>
       </div>
     </div>
   </div>
@@ -978,6 +1469,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
       <a onclick="filterAndGo('Keychains')">Keychains &amp; Bagcharms</a>
       <a onclick="filterAndGo('Lamps')">Lamps &amp; Stands</a>
       <a onclick="showPage('custom')">Custom Orders</a>
+      <a onclick="showPage('custom')">Corporate / Bulk Orders</a>
     </div>
     <div class="footer-col">
       <h4>Info</h4>
@@ -1057,6 +1549,10 @@ let ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{
 let cart={},currentMaxPrice=1999,currentFilter='All';
 let FB=null,fbConfigured=false;
 
+// Search state
+let homeSearchQuery='',homeSearchCatFilter='All';
+let shopSearchQuery='';
+
 // ═══════════════════════════════════════════
 // STATUS INDICATOR
 // ═══════════════════════════════════════════
@@ -1069,7 +1565,7 @@ function setStatus(msg,type,dur=2500){
 }
 
 // ═══════════════════════════════════════════
-// FIREBASE INIT — FIX: load images then re-render immediately
+// FIREBASE INIT
 // ═══════════════════════════════════════════
 window.addEventListener('fb-ready',async()=>{
   FB=window._fb;
@@ -1080,69 +1576,47 @@ window.addEventListener('fb-ready',async()=>{
     document.getElementById('imgLocalNote').style.display='none';
     setStatus('☁️ Connecting to cloud...','saving',0);
     try{
-      // Step 1: Load non-image data first (fast)
       await loadNonImageDataFromFirebase();
-      // Step 2: Apply text/product data immediately
-      renderCategories();
-      renderBestsellers();
-      renderTestimonials();
-      renderShop();
-      // Step 3: Load images (potentially slower) then apply
+      renderCategories();renderBestsellers();renderTestimonials();renderShop();
       setStatus('☁️ Loading images...','saving',0);
       await loadImagesFromFirebase();
-      // Step 4: NOW apply images to DOM — this is the critical fix
-      applyAllSiteImages();
-      renderInstagram();
+      applyAllSiteImages();renderInstagram();
       setStatus('✅ All images loaded','saved',3000);
     }catch(e){
       console.error('Firebase load error:',e);
       setStatus('⚠️ Cloud error — using local data','error',4000);
-      loadFromLocal();
-      applyAllData();
+      loadFromLocal();applyAllData();
     }
   }else{
     fbConfigured=false;
     document.getElementById('fbSetupWarning').style.display='block';
     setStatus('⚠️ Firebase not set up — data is local only','error',6000);
-    loadFromLocal();
-    applyAllData();
+    loadFromLocal();applyAllData();
   }
 });
 
-// Fallback if Firebase SDK never fires
 setTimeout(()=>{
   if(!window._fbReady){
     fbConfigured=false;
     document.getElementById('fbSetupWarning').style.display='block';
     setStatus('⚠️ Firebase not set up — data is local only','error',6000);
-    loadFromLocal();
-    applyAllData();
+    loadFromLocal();applyAllData();
   }
 },4000);
 
 // ═══════════════════════════════════════════
 // FIRESTORE HELPERS
 // ═══════════════════════════════════════════
-async function fbSetDoc(col, docId, data){
-  if(!fbConfigured || !FB){
-    console.warn("Firebase not configured");
-    return false;
-  }
-
+async function fbSetDoc(col,docId,data){
+  if(!fbConfigured||!FB){console.warn("Firebase not configured");return false;}
   try{
-    const {db, doc, setDoc} = FB;
-    await setDoc(doc(db, col, docId), data);
-
-    console.log("✅ Saved to Firestore:", col, docId);
-    return true;
-
+    const {db,doc,setDoc}=FB;
+    await setDoc(doc(db,col,docId),data);
+    console.log("✅ Saved to Firestore:",col,docId);return true;
   }catch(e){
-    console.error("❌ FIREBASE ERROR:", e.code, e.message);
-
-    setStatus("❌ " + (e.code || "error"), "error", 4000);
-    alert("Firebase Error: " + e.message);
-
-    return false;
+    console.error("❌ FIREBASE ERROR:",e.code,e.message);
+    setStatus("❌ "+(e.code||"error"),"error",4000);
+    alert("Firebase Error: "+e.message);return false;
   }
 }
 async function fbGetDoc(col,docId){
@@ -1158,55 +1632,37 @@ async function fbGetAllDocs(col){
   try{
     const {db,collection,getDocs}=FB;
     const snap=await getDocs(collection(db,col));
-    const result={};
-    snap.forEach(d=>result[d.id]=d.data());
-    return result;
+    const result={};snap.forEach(d=>result[d.id]=d.data());return result;
   }catch(e){console.error('fbGetAllDocs',col,e);return {};}
 }
 
-// ═══════════════════════════════════════════
-// SPLIT LOAD: non-image data vs images
-// This is the core fix — images are loaded separately so we
-// can call applyAllSiteImages() AFTER they're in memory
-// ═══════════════════════════════════════════
 async function loadNonImageDataFromFirebase(){
   const [p,t,c,a]=await Promise.all([
-    fbGetDoc('tlt_data','products'),
-    fbGetDoc('tlt_data','testimonials'),
-    fbGetDoc('tlt_data','credentials'),
-    fbGetDoc('tlt_data','analytics')
+    fbGetDoc('tlt_data','products'),fbGetDoc('tlt_data','testimonials'),
+    fbGetDoc('tlt_data','credentials'),fbGetDoc('tlt_data','analytics')
   ]);
   if(p&&p.data&&Array.isArray(p.data))PRODUCTS=p.data;
   if(t&&t.data&&Array.isArray(t.data))TESTIMONIALS=t.data;
   if(c&&c.user)CREDENTIALS=c;
   if(a)ANALYTICS=Object.assign({pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]},a);
 }
-
 async function loadImagesFromFirebase(){
-  // Load all image documents from tlt_images collection
   const imgs=await fbGetAllDocs('tlt_images');
   let loaded=0;
   Object.keys(imgs).forEach(key=>{
-    // FIX: Only store images that are real base64 data (not empty strings from reset)
     const imgVal=imgs[key]&&imgs[key].img;
     if(imgVal&&typeof imgVal==='string'&&imgVal.length>200&&imgVal.startsWith('data:')){
-      SITE_IMAGES[key]=imgVal;
-      loaded++;
+      SITE_IMAGES[key]=imgVal;loaded++;
     }
   });
-  // Also load product images stored inline
-  // (already loaded with products above, no extra step needed)
   console.log('Loaded '+loaded+' site images from Firebase');
 }
-
-// Combined loader used as fallback
 async function loadFromFirebase(){
-  await loadNonImageDataFromFirebase();
-  await loadImagesFromFirebase();
+  await loadNonImageDataFromFirebase();await loadImagesFromFirebase();
 }
 
 // ═══════════════════════════════════════════
-// LOCALSTORAGE FALLBACK
+// LOCALSTORAGE
 // ═══════════════════════════════════════════
 function saveLocal(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){console.warn('localStorage full or blocked');}}
 function loadLocal(key){try{const v=localStorage.getItem(key);return v?JSON.parse(v):null;}catch(e){return null;}}
@@ -1223,19 +1679,11 @@ function loadFromLocal(){
 // ═══════════════════════════════════════════
 async function saveProducts(){
   saveLocal('tlt_products',PRODUCTS);
-  if(fbConfigured){
-    setStatus('☁️ Saving products...','saving',0);
-    const ok=await fbSetDoc('tlt_data','products',{data:PRODUCTS});
-    if(ok)setStatus('✅ Products saved to cloud','saved');
-    else setStatus('⚠️ Cloud save failed','error',3000);
-  }
+  if(fbConfigured){setStatus('☁️ Saving products...','saving',0);const ok=await fbSetDoc('tlt_data','products',{data:PRODUCTS});if(ok)setStatus('✅ Products saved to cloud','saved');else setStatus('⚠️ Cloud save failed','error',3000);}
 }
 async function saveTestimonials(){
   saveLocal('tlt_testimonials',TESTIMONIALS);
-  if(fbConfigured){
-    const ok=await fbSetDoc('tlt_data','testimonials',{data:TESTIMONIALS});
-    if(ok)setStatus('✅ Testimonials saved','saved');
-  }
+  if(fbConfigured){const ok=await fbSetDoc('tlt_data','testimonials',{data:TESTIMONIALS});if(ok)setStatus('✅ Testimonials saved','saved');}
 }
 async function saveCredentials(){
   saveLocal('tlt_credentials',CREDENTIALS);
@@ -1245,39 +1693,17 @@ async function saveAnalytics(){
   saveLocal('tlt_analytics',ANALYTICS);
   if(fbConfigured)await fbSetDoc('tlt_data','analytics',ANALYTICS);
 }
-
-// KEY FIX: Each image = its own Firestore document in tlt_images collection
 async function saveSingleImage(key,base64){
-  // Validate: must be real base64
   if(!base64||!base64.startsWith('data:')){return false;}
-
-  // Update in-memory cache
   SITE_IMAGES[key]=base64;
-
-  // Update localStorage cache
-  try{
-    const allImgs=loadLocal('tlt_siteImages')||{};
-    allImgs[key]=base64;
-    saveLocal('tlt_siteImages',allImgs);
-  }catch(e){console.warn('Could not save image to localStorage:',e);}
-
+  try{const allImgs=loadLocal('tlt_siteImages')||{};allImgs[key]=base64;saveLocal('tlt_siteImages',allImgs);}catch(e){console.warn('Could not save image to localStorage:',e);}
   if(fbConfigured){
     const sizeKB=Math.round(base64.length/1024);
-    if(sizeKB>700){
-      setStatus('⚠️ Image too large ('+sizeKB+'KB) — try a smaller photo','error',5000);
-      return false;
-    }
+    if(sizeKB>700){setStatus('⚠️ Image too large ('+sizeKB+'KB) — try a smaller photo','error',5000);return false;}
     setStatus('☁️ Saving image to cloud...','saving',0);
     const ok=await fbSetDoc('tlt_images',key,{img:base64});
-    if(ok){
-      setStatus('✅ Image saved ('+sizeKB+'KB) — visible on all devices!','saved',3000);
-      const ss=document.getElementById('syncStatus');
-      if(ss){ss.textContent='✅ Synced';setTimeout(()=>ss.textContent='',3000);}
-      return true;
-    }else{
-      setStatus('⚠️ Cloud save failed','error',4000);
-      return false;
-    }
+    if(ok){setStatus('✅ Image saved ('+sizeKB+'KB) — visible on all devices!','saved',3000);const ss=document.getElementById('syncStatus');if(ss){ss.textContent='✅ Synced';setTimeout(()=>ss.textContent='',3000);}return true;}
+    else{setStatus('⚠️ Cloud save failed','error',4000);return false;}
   }
   return true;
 }
@@ -1287,24 +1713,14 @@ async function saveSingleImage(key,base64){
 // ═══════════════════════════════════════════
 function compressImage(file,maxW,maxH,quality){
   return new Promise(resolve=>{
-    const canvas=document.createElement('canvas');
-    const ctx=canvas.getContext('2d');
-    const img=new Image();
-    const reader=new FileReader();
+    const canvas=document.createElement('canvas');const ctx=canvas.getContext('2d');const img=new Image();const reader=new FileReader();
     reader.onload=e=>{
       img.onload=()=>{
         let w=img.width,h=img.height;
-        if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
-        if(h>maxH){w=Math.round(w*maxH/h);h=maxH;}
-        canvas.width=w;canvas.height=h;
-        ctx.drawImage(img,0,0,w,h);
-        resolve(canvas.toDataURL('image/jpeg',quality));
-      };
-      img.onerror=()=>resolve('');
-      img.src=e.target.result;
-    };
-    reader.onerror=()=>resolve('');
-    reader.readAsDataURL(file);
+        if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}if(h>maxH){w=Math.round(w*maxH/h);h=maxH;}
+        canvas.width=w;canvas.height=h;ctx.drawImage(img,0,0,w,h);resolve(canvas.toDataURL('image/jpeg',quality));
+      };img.onerror=()=>resolve('');img.src=e.target.result;
+    };reader.onerror=()=>resolve('');reader.readAsDataURL(file);
   });
 }
 
@@ -1312,12 +1728,7 @@ function compressImage(file,maxW,maxH,quality){
 // APPLY ALL DATA
 // ═══════════════════════════════════════════
 function applyAllData(){
-  applyAllSiteImages();
-  renderCategories();
-  renderBestsellers();
-  renderTestimonials();
-  renderInstagram();
-  renderShop();
+  applyAllSiteImages();renderCategories();renderBestsellers();renderTestimonials();renderInstagram();renderShop();
 }
 
 // ═══════════════════════════════════════════
@@ -1333,8 +1744,7 @@ function trackProductCart(id){ANALYTICS.productCart[id]=(ANALYTICS.productCart[i
 function logActivity(icon,text,sub){
   const now=new Date();
   const ts=now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})+' · '+now.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
-  ANALYTICS.activityLog=[{icon,text,sub,time:ts},...(ANALYTICS.activityLog||[])].slice(0,30);
-  saveAnalytics();
+  ANALYTICS.activityLog=[{icon,text,sub,time:ts},...(ANALYTICS.activityLog||[])].slice(0,30);saveAnalytics();
 }
 async function resetAnalytics(){
   ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
@@ -1358,6 +1768,7 @@ function filterAndGo(cat){
   currentFilter=cat;showPage('shop');
   setTimeout(()=>{
     document.querySelectorAll('.cf-btn').forEach(b=>b.classList.toggle('active',b.textContent.includes(cat)));
+    document.querySelectorAll('.search-cat-pill').forEach(p=>p.classList.toggle('active',p.textContent.includes(cat)));
     renderShop();
   },100);
 }
@@ -1367,91 +1778,135 @@ function toggleMobileNav(){
 }
 
 // ═══════════════════════════════════════════
-// SITE IMAGES — APPLY TO DOM
-// FIX: Robust null checks + correct element targeting
+// SEARCH — HOME PAGE
 // ═══════════════════════════════════════════
-function setImgOrPlaceholder(el,imgKey,placeholderHtml,imgStyle){
-  if(!el)return;
-  const src=SITE_IMAGES[imgKey];
-  if(src&&src.startsWith('data:')){
-    el.innerHTML=`<img src="${src}" alt="${imgKey}" style="${imgStyle||'width:100%;height:100%;object-fit:cover;'}">`;
+function onHomeSearch(val){
+  homeSearchQuery=val.trim().toLowerCase();
+  const box=document.getElementById('homeSearchBox');
+  if(homeSearchQuery)box.classList.add('has-text');else box.classList.remove('has-text');
+  runHomeSearch();
+}
+function clearHomeSearch(){
+  document.getElementById('homeSearchInput').value='';
+  homeSearchQuery='';
+  document.getElementById('homeSearchBox').classList.remove('has-text');
+  runHomeSearch();
+}
+function homeSearchCat(cat,btn){
+  document.querySelectorAll('#page-home .search-cat-pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  homeSearchCatFilter=cat;
+  runHomeSearch();
+}
+function runHomeSearch(){
+  const resultsWrap=document.getElementById('homeSearchResults');
+  const defaultContent=document.getElementById('homeDefaultContent');
+  const info=document.getElementById('homeSearchInfo');
+
+  if(!homeSearchQuery&&homeSearchCatFilter==='All'){
+    resultsWrap.style.display='none';
+    defaultContent.style.display='block';
+    info.classList.remove('visible');
+    return;
+  }
+
+  if(homeSearchCatFilter==='Custom'){
+    resultsWrap.style.display='block';
+    defaultContent.style.display='none';
+    document.getElementById('homeSearchResultTitle').textContent='Custom Orders';
+    document.getElementById('homeSearchResultCount').textContent='';
+    document.getElementById('homeSearchGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><div style="font-size:52px;margin-bottom:14px;">✨</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom Orders</button></div>`;
+    info.classList.remove('visible');
+    return;
+  }
+
+  const filtered=PRODUCTS.filter(p=>{
+    const catMatch=homeSearchCatFilter==='All'||p.category===homeSearchCatFilter;
+    const textMatch=!homeSearchQuery||p.name.toLowerCase().includes(homeSearchQuery)||p.desc.toLowerCase().includes(homeSearchQuery)||p.category.toLowerCase().includes(homeSearchQuery);
+    return catMatch&&textMatch;
+  });
+
+  resultsWrap.style.display='block';
+  defaultContent.style.display='none';
+  document.getElementById('homeSearchResultTitle').textContent=homeSearchQuery?`Results for "${homeSearchQuery}"`:'Browse Products';
+  document.getElementById('homeSearchResultCount').textContent=filtered.length+' items';
+  document.getElementById('homeSearchGrid').innerHTML=filtered.length?filtered.map(renderCard).join(''):'<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--text-light);font-size:15px;">No products found. Try a different search.</div>';
+
+  if(homeSearchQuery){
+    info.textContent=filtered.length+' result'+(filtered.length!==1?'s':'')+' for "'+homeSearchQuery+'"';
+    info.classList.add('visible');
   }else{
-    el.innerHTML=placeholderHtml;
+    info.classList.remove('visible');
   }
 }
 
+// ═══════════════════════════════════════════
+// SEARCH — SHOP PAGE
+// ═══════════════════════════════════════════
+let shopSearchCatActive='All';
+function onShopSearch(val){
+  shopSearchQuery=val.trim().toLowerCase();
+  const box=document.getElementById('shopSearchBox');
+  if(shopSearchQuery)box.classList.add('has-text');else box.classList.remove('has-text');
+  renderShopFiltered();
+}
+function clearShopSearch(){
+  document.getElementById('shopSearchInput').value='';
+  shopSearchQuery='';
+  document.getElementById('shopSearchBox').classList.remove('has-text');
+  renderShopFiltered();
+}
+function filterShopSearch(cat,btn){
+  document.querySelectorAll('#page-shop .search-cat-pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  shopSearchCatActive=cat;
+  // Also sync sidebar
+  document.querySelectorAll('.cf-btn').forEach(b=>b.classList.toggle('active',
+    (cat==='All'&&b.textContent==='All Products')||b.textContent.includes(cat)
+  ));
+  currentFilter=cat;
+  renderShopFiltered();
+}
+function renderShopFiltered(){
+  const info=document.getElementById('shopSearchInfo');
+  if(shopSearchCatActive==='Custom'){
+    const grid=document.getElementById('shopGrid');
+    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><div style="font-size:52px;margin-bottom:14px;">✨</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom Orders</button></div>`;
+    document.getElementById('shopTitle').textContent='Custom Orders';
+    document.getElementById('shopCount').textContent='';
+    info.classList.remove('visible');return;
+  }
+  const filtered=PRODUCTS.filter(p=>{
+    const catMatch=shopSearchCatActive==='All'||p.category===shopSearchCatActive;
+    const priceMatch=p.price<=currentMaxPrice;
+    const textMatch=!shopSearchQuery||p.name.toLowerCase().includes(shopSearchQuery)||p.desc.toLowerCase().includes(shopSearchQuery);
+    return catMatch&&priceMatch&&textMatch;
+  });
+  document.getElementById('shopTitle').textContent=shopSearchQuery?`Results for "${shopSearchQuery}"`:(shopSearchCatActive==='All'?'All Products':shopSearchCatActive);
+  document.getElementById('shopCount').textContent=filtered.length+' items';
+  document.getElementById('shopGrid').innerHTML=filtered.length?filtered.map(renderCard).join(''):`<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--text-light);">No products found. Try adjusting filters or search.</div>`;
+  if(shopSearchQuery){
+    info.textContent=filtered.length+' result'+(filtered.length!==1?'s':'')+' for "'+shopSearchQuery+'"';
+    info.classList.add('visible');
+  }else{info.classList.remove('visible');}
+}
+
+// ═══════════════════════════════════════════
+// APPLY SITE IMAGES
+// ═══════════════════════════════════════════
 function applyAllSiteImages(){
-  // LOGO
   const lm=document.getElementById('logoMark');
-  if(lm){
-    if(SITE_IMAGES.logo&&SITE_IMAGES.logo.startsWith('data:')){
-      lm.innerHTML=`<img src="${SITE_IMAGES.logo}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
-    }else{
-      lm.innerHTML='🌸';
-    }
-  }
-
-  // HERO IMAGE
+  if(lm){if(SITE_IMAGES.logo&&SITE_IMAGES.logo.startsWith('data:')){lm.innerHTML=`<img src="${SITE_IMAGES.logo}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;}else{lm.innerHTML='🌸';}}
   const hw=document.getElementById('heroImgWrap');
-  if(hw){
-    if(SITE_IMAGES.hero&&SITE_IMAGES.hero.startsWith('data:')){
-      hw.innerHTML=`<img src="${SITE_IMAGES.hero}" alt="hero" style="width:100%;height:100%;object-fit:cover;">`;
-    }else{
-      hw.innerHTML=`<div class="hero-img-placeholder"><span>🌸</span><span>Hero image — upload in Admin Panel</span></div>`;
-    }
-  }
-
-  // ABOUT SECTION (home page preview)
+  if(hw){if(SITE_IMAGES.hero&&SITE_IMAGES.hero.startsWith('data:')){hw.innerHTML=`<img src="${SITE_IMAGES.hero}" alt="hero" style="width:100%;height:100%;object-fit:cover;">`;}else{hw.innerHTML=`<div class="hero-img-placeholder"><span>🌸</span><span>Hero image — upload in Admin Panel</span></div>`;}}
   const am=document.getElementById('aboutMain');
-  if(am){
-    if(SITE_IMAGES.about_main&&SITE_IMAGES.about_main.startsWith('data:')){
-      am.innerHTML=`<img src="${SITE_IMAGES.about_main}" alt="about main" style="width:100%;height:100%;object-fit:cover;">`;
-    }else{
-      am.style.background='var(--pink-pale)';am.innerHTML='';
-    }
-  }
+  if(am){if(SITE_IMAGES.about_main&&SITE_IMAGES.about_main.startsWith('data:')){am.innerHTML=`<img src="${SITE_IMAGES.about_main}" alt="about main" style="width:100%;height:100%;object-fit:cover;">`;}else{am.style.background='var(--pink-pale)';am.innerHTML='';}}
   const as2=document.getElementById('aboutSecond');
-  if(as2){
-    if(SITE_IMAGES.about_second&&SITE_IMAGES.about_second.startsWith('data:')){
-      as2.innerHTML=`<img src="${SITE_IMAGES.about_second}" alt="about secondary" style="width:100%;height:100%;object-fit:cover;">`;
-    }else{
-      as2.style.background='var(--sage-pale)';as2.innerHTML='';
-    }
-  }
-
-  // ABOUT PAGE
+  if(as2){if(SITE_IMAGES.about_second&&SITE_IMAGES.about_second.startsWith('data:')){as2.innerHTML=`<img src="${SITE_IMAGES.about_second}" alt="about secondary" style="width:100%;height:100%;object-fit:cover;">`;}else{as2.style.background='var(--sage-pale)';as2.innerHTML='';}}
   const ap=document.getElementById('aboutPageImg');
-  if(ap){
-    if(SITE_IMAGES.about_page&&SITE_IMAGES.about_page.startsWith('data:')){
-      ap.innerHTML=`<img src="${SITE_IMAGES.about_page}" alt="about page" style="width:100%;height:100%;object-fit:cover;">`;
-    }else{
-      ap.innerHTML=`<span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image — Upload via Admin</span>`;
-    }
-  }
-
-  // TEAM — SANSKAR (multiple elements)
-  const teamSanskarEls=['teamSanskar','founderSanskar'];
-  teamSanskarEls.forEach(id=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-    if(SITE_IMAGES.team_sanskar&&SITE_IMAGES.team_sanskar.startsWith('data:')){
-      el.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" alt="Sanskar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
-    }else{
-      el.innerHTML='👤';
-    }
-  });
-
-  // TEAM — RADHIKA (multiple elements)
-  const teamRadhikaEls=['teamRadhika','founderRadhika'];
-  teamRadhikaEls.forEach(id=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-    if(SITE_IMAGES.team_radhika&&SITE_IMAGES.team_radhika.startsWith('data:')){
-      el.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" alt="Radhika" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
-    }else{
-      el.innerHTML='👤';
-    }
-  });
+  if(ap){if(SITE_IMAGES.about_page&&SITE_IMAGES.about_page.startsWith('data:')){ap.innerHTML=`<img src="${SITE_IMAGES.about_page}" alt="about page" style="width:100%;height:100%;object-fit:cover;">`;}else{ap.innerHTML=`<span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image — Upload via Admin</span>`;}}
+  ['teamSanskar','founderSanskar'].forEach(id=>{const el=document.getElementById(id);if(!el)return;if(SITE_IMAGES.team_sanskar&&SITE_IMAGES.team_sanskar.startsWith('data:')){el.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" alt="Sanskar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;}else{el.innerHTML='👤';}});
+  ['teamRadhika','founderRadhika'].forEach(id=>{const el=document.getElementById(id);if(!el)return;if(SITE_IMAGES.team_radhika&&SITE_IMAGES.team_radhika.startsWith('data:')){el.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" alt="Radhika" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;}else{el.innerHTML='👤';}});
 }
 
 // ═══════════════════════════════════════════
@@ -1472,17 +1927,15 @@ function renderCategories(){
 // PRODUCT RENDERING
 // ═══════════════════════════════════════════
 function imgHtml(p,style){
-  if(p.img&&p.img.startsWith('data:')){
-    return`<img src="${p.img}" alt="${p.name}" style="${style||'width:100%;height:100%;object-fit:cover;'}">`;
-  }
+  if(p.img&&p.img.startsWith('data:')){return`<img src="${p.img}" alt="${p.name}" style="${style||'width:100%;height:100%;object-fit:cover;'}">"`;}
   return`<div class="img-placeholder">${p.name}</div>`;
 }
 function renderCard(p){
   return`<div class="product-card">
-    <div class="product-thumb" onclick="openModal(${p.id})">${imgHtml(p)}${p.badge?`<div class="badge">${p.badge}</div>`:''}</div>
+    <div class="product-thumb" onclick="openModal(${p.id})">${p.img&&p.img.startsWith('data:')?`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">`:`<div class="img-placeholder">${p.name}</div>`}${p.badge?`<div class="badge">${p.badge}</div>`:''}</div>
     <div class="product-body">
       <h3 onclick="openModal(${p.id})">${p.name}</h3>
-      <p class="pdesc">${(p.desc||'').substring(0,72)}…</p>
+      <p class="pdesc">${(p.desc||'').substring(0,72)}...</p>
       <div class="product-footer">
         <div class="price">₹${p.price}<br><small>+ shipping</small></div>
         <div class="product-actions">
@@ -1506,12 +1959,13 @@ function renderBestsellers(){
 function renderShop(cat,maxP){
   if(cat!==undefined)currentFilter=cat;
   if(maxP!==undefined)currentMaxPrice=maxP;
+  // Use filtered version if search is active
+  if(shopSearchQuery){renderShopFiltered();return;}
   const grid=document.getElementById('shopGrid');if(!grid)return;
   if(currentFilter==='Custom'){
     grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><div style="font-size:52px;margin-bottom:14px;">✨</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom Orders</button></div>`;
     document.getElementById('shopTitle').textContent='Custom Orders';
-    document.getElementById('shopCount').textContent='';
-    return;
+    document.getElementById('shopCount').textContent='';return;
   }
   const filtered=PRODUCTS.filter(p=>{
     const catMatch=currentFilter==='All'||p.category===currentFilter;
@@ -1525,6 +1979,11 @@ function renderShop(cat,maxP){
 function filterShop(cat,btn){
   document.querySelectorAll('.cf-btn').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
+  // Sync top search category pills
+  document.querySelectorAll('#page-shop .search-cat-pill').forEach(p=>p.classList.toggle('active',
+    (cat==='All'&&p.textContent.trim()==='All')||(cat!=='All'&&p.textContent.includes(cat))
+  ));
+  shopSearchCatActive=cat;
   renderShop(cat);
 }
 function updatePrice(val){
@@ -1543,11 +2002,8 @@ function openModal(id){
   document.getElementById('modalPrice').textContent='₹'+p.price+' + shipping';
   document.getElementById('modalDesc').textContent=p.desc;
   const mediaEl=document.getElementById('modalMedia');
-  if(p.img&&p.img.startsWith('data:')){
-    mediaEl.innerHTML=`<img src="${p.img}" alt="${p.name}">${p.badge?`<div class="modal-badge">${p.badge}</div>`:''}`;
-  }else{
-    mediaEl.innerHTML=`<div class="img-placeholder" style="min-height:360px;font-size:12px;">${p.name}</div>${p.badge?`<div class="modal-badge">${p.badge}</div>`:''}`;
-  }
+  if(p.img&&p.img.startsWith('data:')){mediaEl.innerHTML=`<img src="${p.img}" alt="${p.name}">${p.badge?`<div class="modal-badge">${p.badge}</div>`:''}`;}
+  else{mediaEl.innerHTML=`<div class="img-placeholder" style="min-height:360px;font-size:12px;">${p.name}</div>${p.badge?`<div class="modal-badge">${p.badge}</div>`:''}`;}
   document.getElementById('modalActions').innerHTML=`
     <button class="btn btn-pink" onclick="addToCart(${id});closeModalDirect()">Add to Cart</button>
     <a class="btn btn-wa" href="https://wa.me/919472736370?text=${encodeURIComponent(p.whatsappMsg||'Hi! I am interested in '+p.name)}" target="_blank" onclick="trackWA('modal:${id}')">Order on WhatsApp</a>`;
@@ -1560,26 +2016,16 @@ function closeModalDirect(){document.getElementById('modalOverlay').classList.re
 // CART
 // ═══════════════════════════════════════════
 function addToCart(id){
-  cart[id]=(cart[id]||0)+1;
-  trackProductCart(id);
-  updateCartBadge();
-  showToast('Added to cart! 🛒');
-  logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');
+  cart[id]=(cart[id]||0)+1;trackProductCart(id);updateCartBadge();
+  showToast('Added to cart! 🛒');logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');
 }
 function removeFromCart(id){delete cart[id];updateCartBadge();renderCartDrawer();}
-function changeQty(id,delta){
-  cart[id]=(cart[id]||0)+delta;
-  if(cart[id]<=0)delete cart[id];
-  updateCartBadge();renderCartDrawer();
-}
+function changeQty(id,delta){cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];updateCartBadge();renderCartDrawer();}
 function clearCart(){cart={};updateCartBadge();renderCartDrawer();}
 function updateCartBadge(){
   const total=Object.values(cart).reduce((a,b)=>a+b,0);
-  const badge=document.getElementById('cartBadge');
-  badge.textContent=total;
-  badge.classList.remove('bump');
-  void badge.offsetWidth;
-  badge.classList.add('bump');
+  const badge=document.getElementById('cartBadge');badge.textContent=total;
+  badge.classList.remove('bump');void badge.offsetWidth;badge.classList.add('bump');
 }
 function openCart(){
   trackCartOpen();renderCartDrawer();
@@ -1615,17 +2061,14 @@ function renderCartDrawer(){
       <button class="cart-item-remove" onclick="removeFromCart(${id})">✕</button>
     </div>`;
   });
-  body.innerHTML=html;
-  document.getElementById('cartTotal').textContent='₹'+subtotal;
-  foot.style.display='block';
+  body.innerHTML=html;document.getElementById('cartTotal').textContent='₹'+subtotal;foot.style.display='block';
 }
 function checkoutWhatsApp(){
   const ids=Object.keys(cart).map(Number).filter(id=>cart[id]>0);if(!ids.length)return;
   const lines=ids.map(id=>{const p=PRODUCTS.find(x=>x.id===id);return`• ${p.name} × ${cart[id]} = ₹${p.price*cart[id]}`;});
   const subtotal=ids.reduce((s,id)=>s+(PRODUCTS.find(x=>x.id===id).price*cart[id]),0);
   const msg=`Hi! I'd like to place an order from Tiny Little Things:\n\n${lines.join('\n')}\n\nSubtotal: ₹${subtotal}\n\nPlease confirm availability and share payment details. Thank you!`;
-  trackWA('checkout');
-  window.open('https://wa.me/919472736370?text='+encodeURIComponent(msg),'_blank');
+  trackWA('checkout');window.open('https://wa.me/919472736370?text='+encodeURIComponent(msg),'_blank');
 }
 
 // ═══════════════════════════════════════════
@@ -1648,14 +2091,8 @@ function renderInstagram(){
   const grid=document.getElementById('instaGrid');if(!grid)return;
   const keys=['insta_1','insta_2','insta_3','insta_4','insta_5','insta_6'];
   grid.innerHTML=keys.map((k,i)=>{
-    const src=SITE_IMAGES[k];
-    const hasImg=src&&src.startsWith('data:');
-    return`<div class="insta-tile">
-      <a href="https://www.instagram.com/tiny_littlethings__" target="_blank">
-        ${hasImg?`<img src="${src}" alt="Instagram post ${i+1}">`:`<div class="img-placeholder">Post ${i+1}</div>`}
-      </a>
-      <div class="insta-tile-overlay">📷</div>
-    </div>`;
+    const src=SITE_IMAGES[k];const hasImg=src&&src.startsWith('data:');
+    return`<div class="insta-tile"><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">${hasImg?`<img src="${src}" alt="Instagram post ${i+1}">`:`<div class="img-placeholder">Post ${i+1}</div>`}</a><div class="insta-tile-overlay">📷</div></div>`;
   }).join('');
 }
 
@@ -1679,10 +2116,8 @@ function submitContact(){
 // ═══════════════════════════════════════════
 let _toastTimer=null;
 function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  clearTimeout(_toastTimer);
-  _toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(_toastTimer);_toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
 }
 
 // ═══════════════════════════════════════════
@@ -1707,8 +2142,7 @@ function adminLogout(){
   adminLoggedIn=false;
   document.getElementById('adminLogin').style.display='flex';
   document.getElementById('adminDash').style.display='none';
-  document.getElementById('adminUser').value='';
-  document.getElementById('adminPass').value='';
+  document.getElementById('adminUser').value='';document.getElementById('adminPass').value='';
   document.getElementById('loginErr').textContent='';
 }
 function startAdminClock(){
@@ -1744,10 +2178,7 @@ function renderMiniBarChart(cid,data,limit){
   const sorted=Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,limit);
   const max=sorted.length?sorted[0][1]:1;
   if(!sorted.length){c.innerHTML='<p style="font-size:13px;color:var(--text-light);padding:10px 0;">No data yet.</p>';return;}
-  c.innerHTML=sorted.map(([id,val])=>{
-    const p=PRODUCTS.find(x=>x.id===parseInt(id));
-    return`<div class="mini-bar"><div class="mini-bar-label" title="${p?.name||id}">${p?.name||id}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((val/max)*100)}%"></div></div><div class="mini-bar-val">${val}</div></div>`;
-  }).join('');
+  c.innerHTML=sorted.map(([id,val])=>{const p=PRODUCTS.find(x=>x.id===parseInt(id));return`<div class="mini-bar"><div class="mini-bar-label" title="${p?.name||id}">${p?.name||id}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((val/max)*100)}%"></div></div><div class="mini-bar-val">${val}</div></div>`;}).join('');
 }
 function renderPageChart(){
   const c=document.getElementById('chart-pages');if(!c)return;
@@ -1758,19 +2189,10 @@ function renderPageChart(){
 }
 function renderDailyChart(){
   const c=document.getElementById('chart-daily');if(!c)return;
-  const daily=ANALYTICS.daily||{};
-  const last7=[];
-  for(let i=6;i>=0;i--){
-    const d=new Date();d.setDate(d.getDate()-i);
-    const key=d.toISOString().split('T')[0];
-    const short=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
-    last7.push({key,short,data:daily[key]||{views:0,carts:0,wa:0}});
-  }
+  const daily=ANALYTICS.daily||{};const last7=[];
+  for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const key=d.toISOString().split('T')[0];const short=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});last7.push({key,short,data:daily[key]||{views:0,carts:0,wa:0}});}
   const maxVal=Math.max(...last7.map(d=>d.data.views+d.data.carts+d.data.wa),1);
-  c.innerHTML=last7.map(d=>{
-    const total=d.data.views+d.data.carts+d.data.wa;
-    return`<div class="mini-bar"><div class="mini-bar-label">${d.short}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((total/maxVal)*100)}%;background:var(--pink-light);"></div></div><div class="mini-bar-val">${total}</div></div>`;
-  }).join('');
+  c.innerHTML=last7.map(d=>{const total=d.data.views+d.data.carts+d.data.wa;return`<div class="mini-bar"><div class="mini-bar-label">${d.short}</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${Math.round((total/maxVal)*100)}%;background:var(--pink-light);"></div></div><div class="mini-bar-val">${total}</div></div>`;}).join('');
 }
 function renderActivityLog(){
   const c=document.getElementById('activityLog');if(!c)return;
@@ -1794,17 +2216,8 @@ function renderAdminProducts(){
       </div></td>
     </tr>`).join('');
 }
-function openEditProduct(id){
-  const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
-  document.getElementById('editModalTitle').textContent='Edit: '+p.name;
-  document.getElementById('editModalBody').innerHTML=buildProductForm(p);
-  document.getElementById('editModalOverlay').classList.add('open');
-}
-function openAddProduct(){
-  document.getElementById('editModalTitle').textContent='Add New Product';
-  document.getElementById('editModalBody').innerHTML=buildProductForm(null);
-  document.getElementById('editModalOverlay').classList.add('open');
-}
+function openEditProduct(id){const p=PRODUCTS.find(x=>x.id===id);if(!p)return;document.getElementById('editModalTitle').textContent='Edit: '+p.name;document.getElementById('editModalBody').innerHTML=buildProductForm(p);document.getElementById('editModalOverlay').classList.add('open');}
+function openAddProduct(){document.getElementById('editModalTitle').textContent='Add New Product';document.getElementById('editModalBody').innerHTML=buildProductForm(null);document.getElementById('editModalOverlay').classList.add('open');}
 function closeEditModal(){document.getElementById('editModalOverlay').classList.remove('open');}
 function buildProductForm(p){
   const cats=['Flower Pots','Keychains','Lamps','Custom'];
@@ -1836,58 +2249,34 @@ function buildProductForm(p){
     <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
   </div>`;
 }
-function escHtml(str){
-  return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function escHtml(str){return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 async function handleProductImgUpload(input){
   const file=input.files[0];if(!file)return;
-  const prog=document.getElementById('uploadProgress');
-  const fill=document.getElementById('uploadProgressFill');
-  const hint=document.getElementById('editImgHint');
-  if(prog)prog.style.display='block';
-  if(fill)fill.style.width='30%';
-  if(hint)hint.textContent='⏳ Compressing image...';
+  const prog=document.getElementById('uploadProgress');const fill=document.getElementById('uploadProgressFill');const hint=document.getElementById('editImgHint');
+  if(prog)prog.style.display='block';if(fill)fill.style.width='30%';if(hint)hint.textContent='⏳ Compressing image...';
   const compressed=await compressImage(file,800,800,0.82);
   if(!compressed){if(hint)hint.textContent='❌ Failed to load image';return;}
-  if(fill)fill.style.width='100%';
-  setTimeout(()=>{if(prog)prog.style.display='none';},400);
+  if(fill)fill.style.width='100%';setTimeout(()=>{if(prog)prog.style.display='none';},400);
   const sizeKB=Math.round(compressed.length/1024);
-  const prev=document.getElementById('editImgPreview');
-  if(prev){prev.src=compressed;prev.style.display='block';}
+  const prev=document.getElementById('editImgPreview');if(prev){prev.src=compressed;prev.style.display='block';}
   document.getElementById('ef-curimg').value=compressed;
   const cls=sizeKB<400?'size-ok':sizeKB<700?'size-warn':'size-err';
   if(hint)hint.innerHTML=`✓ Ready <span class="${cls} size-note">${sizeKB}KB${sizeKB>700?' — try a smaller photo':''}</span>`;
 }
 async function saveProductFromForm(){
-  const name=(document.getElementById('ef-name').value||'').trim();
-  const price=parseInt(document.getElementById('ef-price').value);
+  const name=(document.getElementById('ef-name').value||'').trim();const price=parseInt(document.getElementById('ef-price').value);
   if(!name||!price){showToast('Name and price are required!');return;}
-  const idVal=document.getElementById('ef-id').value;
-  const img=document.getElementById('ef-curimg').value;
-  const prod={
-    id:idVal?parseInt(idVal):Date.now(),
-    name,price,
-    category:document.getElementById('ef-cat').value,
-    badge:(document.getElementById('ef-badge').value||'').trim(),
-    desc:(document.getElementById('ef-desc').value||'').trim(),
-    whatsappMsg:(document.getElementById('ef-wa').value||'').trim()||`Hi! I'm interested in the *${name}* (₹${price}). Can you please share availability?`,
-    bestseller:document.getElementById('ef-best').checked,
-    img
-  };
-  if(idVal){const idx=PRODUCTS.findIndex(x=>x.id===parseInt(idVal));if(idx>-1)PRODUCTS[idx]=prod;else PRODUCTS.push(prod);}
-  else PRODUCTS.push(prod);
-  await saveProducts();
-  closeEditModal();renderAdminProducts();renderBestsellers();renderShop();
+  const idVal=document.getElementById('ef-id').value;const img=document.getElementById('ef-curimg').value;
+  const prod={id:idVal?parseInt(idVal):Date.now(),name,price,category:document.getElementById('ef-cat').value,badge:(document.getElementById('ef-badge').value||'').trim(),desc:(document.getElementById('ef-desc').value||'').trim(),whatsappMsg:(document.getElementById('ef-wa').value||'').trim()||`Hi! I'm interested in the *${name}* (₹${price}). Can you please share availability?`,bestseller:document.getElementById('ef-best').checked,img};
+  if(idVal){const idx=PRODUCTS.findIndex(x=>x.id===parseInt(idVal));if(idx>-1)PRODUCTS[idx]=prod;else PRODUCTS.push(prod);}else PRODUCTS.push(prod);
+  await saveProducts();closeEditModal();renderAdminProducts();renderBestsellers();renderShop();
   showToast((idVal?'Product updated':'Product added')+(fbConfigured?' & synced ☁️':'')+'!');
   logActivity('🛍️',idVal?'Product updated':'Product added',name);
 }
 async function deleteProduct(id){
-  if(!confirm('Delete this product?'))return;
-  const p=PRODUCTS.find(x=>x.id===id);
-  PRODUCTS=PRODUCTS.filter(x=>x.id!==id);
-  await saveProducts();renderAdminProducts();renderBestsellers();
-  showToast('Product deleted!');
-  logActivity('🗑️','Product deleted',p?.name||'');
+  if(!confirm('Delete this product?'))return;const p=PRODUCTS.find(x=>x.id===id);
+  PRODUCTS=PRODUCTS.filter(x=>x.id!==id);await saveProducts();renderAdminProducts();renderBestsellers();
+  showToast('Product deleted!');logActivity('🗑️','Product deleted',p?.name||'');
 }
 
 // ═══════════════════════════════════════════
@@ -1914,11 +2303,8 @@ function renderTestiEditGrid(){
     </div>`).join('');
 }
 async function handleTestiImg(input,idx){
-  const file=input.files[0];if(!file)return;
-  const compressed=await compressImage(file,150,150,0.85);
-  if(!compressed)return;
-  TESTIMONIALS[idx].img=compressed;
-  const prev=document.getElementById(`te-img-prev-${idx}`);
+  const file=input.files[0];if(!file)return;const compressed=await compressImage(file,150,150,0.85);if(!compressed)return;
+  TESTIMONIALS[idx].img=compressed;const prev=document.getElementById(`te-img-prev-${idx}`);
   if(prev)prev.innerHTML=`<img src="${compressed}" style="width:100%;height:100%;object-fit:cover;">`;
 }
 async function saveTestimonialsAdmin(){
@@ -1927,73 +2313,45 @@ async function saveTestimonialsAdmin(){
     if(n)t.name=n.value;if(r)t.role=r.value;if(tx)t.text=tx.value;
   });
   await saveTestimonials();renderTestimonials();
-  showToast('Testimonials saved'+(fbConfigured?' & synced! ☁️':'!')+'');
-  logActivity('💬','Testimonials updated','');
+  showToast('Testimonials saved'+(fbConfigured?' & synced! ☁️':'!')+'');logActivity('💬','Testimonials updated','');
 }
 
 // ═══════════════════════════════════════════
 // ADMIN SITE IMAGES
-// FIX: After saving, immediately apply to DOM so
-// the change is visible without page reload
 // ═══════════════════════════════════════════
 async function handleSiteImg(input,key){
-  const file=input.files[0];if(!file)return;
-  showToast('⏳ Compressing image...');
+  const file=input.files[0];if(!file)return;showToast('⏳ Compressing image...');
   const settings=IMG_SETTINGS[key]||DEFAULT_IMG;
   const compressed=await compressImage(file,settings.maxW,settings.maxH,settings.quality);
   if(!compressed){showToast('❌ Failed to load image');return;}
   const sizeKB=Math.round(compressed.length/1024);
-  if(sizeKB>700){
-    showToast('⚠️ Image too large ('+sizeKB+'KB). Please use a smaller photo.');
-    return;
-  }
-  // Update in-memory + DOM immediately (before cloud save finishes)
-  SITE_IMAGES[key]=compressed;
-  updateAdminImgPreview(key,compressed);
-  // Apply to the live site pages right away
-  applyAllSiteImages();
-  renderInstagram();
-  // Save to cloud/local
+  if(sizeKB>700){showToast('⚠️ Image too large ('+sizeKB+'KB). Please use a smaller photo.');return;}
+  SITE_IMAGES[key]=compressed;updateAdminImgPreview(key,compressed);applyAllSiteImages();renderInstagram();
   const ok=await saveSingleImage(key,compressed);
-  if(ok){
-    showToast(`✅ Image saved (${sizeKB}KB)${fbConfigured?' — visible on all devices!':''}`);
-    logActivity('🖼️','Image uploaded',key+' ('+sizeKB+'KB)');
-  }
+  if(ok){showToast(`✅ Image saved (${sizeKB}KB)${fbConfigured?' — visible on all devices!':''}`);logActivity('🖼️','Image uploaded',key+' ('+sizeKB+'KB)');}
 }
 function updateAdminImgPreview(key,src){
-  const el=document.getElementById('prev-'+key);
-  if(!el)return;
-  el.innerHTML=`<img src="${src}" alt="${key}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">
-    <input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="handleSiteImg(this,'${key}')">`;
+  const el=document.getElementById('prev-'+key);if(!el)return;
+  el.innerHTML=`<img src="${src}" alt="${key}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"><input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="handleSiteImg(this,'${key}')">`;
 }
 function renderAdminImagePreviews(){
-  // Re-render all image previews in the admin panel
-  Object.keys(IMG_SETTINGS).forEach(key=>{
-    if(SITE_IMAGES[key]&&SITE_IMAGES[key].startsWith('data:')){
-      updateAdminImgPreview(key,SITE_IMAGES[key]);
-    }
-  });
+  Object.keys(IMG_SETTINGS).forEach(key=>{if(SITE_IMAGES[key]&&SITE_IMAGES[key].startsWith('data:')){updateAdminImgPreview(key,SITE_IMAGES[key]);}});
 }
 
 // ═══════════════════════════════════════════
 // SETTINGS
 // ═══════════════════════════════════════════
 async function changeCredentials(){
-  const u=(document.getElementById('newUser').value||'').trim();
-  const p=document.getElementById('newPass').value||'';
+  const u=(document.getElementById('newUser').value||'').trim();const p=document.getElementById('newPass').value||'';
   if(!u||!p){showToast('Please fill both fields!');return;}
-  CREDENTIALS={user:u,pass:p};
-  await saveCredentials();
+  CREDENTIALS={user:u,pass:p};await saveCredentials();
   document.getElementById('newUser').value='';document.getElementById('newPass').value='';
   showToast('Credentials updated'+(fbConfigured?' & synced! 🔐':'!')+'');
 }
 function exportData(){
   const data={products:PRODUCTS,testimonials:TESTIMONIALS,siteImages:SITE_IMAGES,exportDate:new Date().toISOString()};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='tiny-little-things-backup-'+new Date().toISOString().split('T')[0]+'.json';
-  a.click();
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tiny-little-things-backup-'+new Date().toISOString().split('T')[0]+'.json';a.click();
   showToast('Backup exported! 📥');
 }
 async function importData(input){
@@ -2004,31 +2362,19 @@ async function importData(input){
       const data=JSON.parse(e.target.result);
       if(data.products&&Array.isArray(data.products)){PRODUCTS=data.products;await saveProducts();}
       if(data.testimonials&&Array.isArray(data.testimonials)){TESTIMONIALS=data.testimonials;await saveTestimonials();}
-      if(data.siteImages&&typeof data.siteImages==='object'){
-        for(const key of Object.keys(data.siteImages)){
-          const img=data.siteImages[key];
-          if(img&&img.startsWith('data:'))await saveSingleImage(key,img);
-        }
-      }
+      if(data.siteImages&&typeof data.siteImages==='object'){for(const key of Object.keys(data.siteImages)){const img=data.siteImages[key];if(img&&img.startsWith('data:'))await saveSingleImage(key,img);}}
       renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
       applyAllSiteImages();renderTestimonials();renderInstagram();renderBestsellers();
       showToast('Backup imported'+(fbConfigured?' & synced! ☁️':'!')+'');
     }catch(err){showToast('Invalid backup file!');}
   };
-  reader.readAsText(file);
-  input.value=''; // Reset so same file can be imported again
+  reader.readAsText(file);input.value='';
 }
 async function resetAll(){
-  PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
-  TESTIMONIALS=JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
-  SITE_IMAGES={};
-  ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
+  PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));TESTIMONIALS=JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
+  SITE_IMAGES={};ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
   await Promise.all([saveProducts(),saveTestimonials(),saveAnalytics()]);
-  if(fbConfigured&&FB){
-    // Clear image docs — set img to empty string (don't delete, keeps doc structure)
-    const keys=Object.keys(IMG_SETTINGS);
-    await Promise.all(keys.map(k=>fbSetDoc('tlt_images',k,{img:''})));
-  }
+  if(fbConfigured&&FB){const keys=Object.keys(IMG_SETTINGS);await Promise.all(keys.map(k=>fbSetDoc('tlt_images',k,{img:''})));}
   saveLocal('tlt_siteImages',{});
   renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
   applyAllSiteImages();renderBestsellers();renderTestimonials();renderInstagram();renderShop();
@@ -2036,8 +2382,7 @@ async function resetAll(){
 }
 
 // ═══════════════════════════════════════════
-// INIT — Load from local first for instant render,
-// Firebase will override when it loads (via fb-ready event)
+// INIT
 // ═══════════════════════════════════════════
 loadFromLocal();
 applyAllData();
@@ -2045,4 +2390,4 @@ trackPageView('home');
 logActivity('👁️','Site visited','homepage');
 </script>
 </body>
-         </html>
+                                                                                                                                                      </html>
