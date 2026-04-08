@@ -56,60 +56,19 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;}
 .page.active{display:block;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* ═══════════════════════════════════════════
-   ANNOUNCE BAR — ENHANCED MARQUEE STYLE
-   ═══════════════════════════════════════════ */
+/* ANNOUNCE BAR */
 .announce{
   background:linear-gradient(90deg,#5a8a5c 0%,#6e9c70 40%,#5a8a5c 100%);
-  color:#fff;
-  overflow:hidden;
-  height:38px;
-  display:flex;
-  align-items:center;
-  position:relative;
+  color:#fff;overflow:hidden;height:38px;display:flex;align-items:center;position:relative;
 }
-.announce::before,.announce::after{
-  content:'';
-  position:absolute;
-  top:0;bottom:0;width:60px;z-index:2;pointer-events:none;
-}
+.announce::before,.announce::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none;}
 .announce::before{left:0;background:linear-gradient(to right,#5a8a5c,transparent);}
 .announce::after{right:0;background:linear-gradient(to left,#5a8a5c,transparent);}
-
-.announce-track{
-  display:flex;
-  align-items:center;
-  white-space:nowrap;
-  animation:marquee 32s linear infinite;
-  gap:0;
-}
+.announce-track{display:flex;align-items:center;white-space:nowrap;animation:marquee 32s linear infinite;gap:0;}
 .announce-track:hover{animation-play-state:paused;}
-
-@keyframes marquee{
-  0%{transform:translateX(0);}
-  100%{transform:translateX(-50%);}
-}
-
-.announce-item{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:0 28px;
-  font-size:12.5px;
-  font-weight:700;
-  letter-spacing:.3px;
-}
-.announce-item .a-icon{
-  font-size:14px;
-  animation:pulse-icon 2s ease-in-out infinite;
-}
-@keyframes pulse-icon{0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
-
-.announce-dot{
-  width:4px;height:4px;border-radius:50%;
-  background:rgba(255,255,255,.45);
-  flex-shrink:0;
-}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.announce-item{display:inline-flex;align-items:center;gap:8px;padding:0 28px;font-size:12.5px;font-weight:700;letter-spacing:.3px;}
+.announce-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.45);flex-shrink:0;}
 
 /* HEADER */
 header{position:sticky;top:0;z-index:900;background:rgba(255,252,248,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 5%;}
@@ -134,91 +93,24 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .mobile-nav a{display:block;padding:11px 0;font-size:15px;font-weight:700;color:var(--text-mid);border-bottom:1px solid var(--border);cursor:pointer;}
 .mobile-nav a:last-child{border-bottom:none;}
 
-/* ═══════════════════════════════════════════
-   SEARCH BAR
-   ═══════════════════════════════════════════ */
-.search-bar-wrap{
-  background:#fff;
-  border-bottom:1px solid var(--border);
-  padding:14px 5%;
-}
-.search-bar-inner{
-  max-width:720px;
-  margin:0 auto;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.search-input-row{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.search-box{
-  flex:1;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:var(--cream);
-  border:2px solid var(--border);
-  border-radius:var(--r-pill);
-  padding:10px 18px;
-  transition:border-color .2s,box-shadow .2s;
-}
-.search-box:focus-within{
-  border-color:var(--pink-light);
-  box-shadow:0 0 0 3px rgba(232,116,138,.1);
-  background:#fff;
-}
+/* SEARCH BAR */
+.search-bar-wrap{background:#fff;border-bottom:1px solid var(--border);padding:14px 5%;}
+.search-bar-inner{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
+.search-input-row{display:flex;align-items:center;gap:10px;}
+.search-box{flex:1;display:flex;align-items:center;gap:10px;background:var(--cream);border:2px solid var(--border);border-radius:var(--r-pill);padding:10px 18px;transition:border-color .2s,box-shadow .2s;}
+.search-box:focus-within{border-color:var(--pink-light);box-shadow:0 0 0 3px rgba(232,116,138,.1);background:#fff;}
 .search-box .search-icon{font-size:16px;color:var(--text-light);flex-shrink:0;}
-.search-box input{
-  flex:1;
-  border:none;
-  background:transparent;
-  font-family:'Nunito',sans-serif;
-  font-size:14px;
-  color:var(--text-dark);
-  outline:none;
-}
+.search-box input{flex:1;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:14px;color:var(--text-dark);outline:none;}
 .search-box input::placeholder{color:var(--text-light);}
-.search-box .clear-btn{
-  background:none;border:none;font-size:16px;color:var(--text-light);
-  cursor:pointer;padding:0;line-height:1;transition:color .2s;
-  display:none;
-}
+.search-box .clear-btn{background:none;border:none;font-size:16px;color:var(--text-light);cursor:pointer;padding:0;line-height:1;transition:color .2s;display:none;}
 .search-box.has-text .clear-btn{display:block;}
 .search-box.has-text .clear-btn:hover{color:var(--pink);}
-
-.search-cats{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  align-items:center;
-}
-.search-cat-label{
-  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
-  color:var(--text-light);margin-right:4px;flex-shrink:0;
-}
-.search-cat-pill{
-  background:var(--cream);
-  border:1.5px solid var(--border);
-  border-radius:var(--r-pill);
-  padding:5px 13px;
-  font-size:12px;
-  font-weight:700;
-  color:var(--text-mid);
-  cursor:pointer;
-  transition:all .2s;
-  font-family:'Nunito',sans-serif;
-}
+.search-cats{display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
+.search-cat-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-light);margin-right:4px;flex-shrink:0;}
+.search-cat-pill{background:var(--cream);border:1.5px solid var(--border);border-radius:var(--r-pill);padding:5px 13px;font-size:12px;font-weight:700;color:var(--text-mid);cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif;}
 .search-cat-pill:hover{border-color:var(--pink-light);color:var(--pink);background:var(--pink-pale);}
 .search-cat-pill.active{background:var(--pink);border-color:var(--pink);color:#fff;}
-
-.search-results-info{
-  font-size:12.5px;color:var(--text-light);font-weight:600;
-  padding:4px 0 0 4px;
-  display:none;
-}
+.search-results-info{font-size:12.5px;color:var(--text-light);font-weight:600;padding:4px 0 0 4px;display:none;}
 .search-results-info.visible{display:block;}
 
 /* BUTTONS */
@@ -399,6 +291,9 @@ nav a:hover,nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .why-card h4{font-size:17px;font-weight:600;color:var(--text-dark);margin-bottom:6px;}
 .why-card p{font-size:12.5px;color:var(--text-light);line-height:1.55;}
 
+/* WHY ICON SVG */
+.why-icon svg{width:28px;height:28px;}
+
 /* TESTIMONIALS */
 .testi-section{padding:90px 5%;background:linear-gradient(160deg,var(--pink-pale) 0%,var(--cream) 55%,var(--sage-pale) 100%);}
 .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;max-width:1100px;margin:0 auto;}
@@ -472,13 +367,6 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .team-av{width:88px;height:88px;border-radius:50%;overflow:hidden;margin:0 auto 14px;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:28px;}
 .team-av img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
 
-/* TEAM ROLES TAGS */
-.team-role-tags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-top:10px;}
-.team-role-tag{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:var(--r-pill);}
-.team-role-tag.pink{background:var(--pink-pale);color:var(--pink);}
-.team-role-tag.sage{background:var(--sage-pale);color:var(--sage-hover);}
-.team-role-tag.amber{background:#fff3e8;color:#b45309;}
-
 /* CONTACT */
 .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;padding:72px 5%;max-width:1100px;margin:0 auto;align-items:start;}
 .contact-info h2{font-size:27px;font-weight:600;color:var(--text-dark);margin-bottom:22px;}
@@ -498,9 +386,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--pink);}
 .fg textarea{height:100px;resize:vertical;}
 
-/* ═══════════════════════════════════════════
-   CUSTOM ORDER PAGE — BULK/CORPORATE SECTION
-   ═══════════════════════════════════════════ */
+/* CUSTOM / BULK ORDER PAGE */
 .custom-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:40px auto;}
 .step-card{background:#fff;border-radius:var(--r);padding:30px 20px;box-shadow:var(--shadow-sm);text-align:center;}
 .step-num{width:46px;height:46px;border-radius:50%;background:var(--pink);color:#fff;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-family:'Cormorant Garamond',serif;}
@@ -511,77 +397,15 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .custom-cta p{font-size:15px;color:var(--text-mid);margin-bottom:26px;}
 
 /* Bulk/Corporate Section */
-.bulk-section{
-  background:linear-gradient(135deg,#1a2e3b 0%,#2c4a5a 60%,#1e3a4a 100%);
-  border-radius:var(--r);
-  padding:56px 46px;
-  max-width:900px;
-  margin:0 auto 48px;
-  position:relative;
-  overflow:hidden;
-  color:#fff;
-}
-.bulk-section::before{
-  content:'';
-  position:absolute;
-  width:400px;height:400px;border-radius:50%;
-  background:radial-gradient(circle,rgba(232,116,138,.15) 0%,transparent 70%);
-  top:-100px;right:-80px;pointer-events:none;
-}
-.bulk-section::after{
-  content:'';
-  position:absolute;
-  width:250px;height:250px;border-radius:50%;
-  background:radial-gradient(circle,rgba(138,171,140,.12) 0%,transparent 70%);
-  bottom:-60px;left:-40px;pointer-events:none;
-}
-.bulk-eyebrow{
-  display:inline-flex;align-items:center;gap:7px;
-  background:rgba(232,116,138,.2);
-  border:1px solid rgba(232,116,138,.35);
-  border-radius:var(--r-pill);
-  padding:5px 14px;
-  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--pink-light);
-  margin-bottom:18px;
-}
-.bulk-section h2{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(26px,3.5vw,40px);
-  font-weight:600;
-  color:#fff;
-  margin-bottom:10px;
-  line-height:1.2;
-}
-.bulk-section>p{
-  font-size:14.5px;
-  color:rgba(255,255,255,.7);
-  line-height:1.8;
-  max-width:580px;
-  margin-bottom:32px;
-}
-.bulk-features{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  margin-bottom:36px;
-  position:relative;z-index:1;
-}
-.bulk-feature{
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:var(--r-sm);
-  padding:18px;
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-}
-.bulk-feature-icon{
-  width:38px;height:38px;border-radius:50%;
-  background:rgba(232,116,138,.2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-}
+.bulk-section{background:linear-gradient(135deg,#1a2e3b 0%,#2c4a5a 60%,#1e3a4a 100%);border-radius:var(--r);padding:56px 46px;max-width:900px;margin:0 auto 48px;position:relative;overflow:hidden;color:#fff;}
+.bulk-section::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(232,116,138,.15) 0%,transparent 70%);top:-100px;right:-80px;pointer-events:none;}
+.bulk-section::after{content:'';position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(138,171,140,.12) 0%,transparent 70%);bottom:-60px;left:-40px;pointer-events:none;}
+.bulk-eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(232,116,138,.2);border:1px solid rgba(232,116,138,.35);border-radius:var(--r-pill);padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pink-light);margin-bottom:18px;}
+.bulk-section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,40px);font-weight:600;color:#fff;margin-bottom:10px;line-height:1.2;}
+.bulk-section>p{font-size:14.5px;color:rgba(255,255,255,.7);line-height:1.8;max-width:580px;margin-bottom:32px;}
+.bulk-features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:36px;position:relative;z-index:1;}
+.bulk-feature{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-sm);padding:18px;display:flex;gap:12px;align-items:flex-start;}
+.bulk-feature-icon{width:38px;height:38px;border-radius:50%;background:rgba(232,116,138,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
 .bulk-feature h4{font-size:13.5px;font-weight:700;color:#fff;margin-bottom:3px;}
 .bulk-feature p{font-size:12px;color:rgba(255,255,255,.58);line-height:1.5;}
 .bulk-actions{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1;}
@@ -589,11 +413,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .btn-bulk-wa:hover{background:#1fa855;transform:translateY(-2px);}
 .btn-bulk-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);padding:12px 24px;font-size:14px;border-radius:var(--r-pill);font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;transition:all .22s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;}
 .btn-bulk-outline:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6);}
-
-.bulk-divider{
-  max-width:900px;margin:0 auto 40px;
-  display:flex;align-items:center;gap:16px;
-}
+.bulk-divider{max-width:900px;margin:0 auto 40px;display:flex;align-items:center;gap:16px;}
 .bulk-divider-line{flex:1;height:1px;background:var(--border);}
 .bulk-divider span{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-light);}
 
@@ -603,7 +423,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .ship-section h2{font-size:25px;font-weight:600;color:var(--text-dark);margin-bottom:14px;}
 .ship-section ul{list-style:none;}
 .ship-section ul li{padding:11px 0;border-bottom:1px solid var(--pink-pale);font-size:14.5px;color:var(--text-mid);line-height:1.7;display:flex;gap:10px;align-items:flex-start;}
-.ship-section ul li::before{content:'💖';flex-shrink:0;}
+.ship-section ul li::before{content:'—';color:var(--pink);font-weight:700;flex-shrink:0;}
 
 /* ADMIN */
 .admin-login{min-height:60vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));padding:20px;}
@@ -698,9 +518,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 .size-warn{background:#fff3e8;color:#92400e;}
 .size-err{background:#fde8ed;color:#9b1c1c;}
 
-/* ═══════════════════════════════════════════
-   RESPONSIVE — MOBILE FIXES
-   ═══════════════════════════════════════════ */
+/* RESPONSIVE */
 @media(max-width:960px){
   .hero{grid-template-columns:1fr;}.hero-visual{display:none;}
   .about-prev-grid{grid-template-columns:1fr;}.about-imgs{display:none;}
@@ -724,83 +542,43 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 
 @media(max-width:680px){
   nav{display:none;}.hamburger{display:block;}
-
-  /* Mobile hero */
   .hero{padding:48px 5% 56px;min-height:auto;}
   .hero h1{font-size:36px;}
   .hero-btns{flex-direction:column;}
   .hero-stats{gap:20px;}
-
-  /* Mobile search */
   .search-bar-wrap{padding:12px 4%;}
   .search-cats{gap:6px;}
   .search-cat-pill{font-size:11px;padding:4px 10px;}
-
-  /* ✅ Mobile products grid — 2 per row, clean */
-  .products-grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-    max-width:100%;
-    margin:0;
-  }
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:12px;max-width:100%;margin:0;}
   .product-body{padding:10px 10px 12px;}
   .product-body h3{font-size:13.5px;margin-bottom:3px;}
   .product-body .pdesc{font-size:11px;margin-bottom:10px;}
   .price{font-size:17px;}
-  /* Stack the actions vertically on small cards */
   .product-footer{flex-direction:column;align-items:flex-start;gap:8px;}
   .product-actions{width:100%;display:flex;gap:5px;}
   .product-actions .btn{flex:1;text-align:center;font-size:11px;padding:7px 6px;}
   .product-actions a.btn{font-size:10px;padding:7px 5px;}
-
-  /* Mobile shop sidebar becomes horizontal scroll */
   .sidebar{display:flex;flex-direction:column;gap:10px;}
   .sidebar-box{border-radius:var(--r-sm);padding:16px;}
   .shop-head{flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:14px;}
-
-  /* Footer */
   .footer-grid{grid-template-columns:1fr;}
-
-  /* Instagram */
   .insta-grid{grid-template-columns:repeat(2,1fr);}
-
-  /* Testimonials */
   .testi-grid{grid-template-columns:1fr;}
-
-  /* Team cards on mobile */
   .team-card{min-width:0;width:100%;}
   .team-grid{flex-direction:column;align-items:center;}
-
-  /* Bulk section mobile */
   .bulk-features{grid-template-columns:1fr;}
   .bulk-section{padding:28px 20px;}
   .bulk-section h2{font-size:24px;}
   .bulk-actions{flex-direction:column;}
   .btn-bulk-wa,.btn-bulk-outline{justify-content:center;}
-
-  /* Page banner */
   .page-banner{padding:40px 5%;}
-
-  /* Dash */
   .dash-grid{grid-template-columns:1fr 1fr;}
-
-  /* About */
   .about-story-grid{padding:40px 5%;}
-
-  /* Contact grid */
   .contact-grid{padding:40px 5%;}
-
-  /* Custom steps */
   .custom-steps{grid-template-columns:1fr;margin:24px auto;}
   .custom-cta{padding:28px 20px;}
-
-  /* Inline grid in admin */
   .inline-grid{grid-template-columns:1fr;}
-
-  /* Footer bottom */
   .footer-bottom{flex-direction:column;text-align:center;}
-
-  /* Announce bar text size */
   .announce-item{font-size:11.5px;padding:0 18px;}
 }
 
@@ -812,34 +590,61 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 </head>
 <body>
 
-<div class="fb-status hidden" id="fbStatus">☁️ Connecting...</div>
+<div class="fb-status hidden" id="fbStatus">Connecting...</div>
 
-<!-- ═══════════════════════════════════════════
-     ANNOUNCE BAR — MARQUEE
-     ═══════════════════════════════════════════ -->
+<!-- ANNOUNCE BAR -->
 <div class="announce" aria-label="Site announcements">
   <div class="announce-track" id="announceTrack">
-    <!-- Content duplicated for seamless loop -->
-    <span class="announce-item"><span class="a-icon">🚚</span> Free shipping on orders above ₹999</span>
+    <span class="announce-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      Free shipping on orders above &#8377;999
+    </span>
     <span class="announce-dot"></span>
-    <span class="announce-item"><span class="a-icon">🏢</span> Corporate &amp; bulk orders accepted</span>
+    <span class="announce-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg>
+      Corporate &amp; bulk orders accepted
+    </span>
     <span class="announce-dot"></span>
-    <span class="announce-item"><span class="a-icon">🌸</span> 100% handmade with love in India</span>
+    <span class="announce-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      100% handmade with love in India
+    </span>
     <span class="announce-dot"></span>
-    <span class="announce-item"><span class="a-icon">🎁</span> Perfect for gifting — birthdays, events &amp; occasions</span>
+    <span class="announce-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      Perfect for gifting — birthdays, events &amp; occasions
+    </span>
     <span class="announce-dot"></span>
-    <span class="announce-item"><span class="a-icon">✨</span> Customized orders welcome — DM us your idea!</span>
+    <span class="announce-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Customized orders welcome — DM us your idea!
+    </span>
     <span class="announce-dot"></span>
     <!-- Duplicate for seamless loop -->
-    <span class="announce-item"><span class="a-icon">🚚</span> Free shipping on orders above ₹999</span>
+    <span class="announce-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      Free shipping on orders above &#8377;999
+    </span>
     <span class="announce-dot"></span>
-    <span class="announce-item"><span class="a-icon">🏢</span> Corporate &amp; bulk orders accepted</span>
+    <span class="announce-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg>
+      Corporate &amp; bulk orders accepted
+    </span>
     <span class="announce-dot"></span>
-    <span class="announce-item"><span class="a-icon">🌸</span> 100% handmade with love in India</span>
+    <span class="announce-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      100% handmade with love in India
+    </span>
     <span class="announce-dot"></span>
-    <span class="announce-item"><span class="a-icon">🎁</span> Perfect for gifting — birthdays, events &amp; occasions</span>
+    <span class="announce-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      Perfect for gifting — birthdays, events &amp; occasions
+    </span>
     <span class="announce-dot"></span>
-    <span class="announce-item"><span class="a-icon">✨</span> Customized orders welcome — DM us your idea!</span>
+    <span class="announce-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Customized orders welcome — DM us your idea!
+    </span>
     <span class="announce-dot"></span>
   </div>
 </div>
@@ -847,7 +652,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 <header>
   <div class="header-inner">
     <div class="logo" onclick="showPage('home')">
-      <div class="logo-mark" id="logoMark">🌸</div>
+      <div class="logo-mark" id="logoMark">
+        <svg width="22" height="22" fill="none" stroke="var(--pink)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22c4.97-2.5 8-6.5 8-10.5C20 7.36 16.42 4 12 4S4 7.36 4 11.5c0 4 3.03 8 8 10.5z"/><circle cx="12" cy="11" r="2"/></svg>
+      </div>
       <div>
         <div class="logo-name">Tiny Little Things</div>
         <div class="logo-tag">Handmade with Love</div>
@@ -856,7 +663,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
     <nav>
       <a id="nav-home" class="active" onclick="showPage('home')">Home</a>
       <a id="nav-shop" onclick="showPage('shop')">Shop</a>
-      <a id="nav-custom" onclick="showPage('custom')">Custom Orders</a>
+      <a id="nav-custom" onclick="showPage('custom')">Custom &amp; Bulk</a>
       <a id="nav-about" onclick="showPage('about')">About</a>
       <a id="nav-contact" onclick="showPage('contact')">Contact</a>
     </nav>
@@ -864,7 +671,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
       <button class="cart-trigger btn" onclick="openCart()">
         Cart <span class="cart-badge" id="cartBadge">0</span>
       </button>
-      <button class="hamburger" onclick="toggleMobileNav()">☰</button>
+      <button class="hamburger" onclick="toggleMobileNav()">&#9776;</button>
     </div>
   </div>
 </header>
@@ -872,18 +679,18 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 <div class="mobile-nav" id="mobileNav">
   <a onclick="showPage('home');toggleMobileNav()">Home</a>
   <a onclick="showPage('shop');toggleMobileNav()">Shop</a>
-  <a onclick="showPage('custom');toggleMobileNav()">Custom Orders</a>
+  <a onclick="showPage('custom');toggleMobileNav()">Custom &amp; Bulk Orders</a>
   <a onclick="showPage('about');toggleMobileNav()">About</a>
   <a onclick="showPage('contact');toggleMobileNav()">Contact</a>
 </div>
 
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeCart()"></div>
 <aside class="cart-drawer" id="cartDrawer">
-  <div class="drawer-head"><h2>Your Cart</h2><button class="drawer-close" onclick="closeCart()">✕</button></div>
+  <div class="drawer-head"><h2>Your Cart</h2><button class="drawer-close" onclick="closeCart()">&#10005;</button></div>
   <div class="drawer-body" id="cartBody"></div>
   <div class="drawer-foot" id="cartFoot" style="display:none;">
-    <div class="cart-subtotal"><span>Subtotal</span><strong id="cartTotal">₹0</strong></div>
-    <p class="cart-note">Shipping calculated at checkout. Free above ₹999.</p>
+    <div class="cart-subtotal"><span>Subtotal</span><strong id="cartTotal">&#8377;0</strong></div>
+    <p class="cart-note">Shipping calculated at checkout. Free above &#8377;999.</p>
     <button class="btn btn-wa cart-wa-btn" onclick="checkoutWhatsApp()">Checkout via WhatsApp</button>
     <button class="cart-clear" onclick="clearCart()">Clear Cart</button>
   </div>
@@ -893,13 +700,13 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   <div class="modal" id="modalBox">
     <div class="modal-media" id="modalMedia"></div>
     <div class="modal-body">
-      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      <button class="modal-close" onclick="closeModalDirect()">&#10005;</button>
       <p class="modal-cat" id="modalCat"></p>
       <h2 class="modal-name" id="modalName"></h2>
       <div class="modal-price" id="modalPrice"></div>
-      <div class="modal-stars">★★★★★</div>
+      <div class="modal-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
       <p class="modal-desc" id="modalDesc"></p>
-      <div class="modal-note">💖 Every piece is handmade — slight variations make it truly one-of-a-kind!</div>
+      <div class="modal-note">Every piece is handmade — slight variations make it truly one-of-a-kind!</div>
       <div class="modal-actions" id="modalActions"></div>
     </div>
   </div>
@@ -909,7 +716,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   <div class="edit-modal">
     <div class="edit-modal-head">
       <h2 id="editModalTitle">Edit Product</h2>
-      <button class="modal-close" onclick="closeEditModal()">✕</button>
+      <button class="modal-close" onclick="closeEditModal()">&#10005;</button>
     </div>
     <div class="edit-modal-body" id="editModalBody"></div>
   </div>
@@ -925,79 +732,86 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
     <div class="search-bar-inner">
       <div class="search-input-row">
         <div class="search-box" id="homeSearchBox">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </span>
           <input type="text" id="homeSearchInput" placeholder="Search products, categories…" oninput="onHomeSearch(this.value)" autocomplete="off">
-          <button class="clear-btn" onclick="clearHomeSearch()" title="Clear search">✕</button>
+          <button class="clear-btn" onclick="clearHomeSearch()" title="Clear search">&#10005;</button>
         </div>
       </div>
       <div class="search-cats">
         <span class="search-cat-label">Browse:</span>
         <button class="search-cat-pill active" onclick="homeSearchCat('All',this)">All</button>
-        <button class="search-cat-pill" onclick="homeSearchCat('Flower Pots',this)">🌸 Flower Pots</button>
-        <button class="search-cat-pill" onclick="homeSearchCat('Keychains',this)">🔑 Keychains</button>
-        <button class="search-cat-pill" onclick="homeSearchCat('Lamps',this)">💡 Lamps</button>
-        <button class="search-cat-pill" onclick="homeSearchCat('Custom',this)">✨ Custom</button>
+        <button class="search-cat-pill" onclick="homeSearchCat('Flower Pots',this)">Flower Pots</button>
+        <button class="search-cat-pill" onclick="homeSearchCat('Keychains',this)">Keychains</button>
+        <button class="search-cat-pill" onclick="homeSearchCat('Lamps',this)">Lamps</button>
+        <button class="search-cat-pill" onclick="homeSearchCat('Custom',this)">Custom</button>
       </div>
       <div class="search-results-info" id="homeSearchInfo"></div>
     </div>
   </div>
 
-  <section class="hero">
-    <div class="hero-text">
-      <div class="hero-badge">100% Handcrafted &nbsp;|&nbsp; Made in India</div>
-      <h1>Handmade<br>Treasures<br><em>Crafted with Love</em></h1>
-      <p class="hero-sub">Unique, cute &amp; aesthetic decor to brighten your space. Every piece lovingly crafted from premium pipe cleaners, made just for you.</p>
-      <div class="hero-btns">
-        <button class="btn btn-pink" onclick="showPage('shop')">Shop Now</button>
-        <a class="btn btn-outline" href="https://wa.me/919472736370?text=Hi!%20I%20visited%20your%20website%20and%20would%20love%20to%20browse%20your%20collection." target="_blank" onclick="trackWA('hero-cta')">Order on WhatsApp</a>
-      </div>
-      <div class="hero-stats">
-        <div><div class="stat-num">100+</div><div class="stat-label">Happy Customers</div></div>
-        <div><div class="stat-num">100%</div><div class="stat-label">Handmade</div></div>
-        <div><div class="stat-num">PAN India</div><div class="stat-label">Delivery</div></div>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="hero-img-wrap">
-        <div id="heroImgWrap">
-          <div class="hero-img-placeholder"><span>🌸</span><span>Hero image — upload in Admin Panel</span></div>
-        </div>
-        <div class="hero-float">
-          <div class="hero-float-icon">🌸</div>
-          <div><strong>Premium Handmade</strong><p>Pipe cleaner art, crafted with care</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Home search results (shown when searching) -->
+  <!-- Home search results — appears here, ABOVE hero -->
   <div id="homeSearchResults" style="display:none;padding:32px 5%;max-width:1200px;margin:0 auto;">
     <div class="shop-head"><h2 id="homeSearchResultTitle">Search Results</h2><span id="homeSearchResultCount"></span></div>
     <div class="products-grid" id="homeSearchGrid"></div>
   </div>
 
   <div id="homeDefaultContent">
+    <section class="hero">
+      <div class="hero-text">
+        <div class="hero-badge">100% Handcrafted &nbsp;|&nbsp; Made in India</div>
+        <h1>Handmade<br>Treasures<br><em>Crafted with Love</em></h1>
+        <p class="hero-sub">Unique, cute &amp; aesthetic decor to brighten your space. Every piece lovingly crafted from premium pipe cleaners, made just for you.</p>
+        <div class="hero-btns">
+          <button class="btn btn-pink" onclick="showPage('shop')">Shop Now</button>
+          <a class="btn btn-outline" href="https://wa.me/919472736370?text=Hi!%20I%20visited%20your%20website%20and%20would%20love%20to%20browse%20your%20collection." target="_blank" onclick="trackWA('hero-cta')">Order on WhatsApp</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="stat-num">100+</div><div class="stat-label">Happy Customers</div></div>
+          <div><div class="stat-num">100%</div><div class="stat-label">Handmade</div></div>
+          <div><div class="stat-num">PAN India</div><div class="stat-label">Delivery</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img-wrap">
+          <div id="heroImgWrap">
+            <div class="hero-img-placeholder"><span>Hero image</span><span style="font-size:12px;">Upload in Admin Panel</span></div>
+          </div>
+          <div class="hero-float">
+            <div class="hero-float-icon">
+              <svg width="18" height="18" fill="none" stroke="var(--pink)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22c4.97-2.5 8-6.5 8-10.5C20 7.36 16.42 4 12 4S4 7.36 4 11.5c0 4 3.03 8 8 10.5z"/><circle cx="12" cy="11" r="2"/></svg>
+            </div>
+            <div><strong>Premium Handmade</strong><p>Pipe cleaner art, crafted with care</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="intro-strip">
       <div class="intro-strip-inner">
         <h2>Welcome to Tiny Little Things</h2>
         <p>A handmade brand where every product is carefully crafted with love and creativity. Each piece is unique, adding warmth and personality to your space.</p>
         <div class="intro-pills">
-          <div class="intro-pill p">✨ 100% Handmade</div>
+          <div class="intro-pill p">100% Handmade</div>
           <div class="intro-pill s">Perfect for Gifting</div>
           <div class="intro-pill o">Unique &amp; Customizable</div>
           <div class="intro-pill m">Made in India</div>
         </div>
       </div>
     </section>
+
     <section class="cats-section">
       <div class="sec-title"><div class="eyebrow">Browse by</div><h2>Our Collections</h2><div class="pill-divider"></div></div>
       <div class="cats-grid" id="catsGrid"></div>
     </section>
+
     <section class="best-section">
       <div class="sec-title"><div class="eyebrow">Top Picks</div><h2>Our Bestsellers</h2><p>Our most-loved handmade creations — adored by hundreds of happy customers.</p><div class="pill-divider"></div></div>
       <div class="products-grid" id="bestsellersGrid"></div>
-      <div style="text-align:center;margin-top:38px;"><button class="btn btn-pink" onclick="showPage('shop')">View All Products →</button></div>
+      <div style="text-align:center;margin-top:38px;"><button class="btn btn-pink" onclick="showPage('shop')">View All Products</button></div>
     </section>
+
     <section class="about-prev">
       <div class="about-prev-grid">
         <div class="about-imgs">
@@ -1011,31 +825,69 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
           <p>Every piece at Tiny Little Things is born from passion and patience. We believe handmade art carries a warmth no machine can replicate.</p>
           <p>Founded with the dream of bringing beautiful, affordable handmade decor to every home in India.</p>
           <div class="founders-row">
-            <div class="founder-chip"><div class="founder-av" id="founderSanskar">👤</div><span>Sanskar Singh</span></div>
-            <div class="founder-chip"><div class="founder-av" id="founderRadhika">👤</div><span>Radhika Kalra</span></div>
+            <div class="founder-chip">
+              <div class="founder-av" id="founderSanskar">
+                <svg width="16" height="16" fill="none" stroke="var(--text-light)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <span>Sanskar Singh</span>
+            </div>
+            <div class="founder-chip">
+              <div class="founder-av" id="founderRadhika">
+                <svg width="16" height="16" fill="none" stroke="var(--text-light)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <span>Radhika Kalra</span>
+            </div>
           </div>
           <button class="btn btn-pink" onclick="showPage('about')">Know Our Story</button>
         </div>
       </div>
     </section>
+
     <section class="why-section">
       <div class="sec-title"><div class="eyebrow">Why choose us</div><h2>What Makes Us Special</h2><div class="pill-divider"></div></div>
       <div class="why-grid">
-        <div class="why-card"><div class="why-icon" style="background:var(--pink-pale);">✨</div><h4>100% Handmade</h4><p>Every single piece is crafted by hand with love and care</p></div>
-        <div class="why-card"><div class="why-icon" style="background:var(--sage-pale);">🎁</div><h4>Perfect for Gifting</h4><p>Thoughtful, unique gifts for birthdays, anniversaries &amp; all occasions</p></div>
-        <div class="why-card"><div class="why-icon" style="background:#fff3e8;">🎨</div><h4>Customizable</h4><p>Tell us your vision and we'll craft it into reality, just for you</p></div>
-        <div class="why-card"><div class="why-icon" style="background:#f0eeff;">🚚</div><h4>Pan India Delivery</h4><p>We ship to every corner of India with love and care</p></div>
+        <div class="why-card">
+          <div class="why-icon" style="background:var(--pink-pale);">
+            <svg width="28" height="28" fill="none" stroke="var(--pink)" stroke-width="1.5" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h4>100% Handmade</h4>
+          <p>Every single piece is crafted by hand with love and care</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon" style="background:var(--sage-pale);">
+            <svg width="28" height="28" fill="none" stroke="var(--sage)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+          </div>
+          <h4>Perfect for Gifting</h4>
+          <p>Thoughtful, unique gifts for birthdays, anniversaries &amp; all occasions</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon" style="background:#fff3e8;">
+            <svg width="28" height="28" fill="none" stroke="#d97706" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          </div>
+          <h4>Customizable</h4>
+          <p>Tell us your vision and we'll craft it into reality, just for you</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon" style="background:#f0eeff;">
+            <svg width="28" height="28" fill="none" stroke="#7c6fcd" stroke-width="1.5" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-1"/><circle cx="7" cy="20" r="2"/><circle cx="17" cy="20" r="2"/></svg>
+          </div>
+          <h4>Pan India Delivery</h4>
+          <p>We ship to every corner of India with love and care</p>
+        </div>
       </div>
     </section>
+
     <section class="testi-section">
       <div class="sec-title"><div class="eyebrow">Customer Love</div><h2>What People Say</h2><div class="pill-divider"></div></div>
       <div class="testi-grid" id="testiGrid"></div>
     </section>
+
     <section class="insta-section">
       <div class="sec-title"><div class="eyebrow">Follow Along</div><h2>Find Us on Instagram</h2><p>Tag us @tiny_littlethings__ and we might feature you!</p></div>
       <div class="insta-grid" id="instaGrid"></div>
       <a class="btn btn-pink" href="https://www.instagram.com/tiny_littlethings__?igsh=MTNpYjZqdWlzZTBoOA==" target="_blank">Follow @tiny_littlethings__</a>
     </section>
+
     <section class="cta-banner">
       <h2>Looking for something special?</h2>
       <p>Explore our full collection and find your perfect piece — or reach out for a custom creation!</p>
@@ -1056,18 +908,20 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
     <div class="search-bar-inner">
       <div class="search-input-row">
         <div class="search-box" id="shopSearchBox">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </span>
           <input type="text" id="shopSearchInput" placeholder="Search by name, description…" oninput="onShopSearch(this.value)" autocomplete="off">
-          <button class="clear-btn" onclick="clearShopSearch()" title="Clear search">✕</button>
+          <button class="clear-btn" onclick="clearShopSearch()" title="Clear search">&#10005;</button>
         </div>
       </div>
       <div class="search-cats">
         <span class="search-cat-label">Category:</span>
         <button class="search-cat-pill active" onclick="filterShopSearch('All',this)">All</button>
-        <button class="search-cat-pill" onclick="filterShopSearch('Flower Pots',this)">🌸 Flower Pots</button>
-        <button class="search-cat-pill" onclick="filterShopSearch('Keychains',this)">🔑 Keychains</button>
-        <button class="search-cat-pill" onclick="filterShopSearch('Lamps',this)">💡 Lamps</button>
-        <button class="search-cat-pill" onclick="filterShopSearch('Custom',this)">✨ Custom</button>
+        <button class="search-cat-pill" onclick="filterShopSearch('Flower Pots',this)">Flower Pots</button>
+        <button class="search-cat-pill" onclick="filterShopSearch('Keychains',this)">Keychains</button>
+        <button class="search-cat-pill" onclick="filterShopSearch('Lamps',this)">Lamps</button>
+        <button class="search-cat-pill" onclick="filterShopSearch('Custom',this)">Custom</button>
       </div>
       <div class="search-results-info" id="shopSearchInfo"></div>
     </div>
@@ -1087,7 +941,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
         <h3>Price Range</h3>
         <div class="price-wrap">
           <input type="range" min="99" max="1999" value="1999" id="priceSlider" oninput="updatePrice(this.value)">
-          <div class="price-labels"><span>₹99</span><span id="priceLabel">Up to ₹1999</span></div>
+          <div class="price-labels"><span>&#8377;99</span><span id="priceLabel">Up to &#8377;1999</span></div>
         </div>
       </div>
       <button class="btn btn-sage" style="width:100%;" onclick="showPage('custom')">Custom Order</button>
@@ -1118,33 +972,21 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   <div class="team-section">
     <div class="sec-title"><div class="eyebrow">Meet the Makers</div><h2>The Hearts Behind Tiny Little Things</h2><div class="pill-divider"></div></div>
     <div class="team-grid">
-      <!-- SANSKAR — Updated roles -->
       <div class="team-card">
-        <div class="team-av" id="teamSanskar">👤</div>
+        <div class="team-av" id="teamSanskar">
+          <svg width="36" height="36" fill="none" stroke="var(--pink)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
         <h3>Sanskar Singh</h3>
-        <p style="font-size:13px;font-weight:700;color:var(--pink);margin-bottom:8px;">Co-Founder</p>
-        <div class="team-role-tags">
-          <span class="team-role-tag pink">🎨 Designer</span>
-          <span class="team-role-tag pink">✏️ Artist</span>
-          <span class="team-role-tag amber">💻 Web & Tech</span>
-          <span class="team-role-tag sage">📱 Social Media</span>
-          <span class="team-role-tag amber">🛒 E-Commerce</span>
-          <span class="team-role-tag sage">🔬 R&amp;D</span>
-        </div>
-        <p style="font-size:12px;color:var(--text-light);margin-top:12px;line-height:1.6;">The creative and digital force behind Tiny Little Things — designing products, building the brand, and driving innovation.</p>
+        <p style="font-size:13px;font-weight:700;color:var(--pink);margin-bottom:12px;">Co-Founder</p>
+        <p style="font-size:12px;color:var(--text-light);line-height:1.6;">The creative and digital force behind Tiny Little Things — designing products, building the brand, and driving innovation.</p>
       </div>
-      <!-- RADHIKA — Updated roles -->
       <div class="team-card">
-        <div class="team-av" id="teamRadhika">👤</div>
-        <h3>Radhika Kalra</h3>
-        <p style="font-size:13px;font-weight:700;color:var(--pink);margin-bottom:8px;">Co-Founder</p>
-        <div class="team-role-tags">
-          <span class="team-role-tag pink">✏️ Artist</span>
-          <span class="team-role-tag sage">⚙️ Operations</span>
-          <span class="team-role-tag amber">💰 Finance</span>
-          <span class="team-role-tag sage">📦 Fulfillment</span>
+        <div class="team-av" id="teamRadhika">
+          <svg width="36" height="36" fill="none" stroke="var(--pink)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
-        <p style="font-size:12px;color:var(--text-light);margin-top:12px;line-height:1.6;">The operational heart of the brand — crafting with precision while keeping every order, process, and penny perfectly in place.</p>
+        <h3>Radhika Kalra</h3>
+        <p style="font-size:13px;font-weight:700;color:var(--pink);margin-bottom:12px;">Co-Founder</p>
+        <p style="font-size:12px;color:var(--text-light);line-height:1.6;">The operational heart of the brand — crafting with precision while keeping every order, process, and penny perfectly in place.</p>
       </div>
     </div>
   </div>
@@ -1165,10 +1007,30 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
     <div class="contact-info">
       <h2>We're Here for You</h2>
       <p>Whether you want to place a custom order, ask about a product, or just say hi — we're always happy to chat. We usually reply within 24 hours.</p>
-      <div class="c-item"><div class="c-icon green-bg">💬</div><div><h4>WhatsApp</h4><p><a href="https://wa.me/919472736370">+91 9472736370</a></p></div></div>
-      <div class="c-item"><div class="c-icon pink-bg">📷</div><div><h4>Instagram</h4><p><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">@tiny_littlethings__</a></p></div></div>
-      <div class="c-item"><div class="c-icon pink-bg">📍</div><div><h4>Based in</h4><p>India — Shipping PAN India</p></div></div>
-      <div class="c-item"><div class="c-icon green-bg">⏰</div><div><h4>Response Time</h4><p>Within 24 hours</p></div></div>
+      <div class="c-item">
+        <div class="c-icon green-bg">
+          <svg width="20" height="20" fill="none" stroke="#2e7d32" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.35h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div><h4>WhatsApp</h4><p><a href="https://wa.me/919472736370">+91 9472736370</a></p></div>
+      </div>
+      <div class="c-item">
+        <div class="c-icon pink-bg">
+          <svg width="20" height="20" fill="none" stroke="var(--pink)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </div>
+        <div><h4>Instagram</h4><p><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">@tiny_littlethings__</a></p></div>
+      </div>
+      <div class="c-item">
+        <div class="c-icon pink-bg">
+          <svg width="20" height="20" fill="none" stroke="var(--pink)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div><h4>Based in</h4><p>India — Shipping PAN India</p></div>
+      </div>
+      <div class="c-item">
+        <div class="c-icon green-bg">
+          <svg width="20" height="20" fill="none" stroke="#2e7d32" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div><h4>Response Time</h4><p>Within 24 hours</p></div>
+      </div>
       <a class="btn btn-wa" href="https://wa.me/919472736370" target="_blank" onclick="trackWA('contact-page')">Chat on WhatsApp</a>
     </div>
     <div class="form-card">
@@ -1188,9 +1050,9 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
   </div>
 </div>
 
-<!-- CUSTOM PAGE -->
+<!-- CUSTOM & BULK ORDER PAGE -->
 <div class="page" id="page-custom">
-  <div class="page-banner"><h1>Custom Orders</h1><p>Want something personalized? We create custom handmade products just for you!</p></div>
+  <div class="page-banner"><h1>Custom &amp; Bulk Orders</h1><p>Personal creations, wholesale gifting &amp; corporate orders — all made with love, just for you.</p></div>
   <div style="padding:72px 5% 0;max-width:900px;margin:0 auto;text-align:center;">
     <div class="sec-title" style="margin-bottom:0;"><div class="eyebrow">How it works</div><h2>3 Simple Steps</h2><div class="pill-divider"></div></div>
     <div class="custom-steps">
@@ -1208,9 +1070,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
     </div>
   </div>
 
-  <!-- BULK / CORPORATE ORDERS SECTION -->
+  <!-- BULK / CORPORATE ORDERS -->
   <div style="padding:0 5% 80px;max-width:900px;margin:0 auto;">
-
     <div class="bulk-divider">
       <div class="bulk-divider-line"></div>
       <span>Also Offering</span>
@@ -1218,48 +1079,60 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
     </div>
 
     <div class="bulk-section">
-      <div class="bulk-eyebrow">🏢 For Businesses &amp; Events</div>
+      <div class="bulk-eyebrow">For Businesses &amp; Events</div>
       <h2>Bulk &amp; Corporate<br>Orders Welcome</h2>
       <p>Planning a corporate gifting event, employee appreciation drive, or large celebration? We craft premium handmade pieces at scale — every single one made with the same love and care as an individual order.</p>
 
       <div class="bulk-features">
         <div class="bulk-feature">
-          <div class="bulk-feature-icon">🎁</div>
+          <div class="bulk-feature-icon">
+            <svg width="18" height="18" fill="none" stroke="var(--pink-light)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+          </div>
           <div>
             <h4>Corporate Gifting</h4>
             <p>Unique, artisanal gifts that leave a lasting impression on clients, employees, and partners.</p>
           </div>
         </div>
         <div class="bulk-feature">
-          <div class="bulk-feature-icon">🎊</div>
+          <div class="bulk-feature-icon">
+            <svg width="18" height="18" fill="none" stroke="var(--pink-light)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
           <div>
             <h4>Event Return Gifts</h4>
             <p>Weddings, college events, conferences — our handmade pieces make memories tangible.</p>
           </div>
         </div>
         <div class="bulk-feature">
-          <div class="bulk-feature-icon">📦</div>
+          <div class="bulk-feature-icon">
+            <svg width="18" height="18" fill="none" stroke="var(--pink-light)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
           <div>
             <h4>Minimum Order: 10 Pieces</h4>
             <p>We accept bulk orders starting from 10 units, with special pricing for larger quantities.</p>
           </div>
         </div>
         <div class="bulk-feature">
-          <div class="bulk-feature-icon">✏️</div>
+          <div class="bulk-feature-icon">
+            <svg width="18" height="18" fill="none" stroke="var(--pink-light)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
           <div>
             <h4>Brand Customization</h4>
             <p>Add your brand colors, logo packaging, or personalized notes — we handle it all.</p>
           </div>
         </div>
         <div class="bulk-feature">
-          <div class="bulk-feature-icon">💰</div>
+          <div class="bulk-feature-icon">
+            <svg width="18" height="18" fill="none" stroke="var(--pink-light)" stroke-width="1.5" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
           <div>
             <h4>Volume Discounts</h4>
             <p>Get attractive pricing for bulk orders. The more you order, the more you save.</p>
           </div>
         </div>
         <div class="bulk-feature">
-          <div class="bulk-feature-icon">🚚</div>
+          <div class="bulk-feature-icon">
+            <svg width="18" height="18" fill="none" stroke="var(--pink-light)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-1"/><circle cx="7" cy="20" r="2"/><circle cx="17" cy="20" r="2"/></svg>
+          </div>
           <div>
             <h4>PAN India Delivery</h4>
             <p>We ship bulk orders across India with careful packaging to ensure safe delivery.</p>
@@ -1269,13 +1142,13 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 
       <div class="bulk-actions">
         <a class="btn-bulk-wa" href="https://wa.me/919472736370?text=Hi!%20I%27m%20interested%20in%20a%20bulk%20%2F%20corporate%20order%20from%20Tiny%20Little%20Things.%20Can%20you%20share%20details%3F" target="_blank" onclick="trackWA('bulk-order')">
-          💬 WhatsApp for Bulk Inquiry
+          WhatsApp for Bulk Inquiry
         </a>
         <a class="btn-bulk-outline" href="https://www.instagram.com/tiny_littlethings__" target="_blank">
-          📷 Instagram DM
+          Instagram DM
         </a>
         <a class="btn-bulk-outline" onclick="showPage('contact')">
-          ✉️ Send a Message
+          Send a Message
         </a>
       </div>
     </div>
@@ -1290,7 +1163,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
       <ul>
         <li>Orders are processed within 2–4 business days after confirmation</li>
         <li>Standard delivery time is 5–7 working days across India</li>
-        <li>Free shipping on orders above ₹999</li>
+        <li>Free shipping on orders above &#8377;999</li>
         <li>We ship PAN India — from Kashmir to Kanyakumari!</li>
       </ul>
     </div>
@@ -1308,36 +1181,38 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 <div class="page" id="page-admin">
   <div id="adminLogin" class="admin-login">
     <div class="login-card">
-      <div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;">🌸</div>
+      <div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--pink-pale),var(--sage-pale));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+        <svg width="32" height="32" fill="none" stroke="var(--pink)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22c4.97-2.5 8-6.5 8-10.5C20 7.36 16.42 4 12 4S4 7.36 4 11.5c0 4 3.03 8 8 10.5z"/><circle cx="12" cy="11" r="2"/></svg>
+      </div>
       <h2>Admin Panel</h2>
       <p>Tiny Little Things — Manage your store</p>
       <div id="fbSetupWarning" style="display:none;" class="fb-setup-banner">
-        <strong>⚠️ Firebase Not Configured</strong>
+        <strong>Firebase Not Configured</strong>
         This admin panel requires Firebase to save data across devices.
       </div>
       <input type="text" id="adminUser" placeholder="Username" onkeydown="if(event.key==='Enter')adminLogin()">
       <input type="password" id="adminPass" placeholder="Password" onkeydown="if(event.key==='Enter')adminLogin()">
-      <button class="btn btn-pink" onclick="adminLogin()">Login →</button>
+      <button class="btn btn-pink" onclick="adminLogin()">Login</button>
       <p class="login-err" id="loginErr"></p>
     </div>
   </div>
 
   <div id="adminDash" class="admin-layout" style="display:none;">
     <div class="admin-header">
-      <div><h1>🌸 Tiny Little Things — Admin</h1><span id="adminDateTime"></span></div>
+      <div><h1>Tiny Little Things — Admin</h1><span id="adminDateTime"></span></div>
       <div style="display:flex;gap:10px;align-items:center;">
         <span id="syncStatus" style="font-size:12px;color:var(--sage);font-weight:600;"></span>
-        <button class="btn btn-outline btn-sm" onclick="showPage('home')">← View Site</button>
+        <button class="btn btn-outline btn-sm" onclick="showPage('home')">View Site</button>
         <button class="btn btn-danger btn-sm" onclick="adminLogout()">Logout</button>
       </div>
     </div>
     <div class="admin-body">
       <div class="admin-sidebar">
-        <div class="admin-nav-link active" onclick="switchAdminTab('dashboard')" id="atab-dashboard"><span>📊</span> Dashboard</div>
-        <div class="admin-nav-link" onclick="switchAdminTab('products')" id="atab-products"><span>🛍️</span> Products</div>
-        <div class="admin-nav-link" onclick="switchAdminTab('testimonials')" id="atab-testimonials"><span>💬</span> Testimonials</div>
-        <div class="admin-nav-link" onclick="switchAdminTab('images')" id="atab-images"><span>🖼️</span> Site Images</div>
-        <div class="admin-nav-link" onclick="switchAdminTab('settings')" id="atab-settings"><span>⚙️</span> Settings</div>
+        <div class="admin-nav-link active" onclick="switchAdminTab('dashboard')" id="atab-dashboard"><span>&#9636;</span> Dashboard</div>
+        <div class="admin-nav-link" onclick="switchAdminTab('products')" id="atab-products"><span>&#9784;</span> Products</div>
+        <div class="admin-nav-link" onclick="switchAdminTab('testimonials')" id="atab-testimonials"><span>&#9825;</span> Testimonials</div>
+        <div class="admin-nav-link" onclick="switchAdminTab('images')" id="atab-images"><span>&#9728;</span> Site Images</div>
+        <div class="admin-nav-link" onclick="switchAdminTab('settings')" id="atab-settings"><span>&#9881;</span> Settings</div>
       </div>
       <div class="admin-content">
         <!-- DASHBOARD -->
@@ -1359,8 +1234,8 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
           </div>
           <div class="activity-log"><h3>Recent Activity</h3><div id="activityLog"></div></div>
           <div style="display:flex;gap:10px;margin-top:10px;">
-            <button class="btn btn-outline btn-sm" onclick="refreshDashboard()">🔄 Refresh</button>
-            <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset all analytics?')){resetAnalytics();}">🗑️ Reset Analytics</button>
+            <button class="btn btn-outline btn-sm" onclick="refreshDashboard()">Refresh</button>
+            <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset all analytics?')){resetAnalytics();}">Reset Analytics</button>
           </div>
         </div>
         <!-- PRODUCTS -->
@@ -1380,7 +1255,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
         <div class="admin-section" id="asec-testimonials">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
             <div class="admin-page-title" style="margin-bottom:0;">Manage Testimonials</div>
-            <button class="btn btn-pink btn-sm" onclick="saveTestimonialsAdmin()">💾 Save All</button>
+            <button class="btn btn-pink btn-sm" onclick="saveTestimonialsAdmin()">Save All</button>
           </div>
           <div class="testi-edit-grid" id="testiEditGrid"></div>
         </div>
@@ -1388,42 +1263,42 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
         <div class="admin-section" id="asec-images">
           <div class="admin-page-title">Site Images</div>
           <div class="fb-setup-banner" id="imgFirebaseNote" style="background:#edf5ee;border-color:#8aab8c;color:#2d6a31;display:none;">
-            ✅ Images saved as Base64 in Firestore — each image is its own document. Fully free, synced across all devices instantly.
+            Images saved as Base64 in Firestore — each image is its own document. Fully free, synced across all devices instantly.
           </div>
           <div class="fb-setup-banner" id="imgLocalNote">
-            ⚠️ Firebase not configured — images will be stored in this browser only.
+            Firebase not configured — images will be stored in this browser only.
           </div>
           <div class="settings-section">
-            <h3>🌟 Hero &amp; Logo</h3>
+            <h3>Hero &amp; Logo</h3>
             <div class="img-settings-grid">
-              <div class="img-setting-item"><label>Logo Icon</label><div class="img-setting-preview" id="prev-logo"><div class="upload-icon">🌸</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'logo')"></div></div>
-              <div class="img-setting-item"><label>Hero Image</label><div class="img-setting-preview" id="prev-hero"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'hero')"></div></div>
+              <div class="img-setting-item"><label>Logo Icon</label><div class="img-setting-preview" id="prev-logo"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'logo')"></div></div>
+              <div class="img-setting-item"><label>Hero Image</label><div class="img-setting-preview" id="prev-hero"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'hero')"></div></div>
             </div>
           </div>
           <div class="settings-section">
-            <h3>👥 Team Photos</h3>
+            <h3>Team Photos</h3>
             <div class="img-settings-grid">
-              <div class="img-setting-item"><label>Sanskar Singh</label><div class="img-setting-preview" id="prev-team_sanskar"><div class="upload-icon">👤</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'team_sanskar')"></div></div>
-              <div class="img-setting-item"><label>Radhika Kalra</label><div class="img-setting-preview" id="prev-team_radhika"><div class="upload-icon">👤</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'team_radhika')"></div></div>
+              <div class="img-setting-item"><label>Sanskar Singh</label><div class="img-setting-preview" id="prev-team_sanskar"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'team_sanskar')"></div></div>
+              <div class="img-setting-item"><label>Radhika Kalra</label><div class="img-setting-preview" id="prev-team_radhika"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'team_radhika')"></div></div>
             </div>
           </div>
           <div class="settings-section">
-            <h3>📖 About Section</h3>
+            <h3>About Section</h3>
             <div class="img-settings-grid">
-              <div class="img-setting-item"><label>About Main</label><div class="img-setting-preview" id="prev-about_main"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'about_main')"></div></div>
-              <div class="img-setting-item"><label>About Secondary</label><div class="img-setting-preview" id="prev-about_second"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'about_second')"></div></div>
-              <div class="img-setting-item"><label>About Page</label><div class="img-setting-preview" id="prev-about_page"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'about_page')"></div></div>
+              <div class="img-setting-item"><label>About Main</label><div class="img-setting-preview" id="prev-about_main"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'about_main')"></div></div>
+              <div class="img-setting-item"><label>About Secondary</label><div class="img-setting-preview" id="prev-about_second"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'about_second')"></div></div>
+              <div class="img-setting-item"><label>About Page</label><div class="img-setting-preview" id="prev-about_page"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'about_page')"></div></div>
             </div>
           </div>
           <div class="settings-section">
-            <h3>📸 Instagram Grid</h3>
+            <h3>Instagram Grid</h3>
             <div class="img-settings-grid">
-              <div class="img-setting-item"><label>Post 1</label><div class="img-setting-preview" id="prev-insta_1"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_1')"></div></div>
-              <div class="img-setting-item"><label>Post 2</label><div class="img-setting-preview" id="prev-insta_2"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_2')"></div></div>
-              <div class="img-setting-item"><label>Post 3</label><div class="img-setting-preview" id="prev-insta_3"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_3')"></div></div>
-              <div class="img-setting-item"><label>Post 4</label><div class="img-setting-preview" id="prev-insta_4"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_4')"></div></div>
-              <div class="img-setting-item"><label>Post 5</label><div class="img-setting-preview" id="prev-insta_5"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_5')"></div></div>
-              <div class="img-setting-item"><label>Post 6</label><div class="img-setting-preview" id="prev-insta_6"><div class="upload-icon">📷</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_6')"></div></div>
+              <div class="img-setting-item"><label>Post 1</label><div class="img-setting-preview" id="prev-insta_1"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_1')"></div></div>
+              <div class="img-setting-item"><label>Post 2</label><div class="img-setting-preview" id="prev-insta_2"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_2')"></div></div>
+              <div class="img-setting-item"><label>Post 3</label><div class="img-setting-preview" id="prev-insta_3"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_3')"></div></div>
+              <div class="img-setting-item"><label>Post 4</label><div class="img-setting-preview" id="prev-insta_4"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_4')"></div></div>
+              <div class="img-setting-item"><label>Post 5</label><div class="img-setting-preview" id="prev-insta_5"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_5')"></div></div>
+              <div class="img-setting-item"><label>Post 6</label><div class="img-setting-preview" id="prev-insta_6"><div class="upload-icon">+</div><input type="file" accept="image/*" onchange="handleSiteImg(this,'insta_6')"></div></div>
             </div>
           </div>
         </div>
@@ -1431,7 +1306,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
         <div class="admin-section" id="asec-settings">
           <div class="admin-page-title">Settings</div>
           <div class="settings-section">
-            <h3>🔐 Change Password</h3>
+            <h3>Change Password</h3>
             <div class="inline-grid">
               <div class="fg2"><label>New Username</label><input type="text" id="newUser" placeholder="New username"></div>
               <div class="fg2"><label>New Password</label><input type="password" id="newPass" placeholder="New password"></div>
@@ -1439,12 +1314,12 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
             <button class="btn btn-pink btn-sm" onclick="changeCredentials()">Update Credentials</button>
           </div>
           <div class="settings-section">
-            <h3>🗃️ Data Management</h3>
+            <h3>Data Management</h3>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button class="btn btn-sage btn-sm" onclick="exportData()">📥 Export Backup</button>
-              <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFile').click()">📤 Import Backup</button>
+              <button class="btn btn-sage btn-sm" onclick="exportData()">Export Backup</button>
+              <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFile').click()">Import Backup</button>
               <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(this)">
-              <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset ALL data to defaults?'))resetAll();">⚠️ Reset to Defaults</button>
+              <button class="btn btn-danger btn-sm" onclick="if(confirm('Reset ALL data to defaults?'))resetAll();">Reset to Defaults</button>
             </div>
           </div>
         </div>
@@ -1459,8 +1334,12 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
       <div class="logo-name">Tiny Little Things</div>
       <p>Handmade with love in India. Every piece tells a story — let yours begin with us.</p>
       <div class="footer-socials">
-        <a class="s-btn" href="https://www.instagram.com/tiny_littlethings__" target="_blank">📷</a>
-        <a class="s-btn" href="https://wa.me/919472736370" target="_blank">💬</a>
+        <a class="s-btn" href="https://www.instagram.com/tiny_littlethings__" target="_blank">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a class="s-btn" href="https://wa.me/919472736370" target="_blank">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.35h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </a>
       </div>
     </div>
     <div class="footer-col">
@@ -1485,7 +1364,7 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2025 Tiny Little Things. All rights reserved.</p>
+    <p>&#169; 2025 Tiny Little Things. All rights reserved.</p>
     <p>Handcrafted by Sanskar Singh &amp; Radhika Kalra — Made with love in India</p>
   </div>
 </footer>
@@ -1495,17 +1374,17 @@ footer{background:var(--text-dark);color:rgba(255,255,255,.72);padding:60px 5% 2
 // DEFAULT DATA
 // ═══════════════════════════════════════════
 const DEFAULT_PRODUCTS=[
-  {id:1,name:"Sheep Flower Pot",price:299,category:"Flower Pots",badge:"Bestseller",desc:"Meet your new favourite desk companion! This adorable sheep-shaped handmade flower pot is lovingly crafted from premium pipe cleaners.",whatsappMsg:"Hi! I love the *Sheep Flower Pot* (₹299). Could you please confirm availability? 🐑🌸",bestseller:true,img:""},
-  {id:2,name:"Sunflower Pot",price:249,category:"Flower Pots",badge:"Popular",desc:"Bring sunshine indoors with this bright and cheerful handmade Sunflower Pot! Crafted from vibrant yellow and brown pipe cleaners.",whatsappMsg:"Hi! I'm interested in the *Sunflower Pot* (₹249). Could you please confirm availability? 🌻",bestseller:true,img:""},
-  {id:3,name:"Pink Blossom Flower Pot",price:249,category:"Flower Pots",badge:"",desc:"Soft, romantic, and elegantly minimal — the Pink Blossom Flower Pot features delicate pink blooms.",whatsappMsg:"Hi! I'm interested in the *Pink Blossom Flower Pot* (₹249). 🌸",bestseller:true,img:""},
-  {id:4,name:"Pair of Pink Tulips",price:249,category:"Flower Pots",badge:"",desc:"Timeless, delicate, and utterly charming — this Pair of Pink Tulips is handcrafted from premium pipe cleaners.",whatsappMsg:"Hello! I'd love to order the *Pair of Pink Tulips* (₹249). 🌷",bestseller:false,img:""},
-  {id:5,name:"Red Hibiscus Pot",price:249,category:"Flower Pots",badge:"New",desc:"Bold, vibrant, and full of character — the Red Hibiscus Pot is a striking handmade arrangement.",whatsappMsg:"Hi! I'm in love with the *Red Hibiscus Pot* (₹249)! 🌺",bestseller:false,img:""},
-  {id:6,name:"Strawberry Keychain",price:149,category:"Keychains",badge:"Cute!",desc:"Sweet, adorable, and absolutely irresistible — this handmade Strawberry Keychain is a mini work of art!",whatsappMsg:"Hi! The *Strawberry Keychain* (₹149) is so cute! 🍓",bestseller:true,img:""},
-  {id:7,name:"Evil Eye Flower Keychain",price:149,category:"Keychains",badge:"Trending",desc:"Stylish protection meets adorable design in this handmade Evil Eye Flower Keychain!",whatsappMsg:"Hello! I'm interested in the *Evil Eye Flower Keychain* (₹149). 🧿🌸",bestseller:false,img:""},
-  {id:8,name:"Pink Bow Keychain",price:149,category:"Keychains",badge:"",desc:"Feminine, fun, and perfectly charming — the Pink Bow Keychain is a handmade delight!",whatsappMsg:"Hi! I spotted the *Pink Bow Keychain* (₹149)! 🎀",bestseller:false,img:""},
-  {id:9,name:"Rainbow Dino Keychain",price:149,category:"Keychains",badge:"Fan Fav",desc:"Fun, quirky, and totally unique — the Rainbow Dino Keychain features a colourful rainbow backdrop.",whatsappMsg:"Hello! The *Rainbow Dino Keychain* (₹149) is so fun! 🦕🌈",bestseller:true,img:""},
-  {id:10,name:"Teal Lily Lamp Stand",price:349,category:"Lamps",badge:"Artsy",desc:"Enchanting, dreamy, and entirely one-of-a-kind — the Teal Lily Lamp Stand elevates any room instantly.",whatsappMsg:"Hi! I'm in love with the *Teal Lily Lamp Stand* (₹349)! 💐",bestseller:true,img:""},
-  {id:11,name:"Pink Tendril Lamp",price:349,category:"Lamps",badge:"",desc:"Whimsical, romantic, and beautifully crafted — the Pink Tendril Lamp adds magic to any space.",whatsappMsg:"Hello! The *Pink Tendril Lamp* (₹349) is so beautiful! 🌸✨",bestseller:false,img:""}
+  {id:1,name:"Sheep Flower Pot",price:299,category:"Flower Pots",badge:"Bestseller",desc:"Meet your new favourite desk companion! This adorable sheep-shaped handmade flower pot is lovingly crafted from premium pipe cleaners.",whatsappMsg:"Hi! I love the *Sheep Flower Pot* (₹299). Could you please confirm availability?",bestseller:true,img:""},
+  {id:2,name:"Sunflower Pot",price:249,category:"Flower Pots",badge:"Popular",desc:"Bring sunshine indoors with this bright and cheerful handmade Sunflower Pot! Crafted from vibrant yellow and brown pipe cleaners.",whatsappMsg:"Hi! I'm interested in the *Sunflower Pot* (₹249). Could you please confirm availability?",bestseller:true,img:""},
+  {id:3,name:"Pink Blossom Flower Pot",price:249,category:"Flower Pots",badge:"",desc:"Soft, romantic, and elegantly minimal — the Pink Blossom Flower Pot features delicate pink blooms.",whatsappMsg:"Hi! I'm interested in the *Pink Blossom Flower Pot* (₹249).",bestseller:true,img:""},
+  {id:4,name:"Pair of Pink Tulips",price:249,category:"Flower Pots",badge:"",desc:"Timeless, delicate, and utterly charming — this Pair of Pink Tulips is handcrafted from premium pipe cleaners.",whatsappMsg:"Hello! I'd love to order the *Pair of Pink Tulips* (₹249).",bestseller:false,img:""},
+  {id:5,name:"Red Hibiscus Pot",price:249,category:"Flower Pots",badge:"New",desc:"Bold, vibrant, and full of character — the Red Hibiscus Pot is a striking handmade arrangement.",whatsappMsg:"Hi! I'm in love with the *Red Hibiscus Pot* (₹249)!",bestseller:false,img:""},
+  {id:6,name:"Strawberry Keychain",price:149,category:"Keychains",badge:"Cute!",desc:"Sweet, adorable, and absolutely irresistible — this handmade Strawberry Keychain is a mini work of art!",whatsappMsg:"Hi! The *Strawberry Keychain* (₹149) is so cute!",bestseller:true,img:""},
+  {id:7,name:"Evil Eye Flower Keychain",price:149,category:"Keychains",badge:"Trending",desc:"Stylish protection meets adorable design in this handmade Evil Eye Flower Keychain!",whatsappMsg:"Hello! I'm interested in the *Evil Eye Flower Keychain* (₹149).",bestseller:false,img:""},
+  {id:8,name:"Pink Bow Keychain",price:149,category:"Keychains",badge:"",desc:"Feminine, fun, and perfectly charming — the Pink Bow Keychain is a handmade delight!",whatsappMsg:"Hi! I spotted the *Pink Bow Keychain* (₹149)!",bestseller:false,img:""},
+  {id:9,name:"Rainbow Dino Keychain",price:149,category:"Keychains",badge:"Fan Fav",desc:"Fun, quirky, and totally unique — the Rainbow Dino Keychain features a colourful rainbow backdrop.",whatsappMsg:"Hello! The *Rainbow Dino Keychain* (₹149) is so fun!",bestseller:true,img:""},
+  {id:10,name:"Teal Lily Lamp Stand",price:349,category:"Lamps",badge:"Artsy",desc:"Enchanting, dreamy, and entirely one-of-a-kind — the Teal Lily Lamp Stand elevates any room instantly.",whatsappMsg:"Hi! I'm in love with the *Teal Lily Lamp Stand* (₹349)!",bestseller:true,img:""},
+  {id:11,name:"Pink Tendril Lamp",price:349,category:"Lamps",badge:"",desc:"Whimsical, romantic, and beautifully crafted — the Pink Tendril Lamp adds magic to any space.",whatsappMsg:"Hello! The *Pink Tendril Lamp* (₹349) is so beautiful!",bestseller:false,img:""}
 ];
 const DEFAULT_TESTIMONIALS=[
   {name:"Divya Gupta",role:"Student, Lovely Professional University",text:"I ordered cute pipe cleaner flowers for my friend's birthday and honestly they looked even better than real ones! So aesthetic and long-lasting.",img:""},
@@ -1538,9 +1417,7 @@ const IMG_SETTINGS={
 };
 const DEFAULT_IMG={maxW:800,maxH:800,quality:0.80};
 
-// ═══════════════════════════════════════════
-// RUNTIME STATE
-// ═══════════════════════════════════════════
+// STATE
 let PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
 let TESTIMONIALS=JSON.parse(JSON.stringify(DEFAULT_TESTIMONIALS));
 let SITE_IMAGES={};
@@ -1548,25 +1425,18 @@ let CREDENTIALS={user:'admin',pass:'tlt2025'};
 let ANALYTICS={pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]};
 let cart={},currentMaxPrice=1999,currentFilter='All';
 let FB=null,fbConfigured=false;
-
-// Search state
 let homeSearchQuery='',homeSearchCatFilter='All';
 let shopSearchQuery='';
 
-// ═══════════════════════════════════════════
-// STATUS INDICATOR
-// ═══════════════════════════════════════════
+// STATUS
 let _stTimer=null;
 function setStatus(msg,type,dur=2500){
   const el=document.getElementById('fbStatus');if(!el)return;
-  clearTimeout(_stTimer);
-  el.textContent=msg;el.className='fb-status '+type;
+  clearTimeout(_stTimer);el.textContent=msg;el.className='fb-status '+type;
   if(dur>0)_stTimer=setTimeout(()=>el.className='fb-status hidden',dur);
 }
 
-// ═══════════════════════════════════════════
-// FIREBASE INIT
-// ═══════════════════════════════════════════
+// FIREBASE
 window.addEventListener('fb-ready',async()=>{
   FB=window._fb;
   const key=(FB.db.app.options.apiKey||'');
@@ -1574,23 +1444,23 @@ window.addEventListener('fb-ready',async()=>{
     fbConfigured=true;
     document.getElementById('imgFirebaseNote').style.display='block';
     document.getElementById('imgLocalNote').style.display='none';
-    setStatus('☁️ Connecting to cloud...','saving',0);
+    setStatus('Connecting to cloud...','saving',0);
     try{
       await loadNonImageDataFromFirebase();
       renderCategories();renderBestsellers();renderTestimonials();renderShop();
-      setStatus('☁️ Loading images...','saving',0);
+      setStatus('Loading images...','saving',0);
       await loadImagesFromFirebase();
       applyAllSiteImages();renderInstagram();
-      setStatus('✅ All images loaded','saved',3000);
+      setStatus('All images loaded','saved',3000);
     }catch(e){
       console.error('Firebase load error:',e);
-      setStatus('⚠️ Cloud error — using local data','error',4000);
+      setStatus('Cloud error — using local data','error',4000);
       loadFromLocal();applyAllData();
     }
   }else{
     fbConfigured=false;
     document.getElementById('fbSetupWarning').style.display='block';
-    setStatus('⚠️ Firebase not set up — data is local only','error',6000);
+    setStatus('Firebase not set up — data is local only','error',6000);
     loadFromLocal();applyAllData();
   }
 });
@@ -1599,43 +1469,27 @@ setTimeout(()=>{
   if(!window._fbReady){
     fbConfigured=false;
     document.getElementById('fbSetupWarning').style.display='block';
-    setStatus('⚠️ Firebase not set up — data is local only','error',6000);
+    setStatus('Firebase not set up — data is local only','error',6000);
     loadFromLocal();applyAllData();
   }
 },4000);
 
-// ═══════════════════════════════════════════
 // FIRESTORE HELPERS
-// ═══════════════════════════════════════════
 async function fbSetDoc(col,docId,data){
-  if(!fbConfigured||!FB){console.warn("Firebase not configured");return false;}
-  try{
-    const {db,doc,setDoc}=FB;
-    await setDoc(doc(db,col,docId),data);
-    console.log("✅ Saved to Firestore:",col,docId);return true;
-  }catch(e){
-    console.error("❌ FIREBASE ERROR:",e.code,e.message);
-    setStatus("❌ "+(e.code||"error"),"error",4000);
-    alert("Firebase Error: "+e.message);return false;
-  }
+  if(!fbConfigured||!FB)return false;
+  try{const {db,doc,setDoc}=FB;await setDoc(doc(db,col,docId),data);return true;}
+  catch(e){console.error("Firebase Error:",e.code,e.message);setStatus("Error: "+(e.code||"error"),"error",4000);alert("Firebase Error: "+e.message);return false;}
 }
 async function fbGetDoc(col,docId){
   if(!fbConfigured||!FB)return null;
-  try{
-    const {db,doc,getDoc}=FB;
-    const snap=await getDoc(doc(db,col,docId));
-    return snap.exists()?snap.data():null;
-  }catch(e){console.error('fbGetDoc',col,docId,e);return null;}
+  try{const {db,doc,getDoc}=FB;const snap=await getDoc(doc(db,col,docId));return snap.exists()?snap.data():null;}
+  catch(e){console.error('fbGetDoc',col,docId,e);return null;}
 }
 async function fbGetAllDocs(col){
   if(!fbConfigured||!FB)return {};
-  try{
-    const {db,collection,getDocs}=FB;
-    const snap=await getDocs(collection(db,col));
-    const result={};snap.forEach(d=>result[d.id]=d.data());return result;
-  }catch(e){console.error('fbGetAllDocs',col,e);return {};}
+  try{const {db,collection,getDocs}=FB;const snap=await getDocs(collection(db,col));const result={};snap.forEach(d=>result[d.id]=d.data());return result;}
+  catch(e){console.error('fbGetAllDocs',col,e);return {};}
 }
-
 async function loadNonImageDataFromFirebase(){
   const [p,t,c,a]=await Promise.all([
     fbGetDoc('tlt_data','products'),fbGetDoc('tlt_data','testimonials'),
@@ -1651,19 +1505,12 @@ async function loadImagesFromFirebase(){
   let loaded=0;
   Object.keys(imgs).forEach(key=>{
     const imgVal=imgs[key]&&imgs[key].img;
-    if(imgVal&&typeof imgVal==='string'&&imgVal.length>200&&imgVal.startsWith('data:')){
-      SITE_IMAGES[key]=imgVal;loaded++;
-    }
+    if(imgVal&&typeof imgVal==='string'&&imgVal.length>200&&imgVal.startsWith('data:')){SITE_IMAGES[key]=imgVal;loaded++;}
   });
   console.log('Loaded '+loaded+' site images from Firebase');
 }
-async function loadFromFirebase(){
-  await loadNonImageDataFromFirebase();await loadImagesFromFirebase();
-}
 
-// ═══════════════════════════════════════════
 // LOCALSTORAGE
-// ═══════════════════════════════════════════
 function saveLocal(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){console.warn('localStorage full or blocked');}}
 function loadLocal(key){try{const v=localStorage.getItem(key);return v?JSON.parse(v):null;}catch(e){return null;}}
 function loadFromLocal(){
@@ -1674,43 +1521,33 @@ function loadFromLocal(){
   const a=loadLocal('tlt_analytics');if(a)ANALYTICS=Object.assign({pageViews:{},cartOpens:0,waClicks:0,productViews:{},productCart:{},daily:{},activityLog:[]},a);
 }
 
-// ═══════════════════════════════════════════
 // SAVE HELPERS
-// ═══════════════════════════════════════════
 async function saveProducts(){
   saveLocal('tlt_products',PRODUCTS);
-  if(fbConfigured){setStatus('☁️ Saving products...','saving',0);const ok=await fbSetDoc('tlt_data','products',{data:PRODUCTS});if(ok)setStatus('✅ Products saved to cloud','saved');else setStatus('⚠️ Cloud save failed','error',3000);}
+  if(fbConfigured){setStatus('Saving products...','saving',0);const ok=await fbSetDoc('tlt_data','products',{data:PRODUCTS});if(ok)setStatus('Products saved to cloud','saved');else setStatus('Cloud save failed','error',3000);}
 }
 async function saveTestimonials(){
   saveLocal('tlt_testimonials',TESTIMONIALS);
-  if(fbConfigured){const ok=await fbSetDoc('tlt_data','testimonials',{data:TESTIMONIALS});if(ok)setStatus('✅ Testimonials saved','saved');}
+  if(fbConfigured){const ok=await fbSetDoc('tlt_data','testimonials',{data:TESTIMONIALS});if(ok)setStatus('Testimonials saved','saved');}
 }
-async function saveCredentials(){
-  saveLocal('tlt_credentials',CREDENTIALS);
-  if(fbConfigured)await fbSetDoc('tlt_data','credentials',CREDENTIALS);
-}
-async function saveAnalytics(){
-  saveLocal('tlt_analytics',ANALYTICS);
-  if(fbConfigured)await fbSetDoc('tlt_data','analytics',ANALYTICS);
-}
+async function saveCredentials(){saveLocal('tlt_credentials',CREDENTIALS);if(fbConfigured)await fbSetDoc('tlt_data','credentials',CREDENTIALS);}
+async function saveAnalytics(){saveLocal('tlt_analytics',ANALYTICS);if(fbConfigured)await fbSetDoc('tlt_data','analytics',ANALYTICS);}
 async function saveSingleImage(key,base64){
-  if(!base64||!base64.startsWith('data:')){return false;}
+  if(!base64||!base64.startsWith('data:'))return false;
   SITE_IMAGES[key]=base64;
   try{const allImgs=loadLocal('tlt_siteImages')||{};allImgs[key]=base64;saveLocal('tlt_siteImages',allImgs);}catch(e){console.warn('Could not save image to localStorage:',e);}
   if(fbConfigured){
     const sizeKB=Math.round(base64.length/1024);
-    if(sizeKB>700){setStatus('⚠️ Image too large ('+sizeKB+'KB) — try a smaller photo','error',5000);return false;}
-    setStatus('☁️ Saving image to cloud...','saving',0);
+    if(sizeKB>700){setStatus('Image too large ('+sizeKB+'KB) — try a smaller photo','error',5000);return false;}
+    setStatus('Saving image to cloud...','saving',0);
     const ok=await fbSetDoc('tlt_images',key,{img:base64});
-    if(ok){setStatus('✅ Image saved ('+sizeKB+'KB) — visible on all devices!','saved',3000);const ss=document.getElementById('syncStatus');if(ss){ss.textContent='✅ Synced';setTimeout(()=>ss.textContent='',3000);}return true;}
-    else{setStatus('⚠️ Cloud save failed','error',4000);return false;}
+    if(ok){setStatus('Image saved ('+sizeKB+'KB) — visible on all devices!','saved',3000);const ss=document.getElementById('syncStatus');if(ss){ss.textContent='Synced';setTimeout(()=>ss.textContent='',3000);}return true;}
+    else{setStatus('Cloud save failed','error',4000);return false;}
   }
   return true;
 }
 
-// ═══════════════════════════════════════════
 // IMAGE COMPRESSION
-// ═══════════════════════════════════════════
 function compressImage(file,maxW,maxH,quality){
   return new Promise(resolve=>{
     const canvas=document.createElement('canvas');const ctx=canvas.getContext('2d');const img=new Image();const reader=new FileReader();
@@ -1724,21 +1561,15 @@ function compressImage(file,maxW,maxH,quality){
   });
 }
 
-// ═══════════════════════════════════════════
 // APPLY ALL DATA
-// ═══════════════════════════════════════════
-function applyAllData(){
-  applyAllSiteImages();renderCategories();renderBestsellers();renderTestimonials();renderInstagram();renderShop();
-}
+function applyAllData(){applyAllSiteImages();renderCategories();renderBestsellers();renderTestimonials();renderInstagram();renderShop();}
 
-// ═══════════════════════════════════════════
 // ANALYTICS
-// ═══════════════════════════════════════════
 function today(){return new Date().toISOString().split('T')[0];}
 function ensureDay(){if(!ANALYTICS.daily[today()])ANALYTICS.daily[today()]={views:0,carts:0,wa:0};}
 function trackPageView(page){ANALYTICS.pageViews[page]=(ANALYTICS.pageViews[page]||0)+1;ensureDay();ANALYTICS.daily[today()].views++;saveAnalytics();}
 function trackCartOpen(){ANALYTICS.cartOpens=(ANALYTICS.cartOpens||0)+1;ensureDay();ANALYTICS.daily[today()].carts++;saveAnalytics();}
-function trackWA(ctx){ANALYTICS.waClicks=(ANALYTICS.waClicks||0)+1;ensureDay();ANALYTICS.daily[today()].wa++;logActivity('💬','WhatsApp tapped',ctx||'');saveAnalytics();}
+function trackWA(ctx){ANALYTICS.waClicks=(ANALYTICS.waClicks||0)+1;ensureDay();ANALYTICS.daily[today()].wa++;logActivity('WA','WhatsApp tapped',ctx||'');saveAnalytics();}
 function trackProductView(id){ANALYTICS.productViews[id]=(ANALYTICS.productViews[id]||0)+1;saveAnalytics();}
 function trackProductCart(id){ANALYTICS.productCart[id]=(ANALYTICS.productCart[id]||0)+1;saveAnalytics();}
 function logActivity(icon,text,sub){
@@ -1751,9 +1582,7 @@ async function resetAnalytics(){
   await saveAnalytics();refreshDashboard();showToast('Analytics reset!');
 }
 
-// ═══════════════════════════════════════════
 // PAGE NAV
-// ═══════════════════════════════════════════
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
@@ -1777,9 +1606,7 @@ function toggleMobileNav(){
   m.style.display=m.style.display==='block'?'none':'block';
 }
 
-// ═══════════════════════════════════════════
-// SEARCH — HOME PAGE
-// ═══════════════════════════════════════════
+// HOME SEARCH
 function onHomeSearch(val){
   homeSearchQuery=val.trim().toLowerCase();
   const box=document.getElementById('homeSearchBox');
@@ -1815,7 +1642,7 @@ function runHomeSearch(){
     defaultContent.style.display='none';
     document.getElementById('homeSearchResultTitle').textContent='Custom Orders';
     document.getElementById('homeSearchResultCount').textContent='';
-    document.getElementById('homeSearchGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><div style="font-size:52px;margin-bottom:14px;">✨</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom Orders</button></div>`;
+    document.getElementById('homeSearchGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom & Bulk Orders</button></div>`;
     info.classList.remove('visible');
     return;
   }
@@ -1835,14 +1662,10 @@ function runHomeSearch(){
   if(homeSearchQuery){
     info.textContent=filtered.length+' result'+(filtered.length!==1?'s':'')+' for "'+homeSearchQuery+'"';
     info.classList.add('visible');
-  }else{
-    info.classList.remove('visible');
-  }
+  }else{info.classList.remove('visible');}
 }
 
-// ═══════════════════════════════════════════
-// SEARCH — SHOP PAGE
-// ═══════════════════════════════════════════
+// SHOP SEARCH
 let shopSearchCatActive='All';
 function onShopSearch(val){
   shopSearchQuery=val.trim().toLowerCase();
@@ -1860,7 +1683,6 @@ function filterShopSearch(cat,btn){
   document.querySelectorAll('#page-shop .search-cat-pill').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active');
   shopSearchCatActive=cat;
-  // Also sync sidebar
   document.querySelectorAll('.cf-btn').forEach(b=>b.classList.toggle('active',
     (cat==='All'&&b.textContent==='All Products')||b.textContent.includes(cat)
   ));
@@ -1870,8 +1692,7 @@ function filterShopSearch(cat,btn){
 function renderShopFiltered(){
   const info=document.getElementById('shopSearchInfo');
   if(shopSearchCatActive==='Custom'){
-    const grid=document.getElementById('shopGrid');
-    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><div style="font-size:52px;margin-bottom:14px;">✨</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom Orders</button></div>`;
+    document.getElementById('shopGrid').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom & Bulk Orders</button></div>`;
     document.getElementById('shopTitle').textContent='Custom Orders';
     document.getElementById('shopCount').textContent='';
     info.classList.remove('visible');return;
@@ -1891,45 +1712,45 @@ function renderShopFiltered(){
   }else{info.classList.remove('visible');}
 }
 
-// ═══════════════════════════════════════════
 // APPLY SITE IMAGES
-// ═══════════════════════════════════════════
 function applyAllSiteImages(){
   const lm=document.getElementById('logoMark');
-  if(lm){if(SITE_IMAGES.logo&&SITE_IMAGES.logo.startsWith('data:')){lm.innerHTML=`<img src="${SITE_IMAGES.logo}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;}else{lm.innerHTML='🌸';}}
+  if(lm){if(SITE_IMAGES.logo&&SITE_IMAGES.logo.startsWith('data:')){lm.innerHTML=`<img src="${SITE_IMAGES.logo}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;}else{lm.innerHTML=`<svg width="22" height="22" fill="none" stroke="var(--pink)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22c4.97-2.5 8-6.5 8-10.5C20 7.36 16.42 4 12 4S4 7.36 4 11.5c0 4 3.03 8 8 10.5z"/><circle cx="12" cy="11" r="2"/></svg>`;}}
   const hw=document.getElementById('heroImgWrap');
-  if(hw){if(SITE_IMAGES.hero&&SITE_IMAGES.hero.startsWith('data:')){hw.innerHTML=`<img src="${SITE_IMAGES.hero}" alt="hero" style="width:100%;height:100%;object-fit:cover;">`;}else{hw.innerHTML=`<div class="hero-img-placeholder"><span>🌸</span><span>Hero image — upload in Admin Panel</span></div>`;}}
+  if(hw){if(SITE_IMAGES.hero&&SITE_IMAGES.hero.startsWith('data:')){hw.innerHTML=`<img src="${SITE_IMAGES.hero}" alt="hero" style="width:100%;height:100%;object-fit:cover;">`;}else{hw.innerHTML=`<div class="hero-img-placeholder"><span>Hero image</span><span style="font-size:12px;">Upload in Admin Panel</span></div>`;}}
   const am=document.getElementById('aboutMain');
   if(am){if(SITE_IMAGES.about_main&&SITE_IMAGES.about_main.startsWith('data:')){am.innerHTML=`<img src="${SITE_IMAGES.about_main}" alt="about main" style="width:100%;height:100%;object-fit:cover;">`;}else{am.style.background='var(--pink-pale)';am.innerHTML='';}}
   const as2=document.getElementById('aboutSecond');
   if(as2){if(SITE_IMAGES.about_second&&SITE_IMAGES.about_second.startsWith('data:')){as2.innerHTML=`<img src="${SITE_IMAGES.about_second}" alt="about secondary" style="width:100%;height:100%;object-fit:cover;">`;}else{as2.style.background='var(--sage-pale)';as2.innerHTML='';}}
   const ap=document.getElementById('aboutPageImg');
   if(ap){if(SITE_IMAGES.about_page&&SITE_IMAGES.about_page.startsWith('data:')){ap.innerHTML=`<img src="${SITE_IMAGES.about_page}" alt="about page" style="width:100%;height:100%;object-fit:cover;">`;}else{ap.innerHTML=`<span style="font-size:13px;font-weight:600;color:var(--text-light);">About Page Image — Upload via Admin</span>`;}}
-  ['teamSanskar','founderSanskar'].forEach(id=>{const el=document.getElementById(id);if(!el)return;if(SITE_IMAGES.team_sanskar&&SITE_IMAGES.team_sanskar.startsWith('data:')){el.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" alt="Sanskar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;}else{el.innerHTML='👤';}});
-  ['teamRadhika','founderRadhika'].forEach(id=>{const el=document.getElementById(id);if(!el)return;if(SITE_IMAGES.team_radhika&&SITE_IMAGES.team_radhika.startsWith('data:')){el.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" alt="Radhika" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;}else{el.innerHTML='👤';}});
+
+  const personSvg=`<svg width="36" height="36" fill="none" stroke="var(--pink)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+  const personSvgSm=`<svg width="16" height="16" fill="none" stroke="var(--text-light)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+  ['teamSanskar'].forEach(id=>{const el=document.getElementById(id);if(!el)return;if(SITE_IMAGES.team_sanskar&&SITE_IMAGES.team_sanskar.startsWith('data:')){el.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" alt="Sanskar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;}else{el.innerHTML=personSvg;}});
+  ['teamRadhika'].forEach(id=>{const el=document.getElementById(id);if(!el)return;if(SITE_IMAGES.team_radhika&&SITE_IMAGES.team_radhika.startsWith('data:')){el.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" alt="Radhika" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;}else{el.innerHTML=personSvg;}});
+  ['founderSanskar'].forEach(id=>{const el=document.getElementById(id);if(!el)return;if(SITE_IMAGES.team_sanskar&&SITE_IMAGES.team_sanskar.startsWith('data:')){el.innerHTML=`<img src="${SITE_IMAGES.team_sanskar}" alt="Sanskar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;}else{el.innerHTML=personSvgSm;}});
+  ['founderRadhika'].forEach(id=>{const el=document.getElementById(id);if(!el)return;if(SITE_IMAGES.team_radhika&&SITE_IMAGES.team_radhika.startsWith('data:')){el.innerHTML=`<img src="${SITE_IMAGES.team_radhika}" alt="Radhika" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;}else{el.innerHTML=personSvgSm;}});
 }
 
-// ═══════════════════════════════════════════
 // CATEGORIES
-// ═══════════════════════════════════════════
 function renderCategories(){
-  const icons={'Flower Pots':'🌸','Keychains':'🔑','Lamps':'💡','Custom':'✨'};
+  const iconsSvg={
+    'Flower Pots':`<svg width="28" height="28" fill="none" stroke="var(--pink)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22c4.97-2.5 8-6.5 8-10.5C20 7.36 16.42 4 12 4S4 7.36 4 11.5c0 4 3.03 8 8 10.5z"/><circle cx="12" cy="11" r="2"/></svg>`,
+    'Keychains':`<svg width="28" height="28" fill="none" stroke="var(--pink)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M12 11v8"/><path d="M9 17h6"/></svg>`,
+    'Lamps':`<svg width="28" height="28" fill="none" stroke="var(--pink)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.3 6H8.3C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/></svg>`,
+    'Custom':`<svg width="28" height="28" fill="none" stroke="var(--pink)" stroke-width="1.5" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
+  };
   const grid=document.getElementById('catsGrid');if(!grid)return;
   grid.innerHTML=CATS.map(c=>`
     <div class="cat-card" onclick="${c.filter==='Custom'?"showPage('custom')":`filterAndGo('${c.filter}')`}">
-      <div class="cat-icon" style="background:var(--pink-pale);">${icons[c.filter]||'✨'}</div>
+      <div class="cat-icon" style="background:var(--pink-pale);">${iconsSvg[c.filter]||iconsSvg['Custom']}</div>
       <h3>${c.label}</h3>
       <p style="font-size:13px;color:var(--text-light);margin-top:6px;">${c.desc}</p>
     </div>`).join('');
 }
 
-// ═══════════════════════════════════════════
 // PRODUCT RENDERING
-// ═══════════════════════════════════════════
-function imgHtml(p,style){
-  if(p.img&&p.img.startsWith('data:')){return`<img src="${p.img}" alt="${p.name}" style="${style||'width:100%;height:100%;object-fit:cover;'}">"`;}
-  return`<div class="img-placeholder">${p.name}</div>`;
-}
 function renderCard(p){
   return`<div class="product-card">
     <div class="product-thumb" onclick="openModal(${p.id})">${p.img&&p.img.startsWith('data:')?`<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">`:`<div class="img-placeholder">${p.name}</div>`}${p.badge?`<div class="badge">${p.badge}</div>`:''}</div>
@@ -1937,7 +1758,7 @@ function renderCard(p){
       <h3 onclick="openModal(${p.id})">${p.name}</h3>
       <p class="pdesc">${(p.desc||'').substring(0,72)}...</p>
       <div class="product-footer">
-        <div class="price">₹${p.price}<br><small>+ shipping</small></div>
+        <div class="price">&#8377;${p.price}<br><small>+ shipping</small></div>
         <div class="product-actions">
           <a class="btn btn-sm" style="background:#e8f5e9;color:#2e7d32;font-size:11px;padding:7px 10px;border-radius:var(--r-pill);"
              href="https://wa.me/919472736370?text=${encodeURIComponent(p.whatsappMsg||'Hi! I am interested in '+p.name+' (₹'+p.price+')')}"
@@ -1953,17 +1774,14 @@ function renderBestsellers(){
   grid.innerHTML=PRODUCTS.filter(p=>p.bestseller).map(renderCard).join('');
 }
 
-// ═══════════════════════════════════════════
 // SHOP
-// ═══════════════════════════════════════════
 function renderShop(cat,maxP){
   if(cat!==undefined)currentFilter=cat;
   if(maxP!==undefined)currentMaxPrice=maxP;
-  // Use filtered version if search is active
   if(shopSearchQuery){renderShopFiltered();return;}
   const grid=document.getElementById('shopGrid');if(!grid)return;
   if(currentFilter==='Custom'){
-    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><div style="font-size:52px;margin-bottom:14px;">✨</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom Orders</button></div>`;
+    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 20px;"><h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:10px;">Want Something Custom?</h3><button class="btn btn-pink" onclick="showPage('custom')">Explore Custom & Bulk Orders</button></div>`;
     document.getElementById('shopTitle').textContent='Custom Orders';
     document.getElementById('shopCount').textContent='';return;
   }
@@ -1979,7 +1797,6 @@ function renderShop(cat,maxP){
 function filterShop(cat,btn){
   document.querySelectorAll('.cf-btn').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
-  // Sync top search category pills
   document.querySelectorAll('#page-shop .search-cat-pill').forEach(p=>p.classList.toggle('active',
     (cat==='All'&&p.textContent.trim()==='All')||(cat!=='All'&&p.textContent.includes(cat))
   ));
@@ -1987,13 +1804,11 @@ function filterShop(cat,btn){
   renderShop(cat);
 }
 function updatePrice(val){
-  document.getElementById('priceLabel').textContent='Up to ₹'+val;
+  document.getElementById('priceLabel').textContent='Up to &#8377;'+val;
   renderShop(undefined,parseInt(val));
 }
 
-// ═══════════════════════════════════════════
 // MODAL
-// ═══════════════════════════════════════════
 function openModal(id){
   const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
   trackProductView(id);
@@ -2012,12 +1827,10 @@ function openModal(id){
 function closeModal(e){if(e.target.id==='modalOverlay')closeModalDirect();}
 function closeModalDirect(){document.getElementById('modalOverlay').classList.remove('open');}
 
-// ═══════════════════════════════════════════
 // CART
-// ═══════════════════════════════════════════
 function addToCart(id){
   cart[id]=(cart[id]||0)+1;trackProductCart(id);updateCartBadge();
-  showToast('Added to cart! 🛒');logActivity('🛒','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');
+  showToast('Added to cart!');logActivity('cart','Added to cart',PRODUCTS.find(x=>x.id===id)?.name||'');
 }
 function removeFromCart(id){delete cart[id];updateCartBadge();renderCartDrawer();}
 function changeQty(id,delta){cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];updateCartBadge();renderCartDrawer();}
@@ -2040,7 +1853,7 @@ function renderCartDrawer(){
   const body=document.getElementById('cartBody'),foot=document.getElementById('cartFoot');
   const ids=Object.keys(cart).map(Number).filter(id=>cart[id]>0);
   if(!ids.length){
-    body.innerHTML=`<div class="cart-empty"><div class="empty-icon">🛒</div><p style="font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:6px;">Your cart is empty</p><p>Add some handmade treasures!</p><button class="btn btn-pink" style="margin-top:18px;" onclick="closeCart();showPage('shop')">Shop Now</button></div>`;
+    body.innerHTML=`<div class="cart-empty"><div class="empty-icon" style="font-size:52px;margin-bottom:16px;"><svg width="52" height="52" fill="none" stroke="var(--pink-light)" stroke-width="1" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><p style="font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:6px;">Your cart is empty</p><p>Add some handmade treasures!</p><button class="btn btn-pink" style="margin-top:18px;" onclick="closeCart();showPage('shop')">Shop Now</button></div>`;
     foot.style.display='none';return;
   }
   let html='',subtotal=0;
@@ -2051,17 +1864,17 @@ function renderCartDrawer(){
       <div class="cart-item-img">${p.img&&p.img.startsWith('data:')?`<img src="${p.img}" alt="${p.name}">`:`<div style="width:100%;height:100%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);text-align:center;padding:4px;">${p.name}</div>`}</div>
       <div class="cart-item-info">
         <div class="cart-item-name">${p.name}</div>
-        <div class="cart-item-price">₹${p.price} × ${qty} = ₹${p.price*qty}</div>
+        <div class="cart-item-price">&#8377;${p.price} &times; ${qty} = &#8377;${p.price*qty}</div>
         <div class="qty-control">
-          <button class="qty-btn" onclick="changeQty(${id},-1)">−</button>
+          <button class="qty-btn" onclick="changeQty(${id},-1)">&minus;</button>
           <span class="qty-num">${qty}</span>
           <button class="qty-btn" onclick="changeQty(${id},+1)">+</button>
         </div>
       </div>
-      <button class="cart-item-remove" onclick="removeFromCart(${id})">✕</button>
+      <button class="cart-item-remove" onclick="removeFromCart(${id})">&#10005;</button>
     </div>`;
   });
-  body.innerHTML=html;document.getElementById('cartTotal').textContent='₹'+subtotal;foot.style.display='block';
+  body.innerHTML=html;document.getElementById('cartTotal').textContent='&#8377;'+subtotal;foot.style.display='block';
 }
 function checkoutWhatsApp(){
   const ids=Object.keys(cart).map(Number).filter(id=>cart[id]>0);if(!ids.length)return;
@@ -2071,15 +1884,13 @@ function checkoutWhatsApp(){
   trackWA('checkout');window.open('https://wa.me/919472736370?text='+encodeURIComponent(msg),'_blank');
 }
 
-// ═══════════════════════════════════════════
 // TESTIMONIALS & INSTAGRAM
-// ═══════════════════════════════════════════
 function renderTestimonials(){
   const grid=document.getElementById('testiGrid');if(!grid)return;
   grid.innerHTML=TESTIMONIALS.map(t=>`
     <div class="testi-card">
       <div class="testi-quote">"</div>
-      <div class="testi-stars">★★★★★</div>
+      <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
       <p class="testi-text">${t.text}</p>
       <div class="testi-author">
         <div class="testi-av">${t.img&&t.img.startsWith('data:')?`<img src="${t.img}" alt="${t.name}">`:`<span style="font-size:14px;font-weight:700;">${(t.name||'?').split(' ').map(w=>w[0]).join('')}</span>`}</div>
@@ -2092,37 +1903,31 @@ function renderInstagram(){
   const keys=['insta_1','insta_2','insta_3','insta_4','insta_5','insta_6'];
   grid.innerHTML=keys.map((k,i)=>{
     const src=SITE_IMAGES[k];const hasImg=src&&src.startsWith('data:');
-    return`<div class="insta-tile"><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">${hasImg?`<img src="${src}" alt="Instagram post ${i+1}">`:`<div class="img-placeholder">Post ${i+1}</div>`}</a><div class="insta-tile-overlay">📷</div></div>`;
+    return`<div class="insta-tile"><a href="https://www.instagram.com/tiny_littlethings__" target="_blank">${hasImg?`<img src="${src}" alt="Instagram post ${i+1}">`:`<div class="img-placeholder">Post ${i+1}</div>`}</a><div class="insta-tile-overlay"><svg width="24" height="24" fill="none" stroke="#fff" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div>`;
   }).join('');
 }
 
-// ═══════════════════════════════════════════
 // CONTACT
-// ═══════════════════════════════════════════
 function submitContact(){
   const name=(document.getElementById('contactName')?.value||'').trim();
   const phone=(document.getElementById('contactPhone')?.value||'').trim();
   const type=document.getElementById('contactType')?.value||'';
   const msg=document.getElementById('contactMsg')?.value||'';
   if(!name||!phone){showToast('Please fill in your name and phone!');return;}
-  logActivity('✉️','Contact form submitted',name+' — '+type);
+  logActivity('msg','Contact form submitted',name+' — '+type);
   const waMsg=`Hi! My name is ${name} (${phone}).\n\nEnquiry: ${type}\n\nMessage: ${msg}`;
   window.open('https://wa.me/919472736370?text='+encodeURIComponent(waMsg),'_blank');
-  showToast('Redirecting to WhatsApp! 💬');
+  showToast('Redirecting to WhatsApp!');
 }
 
-// ═══════════════════════════════════════════
 // TOAST
-// ═══════════════════════════════════════════
 let _toastTimer=null;
 function showToast(msg){
   const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
   clearTimeout(_toastTimer);_toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-// ═══════════════════════════════════════════
 // ADMIN AUTH
-// ═══════════════════════════════════════════
 let adminLoggedIn=false;
 function adminLogin(){
   const u=(document.getElementById('adminUser').value||'').trim();
@@ -2132,7 +1937,7 @@ function adminLogin(){
     document.getElementById('adminLogin').style.display='none';
     document.getElementById('adminDash').style.display='block';
     renderAdminProducts();renderTestiEditGrid();refreshDashboard();renderAdminImagePreviews();startAdminClock();
-    logActivity('🔐','Admin logged in','');
+    logActivity('login','Admin logged in','');
   }else{
     document.getElementById('loginErr').textContent='Incorrect username or password.';
     document.getElementById('adminPass').value='';
@@ -2160,9 +1965,7 @@ function switchAdminTab(tab){
   if(tab==='images')renderAdminImagePreviews();
 }
 
-// ═══════════════════════════════════════════
 // DASHBOARD
-// ═══════════════════════════════════════════
 function refreshDashboard(){
   const total=Object.values(ANALYTICS.pageViews||{}).reduce((a,b)=>a+b,0);
   document.getElementById('dc-views').textContent=total;
@@ -2198,18 +2001,16 @@ function renderActivityLog(){
   const c=document.getElementById('activityLog');if(!c)return;
   const logs=ANALYTICS.activityLog||[];
   if(!logs.length){c.innerHTML='<p style="font-size:13px;color:var(--text-light);padding:10px 0;">No recent activity.</p>';return;}
-  c.innerHTML=logs.slice(0,10).map(l=>`<div class="log-item"><div class="log-icon">${l.icon}</div><div><div class="log-text">${l.text}${l.sub?' — <em>'+l.sub+'</em>':''}</div><div class="log-time">${l.time}</div></div></div>`).join('');
+  c.innerHTML=logs.slice(0,10).map(l=>`<div class="log-item"><div class="log-icon" style="font-size:11px;font-weight:700;color:var(--pink);">${l.icon}</div><div><div class="log-text">${l.text}${l.sub?' — <em>'+l.sub+'</em>':''}</div><div class="log-time">${l.time}</div></div></div>`).join('');
 }
 
-// ═══════════════════════════════════════════
 // ADMIN PRODUCTS
-// ═══════════════════════════════════════════
 function renderAdminProducts(){
   document.getElementById('adminProductBody').innerHTML=PRODUCTS.map(p=>`
     <tr>
       <td><div style="width:44px;height:44px;border-radius:8px;overflow:hidden;background:var(--cream);">${p.img&&p.img.startsWith('data:')?`<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;">`:'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--text-light);">No img</div>'}</div></td>
-      <td><strong>${p.name}</strong></td><td>₹${p.price}</td><td>${p.category}</td>
-      <td>${p.badge||'—'}</td><td>${p.bestseller?'⭐ Yes':'No'}</td>
+      <td><strong>${p.name}</strong></td><td>&#8377;${p.price}</td><td>${p.category}</td>
+      <td>${p.badge||'—'}</td><td>${p.bestseller?'Yes':'No'}</td>
       <td><div style="display:flex;gap:6px;">
         <button class="btn btn-outline btn-sm" onclick="openEditProduct(${p.id})">Edit</button>
         <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">Delete</button>
@@ -2225,7 +2026,7 @@ function buildProductForm(p){
   return`
   <div class="fg2"><label>Product Name</label><input type="text" id="ef-name" value="${p?escHtml(p.name):''}"></div>
   <div class="inline-grid">
-    <div class="fg2"><label>Price (₹)</label><input type="number" id="ef-price" value="${p?p.price:''}" min="1"></div>
+    <div class="fg2"><label>Price (&#8377;)</label><input type="number" id="ef-price" value="${p?p.price:''}" min="1"></div>
     <div class="fg2"><label>Badge (optional)</label><input type="text" id="ef-badge" value="${p?escHtml(p.badge||''):''}" placeholder="e.g. New, Bestseller"></div>
   </div>
   <div class="fg2"><label>Category</label><select id="ef-cat">${cats.map(c=>`<option value="${c}"${p&&p.category===c?' selected':''}>${c}</option>`).join('')}</select></div>
@@ -2235,7 +2036,7 @@ function buildProductForm(p){
     <label>Product Image</label>
     <div class="img-upload-box">
       <img id="editImgPreview" src="${hasImg?p.img:''}" style="${hasImg?'':'display:none;'}width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:8px;">
-      <p id="editImgHint">${hasImg?'✓ Image uploaded — click to change':'📷 Click to upload product image'}</p>
+      <p id="editImgHint">${hasImg?'Image uploaded — click to change':'Click to upload product image'}</p>
       <div class="upload-hint">Compressed automatically. Recommended: under 2MB original.</div>
       <div class="upload-progress" id="uploadProgress" style="display:none;"><div class="upload-progress-fill" id="uploadProgressFill" style="width:0%"></div></div>
       <input type="file" accept="image/*" onchange="handleProductImgUpload(this)">
@@ -2245,7 +2046,7 @@ function buildProductForm(p){
   <input type="hidden" id="ef-id" value="${p?p.id:''}">
   <input type="hidden" id="ef-curimg" value="${hasImg?p.img:''}">
   <div style="display:flex;gap:10px;margin-top:6px;">
-    <button class="btn btn-pink" style="flex:1;" onclick="saveProductFromForm()">💾 Save${fbConfigured?' & Sync to Cloud':''}</button>
+    <button class="btn btn-pink" style="flex:1;" onclick="saveProductFromForm()">Save${fbConfigured?' & Sync to Cloud':''}</button>
     <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
   </div>`;
 }
@@ -2253,15 +2054,15 @@ function escHtml(str){return String(str).replace(/&/g,'&amp;').replace(/"/g,'&qu
 async function handleProductImgUpload(input){
   const file=input.files[0];if(!file)return;
   const prog=document.getElementById('uploadProgress');const fill=document.getElementById('uploadProgressFill');const hint=document.getElementById('editImgHint');
-  if(prog)prog.style.display='block';if(fill)fill.style.width='30%';if(hint)hint.textContent='⏳ Compressing image...';
+  if(prog)prog.style.display='block';if(fill)fill.style.width='30%';if(hint)hint.textContent='Compressing image...';
   const compressed=await compressImage(file,800,800,0.82);
-  if(!compressed){if(hint)hint.textContent='❌ Failed to load image';return;}
+  if(!compressed){if(hint)hint.textContent='Failed to load image';return;}
   if(fill)fill.style.width='100%';setTimeout(()=>{if(prog)prog.style.display='none';},400);
   const sizeKB=Math.round(compressed.length/1024);
   const prev=document.getElementById('editImgPreview');if(prev){prev.src=compressed;prev.style.display='block';}
   document.getElementById('ef-curimg').value=compressed;
   const cls=sizeKB<400?'size-ok':sizeKB<700?'size-warn':'size-err';
-  if(hint)hint.innerHTML=`✓ Ready <span class="${cls} size-note">${sizeKB}KB${sizeKB>700?' — try a smaller photo':''}</span>`;
+  if(hint)hint.innerHTML=`Ready <span class="${cls} size-note">${sizeKB}KB${sizeKB>700?' — try a smaller photo':''}</span>`;
 }
 async function saveProductFromForm(){
   const name=(document.getElementById('ef-name').value||'').trim();const price=parseInt(document.getElementById('ef-price').value);
@@ -2270,18 +2071,16 @@ async function saveProductFromForm(){
   const prod={id:idVal?parseInt(idVal):Date.now(),name,price,category:document.getElementById('ef-cat').value,badge:(document.getElementById('ef-badge').value||'').trim(),desc:(document.getElementById('ef-desc').value||'').trim(),whatsappMsg:(document.getElementById('ef-wa').value||'').trim()||`Hi! I'm interested in the *${name}* (₹${price}). Can you please share availability?`,bestseller:document.getElementById('ef-best').checked,img};
   if(idVal){const idx=PRODUCTS.findIndex(x=>x.id===parseInt(idVal));if(idx>-1)PRODUCTS[idx]=prod;else PRODUCTS.push(prod);}else PRODUCTS.push(prod);
   await saveProducts();closeEditModal();renderAdminProducts();renderBestsellers();renderShop();
-  showToast((idVal?'Product updated':'Product added')+(fbConfigured?' & synced ☁️':'')+'!');
-  logActivity('🛍️',idVal?'Product updated':'Product added',name);
+  showToast((idVal?'Product updated':'Product added')+(fbConfigured?' & synced!':'!')+'');
+  logActivity('prod',idVal?'Product updated':'Product added',name);
 }
 async function deleteProduct(id){
   if(!confirm('Delete this product?'))return;const p=PRODUCTS.find(x=>x.id===id);
   PRODUCTS=PRODUCTS.filter(x=>x.id!==id);await saveProducts();renderAdminProducts();renderBestsellers();
-  showToast('Product deleted!');logActivity('🗑️','Product deleted',p?.name||'');
+  showToast('Product deleted!');logActivity('del','Product deleted',p?.name||'');
 }
 
-// ═══════════════════════════════════════════
 // ADMIN TESTIMONIALS
-// ═══════════════════════════════════════════
 function renderTestiEditGrid(){
   document.getElementById('testiEditGrid').innerHTML=TESTIMONIALS.map((t,i)=>`
     <div class="testi-edit-card">
@@ -2296,7 +2095,7 @@ function renderTestiEditGrid(){
             ${t.img&&t.img.startsWith('data:')?`<img src="${t.img}" style="width:100%;height:100%;object-fit:cover;">`:`${(t.name||'?').split(' ').map(w=>w[0]).join('')}`}
           </div>
           <label style="cursor:pointer;font-size:12px;color:var(--pink);font-weight:700;padding:5px 10px;border:1px solid var(--pink);border-radius:var(--r-pill);">
-            📷 Upload<input type="file" accept="image/*" style="display:none;" onchange="handleTestiImg(this,${i})">
+            Upload Photo<input type="file" accept="image/*" style="display:none;" onchange="handleTestiImg(this,${i})">
           </label>
         </div>
       </div>
@@ -2313,22 +2112,20 @@ async function saveTestimonialsAdmin(){
     if(n)t.name=n.value;if(r)t.role=r.value;if(tx)t.text=tx.value;
   });
   await saveTestimonials();renderTestimonials();
-  showToast('Testimonials saved'+(fbConfigured?' & synced! ☁️':'!')+'');logActivity('💬','Testimonials updated','');
+  showToast('Testimonials saved'+(fbConfigured?' & synced!':'!')+'');logActivity('testi','Testimonials updated','');
 }
 
-// ═══════════════════════════════════════════
 // ADMIN SITE IMAGES
-// ═══════════════════════════════════════════
 async function handleSiteImg(input,key){
-  const file=input.files[0];if(!file)return;showToast('⏳ Compressing image...');
+  const file=input.files[0];if(!file)return;showToast('Compressing image...');
   const settings=IMG_SETTINGS[key]||DEFAULT_IMG;
   const compressed=await compressImage(file,settings.maxW,settings.maxH,settings.quality);
-  if(!compressed){showToast('❌ Failed to load image');return;}
+  if(!compressed){showToast('Failed to load image');return;}
   const sizeKB=Math.round(compressed.length/1024);
-  if(sizeKB>700){showToast('⚠️ Image too large ('+sizeKB+'KB). Please use a smaller photo.');return;}
+  if(sizeKB>700){showToast('Image too large ('+sizeKB+'KB). Please use a smaller photo.');return;}
   SITE_IMAGES[key]=compressed;updateAdminImgPreview(key,compressed);applyAllSiteImages();renderInstagram();
   const ok=await saveSingleImage(key,compressed);
-  if(ok){showToast(`✅ Image saved (${sizeKB}KB)${fbConfigured?' — visible on all devices!':''}`);logActivity('🖼️','Image uploaded',key+' ('+sizeKB+'KB)');}
+  if(ok){showToast(`Image saved (${sizeKB}KB)${fbConfigured?' — visible on all devices!':''}`);logActivity('img','Image uploaded',key+' ('+sizeKB+'KB)');}
 }
 function updateAdminImgPreview(key,src){
   const el=document.getElementById('prev-'+key);if(!el)return;
@@ -2338,21 +2135,19 @@ function renderAdminImagePreviews(){
   Object.keys(IMG_SETTINGS).forEach(key=>{if(SITE_IMAGES[key]&&SITE_IMAGES[key].startsWith('data:')){updateAdminImgPreview(key,SITE_IMAGES[key]);}});
 }
 
-// ═══════════════════════════════════════════
 // SETTINGS
-// ═══════════════════════════════════════════
 async function changeCredentials(){
   const u=(document.getElementById('newUser').value||'').trim();const p=document.getElementById('newPass').value||'';
   if(!u||!p){showToast('Please fill both fields!');return;}
   CREDENTIALS={user:u,pass:p};await saveCredentials();
   document.getElementById('newUser').value='';document.getElementById('newPass').value='';
-  showToast('Credentials updated'+(fbConfigured?' & synced! 🔐':'!')+'');
+  showToast('Credentials updated'+(fbConfigured?' & synced!':'!')+'');
 }
 function exportData(){
   const data={products:PRODUCTS,testimonials:TESTIMONIALS,siteImages:SITE_IMAGES,exportDate:new Date().toISOString()};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tiny-little-things-backup-'+new Date().toISOString().split('T')[0]+'.json';a.click();
-  showToast('Backup exported! 📥');
+  showToast('Backup exported!');
 }
 async function importData(input){
   const file=input.files[0];if(!file)return;
@@ -2365,7 +2160,7 @@ async function importData(input){
       if(data.siteImages&&typeof data.siteImages==='object'){for(const key of Object.keys(data.siteImages)){const img=data.siteImages[key];if(img&&img.startsWith('data:'))await saveSingleImage(key,img);}}
       renderAdminProducts();renderTestiEditGrid();renderAdminImagePreviews();
       applyAllSiteImages();renderTestimonials();renderInstagram();renderBestsellers();
-      showToast('Backup imported'+(fbConfigured?' & synced! ☁️':'!')+'');
+      showToast('Backup imported'+(fbConfigured?' & synced!':'!')+'');
     }catch(err){showToast('Invalid backup file!');}
   };
   reader.readAsText(file);input.value='';
@@ -2381,13 +2176,11 @@ async function resetAll(){
   showToast('Reset to defaults!');
 }
 
-// ═══════════════════════════════════════════
 // INIT
-// ═══════════════════════════════════════════
 loadFromLocal();
 applyAllData();
 trackPageView('home');
-logActivity('👁️','Site visited','homepage');
+logActivity('visit','Site visited','homepage');
 </script>
 </body>
-                                                                                                                                                      </html>
+                                                                                                                                                                     </html>
